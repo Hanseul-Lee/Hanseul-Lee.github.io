@@ -20,15 +20,22 @@
     var CONFIG = {"hostname":"hanseul-lee.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HS&#39;s blog">
-<meta property="og:url" content="https://hanseul-lee.github.io/archives/2020/index.html">
+  <meta name="description" content="Git으로 협력하기  팀장이 자기 소유의 repo 생성 clone하여 약간의 작업 후 add, commit, push notice 받은 팀원은 fork하여 자신의 소유가 된 repo를 clone 작업할 내용을 미리 issue 등록 $ git remote add pmorigin {pm의 repo 주소} 하여 미리 등록 feature branch 생성 후 작업">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git으로 협력하기">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="Git으로 협력하기  팀장이 자기 소유의 repo 생성 clone하여 약간의 작업 후 add, commit, push notice 받은 팀원은 fork하여 자신의 소유가 된 repo를 clone 작업할 내용을 미리 issue 등록 $ git remote add pmorigin {pm의 repo 주소} 하여 미리 등록 feature branch 생성 후 작업">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git/img/conflict.png">
+<meta property="article:published_time" content="2020-08-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-18T10:38:14.417Z">
 <meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git/img/conflict.png">
 
-<link rel="canonical" href="https://hanseul-lee.github.io/archives/2020/">
+<link rel="canonical" href="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git/">
 
 
 <script id="page-configurations">
@@ -36,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | HS's blog</title>
+  <title>Git으로 협력하기 | HS's blog</title>
   
 
 
@@ -140,150 +147,95 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 6 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hanseul lee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HS's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git으로 협력하기
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-18 00:00:00 / Modified: 19:38:14" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+09:00">2020-08-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
+        <h1 id="Git으로-협력하기"><a href="#Git으로-협력하기" class="headerlink" title="Git으로 협력하기"></a>Git으로 협력하기</h1><blockquote>
+<ol>
+<li>팀장이 자기 소유의 repo 생성</li>
+<li>clone하여 약간의 작업 후 add, commit, push</li>
+<li>notice 받은 팀원은 fork하여 자신의 소유가 된 repo를 clone</li>
+<li>작업할 내용을 미리 issue 등록</li>
+<li>$ git remote add pmorigin {pm의 repo 주소} 하여 미리 등록</li>
+<li>feature branch 생성 후 작업, add, commit(with issue no)</li>
+<li>master로 marge 한 후, 나의 master로 push</li>
+<li>pull request 생성</li>
+<li>팀장은 확인 후 merge(conflict, file change 확인 필수)</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git clone 팀장레포주소</span><br><span class="line">git remote add pmorigin 팀장레포주소</span><br><span class="line"></span><br><span class="line">git branch 이름</span><br><span class="line">vi → 작성</span><br><span class="line">git checkout 이름</span><br><span class="line">git add index.html</span><br><span class="line">git commit -m &quot;feat: Fill contents in body</span><br><span class="line">                solved: #9 &quot;</span><br><span class="line"></span><br><span class="line">(만약 팀장 repo에 변경이 일어나면 그 시점에 나도 pull request를 해야함)</span><br><span class="line">git pull pmorigin develop</span><br><span class="line">&#x3D;&gt; conflict 해결!</span><br><span class="line"></span><br><span class="line">git checkout master</span><br><span class="line">git merge 이름</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-18T00:00:00+09:00"
-              content="2020-08-18">
-          08-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/18/2020-08-18-git/" itemprop="url">
-            <span itemprop="name">Git으로 협력하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-18T00:00:00+09:00"
-              content="2020-08-18">
-          08-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/18/2020-08-18-git2/" itemprop="url">
-            <span itemprop="name">좋은 커밋 메세지 작성하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-18T00:00:00+09:00"
-              content="2020-08-18">
-          08-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/18/git/" itemprop="url">
-            <span itemprop="name">Git으로 협력하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-12T21:08:46+09:00"
-              content="2020-08-12">
-          08-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/12/200812-TIL/" itemprop="url">
-            <span itemprop="name">200812_TIL</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-12T11:35:00+09:00"
-              content="2020-08-12">
-          08-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/12/200811-TIL/" itemprop="url">
-            <span itemprop="name">200811_TIL</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-12T11:31:37+09:00"
-              content="2020-08-12">
-          08-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/12/My%20Brand%20New%20POST/" itemprop="url">
-            <span itemprop="name">POST</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<p><img src="./img/conflict.png" alt="conflict 해결"></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/18/2020-08-18-git2/" rel="prev" title="좋은 커밋 메세지 작성하기">
+      <i class="fa fa-chevron-left"></i> 좋은 커밋 메세지 작성하기
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -336,6 +288,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%EC%9C%BC%EB%A1%9C-%ED%98%91%EB%A0%A5%ED%95%98%EA%B8%B0"><span class="nav-number">1.</span> <span class="nav-text">Git으로 협력하기</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
