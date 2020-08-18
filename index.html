@@ -320,80 +320,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/18/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hanseul lee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HS's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/git/" class="post-title-link" itemprop="url">Git으로 협력하기</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-18 00:00:00 / Modified: 19:37:42" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+09:00">2020-08-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Git으로-협력하기"><a href="#Git으로-협력하기" class="headerlink" title="Git으로 협력하기"></a>Git으로 협력하기</h1><blockquote>
-<ol>
-<li>팀장이 자기 소유의 repo 생성</li>
-<li>clone하여 약간의 작업 후 add, commit, push</li>
-<li>notice 받은 팀원은 fork하여 자신의 소유가 된 repo를 clone</li>
-<li>작업할 내용을 미리 issue 등록</li>
-<li>$ git remote add pmorigin {pm의 repo 주소} 하여 미리 등록</li>
-<li>feature branch 생성 후 작업, add, commit(with issue no)</li>
-<li>master로 marge 한 후, 나의 master로 push</li>
-<li>pull request 생성</li>
-<li>팀장은 확인 후 merge(conflict, file change 확인 필수)</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git clone 팀장레포주소</span><br><span class="line">git remote add pmorigin 팀장레포주소</span><br><span class="line"></span><br><span class="line">git branch 이름</span><br><span class="line">vi → 작성</span><br><span class="line">git checkout 이름</span><br><span class="line">git add index.html</span><br><span class="line">git commit -m &quot;feat: Fill contents in body</span><br><span class="line">                solved: #9 &quot;</span><br><span class="line"></span><br><span class="line">(만약 팀장 repo에 변경이 일어나면 그 시점에 나도 pull request를 해야함)</span><br><span class="line">git pull pmorigin develop</span><br><span class="line">&#x3D;&gt; conflict 해결!</span><br><span class="line"></span><br><span class="line">git checkout master</span><br><span class="line">git merge 이름</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<p><img src="./img/conflict.png" alt="conflict 해결"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/12/200812-TIL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -753,7 +679,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
