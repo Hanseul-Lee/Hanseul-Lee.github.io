@@ -318,7 +318,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-19 14:55:23 / Modified: 15:05:00" itemprop="dateCreated datePublished" datetime="2020-08-19T14:55:23+09:00">2020-08-19</time>
+              <time title="Created: 2020-08-19 14:55:23 / Modified: 16:05:05" itemprop="dateCreated datePublished" datetime="2020-08-19T14:55:23+09:00">2020-08-19</time>
             </span>
 
           
@@ -335,10 +335,10 @@
           <blockquote>
 <p>#변수 선언 #값의 할당 #값의 재할당 #변수 호이스팅</p>
 </blockquote>
-<pre><code>💡**변수(variable)**
-    : 하나의 값을 저장하기 위해 확보한 **메모리 공간** 자체 또는 그 메모리 공간</code></pre>
+<pre><code>💡 변수(variable)
+    : 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간</code></pre>
 <p>: 값의 위치를 가리키는 상징적인 이름</p>
-<h2 id="변수-선언"><a href="#변수-선언" class="headerlink" title="변수 선언"></a>변수 선언</h2><ul>
+<h2 id="1-변수-선언"><a href="#1-변수-선언" class="headerlink" title="1) 변수 선언"></a>1) 변수 선언</h2><ul>
 <li><p>var / let / const</p>
 <p>var 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 <code>undefined</code>라는 값을 갖는다.</p>
 <ul>
@@ -346,21 +346,127 @@
 </ul>
 </li>
 </ul>
-<h2 id="값의-할당"><a href="#값의-할당" class="headerlink" title="값의 할당"></a>값의 할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score; <span class="comment">// 변수 선언</span></span><br><span class="line">score = <span class="number">1</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">1</span>; <span class="comment">// 변수 선언과 값 할당</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-값의-할당"><a href="#2-값의-할당" class="headerlink" title="2) 값의 할당"></a>2) 값의 할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score; <span class="comment">// 변수 선언</span></span><br><span class="line">score = <span class="number">1</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">1</span>; <span class="comment">// 변수 선언과 값 할당</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="../img/%EB%B3%80%EC%88%981.jpg" alt="값의 할당"></p>
-<h2 id="값의-재할당"><a href="#값의-재할당" class="headerlink" title="값의 재할당"></a>값의 재할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>; <span class="comment">// 변수 선언과 값의 할당</span></span><br><span class="line">score = <span class="number">90</span>; <span class="comment">// 값의 재할당</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-값의-재할당"><a href="#3-값의-재할당" class="headerlink" title="3) 값의 재할당"></a>3) 값의 재할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>; <span class="comment">// 변수 선언과 값의 할당</span></span><br><span class="line">score = <span class="number">90</span>; <span class="comment">// 값의 재할당</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>const (상수)</strong> : 한 번 정해지면 변하지 않는 값<br>∴ <strong>재할당 불가능</strong>!</li>
 </ul>
-<h2 id="변수-호이스팅"><a href="#변수-호이스팅" class="headerlink" title="변수 호이스팅"></a>변수 호이스팅</h2><ul>
+<h2 id="4-변수-호이스팅"><a href="#4-변수-호이스팅" class="headerlink" title="4) 변수 호이스팅"></a>4) 변수 호이스팅</h2><ul>
 <li>자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 <strong>소스코드의 어디에 위치하는지와 상관없이</strong> 어디서든지 변수를 참조할 수 있다.</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// 90</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//마치 이렇게 출력한 것과 같이 받아들인다.</span></span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br></pre></td></tr></table></figure>
 
 <p>참고로<br><strong>변수 선언</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임 이전에 먼저 실행</strong><br><strong>값의 할당</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임에 실행</strong></p>
-<p>이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 **변수 호이스팅(variable hoisting)**이라 함.</p>
+<p>이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 <strong>변수 호이스팅(variable hoisting)</strong> 이라 함.</p>
+<h2 id="5-식별자"><a href="#5-식별자" class="headerlink" title="5) 식별자"></a>5) 식별자</h2><pre><code>💡 식별자(identifier) : 어떤 값을 구별해서 식별할 수 있는 고유한 이름</code></pre>
+<p>값이 아니라 <strong>메모리 주소를 기억</strong>함 . 즉, 메모리 주소에 붙인 이름</p>
+<ul>
+<li><p>식별자 네이밍 규칙</p>
+<ul>
+<li>문자, 숫자, underscore(_), 달러기호($)</li>
+<li>문자, underscore(_), 달러기호($) 로만 시작가능 (숫자로 시작 불가❌)</li>
+<li>사용불가❌ : 특수문자, 예약어(function var this class true 등)</li>
+<li><strong>변수나 함수의 이름</strong>에는 <strong>카멜 케이스</strong><br><strong>생성자 함수, 클래스의 이름</strong>에는 <strong>파스칼 케이스</strong> 사용</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 카멜 케이스 (camelCase)</span></span><br><span class="line"><span class="keyword">var</span> firstName;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 파스칼 케이스 (PascalCase)</span></span><br><span class="line"><span class="keyword">var</span> FirstName;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/18/2020-08-18-TIL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hanseul lee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HS's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/18/2020-08-18-TIL/" class="post-title-link" itemprop="url">2020-08-18-TIL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-18 00:00:00 / Modified: 20:33:44" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+09:00">2020-08-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="2020-08-18-화요일-Today-I-Learn"><a href="#2020-08-18-화요일-Today-I-Learn" class="headerlink" title="2020-08-18 화요일 Today I Learn"></a>2020-08-18 화요일 Today I Learn</h1><h2 id="오늘-공부-한-것"><a href="#오늘-공부-한-것" class="headerlink" title="오늘 공부 한 것"></a>오늘 공부 한 것</h2><ol>
+<li><p>Javascript 첫 수업</p>
+<ol>
+<li>프로그래밍</li>
+<li>JS란</li>
+<li>JS 개발환경과 실행 방법<br>-‘웹 브라우저가 실행시킬 수 있는 유일한 프로그래밍 언어’인 Javascript의 특징과 탄생, ECMAScript에 대해 배웠다.</li>
+</ol>
+</li>
+<li><p>Javascript 4,5강 예습</p>
+<ul>
+<li>poiemaweb.com 수업자료 읽기</li>
+</ul>
+</li>
+<li><p>Kimbug CSS 최종 프로젝트 시작</p>
+<ul>
+<li>Landing section</li>
+</ul>
+</li>
+</ol>
+<h2 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h2><ul>
+<li><p>코로나로 수업이 일주일 연기됐다. 이제 막 Javascript 진도가 시작되어 기대됐는데 너무 아쉽다. 남은 시간동안 계획을 잘 짜서 못했던 프로젝트와 Javascript 예습을 병행하고 후회가 없도록 보내야겠다.</p>
+<ul>
+<li><p><input disabled="" type="checkbox">  Kimbug CSS 프로젝트 완성</p>
+</li>
+<li><p><input disabled="" type="checkbox">  Kimbug CSS 총 복습</p>
+</li>
+<li><p><input disabled="" type="checkbox">  Yankeecandle CSS 시작</p>
+</li>
+<li><p><input disabled="" type="checkbox">  JS 예습 - 4,5,6,7,8,9,10,11</p>
+</li>
+<li><p><input disabled="" type="checkbox">  JS Youtube - 4,5,6,7,8,9,10,11</p>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -536,99 +642,6 @@
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feat: 로그 출력 기능 추가</span><br><span class="line"></span><br><span class="line">커밋에 대한 설명</span><br><span class="line"></span><br><span class="line">Resolves: #123</span><br><span class="line">Ref: #99, #101, #456</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/18/2020-08-18-TIL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hanseul lee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HS's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/2020-08-18-TIL/" class="post-title-link" itemprop="url">2020-08-18-TIL</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-18 00:00:00 / Modified: 20:33:44" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+09:00">2020-08-18</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2020-08-18-화요일-Today-I-Learn"><a href="#2020-08-18-화요일-Today-I-Learn" class="headerlink" title="2020-08-18 화요일 Today I Learn"></a>2020-08-18 화요일 Today I Learn</h1><h2 id="오늘-공부-한-것"><a href="#오늘-공부-한-것" class="headerlink" title="오늘 공부 한 것"></a>오늘 공부 한 것</h2><ol>
-<li><p>Javascript 첫 수업</p>
-<ol>
-<li>프로그래밍</li>
-<li>JS란</li>
-<li>JS 개발환경과 실행 방법<br>-‘웹 브라우저가 실행시킬 수 있는 유일한 프로그래밍 언어’인 Javascript의 특징과 탄생, ECMAScript에 대해 배웠다.</li>
-</ol>
-</li>
-<li><p>Javascript 4,5강 예습</p>
-<ul>
-<li>poiemaweb.com 수업자료 읽기</li>
-</ul>
-</li>
-<li><p>Kimbug CSS 최종 프로젝트 시작</p>
-<ul>
-<li>Landing section</li>
-</ul>
-</li>
-</ol>
-<h2 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h2><ul>
-<li><p>코로나로 수업이 일주일 연기됐다. 이제 막 Javascript 진도가 시작되어 기대됐는데 너무 아쉽다. 남은 시간동안 계획을 잘 짜서 못했던 프로젝트와 Javascript 예습을 병행하고 후회가 없도록 보내야겠다.</p>
-<ul>
-<li><p><input disabled="" type="checkbox">  Kimbug CSS 프로젝트 완성</p>
-</li>
-<li><p><input disabled="" type="checkbox">  Kimbug CSS 총 복습</p>
-</li>
-<li><p><input disabled="" type="checkbox">  Yankeecandle CSS 시작</p>
-</li>
-<li><p><input disabled="" type="checkbox">  JS 예습 - 4,5,6,7,8,9,10,11</p>
-</li>
-<li><p><input disabled="" type="checkbox">  JS Youtube - 4,5,6,7,8,9,10,11</p>
-</li>
-</ul>
-</li>
-</ul>
 
       
     </div>
