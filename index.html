@@ -163,6 +163,324 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hanseul lee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HS's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/" class="post-title-link" itemprop="url">9. 타입 변환과 단축 평가</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-25 01:00:00 / Modified: 17:00:00" itemprop="dateCreated datePublished" datetime="2020-08-25T01:00:00+09:00">2020-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code>🐞 1) 타입변환 2) 암묵적 타입 변환 3) 명시적 타입 변환 4) 단축평가</code></pre>
+<h2 id="1-타입-변환"><a href="#1-타입-변환" class="headerlink" title="1) 타입 변환"></a>1) 타입 변환</h2><pre><code>💡 타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성
+      (원시값은 변경 불가능한 값)</code></pre>
+<ol>
+<li><strong>명시적 타입 변환, 타입 캐스팅(type casting)</strong>: 개발자에 의한 의도적 타입변환</li>
+<li><strong>암묵적 타입 변환, 타입 강제 변환(type coercion)</strong> : 자바스크립트 엔진에 의한 강제적 타입 변환</li>
+</ol>
+<ul>
+<li>자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.</li>
+</ul>
+<h2 id="2-암묵적-타입-변환"><a href="#2-암묵적-타입-변환" class="headerlink" title="2) 암묵적 타입 변환"></a>2) 암묵적 타입 변환</h2><h3 id="2-1-문자열-타입으로-변환"><a href="#2-1-문자열-타입으로-변환" class="headerlink" title="2.1. 문자열 타입으로 변환"></a>2.1. 문자열 타입으로 변환</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1 + &quot;2&quot; &#x2F;&#x2F; -&gt; &quot;12&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 템플릿 리터럴</span><br><span class="line">&#96;1 + 1 &#x3D; $&#123;1 + 1&#125;&#96;; &#x2F;&#x2F; -&gt; &quot;1 + 1 &#x3D; 2&quot;</span><br><span class="line"></span><br><span class="line">0 +&quot;&quot; - &#x2F;&#x2F; -&gt; &quot;0&quot;</span><br><span class="line">1 +&quot;&quot;; &#x2F;&#x2F; -&gt; &quot;-1&quot;</span><br><span class="line">true +&quot;&quot;&#x2F;&#x2F; -&gt; &quot;true&quot;</span><br><span class="line">[(10, 20)] + &quot;&quot;; &#x2F;&#x2F; -&gt; &quot;10,20&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>연산자는 피연산자 중 하나 이상이 문자열이므로 문자열 연결 연산자로 동작</li>
+</ul>
+<h3 id="2-2-숫자-타입으로-변환"><a href="#2-2-숫자-타입으로-변환" class="headerlink" title="2.2. 숫자 타입으로 변환"></a>2.2. 숫자 타입으로 변환</h3><ul>
+<li><p>산술 연산자</p>
+<p>피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> - <span class="string">&quot;1&quot;</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="number">1</span> * <span class="string">&quot;10&quot;</span>; <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="number">1</span> / <span class="string">&quot;one&quot;</span>; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>비교 연산자<br>불리언 값을 만듦</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;1&quot;</span> &gt; <span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>단항 연산자<br>빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">&quot;0&quot;</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="string">&quot;1&quot;</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="string">&quot;string&quot;</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line"><span class="literal">true</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="literal">false</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">null</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">undefined</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line">&#123;&#125; + <span class="comment">// -&gt; NaN</span></span><br><span class="line">[] + <span class="comment">// -&gt; 0</span></span><br><span class="line">[<span class="number">10</span>, <span class="number">20</span>] + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-불리언-타입으로-변환"><a href="#2-3-불리언-타입으로-변환" class="headerlink" title="2.3. 불리언 타입으로 변환"></a>2.3. 불리언 타입으로 변환</h3><ul>
+<li><p>자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분</p>
+</li>
+<li><p>Falsy 값 :<br>false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)</p>
+</li>
+<li><p>Truthy 값:</p>
+<p>Falsy 값 외의 모든 값</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&quot;&quot;</span>) <span class="built_in">console</span>.log(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) <span class="built_in">console</span>.log(<span class="string">&quot;2&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span>) <span class="built_in">console</span>.log(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;str&quot;</span>) <span class="built_in">console</span>.log(<span class="string">&quot;4&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">null</span>) <span class="built_in">console</span>.log(<span class="string">&quot;5&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 4</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-명시적-타입-변환"><a href="#3-명시적-타입-변환" class="headerlink" title="3) 명시적 타입 변환"></a>3) 명시적 타입 변환</h2><h3 id="3-1-문자열-타입으로-변환"><a href="#3-1-문자열-타입으로-변환" class="headerlink" title="3.1. 문자열 타입으로 변환"></a>3.1. 문자열 타입으로 변환</h3><ol>
+<li>String 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>Object.prototype.toString 메서드를 사용하는 방법</li>
+<li>문자열 연결 연산자를 이용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. string 생성자 함수</span></span><br><span class="line"><span class="built_in">String</span>(<span class="number">1</span>); <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">NaN</span>); <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">true</span>); <span class="comment">// -&gt; &quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Object.prototype.toString 메서드</span></span><br><span class="line">(<span class="number">1</span>).toString(); <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="literal">NaN</span>.toString(); <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="literal">true</span>.toString(); <span class="comment">// -&gt; &quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 문자열 연결 연산자 이용</span></span><br><span class="line"><span class="number">1</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="literal">NaN</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="literal">Infinity</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;Infinity&quot;</span></span><br><span class="line"><span class="comment">// 불리언 타입 =&gt; 문자열 타입</span></span><br><span class="line"><span class="literal">true</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-숫자-타입으로-변환"><a href="#3-2-숫자-타입으로-변환" class="headerlink" title="3.2. 숫자 타입으로 변환"></a>3.2. 숫자 타입으로 변환</h3><ol>
+<li>Number 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>parseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)</li>
+<li><ul>
+<li>단항 산술 연산자를 이용하는 방법</li>
+</ul>
+</li>
+<li>산술 연산자를 이용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Number 생성자 함수</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;0&quot;</span>); <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;-1&quot;</span>); <span class="comment">// -&gt; -1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>); <span class="comment">// -&gt; 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. parseInt, parseFloat 함수를 사용</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;0&quot;</span>); <span class="comment">// -&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. + 단항 산술 연산자를 이용</span></span><br><span class="line">+<span class="string">&quot;0&quot;</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line">+<span class="string">&quot;-1&quot;</span>; <span class="comment">// -&gt; -1</span></span><br><span class="line">+<span class="literal">true</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line">+<span class="literal">false</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 산술 연산자를 이용</span></span><br><span class="line"><span class="string">&quot;0&quot;</span> * <span class="number">1</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">true</span> * <span class="number">1</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="literal">false</span> * <span class="number">1</span>; <span class="comment">// -&gt; 0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-불리언-타입으로-변환"><a href="#3-3-불리언-타입으로-변환" class="headerlink" title="3.3. 불리언 타입으로 변환"></a>3.3. 불리언 타입으로 변환</h3><ol>
+<li>Boolean 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>! 부정 논리 연산자를 두 번 사용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Boolean 생성자 함수</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;x&quot;</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;&quot;</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;false&quot;</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="number">0</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="number">1</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">NaN</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">Infinity</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">null</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">undefined</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. ! 부정 논리 연산자를 두 번 사용</span></span><br><span class="line">!!<span class="string">&quot;x&quot;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line">!!<span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="string">&quot;false&quot;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line">!!<span class="number">0</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="number">1</span>; <span class="comment">// -&gt; true</span></span><br><span class="line">!!<span class="literal">NaN</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="literal">Infinity</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line">!!<span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="literal">undefined</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-단축-평가"><a href="#4-단축-평가" class="headerlink" title="4) 단축 평가"></a>4) 단축 평가</h2><h3 id="4-1-논리-연산자를-사용한-단축-평가"><a href="#4-1-논리-연산자를-사용한-단축-평가" class="headerlink" title="4.1. 논리 연산자를 사용한 단축 평가"></a>4.1. 논리 연산자를 사용한 단축 평가</h3><p>논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 <strong>불리언 값이 아닐 수도 있음</strong><br>논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 <strong>언제나 2개의 피연산자 중 어느 한쪽으로 평가</strong>된다.</p>
+<p><strong>단축 평가</strong> : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것</p>
+<p>따라서 논리합(||)과 논리곱(&amp;&amp;) 연산자는 피연산자를 타입 변환하지 않고 그대로 반환</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> || anything; <span class="comment">// true</span></span><br><span class="line"><span class="literal">false</span> || anything; <span class="comment">// anything</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; anything; <span class="comment">// anything</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; anything; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>예제</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Cat&quot;</span> &amp;&amp; <span class="string">&quot;Dog&quot;</span>; <span class="comment">// -&gt; &quot;Dog&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환<br>여기서 ‘Cat’은 true<br>그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨<br>즉, 논리곱 연산자는 <strong>논리 연산의 결과를 결정하는 두 번째 피연산자</strong>, 즉 문자열 ‘Dog’를 그대로 반환!</p>
+<p>마찬가지로</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Cat&quot;</span> || <span class="string">&quot;Dog&quot;</span>; <span class="comment">// -&gt; &quot;Cat&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>단축 평가를 사용하면 if 문을 대체가능</p>
+<ol>
+<li>주어진 조건이 true</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 주어진 조건이 true일 때</span></span><br><span class="line"><span class="keyword">if</span> (done) message = <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if 문은 단축 평가로 대체 가능하다.</span></span><br><span class="line"><span class="comment">// done이 true라면 message에 &#x27;완료&#x27;를 할당</span></span><br><span class="line">message = done &amp;&amp; <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>주어진 조건이 false</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 주어진 조건이 false일 때</span></span><br><span class="line"><span class="keyword">if</span> (!done) message = <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if 문은 단축 평가로 대체 가능하다.</span></span><br><span class="line"><span class="comment">// done이 false라면 message에 &#x27;미완료&#x27;를 할당</span></span><br><span class="line">message = done || <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 미완료</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>if…else 문</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if...else 문</span></span><br><span class="line"><span class="keyword">if</span> (done) message = <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"><span class="keyword">else</span> message = <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if...else 문은 삼항 조건 연산자로 대체 가능하다.</span></span><br><span class="line">message = done ? <span class="string">&quot;완료&quot;</span> : <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="4-2-옵셔널-체이닝-연산자"><a href="#4-2-옵셔널-체이닝-연산자" class="headerlink" title="4.2. 옵셔널 체이닝 연산자"></a>4.2. 옵셔널 체이닝 연산자</h3><pre><code>💡 옵셔널 체이닝(optional chaining) 연산자:  ?.</code></pre>
+<p>좌항이 null 또는 undefined → undefined<br>그렇지 않으면 우항의 프로퍼티 참조를 이어감</p>
+<ul>
+<li>객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용</li>
+</ul>
+<h3 id="4-3-null-병합-연산자"><a href="#4-3-null-병합-연산자" class="headerlink" title="4.3. null 병합 연산자"></a>4.3. null 병합 연산자</h3><pre><code>💡 null 병합(nullish coalescing) 연산자 : ??</code></pre>
+<p>좌항이 null 또는 undefined → 우항의 피연산자를 반환<br>그렇지 않으면 좌항의 피연산자를 반환</p>
+<ul>
+<li>변수에 기본값을 설정할 때 유용</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/25/8.%EC%A0%9C%EC%96%B4%EB%AC%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hanseul lee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HS's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/25/8.%EC%A0%9C%EC%96%B4%EB%AC%B8/" class="post-title-link" itemprop="url">8. 제어문</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-25 00:25:00 / Modified: 16:49:11" itemprop="dateCreated datePublished" datetime="2020-08-25T00:25:00+09:00">2020-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code>🐞 1) 조건문 2) 반복문 3) 기타</code></pre>
+<blockquote>
+<p>종류</p>
+<ol>
+<li>조건문 : if else문, switch문</li>
+<li>반복문: for문, while문, do-while문</li>
+<li>기타: break문, continue문</li>
+</ol>
+</blockquote>
+<h2 id="1-조건문"><a href="#1-조건문" class="headerlink" title="1) 조건문"></a>1) 조건문</h2><h2 id="1-1-if…else문"><a href="#1-1-if…else문" class="headerlink" title="1.1. if…else문"></a>1.1. if…else문</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식) &#123;</span><br><span class="line">  <span class="comment">// 조건식이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식이 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2가 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>조건식은 불리언타입(T/F)으로 평가되어야 함</p>
+</li>
+<li><p>else문과 else if문은 옵션</p>
+</li>
+<li><p>대부분의 if…else문은 <strong>삼항연산자</strong>로 바꿔 쓸 수 있음</p>
+<pre><code>  💡 삼항연산자
+  조건식 ? 참이면 이 코드 실행 : 거짓이면 이 코드 실행</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">&quot;홀수&quot;</span> : <span class="string">&quot;짝수&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="1-2-switch문"><a href="#1-2-switch문" class="headerlink" title="1.2 switch문"></a>1.2 switch문</h2><ul>
+<li>조건식은 주로 <strong>변수</strong>가 많음</li>
+<li>조건이 많은 경우 if문보다 더 유리</li>
+<li>주의: break문이 선언되지 않으면 멈추지 않고 계속 수행됨(fall through)</li>
+<li>해당하는 조건이 없는 경우를 대비해 default문을 넣어줌 (선택사항)<br>default문은 break필요없음</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 표현식<span class="number">1</span>:</span><br><span class="line">    실행문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 표현식<span class="number">2</span>:</span><br><span class="line">    실행문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    실행문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-반복문"><a href="#2-반복문" class="headerlink" title="2) 반복문"></a>2) 반복문</h2><ul>
+<li>반복문에서는 무한반복으로 인해 교착상태에 빠지지 않도록 조건을 잘 점검할 것!</li>
+</ul>
+<h2 id="2-1-for문"><a href="#2-1-for문" class="headerlink" title="2.1 for문"></a>2.1 for문</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (초기값; 조건식; 증감식) &#123;</span><br><span class="line">  실행문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>예제</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+  <img src="../img/for문.png" />
+
+<h2 id="2-2-while문"><a href="#2-2-while문" class="headerlink" title="2.2 while문"></a>2.2 while문</h2><ul>
+<li>조건이 <strong>참(true)일때까지</strong> 블록 수행</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (조건) &#123;</span><br><span class="line">  실행문;</span><br><span class="line">  증감식;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count); <span class="comment">// 0 1 2</span></span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-do-while문"><a href="#2-3-do-while문" class="headerlink" title="2.3 do-while문"></a>2.3 do-while문</h2><ul>
+<li>조건이 <strong>거짓(false)일때까지</strong> 블록 수행</li>
+<li><strong>적어도 한 번 수행</strong>하고 나서 블록의 마지막 조건을 체크<br>ex) 네이버 검색시 카페회원 아니어도 검색글 한 번은 읽기 가능</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  실행문;</span><br><span class="line">  증감식;</span><br><span class="line">&#125; <span class="keyword">while</span> (조건);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (count &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count); <span class="comment">// 0 1 2</span></span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-기타"><a href="#3-기타" class="headerlink" title="3. 기타"></a>3. 기타</h2><h2 id="3-1-break문"><a href="#3-1-break문" class="headerlink" title="3.1. break문"></a>3.1. break문</h2><ul>
+<li>선언된 곳의 블록에서 탈출 - 레이블문, 반복문, switch문</li>
+</ul>
+<h2 id="3-2-continue문"><a href="#3-2-continue문" class="headerlink" title="3.2 continue문"></a>3.2 continue문</h2><ul>
+<li>반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 실행 흐름을 이동</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/24/2020-08-24-TIL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -239,64 +557,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/24/8.%20%EC%A0%9C%EC%96%B4%EB%AC%B8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hanseul lee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HS's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/24/8.%20%EC%A0%9C%EC%96%B4%EB%AC%B8/" class="post-title-link" itemprop="url">8. 제어문</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-24 21:00:02 / Modified: 21:21:32" itemprop="dateCreated datePublished" datetime="2020-08-24T21:00:02+09:00">2020-08-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -320,17 +580,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-08-24 21:00:01 / Modified: 22:42:10" itemprop="dateCreated datePublished" datetime="2020-08-24T21:00:01+09:00">2020-08-24</time>
+              <time title="Created: 2020-08-24 21:00:01" itemprop="dateCreated datePublished" datetime="2020-08-24T21:00:01+09:00">2020-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-25 16:50:45" itemprop="dateModified" datetime="2020-08-25T16:50:45+09:00">2020-08-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -496,17 +766,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-08-24 21:00:00 / Modified: 22:14:50" itemprop="dateCreated datePublished" datetime="2020-08-24T21:00:00+09:00">2020-08-24</time>
+              <time title="Created: 2020-08-24 21:00:00" itemprop="dateCreated datePublished" datetime="2020-08-24T21:00:00+09:00">2020-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-25 16:50:49" itemprop="dateModified" datetime="2020-08-25T16:50:49+09:00">2020-08-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -688,7 +968,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-24 21:15:40" itemprop="dateModified" datetime="2020-08-24T21:15:40+09:00">2020-08-24</time>
+                <time title="Modified: 2020-08-25 16:50:52" itemprop="dateModified" datetime="2020-08-25T16:50:52+09:00">2020-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -696,7 +976,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -854,17 +1138,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-08-19 15:25:33 / Modified: 21:06:39" itemprop="dateCreated datePublished" datetime="2020-08-19T15:25:33+09:00">2020-08-19</time>
+              <time title="Created: 2020-08-19 15:25:33" itemprop="dateCreated datePublished" datetime="2020-08-19T15:25:33+09:00">2020-08-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-25 16:51:28" itemprop="dateModified" datetime="2020-08-25T16:51:28+09:00">2020-08-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -961,7 +1255,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-24 21:59:58" itemprop="dateModified" datetime="2020-08-24T21:59:58+09:00">2020-08-24</time>
+                <time title="Modified: 2020-08-25 16:50:54" itemprop="dateModified" datetime="2020-08-25T16:50:54+09:00">2020-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -969,7 +1263,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                  <a href="/categories/fastcampus/" itemprop="url" rel="index"><span itemprop="name">fastcampus</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/fastcampus/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
                 </span>
             </span>
 
@@ -1123,114 +1421,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hanseul-lee.github.io/2020/08/18/2020-08-18-TIL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hanseul lee">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HS's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/2020-08-18-TIL/" class="post-title-link" itemprop="url">2020-08-18-TIL</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+09:00">2020-08-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-19 22:23:52" itemprop="dateModified" datetime="2020-08-19T22:23:52+09:00">2020-08-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TIL/" itemprop="url" rel="index"><span itemprop="name">TIL</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2020-08-18-화요일-Today-I-Learn"><a href="#2020-08-18-화요일-Today-I-Learn" class="headerlink" title="2020-08-18 화요일 Today I Learn"></a>2020-08-18 화요일 Today I Learn</h1><h2 id="오늘-공부-한-것"><a href="#오늘-공부-한-것" class="headerlink" title="오늘 공부 한 것"></a>오늘 공부 한 것</h2><ol>
-<li><p>Javascript 첫 수업</p>
-<ol>
-<li>프로그래밍</li>
-<li>JS란</li>
-<li>JS 개발환경과 실행 방법<br>-‘웹 브라우저가 실행시킬 수 있는 유일한 프로그래밍 언어’인 Javascript의 특징과 탄생, ECMAScript에 대해 배웠다.</li>
-</ol>
-</li>
-<li><p>Javascript 4,5강 예습</p>
-<ul>
-<li>poiemaweb.com 수업자료 읽기</li>
-</ul>
-</li>
-<li><p>Kimbug CSS 최종 프로젝트 시작</p>
-<ul>
-<li>Landing section</li>
-</ul>
-</li>
-</ol>
-<h2 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h2><ul>
-<li><p>코로나로 수업이 일주일 연기됐다. 이제 막 Javascript 진도가 시작되어 기대됐는데 너무 아쉽다. 남은 시간동안 계획을 잘 짜서 못했던 프로젝트와 Javascript 예습을 병행하고 후회가 없도록 보내야겠다.</p>
-<ul>
-<li><p><input disabled="" type="checkbox">  Kimbug CSS 프로젝트 완성</p>
-</li>
-<li><p><input disabled="" type="checkbox">  Kimbug CSS 총 복습</p>
-</li>
-<li><p><input disabled="" type="checkbox">  Yankeecandle CSS 시작</p>
-</li>
-<li><p><input disabled="" type="checkbox">  JS 예습 - 4,5,6,7,8,9,10,11</p>
-</li>
-<li><p><input disabled="" type="checkbox">  JS Youtube - 4,5,6,7,8,9,10,11</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1300,14 +1490,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
