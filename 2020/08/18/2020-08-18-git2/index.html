@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>좋은 커밋 메세지 작성하기 - HS&#39;s blog</title>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n좋은 커밋 메세지 작성하기\nCommit Message Structure\n제목 / 본문 / 꼬리말로 구성\n\n\n12345type: subjectbodyfooter\n\n\nCommit Type\n\nfeat : 새로운 기능 추가\ndocs : 문서 수정\nfix : 버그 수정\ntest : 테스트 코드, 리펙토링 테스트 코드 추가\nrefactor : 코드 리팩토링\nstyle : 코드 형식, 정렬, 주석 등의 변경, 세미콜론 추가 등\netc 위에 해당하지 않는 모든 변경\n\n\n\n\nSubject\n\n첫글자는 대문자로 작성하고 마침표(.)를 붙이지 않음\n제목은 50자를 넘기지 않음\n제목 쓰고 한 줄 띄기\n과거시제가 아닌 명령어 사용“Fixed” —&gt; “Fix”“Added” —&gt; “Add”\n\n\nBody\n\n간단명료하게 72자 단위로 개행\n‘어떻게’보다는 ‘무엇을’, ‘왜’ 바꿨는지 작성\n\n\nFooter\n\nissue tracker id 작성\n\n\n\n123456feat: 로그 출력 기능 추가커밋에 대한 설명Resolves: #123Ref: #99, #101, #456","dateCreated":"2020-08-18T00:00:00+09:00","dateModified":"2020-08-25T23:10:26+09:00","datePublished":"2020-08-18T00:00:00+09:00","description":"\n\n협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기","headline":"좋은 커밋 메세지 작성하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/","keywords":"git"}</script>
+    <meta name="description" content="협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="좋은 커밋 메세지 작성하기">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-25T14:10:26.948Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/%20"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            좋은 커밋 메세지 작성하기
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-08-18T00:00:00+09:00">
+	
+		    Aug 18, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/fastcampus/">fastcampus</a>, <a class="category-link" href="/categories/fastcampus/git/">git</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+
+<h1 id="좋은-커밋-메세지-작성하기"><a href="#좋은-커밋-메세지-작성하기" class="headerlink" title="좋은 커밋 메세지 작성하기"></a>좋은 커밋 메세지 작성하기</h1><ol>
+<li><p>Commit Message Structure</p>
+<p>제목 / 본문 / 꼬리말로 구성</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type: subject</span><br><span class="line"></span><br><span class="line">body</span><br><span class="line"></span><br><span class="line">footer</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>Commit Type</p>
+<ul>
+<li><strong>feat</strong> : 새로운 기능 추가</li>
+<li><strong>docs</strong> : 문서 수정</li>
+<li><strong>fix</strong> : 버그 수정</li>
+<li><strong>test</strong> : 테스트 코드, 리펙토링 테스트 코드 추가</li>
+<li><strong>refactor</strong> : 코드 리팩토링</li>
+<li><strong>style</strong> : 코드 형식, 정렬, 주석 등의 변경, 세미콜론 추가 등</li>
+<li><strong>etc</strong> 위에 해당하지 않는 모든 변경</li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li><p>Subject</p>
+<ul>
+<li><strong>첫글자는 대문자로 작성</strong>하고 <strong>마침표(.)를 붙이지 않음</strong></li>
+<li>제목은 50자를 넘기지 않음</li>
+<li>제목 쓰고 한 줄 띄기</li>
+<li>과거시제가 아닌 <strong>명령어</strong> 사용<br>“Fixed” —&gt; “Fix”<br>“Added” —&gt; “Add”</li>
+</ul>
+</li>
+<li><p>Body</p>
+<ul>
+<li>간단명료하게 <strong>72자 단위</strong>로 개행</li>
+<li>‘어떻게’보다는 ‘<strong>무엇을’, ‘왜’</strong> 바꿨는지 작성</li>
+</ul>
+</li>
+<li><p>Footer</p>
+<ul>
+<li><strong>issue tracker id</strong> 작성</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feat: 로그 출력 기능 추가</span><br><span class="line"></span><br><span class="line">커밋에 대한 설명</span><br><span class="line"></span><br><span class="line">Resolves: #123</span><br><span class="line">Ref: #99, #101, #456</span><br></pre></td></tr></table></figure>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/18/2020-08-18-git/"
+                    data-tooltip="Git으로 협력하기"
+                    aria-label="PREVIOUS: Git으로 협력하기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/12/200812-TIL/"
+                    data-tooltip="2020-08-12-TIL"
+                    aria-label="NEXT: 2020-08-12-TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/18/2020-08-18-git/"
+                    data-tooltip="Git으로 협력하기"
+                    aria-label="PREVIOUS: Git으로 협력하기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/12/200812-TIL/"
+                    data-tooltip="2020-08-12-TIL"
+                    aria-label="NEXT: 2020-08-12-TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/18/2020-08-18-git2/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

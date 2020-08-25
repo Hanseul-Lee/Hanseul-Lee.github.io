@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>7. 연산자 - HS&#39;s blog</title>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n규칙에 의해 결과를 나타내는 기호\n피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 함\n종류\n산술연산자\n할당연산자\n비교연산자\n삼항 조건 연산자\n논리 연산자\n쉼표 연산자\n그룹 연산자\ntypeof 연산자\n지수 연산자\n기타\n\n\n\n1) 산술연산자\n수 계산에 필요한 연산자\n\n산술 연산이 불가능한 경우 NaN을 반환\n1.1. 이항 산술 연산자\n2개의 피연산자를 산술 연산\n피연산자의 값을 변경하는 부수 효과(side effect)가 없음\n\n\n\n1.2. 다항 산술 연산자\n1개의 피연산자를 산술 연산\n증가/감소(++/–) 연산자는 피연산자의 값을 변경하는 부수 효과 존재\n\n\n\n\n증가/감소(++/–) 연산자는 위치에 의미\n\n123456789101112131415161718var x = 5,  result;// 선할당 후증가(postfix increment operator)result = x++;console.log(result, x); // 5 6// 선증가 후할당(prefix increment operator)result = ++x;console.log(result, x); // 7 7// 선할당 후감소(postfix decrement operator)result = x--;console.log(result, x); // 7 6// 선감소 후할당 (prefix decrement operator)result = --x;console.log(result, x); // 5 5\n\n\n숫자 타입이 아닌 피연산자에 + 단항 연산자를 사용하면→ 피연산자를 숫자 타입으로 변환하여 반환\n\n123456var x = &quot;1&quot;;// 문자열을 숫자로 타입 변환한다.console.log(+x); // 1// 부수 효과는 없다.console.log(x); // &quot;1&quot;\n\n\n– 단항 연산자는 피연산자의 부호를 반전한 값을 반환\n\n12345// 부호를 반전한다.-(-10); // -&gt; 10// 문자열을 숫자로 타입 변환한다.-&quot;10&quot;; // -&gt; -10\n\n1.3. 문자열 연결 연산자\n\n연산자는 피연산자 중 하나 이상이 문자열인 경우 문자열 연결 연산자로 동작\n\n\n\n12345// 문자열 연결 연산자&quot;1&quot; + 2; // -&gt; &#x27;12&#x27;// true는 1로 타입 변환된다.(암묵적 타입 변환)1 + true; // -&gt; 2\n\n\n\n2) 할당연산자\n좌항의 변수에 값을 할당하므로 변수 값이 변하는 부수 효과가 존재함\n할당문→ 값으로 평가되는 표현식인 문!\n\n\n\n3.1. 동등 / 일치 비교 연산자\n\n\n동등 비교(==) 연산자 : 암묵적 타입 변환을 통해 타입을 일치시킨 후, 같은 값인지 비교\n일치 비교(===) 연산자 : 타입도 같고 값도 같은 경우에 한하여 true를 반환\n\n123456// 동등 비교5 == &quot;5&quot;; // -&gt; true// 일치 비교5 === &quot;5&quot;; // -&gt; false5 === 5; // -&gt; true\n\n\n(주의!) NaN은 자신과 일치하지 않는 유일한 값\n\n1NaN === NaN; // -&gt; false\n\n3.2. 대소 관계 비교 연산자\n\n4) 삼항 조건 연산자1조건식 ? 조건식이 true일 때 반환할 값 : 조건식이 false일 때 반환할 값\n\n\nif…else 문을 사용해도 삼항 조건 연산자 표현식과 유사하게 처리가능\n차이점 :삼항 조건 연산자 표현식은 값처럼 사용할 수 있지만if…else 문은 값처럼 사용할 수 없다.\n\n5) 논리연산자\n\n6) 쉼표연산자\n왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환\n\n123var x, y, z;(x = 1), (y = 2), (z = 3); // 3\n\n7) 그룹연산자\n소괄호 ()로 피연산자를 감쌈\n연산자 우선순위가 가장 높다.\n\n12// 그룹 연산자를 사용하여 우선순위를 조절10 * (2 + 3); // -&gt; 50\n\n8) typeof 연산자\n피연산자의 데이터 타입을 문자열로 반환\n7가지 문자열 “string”, “number”, “boolean”, “undefined”, “symbol”, “object”, “function” 중 하나를 반환\n(주의!) null 값을 연산해 보면 “null”이 아닌 “object”를 반환그러므로 값이 null 타입인지 확인할 때는 일치 연산자(===)를 사용할 것\n(주의!) 선언하지 않은 식별자를 typeof 연산자로 연산해 보면 ReferenceError가 발생하지 않고 undefined를 반환\n\n9) 지수연산자\n좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱\n지수 연산자는 이항 연산자 중에서 우선순위가 가장 높음\n\n1232 ** 2; // -&gt; 42 ** 0; // -&gt; 1(-5) ** 2; // -&gt; 25","dateCreated":"2020-08-24T21:00:01+09:00","dateModified":"2020-08-25T23:05:13+09:00","datePublished":"2020-08-24T21:00:01+09:00","description":"\n\n연산자는 규칙에 의해 결과를 나타내는 기호로 피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 함.","headline":"7. 연산자","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/","keywords":"javascript"}</script>
+    <meta name="description" content="연산자는 규칙에 의해 결과를 나타내는 기호로 피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 함.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="7. 연산자">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="연산자는 규칙에 의해 결과를 나타내는 기호로 피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 함.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.1.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.2.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.3.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.3.1.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.3.2.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.5.jpg">
+<meta property="article:published_time" content="2020-08-24T12:00:01.000Z">
+<meta property="article:modified_time" content="2020-08-25T14:05:13.295Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/24/img/7.1.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/%20"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            7. 연산자
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-08-24T21:00:01+09:00">
+	
+		    Aug 24, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/fastcampus/">fastcampus</a>, <a class="category-link" href="/categories/fastcampus/javascript/">javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%EC%82%B0%EC%88%A0%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">1) 산술연산자</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%EC%9D%B4%ED%95%AD-%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">1.1. 이항 산술 연산자</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%EB%8B%A4%ED%95%AD-%EC%82%B0%EC%88%A0-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">1.2. 다항 산술 연산자</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%97%B0%EA%B2%B0-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">1.3. 문자열 연결 연산자</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%ED%95%A0%EB%8B%B9%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">2) 할당연산자</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%EB%8F%99%EB%93%B1-%EC%9D%BC%EC%B9%98-%EB%B9%84%EA%B5%90-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">3.1. 동등 &#x2F; 일치 비교 연산자</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%EB%8C%80%EC%86%8C-%EA%B4%80%EA%B3%84-%EB%B9%84%EA%B5%90-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">3.2. 대소 관계 비교 연산자</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EC%82%BC%ED%95%AD-%EC%A1%B0%EA%B1%B4-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">4) 삼항 조건 연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">5) 논리연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%EC%89%BC%ED%91%9C%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">6) 쉼표연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%EA%B7%B8%EB%A3%B9%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">7) 그룹연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-typeof-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">8) typeof 연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%EC%A7%80%EC%88%98%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">9) 지수연산자</span></a></li></ol>
+
+<ul>
+<li>규칙에 의해 결과를 나타내는 기호</li>
+<li>피연산자는 연산의 대상이 되어야 하므로 값으로 평가할 수 있어야 함</li>
+<li>종류<ol>
+<li>산술연산자</li>
+<li>할당연산자</li>
+<li>비교연산자</li>
+<li>삼항 조건 연산자</li>
+<li>논리 연산자</li>
+<li>쉼표 연산자</li>
+<li>그룹 연산자</li>
+<li>typeof 연산자</li>
+<li>지수 연산자</li>
+<li>기타</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-산술연산자"><a href="#1-산술연산자" class="headerlink" title="1) 산술연산자"></a>1) 산술연산자</h2><ul>
+<li><p>수 계산에 필요한 연산자</p>
+</li>
+<li><p>산술 연산이 불가능한 경우 NaN을 반환</p>
+<h3 id="1-1-이항-산술-연산자"><a href="#1-1-이항-산술-연산자" class="headerlink" title="1.1. 이항 산술 연산자"></a>1.1. 이항 산술 연산자</h3><ul>
+<li>2개의 피연산자를 산술 연산</li>
+<li>피연산자의 값을 변경하는 부수 효과(side effect)가 없음</li>
+</ul>
+<img src="../img/7.1.jpg" />
+
+<h3 id="1-2-다항-산술-연산자"><a href="#1-2-다항-산술-연산자" class="headerlink" title="1.2. 다항 산술 연산자"></a>1.2. 다항 산술 연산자</h3><ul>
+<li>1개의 피연산자를 산술 연산</li>
+<li>증가/감소(++/–) 연산자는 피연산자의 값을 변경하는 <strong>부수 효과 존재</strong></li>
+</ul>
+<img src="../img/7.2.jpg" />
+
+<ul>
+<li>증가/감소(++/–) 연산자는 위치에 의미</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">5</span>,</span><br><span class="line">  result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선할당 후증가(postfix increment operator)</span></span><br><span class="line">result = x++;</span><br><span class="line"><span class="built_in">console</span>.log(result, x); <span class="comment">// 5 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선증가 후할당(prefix increment operator)</span></span><br><span class="line">result = ++x;</span><br><span class="line"><span class="built_in">console</span>.log(result, x); <span class="comment">// 7 7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선할당 후감소(postfix decrement operator)</span></span><br><span class="line">result = x--;</span><br><span class="line"><span class="built_in">console</span>.log(result, x); <span class="comment">// 7 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선감소 후할당 (prefix decrement operator)</span></span><br><span class="line">result = --x;</span><br><span class="line"><span class="built_in">console</span>.log(result, x); <span class="comment">// 5 5</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>숫자 타입이 아닌 피연산자에 + 단항 연산자</strong>를 사용하면<br>→ 피연산자를 <strong>숫자 타입으로 변환</strong>하여 반환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">&quot;1&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열을 숫자로 타입 변환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(+x); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 부수 효과는 없다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// &quot;1&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>– 단항 연산자</strong>는 피연산자의 <strong>부호를 반전</strong>한 값을 반환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 부호를 반전한다.</span></span><br><span class="line">-(<span class="number">-10</span>); <span class="comment">// -&gt; 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열을 숫자로 타입 변환한다.</span></span><br><span class="line">-<span class="string">&quot;10&quot;</span>; <span class="comment">// -&gt; -10</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-문자열-연결-연산자"><a href="#1-3-문자열-연결-연산자" class="headerlink" title="1.3. 문자열 연결 연산자"></a>1.3. 문자열 연결 연산자</h3><ul>
+<li><ul>
+<li>연산자는 피연산자 중 하나 이상이 문자열인 경우 <strong>문자열 연결 연산자로 동작</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문자열 연결 연산자</span></span><br><span class="line"><span class="string">&quot;1&quot;</span> + <span class="number">2</span>; <span class="comment">// -&gt; &#x27;12&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// true는 1로 타입 변환된다.(암묵적 타입 변환)</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">true</span>; <span class="comment">// -&gt; 2</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2-할당연산자"><a href="#2-할당연산자" class="headerlink" title="2) 할당연산자"></a>2) 할당연산자</h2><ul>
+<li>좌항의 변수에 값을 할당하므로 변수 값이 변하는 부수 효과가 존재함</li>
+<li>할당문→ 값으로 평가되는 표현식인 문!<img src="../img/7.3.jpg" />
+
+</li>
+</ul>
+<h3 id="3-1-동등-일치-비교-연산자"><a href="#3-1-동등-일치-비교-연산자" class="headerlink" title="3.1. 동등 / 일치 비교 연산자"></a>3.1. 동등 / 일치 비교 연산자</h3><img src="../img/7.3.1.jpg" />
+
+<ul>
+<li>동등 비교(==) 연산자 : 암묵적 타입 변환을 통해 타입을 일치시킨 후, 같은 값인지 비교</li>
+<li>일치 비교(===) 연산자 : 타입도 같고 값도 같은 경우에 한하여 true를 반환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 동등 비교</span></span><br><span class="line"><span class="number">5</span> == <span class="string">&quot;5&quot;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 일치 비교</span></span><br><span class="line"><span class="number">5</span> === <span class="string">&quot;5&quot;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="number">5</span> === <span class="number">5</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>(주의!) NaN은 자신과 일치하지 않는 유일한 값</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-대소-관계-비교-연산자"><a href="#3-2-대소-관계-비교-연산자" class="headerlink" title="3.2. 대소 관계 비교 연산자"></a>3.2. 대소 관계 비교 연산자</h3><img src="../img/7.3.2.jpg" />
+
+<h2 id="4-삼항-조건-연산자"><a href="#4-삼항-조건-연산자" class="headerlink" title="4) 삼항 조건 연산자"></a>4) 삼항 조건 연산자</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">조건식 ? 조건식이 <span class="literal">true</span>일 때 반환할 값 : 조건식이 <span class="literal">false</span>일 때 반환할 값</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>if…else 문을 사용해도 삼항 조건 연산자 표현식과 유사하게 처리가능</li>
+<li>차이점 :<br>삼항 조건 연산자 표현식은 값처럼 사용할 수 있지만<br>if…else 문은 값처럼 사용할 수 없다.</li>
+</ul>
+<h2 id="5-논리연산자"><a href="#5-논리연산자" class="headerlink" title="5) 논리연산자"></a>5) 논리연산자</h2><img src="../img/7.5.jpg" />
+
+<h2 id="6-쉼표연산자"><a href="#6-쉼표연산자" class="headerlink" title="6) 쉼표연산자"></a>6) 쉼표연산자</h2><ul>
+<li>왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x, y, z;</span><br><span class="line"></span><br><span class="line">(x = <span class="number">1</span>), (y = <span class="number">2</span>), (z = <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-그룹연산자"><a href="#7-그룹연산자" class="headerlink" title="7) 그룹연산자"></a>7) 그룹연산자</h2><ul>
+<li>소괄호 ()로 피연산자를 감쌈</li>
+<li>연산자 우선순위가 가장 높다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 그룹 연산자를 사용하여 우선순위를 조절</span></span><br><span class="line"><span class="number">10</span> * (<span class="number">2</span> + <span class="number">3</span>); <span class="comment">// -&gt; 50</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="8-typeof-연산자"><a href="#8-typeof-연산자" class="headerlink" title="8) typeof 연산자"></a>8) typeof 연산자</h2><ul>
+<li>피연산자의 데이터 타입을 문자열로 반환</li>
+<li>7가지 문자열 “string”, “number”, “boolean”, “undefined”, “symbol”, “object”, “function” 중 하나를 반환</li>
+<li>(주의!) null 값을 연산해 보면 “null”이 아닌 “object”를 반환<br>그러므로 값이 null 타입인지 확인할 때는 일치 연산자(===)를 사용할 것</li>
+<li>(주의!) 선언하지 않은 식별자를 typeof 연산자로 연산해 보면 ReferenceError가 발생하지 않고 undefined를 반환</li>
+</ul>
+<h2 id="9-지수연산자"><a href="#9-지수연산자" class="headerlink" title="9) 지수연산자"></a>9) 지수연산자</h2><ul>
+<li>좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱</li>
+<li>지수 연산자는 <strong>이항 연산자 중에서 우선순위가 가장 높음</strong></li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span>; <span class="comment">// -&gt; 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">0</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line">(<span class="number">-5</span>) ** <span class="number">2</span>; <span class="comment">// -&gt; 25</span></span><br></pre></td></tr></table></figure>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/24/2020-08-24-TIL/"
+                    data-tooltip="2020-08-24-TIL"
+                    aria-label="PREVIOUS: 2020-08-24-TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/24/6.%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%83%80%EC%9E%85/"
+                    data-tooltip="6. 데이터 타입"
+                    aria-label="NEXT: 6. 데이터 타입"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/24/2020-08-24-TIL/"
+                    data-tooltip="2020-08-24-TIL"
+                    aria-label="PREVIOUS: 2020-08-24-TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/24/6.%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%83%80%EC%9E%85/"
+                    data-tooltip="6. 데이터 타입"
+                    aria-label="NEXT: 6. 데이터 타입"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/24/7.%20%EC%97%B0%EC%82%B0%EC%9E%90/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
