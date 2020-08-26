@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n🐞Keyword #객체 리터럴 #프로퍼티 #메서드\n\n\n\n1) 객체란?\n자바스크립트는 객체(object) 기반 스크립트 언어이며, 거의 모든 것이 객체로 구성됨\n\n객체는 변경가능한 값임 ( cf. 원시값은 변경 불가능한 값)\n객체는 0개 이상의 프로퍼티로 구성된 집합이며, 프로퍼티는 키(key)와 **값(value)**으로 구성됨\n프로퍼티: 객체의 상태를 나타내는 값\n메서드: 프로퍼티를 참조하고 조작할 수 있는 동작프로퍼티 값이 함수일 경우 구분을 위해 메서드라고 함\n\n\n\n\n\n\n참고로 자바스크립트에서 함수와 객체는 분리해서 생각할 수 없는 개념임.자바스크립트의 객체는 함수와 밀접한 관계를 가지며 함수로 객체를 생성하기도 하며 함수 자체가 객체이기도 함.\n\n2) 객체 리터럴에 의한 객체 생성\n\n자바스크립트는 프로토타입 기반 객체지향 언어\n\n다음과 같이 다양하게 객체를 생성할 수 있으며 가장 일반적인 것이 객체 리터럴을 사용하는 것자바스크립트의 유연함과 강력함을 대표하는 객체 생성 방식\n\n객체 리터럴\nObject 생성자 함수\n생성자 함수\nObject.create 메서드\n클래스 (ES6)\n\n\n리터럴(literal) : 사람이 이해할 수 있는 문자나 약속된 기호를 사용하여 값을 생성하는 표기법\n\n\n\ncf. 클래스 기반 객체지향 언어(C++나 JAVA)클래스를 사전에 정의하고 필요한 시점에 new 연산자와 함께 생성자를 호출하여 인스턴스를 생성하는 방식으로 객체를 생성객체 리터럴을 이용한 객체 생성 방법\n중괄호 {} 이용하며 콤마(,)로 구분\n각 멤버는 콜론(:)으로 키와 초기값이 구분\n(주의!) 객체 리터럴 내 중괄호는 코드 블록을 의미하지 않으므로 객체 리터럴의 닫는 중괄호 뒤에는 세미콜론을 붙여야 함\n\n123456var person = &#123;  name: &quot;foo&quot;,  age: 20,&#125;;console.log(person); // &#123;name: &quot;Lee&quot;, age : 20&#125;\n\n3) 프로퍼티(property)\n\n객체는 프로퍼티의 집합이며 프로퍼티는 키와 값으로 구성됨\n프로퍼티 키 :\n빈 문자열을 포함하는 모든 문자열 또는 심벌 값\n프로퍼티 값에 접근할 수 있는 이름으로서 식별자 역할\n자바스크립트에서 사용 가능한 유효한 이름인 경우 따옴표 생략 가능\n식별자 네이밍 규칙을 따르지 않는 이름에는 반드시 따옴표를 사용해야 함\n\n\n프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값\n\n\n\n프로퍼티 값 갱신 - 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신됨프로퍼티 동적 생성 - 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되어 추가되고 프로퍼티 값이 할당됨프로퍼티 값 삭제 - delete 연산자는 객체의 프로퍼티를 삭제함\n123456789101112var person = &#123;  name: &quot;Lee&quot;,&#125;;// 프로퍼티 값 갱신person.name = &quot;Kim&quot;;// 프로퍼티 동적 생성person.age = 20;// 프로퍼티 값 삭제delete person.age;console.log(person); // &#123;name: &quot;Kim&quot;&#125;\n\n3.1. 프로퍼티 접근123456789var person = &#123;  name: &quot;Lee&quot;,&#125;;// 마침표 표기법에 의한 프로퍼티 접근console.log(person.name); // Lee// 대괄호 표기법에 의한 프로퍼티 접근console.log(person[&quot;name&quot;]); // Lee\n\n\n마침표 표기법(dot notation) : 마침표 프로퍼티 접근 연산자(.)를 사용\n대괄호 표기법(bracket notation) : 대괄호 프로퍼티 접근 연산자([…])를 사용\n자바스크립트에서 사용 가능한 유효한 이름이 아니면 반드시 대괄호 표기법을 사용해야 함\n대괄호 내 반드시 따옴표로 감싼 문자열 (예외 : 숫자)따옴표로 감싸지 않으며 자바스크립트가 식별자로 인식함\n\n\n\n(주의!) 객체에 존재하지 않는 프로퍼티에 접근하면 ReferenceError가 아닌 undefined를 반환함\n4) 메서드(method)\n\n프로퍼티 값이 함수일 경우 일반 함수와 구분을 위해 메서드라고 함\n객체에 묶여있는 함수\n","dateCreated":"2020-08-26T15:45:16+09:00","dateModified":"2020-08-26T17:13:53+09:00","datePublished":"2020-08-26T15:45:16+09:00","description":"\n\n자바스크립트는 객체기반 언어이며, 객체 리터럴을 통해 객체를 생성하고 객체는 프로퍼티로 구성되었다. 프로퍼티와 함수로 된 프로퍼티인 메서드에 대해 알아보자.","headline":"10. 객체 리터럴","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/26/JS-10/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/26/JS-10/","keywords":"javascript"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 객체란?\n자바스크립트는 객체(object) 기반 스크립트 언어이며, 거의 모든 것이 객체로 구성됨\n\n객체는 변경가능한 값임 ( cf. 원시값은 변경 불가능한 값)\n객체는 0개 이상의 프로퍼티로 구성된 집합이며, 프로퍼티는 키(key)와 **값(value)**으로 구성됨\n프로퍼티: 객체의 상태를 나타내는 값\n메서드: 프로퍼티를 참조하고 조작할 수 있는 동작프로퍼티 값이 함수일 경우 구분을 위해 메서드라고 함\n\n\n\n\n\n\n참고로 자바스크립트에서 함수와 객체는 분리해서 생각할 수 없는 개념임.자바스크립트의 객체는 함수와 밀접한 관계를 가지며 함수로 객체를 생성하기도 하며 함수 자체가 객체이기도 함.\n\n2) 객체 리터럴에 의한 객체 생성\n\n자바스크립트는 프로토타입 기반 객체지향 언어\n\n다음과 같이 다양하게 객체를 생성할 수 있으며 가장 일반적인 것이 객체 리터럴을 사용하는 것\n\n객체 리터럴\nObject 생성자 함수\n생성자 함수\nObject.create 메서드\n클래스 (ES6)\n\n\n객체 리터럴은 자바스크립트의 유연함과 강력함을 대표하는 객체 생성 방식임\n\n리터럴(literal) : 사람이 이해할 수 있는 문자나 약속된 기호를 사용하여 값을 생성하는 표기법\n\n\n\ncf. 클래스 기반 객체지향 언어(C++나 JAVA)클래스를 사전에 정의하고 필요한 시점에 new 연산자와 함께 생성자를 호출하여 인스턴스를 생성하는 방식으로 객체를 생성객체 리터럴을 이용한 객체 생성 방법\n중괄호 {} 이용하며 콤마(,)로 구분\n각 멤버는 콜론(:)으로 키와 초기값이 구분\n(주의!) 객체 리터럴 내 중괄호는 코드 블록을 의미하지 않으므로 객체 리터럴의 닫는 중괄호 뒤에는 세미콜론을 붙여야 함\n\n123456var person = &#123;  name: &quot;foo&quot;,  age: 20,&#125;;console.log(person); // &#123;name: &quot;Lee&quot;, age : 20&#125;\n\n3) 프로퍼티(property)\n\n객체는 프로퍼티의 집합이며 프로퍼티는 키와 값으로 구성됨\n\n프로퍼티 키 :\n빈 문자열을 포함하는 모든 문자열 또는 심벌 값\n프로퍼티 값에 접근할 수 있는 이름으로서 식별자 역할\n자바스크립트에서 사용 가능한 유효한 이름인 경우 따옴표 생략 가능\n식별자 네이밍 규칙을 따르지 않는 이름에는 반드시 따옴표를 사용해야 함\n\n\n프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값\n\n\n프로퍼티 값 갱신 - 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신됨\n\n프로퍼티 동적 생성 - 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되어 추가되고 프로퍼티 값이 할당됨\n\n프로퍼티 값 삭제 - delete 연산자는 객체의 프로퍼티를 삭제함\n\n\n123456789101112var person = &#123;  name: &quot;Lee&quot;,&#125;;// 프로퍼티 값 갱신person.name = &quot;Kim&quot;;// 프로퍼티 동적 생성person.age = 20;// 프로퍼티 값 삭제delete person.age;console.log(person); // &#123;name: &quot;Kim&quot;&#125;\n\n3.1. 프로퍼티 접근123456789var person = &#123;  name: &quot;Lee&quot;,&#125;;// 마침표 표기법에 의한 프로퍼티 접근console.log(person.name); // Lee// 대괄호 표기법에 의한 프로퍼티 접근console.log(person[&quot;name&quot;]); // Lee\n\n\n마침표 표기법(dot notation) : 마침표 프로퍼티 접근 연산자(.)를 사용\n대괄호 표기법(bracket notation) : 대괄호 프로퍼티 접근 연산자([…])를 사용\n자바스크립트에서 사용 가능한 유효한 이름이 아니면 반드시 대괄호 표기법을 사용해야 함\n대괄호 내 반드시 따옴표로 감싼 문자열 (예외 : 숫자)따옴표로 감싸지 않으며 자바스크립트가 식별자로 인식함\n\n\n\n(주의!) 객체에 존재하지 않는 프로퍼티에 접근하면 ReferenceError가 아닌 undefined를 반환함\n4) 메서드(method)\n\n프로퍼티 값이 함수일 경우 일반 함수와 구분을 위해 메서드라고 함\n객체에 묶여있는 함수\n","dateCreated":"2020-08-26T15:45:16+09:00","dateModified":"2020-08-26T18:08:16+09:00","datePublished":"2020-08-26T15:45:16+09:00","description":"\n\n자바스크립트는 객체기반 언어이며, 객체 리터럴을 통해 객체를 생성하고 객체는 프로퍼티로 구성되었다. 프로퍼티와 함수로 된 프로퍼티인 메서드에 대해 알아보자.","headline":"10. 객체 리터럴","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/26/JS-10/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/26/JS-10/","keywords":"javascript"}</script>
     <meta name="description" content="자바스크립트는 객체기반 언어이며, 객체 리터럴을 통해 객체를 생성하고 객체는 프로퍼티로 구성되었다. 프로퍼티와 함수로 된 프로퍼티인 메서드에 대해 알아보자.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="10. 객체 리터럴">
@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/26/JS-10/10.png">
 <meta property="article:published_time" content="2020-08-26T06:45:16.000Z">
-<meta property="article:modified_time" content="2020-08-26T08:13:53.246Z">
+<meta property="article:modified_time" content="2020-08-26T09:08:16.912Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -270,10 +270,6 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-
-<blockquote>
-<p>🐞Keyword #객체 리터럴 #프로퍼티 #메서드</p>
-</blockquote>
 <h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%EA%B0%9D%EC%B2%B4%EB%9E%80"><span class="toc-text">1) 객체란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%EA%B0%9D%EC%B2%B4-%EB%A6%AC%ED%84%B0%EB%9F%B4%EC%97%90-%EC%9D%98%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1"><span class="toc-text">2) 객체 리터럴에 의한 객체 생성</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%A6%AC%ED%84%B0%EB%9F%B4%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%EB%B0%A9%EB%B2%95"><span class="toc-text">객체 리터럴을 이용한 객체 생성 방법</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-property"><span class="toc-text">3) 프로퍼티(property)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%91%EA%B7%BC"><span class="toc-text">3.1. 프로퍼티 접근</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EB%A9%94%EC%84%9C%EB%93%9C-method"><span class="toc-text">4) 메서드(method)</span></a></li></ol>
 
 <h2 id="1-객체란"><a href="#1-객체란" class="headerlink" title="1) 객체란?"></a>1) 객체란?</h2><hr>
@@ -295,7 +291,7 @@
 <ul>
 <li><p>자바스크립트는 <strong>프로토타입 기반 객체지향 언어</strong></p>
 </li>
-<li><p>다음과 같이 다양하게 객체를 생성할 수 있으며 가장 일반적인 것이 <strong>객체 리터럴</strong>을 사용하는 것<br>자바스크립트의 유연함과 강력함을 대표하는 객체 생성 방식</p>
+<li><p>다음과 같이 다양하게 객체를 생성할 수 있으며 가장 일반적인 것이 <strong>객체 리터럴</strong>을 사용하는 것</p>
 <ul>
 <li>객체 리터럴</li>
 <li>Object 생성자 함수</li>
@@ -303,6 +299,8 @@
 <li>Object.create 메서드</li>
 <li>클래스 (ES6)</li>
 </ul>
+</li>
+<li><p>객체 리터럴은 자바스크립트의 유연함과 강력함을 대표하는 객체 생성 방식임</p>
 <blockquote>
 <p>리터럴(literal) : 사람이 이해할 수 있는 문자나 약속된 기호를 사용하여 값을 생성하는 표기법</p>
 </blockquote>
@@ -317,7 +315,8 @@
 
 <h2 id="3-프로퍼티-property"><a href="#3-프로퍼티-property" class="headerlink" title="3) 프로퍼티(property)"></a>3) 프로퍼티(property)</h2><hr>
 <ul>
-<li>객체는 프로퍼티의 집합이며 프로퍼티는 키와 값으로 구성됨<ul>
+<li><p>객체는 프로퍼티의 집합이며 프로퍼티는 키와 값으로 구성됨</p>
+<ul>
 <li>프로퍼티 키 :<ul>
 <li>빈 문자열을 포함하는 모든 문자열 또는 심벌 값</li>
 <li>프로퍼티 값에 접근할 수 있는 이름으로서 식별자 역할</li>
@@ -328,8 +327,13 @@
 <li>프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값</li>
 </ul>
 </li>
+<li><p><strong>프로퍼티 값 갱신</strong> - 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신됨</p>
+</li>
+<li><p><strong>프로퍼티 동적 생성</strong> - 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되어 추가되고 프로퍼티 값이 할당됨</p>
+</li>
+<li><p><strong>프로퍼티 값 삭제</strong> - delete 연산자는 객체의 프로퍼티를 삭제함</p>
+</li>
 </ul>
-<p><strong>프로퍼티 값 갱신</strong> - 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신됨<br><strong>프로퍼티 동적 생성</strong> - 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되어 추가되고 프로퍼티 값이 할당됨<br><strong>프로퍼티 값 삭제</strong> - delete 연산자는 객체의 프로퍼티를 삭제함</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">&quot;Lee&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 값 갱신</span></span><br><span class="line">person.name = <span class="string">&quot;Kim&quot;</span>;</span><br><span class="line"><span class="comment">// 프로퍼티 동적 생성</span></span><br><span class="line">person.age = <span class="number">20</span>;</span><br><span class="line"><span class="comment">// 프로퍼티 값 삭제</span></span><br><span class="line"><span class="keyword">delete</span> person.age;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Kim&quot;&#125;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="3-1-프로퍼티-접근"><a href="#3-1-프로퍼티-접근" class="headerlink" title="3.1. 프로퍼티 접근"></a>3.1. 프로퍼티 접근</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">&quot;Lee&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 마침표 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 대괄호 표기법에 의한 프로퍼티 접근</span></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">&quot;name&quot;</span>]); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
