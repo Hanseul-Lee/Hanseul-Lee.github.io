@@ -11,16 +11,16 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 타입 변환정의12💡 타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성(원시값은 변경 불가능한 값)\n\n\n명시적 타입 변환, 타입 캐스팅(type casting): 개발자에 의한 의도적 타입변환\n암묵적 타입 변환, 타입 강제 변환(type coercion) : 자바스크립트 엔진에 의한 강제적 타입 변환\n\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.\n\n2) 암묵적 타입 변환2.1. 문자열 타입으로 변환1234567891 + &quot;2&quot; &#x2F;&#x2F; -&gt; &quot;12&quot;&#x2F;&#x2F; 템플릿 리터럴&#96;1 + 1 &#x3D; $&#123;1 + 1&#125;&#96;; &#x2F;&#x2F; -&gt; &quot;1 + 1 &#x3D; 2&quot;0 +&quot;&quot; - &#x2F;&#x2F; -&gt; &quot;0&quot;1 +&quot;&quot;; &#x2F;&#x2F; -&gt; &quot;-1&quot;true +&quot;&quot;&#x2F;&#x2F; -&gt; &quot;true&quot;[(10, 20)] + &quot;&quot;; &#x2F;&#x2F; -&gt; &quot;10,20&quot;\n\n\n연산자는 피연산자 중 하나 이상이 문자열이므로 문자열 연결 연산자로 동작\n\n2.2. 숫자 타입으로 변환\n산술 연산자\n피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN\n\n\n1231 - &quot;1&quot;; // -&gt; 01 * &quot;10&quot;; // -&gt; 101 / &quot;one&quot;; // -&gt; NaN\n\n\n비교 연산자불리언 값을 만듦\n\n1&quot;1&quot; &gt; 0; // -&gt; true\n\n\n단항 연산자빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환\n\n1234567891011+&quot;0&quot; + // -&gt; 0&quot;1&quot; + // -&gt; 1&quot;string&quot; + // -&gt; NaNtrue + // -&gt; 1false + // -&gt; 0null + // -&gt; 0undefined + // -&gt; NaN&#123;&#125; + // -&gt; NaN[] + // -&gt; 0[10, 20] + // -&gt; NaN  function () &#123;&#125;; // -&gt; NaN\n\n2.3. 불리언 타입으로 변환\n자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분\n\nFalsy 값 :false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)\n\nTruthy 값:\nFalsy 값 외의 모든 값\n\n\n1234567if (&quot;&quot;) console.log(&quot;1&quot;);if (true) console.log(&quot;2&quot;);if (0) console.log(&quot;3&quot;);if (&quot;str&quot;) console.log(&quot;4&quot;);if (null) console.log(&quot;5&quot;);// 2 4\n\n3) 명시적 타입 변환3.1. 문자열 타입으로 변환\nString 생성자 함수를 new 연산자 없이 호출하는 방법\nObject.prototype.toString 메서드를 사용하는 방법\n문자열 연결 연산자를 이용하는 방법\n\n12345678910111213141516// 1. string 생성자 함수String(1); // -&gt; &quot;1&quot;String(NaN); // -&gt; &quot;NaN&quot;String(true); // -&gt; &quot;true&quot;// 2. Object.prototype.toString 메서드(1).toString(); // -&gt; &quot;1&quot;NaN.toString(); // -&gt; &quot;NaN&quot;true.toString(); // -&gt; &quot;true&quot;// 3. 문자열 연결 연산자 이용1 + &quot;&quot;; // -&gt; &quot;1&quot;NaN + &quot;&quot;; // -&gt; &quot;NaN&quot;Infinity + &quot;&quot;; // -&gt; &quot;Infinity&quot;// 불리언 타입 =&gt; 문자열 타입true + &quot;&quot;; // -&gt; &quot;true&quot;\n\n3.2. 숫자 타입으로 변환\nNumber 생성자 함수를 new 연산자 없이 호출하는 방법\nparseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)\n\n단항 산술 연산자를 이용하는 방법\n\n\n산술 연산자를 이용하는 방법\n\n123456789101112131415161718// 1. Number 생성자 함수Number(&quot;0&quot;); // -&gt; 0Number(&quot;-1&quot;); // -&gt; -1Number(true); // -&gt; 1// 2. parseInt, parseFloat 함수를 사용parseInt(&quot;0&quot;); // -&gt; 0// 3. + 단항 산술 연산자를 이용+&quot;0&quot;; // -&gt; 0+&quot;-1&quot;; // -&gt; -1+true; // -&gt; 1+false; // -&gt; 0// 4. 산술 연산자를 이용&quot;0&quot; * 1; // -&gt; 0true * 1; // -&gt; 1false * 1; // -&gt; 0\n\n3.3. 불리언 타입으로 변환\nBoolean 생성자 함수를 new 연산자 없이 호출하는 방법\n! 부정 논리 연산자를 두 번 사용하는 방법\n\n12345678910111213141516171819202122232425// 1. Boolean 생성자 함수Boolean(&quot;x&quot;); // -&gt; trueBoolean(&quot;&quot;); // -&gt; falseBoolean(&quot;false&quot;); // -&gt; trueBoolean(0); // -&gt; falseBoolean(1); // -&gt; trueBoolean(NaN); // -&gt; falseBoolean(Infinity); // -&gt; trueBoolean(null); // -&gt; falseBoolean(undefined); // -&gt; false// 2. ! 부정 논리 연산자를 두 번 사용!!&quot;x&quot;; // -&gt; true!!&quot;&quot;; // -&gt; false!!&quot;false&quot;; // -&gt; true!!0; // -&gt; false!!1; // -&gt; true!!NaN; // -&gt; false!!Infinity; // -&gt; true!!null; // -&gt; false!!undefined; // -&gt; false\n\n4) 단축 평가4.1. 논리 연산자를 사용한 단축 평가논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있음논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.\n단축 평가 : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것\n따라서 논리합(||)과 논리곱(&amp;&amp;) 연산자는 피연산자를 타입 변환하지 않고 그대로 반환\n1234true || anything; // truefalse || anything; // anythingtrue &amp;&amp; anything; // anythingfalse &amp;&amp; anything; // false\n\n\n예제\n\n1&quot;Cat&quot; &amp;&amp; &quot;Dog&quot;; // -&gt; &quot;Dog&quot;\n\n논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환여기서 ‘Cat’은 true그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨즉, 논리곱 연산자는 논리 연산의 결과를 결정하는 두 번째 피연산자, 즉 문자열 ‘Dog’를 그대로 반환!\n마찬가지로\n1&quot;Cat&quot; || &quot;Dog&quot;; // -&gt; &quot;Cat&quot;\n\n\n단축 평가를 사용하면 if 문을 대체가능\n\n주어진 조건이 true\n\n12345678910var done = true;var message = &quot;&quot;;// 주어진 조건이 true일 때if (done) message = &quot;완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 true라면 message에 &#x27;완료&#x27;를 할당message = done &amp;&amp; &quot;완료&quot;;console.log(message); // 완료\n\n\n주어진 조건이 false\n\n12345678910var done = false;var message = &quot;&quot;;// 주어진 조건이 false일 때if (!done) message = &quot;미완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 false라면 message에 &#x27;미완료&#x27;를 할당message = done || &quot;미완료&quot;;console.log(message); // 미완료\n\n\nif…else 문\n\n1234567891011var done = true;var message = &quot;&quot;;// if...else 문if (done) message = &quot;완료&quot;;else message = &quot;미완료&quot;;console.log(message); // 완료// if...else 문은 삼항 조건 연산자로 대체 가능하다.message = done ? &quot;완료&quot; : &quot;미완료&quot;;console.log(message); // 완료\n\n\n\n4.2. 옵셔널 체이닝 연산자💡 옵셔널 체이닝(optional chaining) 연산자:  ?.\n좌항이 null 또는 undefined → undefined그렇지 않으면 우항의 프로퍼티 참조를 이어감\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용\n\n4.3. null 병합 연산자💡 null 병합(nullish coalescing) 연산자 : ??\n좌항이 null 또는 undefined → 우항의 피연산자를 반환그렇지 않으면 좌항의 피연산자를 반환\n\n변수에 기본값을 설정할 때 유용\n","dateCreated":"2020-08-25T01:00:00+09:00","dateModified":"2020-08-25T23:03:07+09:00","datePublished":"2020-08-25T01:00:00+09:00","description":"\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.","headline":"9. 타입 변환과 단축 평가","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/","keywords":"javascript"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 타입 변환정의12💡 타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성(원시값은 변경 불가능한 값)\n\n\n명시적 타입 변환, 타입 캐스팅(type casting): 개발자에 의한 의도적 타입변환\n암묵적 타입 변환, 타입 강제 변환(type coercion) : 자바스크립트 엔진에 의한 강제적 타입 변환\n\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.\n\n2) 암묵적 타입 변환2.1. 문자열 타입으로 변환1234567891 + &quot;2&quot; &#x2F;&#x2F; -&gt; &quot;12&quot;&#x2F;&#x2F; 템플릿 리터럴&#96;1 + 1 &#x3D; $&#123;1 + 1&#125;&#96;; &#x2F;&#x2F; -&gt; &quot;1 + 1 &#x3D; 2&quot;0 +&quot;&quot; - &#x2F;&#x2F; -&gt; &quot;0&quot;1 +&quot;&quot;; &#x2F;&#x2F; -&gt; &quot;-1&quot;true +&quot;&quot;&#x2F;&#x2F; -&gt; &quot;true&quot;[(10, 20)] + &quot;&quot;; &#x2F;&#x2F; -&gt; &quot;10,20&quot;\n\n\n연산자는 피연산자 중 하나 이상이 문자열이므로 문자열 연결 연산자로 동작\n\n2.2. 숫자 타입으로 변환\n산술 연산자\n피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN\n\n\n1231 - &quot;1&quot;; // -&gt; 01 * &quot;10&quot;; // -&gt; 101 / &quot;one&quot;; // -&gt; NaN\n\n\n비교 연산자불리언 값을 만듦\n\n1&quot;1&quot; &gt; 0; // -&gt; true\n\n\n단항 연산자빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환\n\n1234567891011+&quot;0&quot; + // -&gt; 0  &quot;1&quot; + // -&gt; 1  &quot;string&quot; + // -&gt; NaN  true + // -&gt; 1  false + // -&gt; 0  null + // -&gt; 0  undefined + // -&gt; NaN  &#123;&#125; + // -&gt; NaN  [] + // -&gt; 0  [10, 20] + // -&gt; NaN  function () &#123;&#125;; // -&gt; NaN\n\n2.3. 불리언 타입으로 변환\n자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분\n\nFalsy 값 :false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)\n\nTruthy 값:\nFalsy 값 외의 모든 값\n\n\n1234567if (&quot;&quot;) console.log(&quot;1&quot;);if (true) console.log(&quot;2&quot;);if (0) console.log(&quot;3&quot;);if (&quot;str&quot;) console.log(&quot;4&quot;);if (null) console.log(&quot;5&quot;);// 2 4\n\n3) 명시적 타입 변환3.1. 문자열 타입으로 변환\nString 생성자 함수를 new 연산자 없이 호출하는 방법\nObject.prototype.toString 메서드를 사용하는 방법\n문자열 연결 연산자를 이용하는 방법\n\n12345678910111213141516// 1. string 생성자 함수String(1); // -&gt; &quot;1&quot;String(NaN); // -&gt; &quot;NaN&quot;String(true); // -&gt; &quot;true&quot;// 2. Object.prototype.toString 메서드(1).toString(); // -&gt; &quot;1&quot;NaN.toString(); // -&gt; &quot;NaN&quot;true.toString(); // -&gt; &quot;true&quot;// 3. 문자열 연결 연산자 이용1 + &quot;&quot;; // -&gt; &quot;1&quot;NaN + &quot;&quot;; // -&gt; &quot;NaN&quot;Infinity + &quot;&quot;; // -&gt; &quot;Infinity&quot;// 불리언 타입 =&gt; 문자열 타입true + &quot;&quot;; // -&gt; &quot;true&quot;\n\n3.2. 숫자 타입으로 변환\nNumber 생성자 함수를 new 연산자 없이 호출하는 방법\nparseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)\n\n단항 산술 연산자를 이용하는 방법\n\n\n산술 연산자를 이용하는 방법\n\n123456789101112131415161718// 1. Number 생성자 함수Number(&quot;0&quot;); // -&gt; 0Number(&quot;-1&quot;); // -&gt; -1Number(true); // -&gt; 1// 2. parseInt, parseFloat 함수를 사용parseInt(&quot;0&quot;); // -&gt; 0// 3. + 단항 산술 연산자를 이용+&quot;0&quot;; // -&gt; 0+&quot;-1&quot;; // -&gt; -1+true; // -&gt; 1+false; // -&gt; 0// 4. 산술 연산자를 이용&quot;0&quot; * 1; // -&gt; 0true * 1; // -&gt; 1false * 1; // -&gt; 0\n\n3.3. 불리언 타입으로 변환\nBoolean 생성자 함수를 new 연산자 없이 호출하는 방법\n! 부정 논리 연산자를 두 번 사용하는 방법\n\n12345678910111213141516171819202122232425// 1. Boolean 생성자 함수Boolean(&quot;x&quot;); // -&gt; trueBoolean(&quot;&quot;); // -&gt; falseBoolean(&quot;false&quot;); // -&gt; trueBoolean(0); // -&gt; falseBoolean(1); // -&gt; trueBoolean(NaN); // -&gt; falseBoolean(Infinity); // -&gt; trueBoolean(null); // -&gt; falseBoolean(undefined); // -&gt; false// 2. ! 부정 논리 연산자를 두 번 사용!!&quot;x&quot;; // -&gt; true!!&quot;&quot;; // -&gt; false!!&quot;false&quot;; // -&gt; true!!0; // -&gt; false!!1; // -&gt; true!!NaN; // -&gt; false!!Infinity; // -&gt; true!!null; // -&gt; false!!undefined; // -&gt; false\n\n4) 단축 평가4.1. 논리 연산자를 사용한 단축 평가논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있음논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.\n단축 평가 : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것\n따라서 논리합(||)과 논리곱(&amp;&amp;) 연산자는 피연산자를 타입 변환하지 않고 그대로 반환\n1234true || anything; // truefalse || anything; // anythingtrue &amp;&amp; anything; // anythingfalse &amp;&amp; anything; // false\n\n\n예제\n\n1&quot;Cat&quot; &amp;&amp; &quot;Dog&quot;; // -&gt; &quot;Dog&quot;\n\n논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환여기서 ‘Cat’은 true그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨즉, 논리곱 연산자는 논리 연산의 결과를 결정하는 두 번째 피연산자, 즉 문자열 ‘Dog’를 그대로 반환!\n마찬가지로\n1&quot;Cat&quot; || &quot;Dog&quot;; // -&gt; &quot;Cat&quot;\n\n\n단축 평가를 사용하면 if 문을 대체가능\n\n주어진 조건이 true\n\n12345678910var done = true;var message = &quot;&quot;;// 주어진 조건이 true일 때if (done) message = &quot;완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 true라면 message에 &#x27;완료&#x27;를 할당message = done &amp;&amp; &quot;완료&quot;;console.log(message); // 완료\n\n\n주어진 조건이 false\n\n12345678910var done = false;var message = &quot;&quot;;// 주어진 조건이 false일 때if (!done) message = &quot;미완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 false라면 message에 &#x27;미완료&#x27;를 할당message = done || &quot;미완료&quot;;console.log(message); // 미완료\n\n\nif…else 문\n\n1234567891011var done = true;var message = &quot;&quot;;// if...else 문if (done) message = &quot;완료&quot;;else message = &quot;미완료&quot;;console.log(message); // 완료// if...else 문은 삼항 조건 연산자로 대체 가능하다.message = done ? &quot;완료&quot; : &quot;미완료&quot;;console.log(message); // 완료\n\n\n\n4.2. 옵셔널 체이닝 연산자💡 옵셔널 체이닝(optional chaining) 연산자:  ?.\n좌항이 null 또는 undefined → undefined그렇지 않으면 우항의 프로퍼티 참조를 이어감\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용\n\n4.3. null 병합 연산자💡 null 병합(nullish coalescing) 연산자 : ??\n좌항이 null 또는 undefined → 우항의 피연산자를 반환그렇지 않으면 좌항의 피연산자를 반환\n\n변수에 기본값을 설정할 때 유용\n","dateCreated":"2020-08-25T00:26:00+09:00","dateModified":"2020-08-26T21:40:37+09:00","datePublished":"2020-08-25T00:26:00+09:00","description":"\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.","headline":"9. 타입 변환과 단축 평가","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/JS-9/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/JS-9/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="9. 타입 변환과 단축 평가">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/index.html">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/25/JS-9/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:description" content="자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-25T14:03:07.393Z">
+<meta property="article:published_time" content="2020-08-24T15:26:00.000Z">
+<meta property="article:modified_time" content="2020-08-26T12:40:37.453Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -31,6 +31,9 @@
     
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
     
     
     
@@ -68,7 +71,7 @@
         
     
 
-<header id="header" data-behavior="5">
+<header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a
@@ -101,7 +104,7 @@
         
     
 
-<nav id="sidebar" data-behavior="5">
+<nav id="sidebar" data-behavior="2">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -231,7 +234,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="5"
+            <div id="main" data-behavior="2"
                  class="
                         hasCoverMetaIn
                         ">
@@ -247,7 +250,7 @@
     
     
         <div class="post-meta">
-    <time datetime="2020-08-25T01:00:00+09:00">
+    <time datetime="2020-08-25T00:26:00+09:00">
 	
 		    Aug 25, 2020
     	
@@ -299,7 +302,7 @@
 <ul>
 <li>단항 연산자<br>빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">&quot;0&quot;</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="string">&quot;1&quot;</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="string">&quot;string&quot;</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line"><span class="literal">true</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="literal">false</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">null</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">undefined</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line">&#123;&#125; + <span class="comment">// -&gt; NaN</span></span><br><span class="line">[] + <span class="comment">// -&gt; 0</span></span><br><span class="line">[<span class="number">10</span>, <span class="number">20</span>] + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">&quot;0&quot;</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line">  <span class="string">&quot;1&quot;</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line">  <span class="string">&quot;string&quot;</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  <span class="literal">true</span> + <span class="comment">// -&gt; 1</span></span><br><span class="line">  <span class="literal">false</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line">  <span class="literal">null</span> + <span class="comment">// -&gt; 0</span></span><br><span class="line">  <span class="literal">undefined</span> + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  &#123;&#125; + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  [] + <span class="comment">// -&gt; 0</span></span><br><span class="line">  [<span class="number">10</span>, <span class="number">20</span>] + <span class="comment">// -&gt; NaN</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="2-3-불리언-타입으로-변환"><a href="#2-3-불리언-타입으로-변환" class="headerlink" title="2.3. 불리언 타입으로 변환"></a>2.3. 불리언 타입으로 변환</h3><ul>
 <li><p>자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분</p>
@@ -416,7 +419,7 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/8.%20%EC%A0%9C%EC%96%B4%EB%AC%B8/"
+                    href="/2020/08/25/JS-8/"
                     data-tooltip="8. 제어문"
                     aria-label="NEXT: 8. 제어문"
                 >
@@ -443,7 +446,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -456,7 +459,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -469,7 +472,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -508,7 +511,7 @@
 
             </div>
             
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
                     <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -531,7 +534,7 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/8.%20%EC%A0%9C%EC%96%B4%EB%AC%B8/"
+                    href="/2020/08/25/JS-8/"
                     data-tooltip="8. 제어문"
                     aria-label="NEXT: 8. 제어문"
                 >
@@ -558,7 +561,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -571,7 +574,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -584,7 +587,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -608,7 +611,7 @@
 
                 </div>
                 
-    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <div id="share-options-bar" class="share-options-bar" data-behavior="2">
         <i id="btn-close-shareoptions" class="fa fa-times"></i>
         <ul class="share-options">
             
@@ -618,7 +621,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -631,7 +634,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -644,7 +647,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/9.%20%ED%83%80%EC%9E%85%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%8B%A8%EC%B6%95%ED%8F%89%EA%B0%80/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/25/JS-9/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
@@ -685,6 +688,12 @@
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
         
     </div>
 </div>

@@ -6,26 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>4. 변수 - HS&#39;s blog</title>
+    <title>5. 표현식과 문 - HS&#39;s blog</title>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n💡 변수(variable)\n    : 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간\n: 값의 위치를 가리키는 상징적인 이름\n1) 변수 선언\nvar / let / const\nvar 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 undefined라는 값을 갖는다.\n\nundefined : javascript에서 제공하는 원시 타입의 값(primitive value) ,변경 불가능한 값임\n\n\n\n2) 값의 할당1234var score; // 변수 선언score = 1; // 값의 할당var score = 1; // 변수 선언과 값 할당\n\n\n3) 값의 재할당12var score = 80; // 변수 선언과 값의 할당score = 90; // 값의 재할당\n\n\nconst (상수) : 한 번 정해지면 변하지 않는 값∴ 재할당 불가능!\n\n4) 변수 호이스팅\n자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 소스코드의 어디에 위치하는지와 상관없이 어디서든지 변수를 참조할 수 있다.\n\n123456789console.log(score); // undefinedscore = 90;var score;console.log(score); // 90//마치 이렇게 출력한 것과 같이 받아들인다.var score;console.log(score); // undefinedscore = 90;\n\n참고로변수 선언은 소스코드가 순차적으로 실행되는 시점인 런타임 이전에 먼저 실행값의 할당은 소스코드가 순차적으로 실행되는 시점인 런타임에 실행\n이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 변수 호이스팅(variable hoisting) 이라 함.\n5) 식별자💡 식별자(identifier) : 어떤 값을 구별해서 식별할 수 있는 고유한 이름\n값이 아니라 메모리 주소를 기억함 . 즉, 메모리 주소에 붙인 이름\n\n식별자 네이밍 규칙\n\n문자, 숫자, underscore(_), 달러기호($)\n문자, underscore(_), 달러기호($) 로만 시작가능 (숫자로 시작 불가❌)\n사용불가❌ : 특수문자, 예약어(function var this class true 등)\n변수나 함수의 이름에는 카멜 케이스생성자 함수, 클래스의 이름에는 파스칼 케이스 사용\n\n12345// 카멜 케이스 (camelCase)var firstName;// 파스칼 케이스 (PascalCase)var FirstName;\n\n","dateCreated":"2020-08-19T14:55:23+09:00","dateModified":"2020-08-26T17:54:57+09:00","datePublished":"2020-08-19T14:55:23+09:00","description":"\n\n변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.","headline":"4. 변수","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/","keywords":"javascript"}</script>
-    <meta name="description" content="변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 값(value)💡 값 : 식(표현식, expression)이 평가되어 생성된 결과\n\n실제 메모리에 저장되는 최소단위\n\n12// 변수에는 10 + 20이 평가되어 생성된 숫자 값 30이 할당된다.var sum = 10 + 20;\n\n2) 리터럴(literal)💡 리터럴 : 사람이 이해할 수 있는 문자 또는 약속된 기호를 사용해 값을 생성하는 표기 방식\n\n사람이 이해할 수 있는 문자(아라비아 숫자, 알파벳, 한글 등) 또는미리 약속된 기호(‘’, “”, ., [], {}, // 등)로 표기한 코드\n값을 생성하기 위해 미리 약속한 표기법\n\n3) 표현식(expression)💡 표현식 : 값으로 평가될 수 있는 문(statement)\n\n표현식은 리터럴, 식별자(변수, 함수 등의 이름), 연산자, 함수 호출 등의 조합\n\n4) 문(statement)💡 문 : 프로그램을 구성하는 기본 단위이자 최소 실행 단위\n\n5) 표현식인 문과 표현식이 아닌 문\n표현식인 문과 표현식이 아닌 문을 구별하는 가장 간단하고 명료한 방법은변수에 할당해 보는 것\n\n표현식인 문 : 값으로 평가됨 → 변수에 할당 가능표현식이 아닌 문 : 값으로 평가할 수 X → 변수에 할당 X","dateCreated":"2020-08-21T00:00:00+09:00","dateModified":"2020-08-26T21:28:53+09:00","datePublished":"2020-08-21T00:00:00+09:00","description":"\n\n표현식은 값으로 평가될 수 있는 문(statement)이며 리터럴, 식별자(변수, 함수 등의 이름), 연산자, 함수 호출 등의 조합이다.","headline":"5. 표현식과 문","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/21/JS-5/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/21/JS-5/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="표현식은 값으로 평가될 수 있는 문(statement)이며 리터럴, 식별자(변수, 함수 등의 이름), 연산자, 함수 호출 등의 조합이다.">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="4. 변수">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/index.html">
+<meta property="og:title" content="5. 표현식과 문">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/21/JS-5/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.">
+<meta property="og:description" content="표현식은 값으로 평가될 수 있는 문(statement)이며 리터럴, 식별자(변수, 함수 등의 이름), 연산자, 함수 호출 등의 조합이다.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/img/%EB%B3%80%EC%88%981.jpg">
-<meta property="article:published_time" content="2020-08-19T05:55:23.000Z">
-<meta property="article:modified_time" content="2020-08-26T08:54:57.847Z">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/21/img/%EB%AC%B8.jpg">
+<meta property="article:published_time" content="2020-08-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-26T12:28:53.141Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/19/img/%EB%B3%80%EC%88%981.jpg">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/21/img/%EB%AC%B8.jpg">
     
     
         
@@ -33,6 +33,9 @@
     
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/21/JS-5/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/21/JS-5/js.png"/>
     
     
     
@@ -70,7 +73,7 @@
         
     
 
-<header id="header" data-behavior="5">
+<header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a
@@ -103,7 +106,7 @@
         
     
 
-<nav id="sidebar" data-behavior="5">
+<nav id="sidebar" data-behavior="2">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -233,7 +236,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="5"
+            <div id="main" data-behavior="2"
                  class="
                         hasCoverMetaIn
                         ">
@@ -244,14 +247,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            4. 변수
+            5. 표현식과 문
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-08-19T14:55:23+09:00">
+    <time datetime="2020-08-21T00:00:00+09:00">
 	
-		    Aug 19, 2020
+		    Aug 21, 2020
     	
     </time>
     
@@ -270,47 +273,29 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8"><span class="toc-text">1) 변수 선언</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%EA%B0%92%EC%9D%98-%ED%95%A0%EB%8B%B9"><span class="toc-text">2) 값의 할당</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%EA%B0%92%EC%9D%98-%EC%9E%AC%ED%95%A0%EB%8B%B9"><span class="toc-text">3) 값의 재할당</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EB%B3%80%EC%88%98-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85"><span class="toc-text">4) 변수 호이스팅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%EC%8B%9D%EB%B3%84%EC%9E%90"><span class="toc-text">5) 식별자</span></a></li></ol>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%EA%B0%92-value"><span class="toc-text">1) 값(value)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%EB%A6%AC%ED%84%B0%EB%9F%B4-literal"><span class="toc-text">2) 리터럴(literal)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%ED%91%9C%ED%98%84%EC%8B%9D-expression"><span class="toc-text">3) 표현식(expression)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EB%AC%B8-statement"><span class="toc-text">4) 문(statement)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%ED%91%9C%ED%98%84%EC%8B%9D%EC%9D%B8-%EB%AC%B8%EA%B3%BC-%ED%91%9C%ED%98%84%EC%8B%9D%EC%9D%B4-%EC%95%84%EB%8B%8C-%EB%AC%B8"><span class="toc-text">5) 표현식인 문과 표현식이 아닌 문</span></a></li></ol>
 
-<pre><code>💡 변수(variable)
-    : 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간</code></pre>
-<p>: 값의 위치를 가리키는 상징적인 이름</p>
-<h2 id="1-변수-선언"><a href="#1-변수-선언" class="headerlink" title="1) 변수 선언"></a>1) 변수 선언</h2><ul>
-<li><p>var / let / const</p>
-<p>var 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 <code>undefined</code>라는 값을 갖는다.</p>
+<h2 id="1-값-value"><a href="#1-값-value" class="headerlink" title="1) 값(value)"></a>1) 값(value)</h2><pre><code>💡 값 : 식(표현식, expression)이 평가되어 생성된 결과</code></pre>
 <ul>
-<li><code>undefined</code> : javascript에서 제공하는 원시 타입의 값(primitive value) ,<br>변경 불가능한 값임</li>
+<li>실제 메모리에 저장되는 최소단위</li>
 </ul>
-</li>
-</ul>
-<h2 id="2-값의-할당"><a href="#2-값의-할당" class="headerlink" title="2) 값의 할당"></a>2) 값의 할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score; <span class="comment">// 변수 선언</span></span><br><span class="line">score = <span class="number">1</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">1</span>; <span class="comment">// 변수 선언과 값 할당</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 변수에는 10 + 20이 평가되어 생성된 숫자 값 30이 할당된다.</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="number">10</span> + <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="../img/%EB%B3%80%EC%88%981.jpg" alt="값의 할당"></p>
-<h2 id="3-값의-재할당"><a href="#3-값의-재할당" class="headerlink" title="3) 값의 재할당"></a>3) 값의 재할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>; <span class="comment">// 변수 선언과 값의 할당</span></span><br><span class="line">score = <span class="number">90</span>; <span class="comment">// 값의 재할당</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="2-리터럴-literal"><a href="#2-리터럴-literal" class="headerlink" title="2) 리터럴(literal)"></a>2) 리터럴(literal)</h2><pre><code>💡 리터럴 : 사람이 이해할 수 있는 문자 또는 약속된 기호를 사용해 값을 생성하는 표기 방식</code></pre>
 <ul>
-<li><strong>const (상수)</strong> : 한 번 정해지면 변하지 않는 값<br>∴ <strong>재할당 불가능</strong>!</li>
+<li>사람이 이해할 수 있는 문자(아라비아 숫자, 알파벳, 한글 등) 또는<br>미리 약속된 기호(‘’, “”, ., [], {}, // 등)로 표기한 코드</li>
+<li>값을 생성하기 위해 미리 약속한 표기법</li>
 </ul>
-<h2 id="4-변수-호이스팅"><a href="#4-변수-호이스팅" class="headerlink" title="4) 변수 호이스팅"></a>4) 변수 호이스팅</h2><ul>
-<li>자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 <strong>소스코드의 어디에 위치하는지와 상관없이</strong> 어디서든지 변수를 참조할 수 있다.</li>
-</ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// 90</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//마치 이렇게 출력한 것과 같이 받아들인다.</span></span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br></pre></td></tr></table></figure>
-
-<p>참고로<br><strong>변수 선언</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임 이전에 먼저 실행</strong><br><strong>값의 할당</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임에 실행</strong></p>
-<p>이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 <strong>변수 호이스팅(variable hoisting)</strong> 이라 함.</p>
-<h2 id="5-식별자"><a href="#5-식별자" class="headerlink" title="5) 식별자"></a>5) 식별자</h2><pre><code>💡 식별자(identifier) : 어떤 값을 구별해서 식별할 수 있는 고유한 이름</code></pre>
-<p>값이 아니라 <strong>메모리 주소를 기억</strong>함 . 즉, 메모리 주소에 붙인 이름</p>
+<h2 id="3-표현식-expression"><a href="#3-표현식-expression" class="headerlink" title="3) 표현식(expression)"></a>3) 표현식(expression)</h2><pre><code>💡 표현식 : 값으로 평가될 수 있는 문(statement)</code></pre>
 <ul>
-<li><p>식별자 네이밍 규칙</p>
-<ul>
-<li>문자, 숫자, underscore(_), 달러기호($)</li>
-<li>문자, underscore(_), 달러기호($) 로만 시작가능 (숫자로 시작 불가❌)</li>
-<li>사용불가❌ : 특수문자, 예약어(function var this class true 등)</li>
-<li><strong>변수나 함수의 이름</strong>에는 <strong>카멜 케이스</strong><br><strong>생성자 함수, 클래스의 이름</strong>에는 <strong>파스칼 케이스</strong> 사용</li>
+<li>표현식은 <strong>리터럴, 식별자(변수, 함수 등의 이름), 연산자, 함수 호출 등의 조합</strong></li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 카멜 케이스 (camelCase)</span></span><br><span class="line"><span class="keyword">var</span> firstName;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 파스칼 케이스 (PascalCase)</span></span><br><span class="line"><span class="keyword">var</span> FirstName;</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="4-문-statement"><a href="#4-문-statement" class="headerlink" title="4) 문(statement)"></a>4) 문(statement)</h2><pre><code>💡 문 : 프로그램을 구성하는 기본 단위이자 최소 실행 단위</code></pre>
+<p><img src="../img/%EB%AC%B8.jpg" alt="문 구조"></p>
+<h2 id="5-표현식인-문과-표현식이-아닌-문"><a href="#5-표현식인-문과-표현식이-아닌-문" class="headerlink" title="5) 표현식인 문과 표현식이 아닌 문"></a>5) 표현식인 문과 표현식이 아닌 문</h2><ul>
+<li>표현식인 문과 표현식이 아닌 문을 구별하는 가장 간단하고 명료한 방법은<br><strong>변수에 할당해 보는 것</strong></li>
 </ul>
+<p>표현식인 문 : 값으로 평가됨 → 변수에 할당 가능<br>표현식이 아닌 문 : 값으로 평가할 수 X → 변수에 할당 X</p>
             
 
 
@@ -334,9 +319,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/Github%20blog/"
-                    data-tooltip="Github blog"
-                    aria-label="PREVIOUS: Github blog"
+                    href="/2020/08/24/JS-6/"
+                    data-tooltip="6. 데이터 타입"
+                    aria-label="PREVIOUS: 6. 데이터 타입"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -348,9 +333,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/2020-08-19-TIL/"
-                    data-tooltip="2020-08-19-TIL"
-                    aria-label="NEXT: 2020-08-19-TIL"
+                    href="/2020/08/20/2020-08-20-TIL/"
+                    data-tooltip="2020-08-20-TIL"
+                    aria-label="NEXT: 2020-08-20-TIL"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -375,7 +360,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -388,7 +373,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -401,7 +386,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -440,7 +425,7 @@
 
             </div>
             
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
                     <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -449,9 +434,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/Github%20blog/"
-                    data-tooltip="Github blog"
-                    aria-label="PREVIOUS: Github blog"
+                    href="/2020/08/24/JS-6/"
+                    data-tooltip="6. 데이터 타입"
+                    aria-label="PREVIOUS: 6. 데이터 타입"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -463,9 +448,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/2020-08-19-TIL/"
-                    data-tooltip="2020-08-19-TIL"
-                    aria-label="NEXT: 2020-08-19-TIL"
+                    href="/2020/08/20/2020-08-20-TIL/"
+                    data-tooltip="2020-08-20-TIL"
+                    aria-label="NEXT: 2020-08-20-TIL"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -490,7 +475,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -503,7 +488,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -516,7 +501,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -540,7 +525,7 @@
 
                 </div>
                 
-    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <div id="share-options-bar" class="share-options-bar" data-behavior="2">
         <i id="btn-close-shareoptions" class="fa fa-times"></i>
         <ul class="share-options">
             
@@ -550,7 +535,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -563,7 +548,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -576,7 +561,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/4.%20%EB%B3%80%EC%88%98/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/21/JS-5/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
@@ -617,6 +602,12 @@
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
         
     </div>
 </div>
