@@ -11,19 +11,19 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 함수란?\n함수 : 일련의 과정을 문(statement)으로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것\n함수의 형식\n\n\n\n\n\n함수는 위와 같이 함수 정의(function definition)를 통해 생성하고 함수 호출(function call/invoke)을 통해 실행을 명시적으로 지시해야 한다.\n2) 함수 사용 이유\n자바스크립트의 핵심 도구는 함수이다. 함수에 대한 이해 없이는 자바스크립트를 잘 다루기 어려우며, 객체를 이해하는 데 가장 중요한 기초를 이룬다.\n함수를 사용함으로써 장점은 다음과 같다.\n코드의 재사용 : 언제든지 호출하여 재사용 가능하므로 효율적이다.\n코드의 신뢰성 : 중복을 억제하므로 유지보수의 편의성을 높이고 실수를 줄인다.\n코드의 가독성 : 적절한 함수의 이름은 내부코드 확인하지 않고도 역할 파악 가능하다.\n\n\n\n3) 함수 리터럴\n리터럴은 값을 생성하기 위한 표기법이며 함수 리터럴도 값을 생성한다. 이 값은 객체이므로, 함수는 객체 다.\n\n함수가 객체라는 사실은 다른 프로그래밍 언어와 구별되는 자바스크립트의 중요한 특징이다.\n\n일반 객체는 호출할 수 없지만 함수는 호출할 수 있다.\n\n함수 리터럴의 구성요소\n\n함수 이름\n\n함수 이름은 식별자다. 따라서 식별자 네이밍 규칙을 준수해야 한다.\n함수 이름은 함수 몸체 내에서만 참조할 수 있는 식별자다.\n함수 이름은 생략할 수 있다.\n\n\n매개변수 목록\n\n0개 이상의 매개변수를 소괄호로 감싸고 쉼표로 구분한다.\n각 매개변수에는 함수를 호출할 때 지정한 인수가 순서대로 할당된다. 즉, 매개변수 목록은 순서에 의미가 있다.\n매개변수는 함수 몸체 내에서 변수와 동일하게 취급된다. 따라서 매개변수도 식별자 네이밍 규칙을 준수해야 한다.\n\n\n함수 몸체\n\n함수가 호출되었을 때 일괄적으로 실행될 문들을 하나의 실행 단위로 정의한 코드 블록이다.\n함수 몸체는 함수 호출에 의해 실행된다.\n\n\n\n\n\n4) 함수 정의\n함수를 정의하는 방법에는 다음과 같은 4가지가 있다.\n\n함수 선언문\n\n123function add(x, y) &#123;  return x + y;&#125;\n\n\n함수 표현식\n\n123var add = function (x, y) &#123;  return x + y;&#125;;\n\n\nFunction 생성자 함수\n\n1var add &#x3D; new Function(&#39;x&#39;, &#39;y&#39;, &#39;return x + y&#39;);\n\n\n화살표 함수 (ES6)\n\n1var add &#x3D; (x, y) &#x3D;&gt; x + y;\n\n4.1 함수 선언문1234567// 함수 선언문function add(x, y) &#123;  return x + y;&#125;// 함수 호출console.log(add(2, 5)); // 7\n\n\n함수 선언문에서는 함수 이름을 생략할 수 없다.\n\n함수 선언문은 표현식이 아닌 문이다. -&gt; 실행시 undefined가 출력\n\n함수 이름은 함수 몸체 내부에서만 유효한 식별자이다. -&gt; 이름으로 호출 시 ReferenceError\n\n함수 선언문은 함수 이름을 생략할 수 없다는 점을 제외하면 함수 리터럴과 형태가 동일하다. 따라서 코드 문맥에 따라 해석이 달라 질 수 있다.\n12345678910111213// 함수 리터럴을 단독으로 사용하면 함수 선언문으로 해석된다.// 함수 선언문에서는 함수 이름을 생략할 수 없다.function foo() &#123;  console.log(&quot;foo&quot;);&#125;foo(); // foo// 함수 리터럴을 피연산자로 사용하면 함수 선언문이 아니라 함수 리터럴 표현식으로 해석된다.// 함수 리터럴에서는 함수 이름을 생략할 수 있다.(function bar() &#123;  console.log(&quot;bar&quot;);&#125;);bar(); // ReferenceError: bar is not defined\n\n\n\n\n\n\n위의 예제에서 자바스크립트는 생성된 함수를 호출하기 위해 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고, 거기에 생성된 함수 객체를 할당한다. 여기서 중요한 것은 함수는 함수 이름으로 호출하는 것이 아니라 함수 객체를 가리키는 식별자로 호출 한다는 것이다.\n\n\n\n4.2 함수 표현식\n함수는 1급 객체이다. 따라서 함수를 값처럼 자유롭게 사용할 수 있다.\n1급 객체 : 값의 성질을 갖는 객체\n\n\n함수 리터럴의 이름은 생략가능하다. 이를 익명 함수라고 하며 생략하는 것이 일반적이다.\n함수 선언문과 함수 표현식의 차이는 정확히 동일하게 동작하지 않고 함수 선언문은 “표현식이 아닌 문”이다.\n\n123456// 함수 표현식var add = function (x, y) &#123;  return x + y;&#125;;console.log(add(2, 5)); // 7\n\n\n\n4.3 함수 생성 시점과 호이스팅\n함수 호이스팅 : 함수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 것\n\n주의해야 할 것은 함수 표현식으로 함수를 정의하면 함수 호이스팅이 발생하는 것이 아니라 변수 호이스팅이 발생한다는 것이다.\n\n함수 선언문 : 함수 선언문 이전에 함수를 참조 및 호출 가능\n함수 표현식 : 함수 참조 시 undefined로 초기화, 호출 불가능(TypeError) -&gt; 변수 호이스팅!\n\n\n함수 호이스팅은 함수를 호출하기 전에 반드시 함수를 선언해야 한다는 당연한 규칙을 무시하므로 함수 표현식을 사용하는 것이 더 권장된다.\n1234567891011121314151617// 함수 참조console.dir(add); // ƒ add(x, y)console.dir(sub); // undefined// 함수 호출console.log(add(2, 5)); // 7console.log(sub(2, 5)); // TypeError: sub is not a function  , undefined를 호출한 것과 동일// 함수 선언문function add(x, y) &#123;  return x + y;&#125;// 함수 표현식var sub = function (x, y) &#123;  return x - y;&#125;;\n\n4.4 Function 생성자 함수123var add = new Function(&quot;x&quot;, &quot;y&quot;, &quot;return x + y&quot;);console.log(add(2, 5)); // 7\n\n\n생성자 함수 : 객체를 생성하는 함수\nFunction 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며 바람직하지도 않다. 클로저(closure)를 생성하지 않으며 함수 선언문이나 함수 표현식으로 생성한 함수와 다르게 동작한다.\n\n4.5 화살표 함수 (ES6)123// 화살표 함수const add = (x, y) =&gt; x + y;console.log(add(2, 5)); // 7\n\n\nfunction 키워드 대신 화살표(=&gt;, fat arrow)를 사용해 좀 더 간략한 방법으로 함수를 선언한다.\nES6에서 새롭게 도입되었다.\n화살표 함수는 항상 익명 함수로 정의한다.\n생성자 함수로 사용할 수 없으며 기존의 함수와 this 바인딩 방식이 다르고, prototype 프로퍼티가 없으며 arguments 객체를 생성하지 않는다.\n\n\n\n5) 함수 호출5.1 매개변수와 인수\n\n\n함수 외부에서 함수 내부로 전달할 때 매개변수(parameter, 인자)를 통해 인수(argument)를 전달한다.\n\n매개변수는 함수를 정의할 때 선언하며 함수 몸체 내부에서 변수와 동일하게 취급된다. 매개변수의 스코프(유효 범위)는 함수 내부이다.\n\n인수는 함수를 호출할 때 지정하며, 개수와 타입에 제한이 없다.\n\n매개변수 &lt; 인수 : 초과된 인수는 무시되며, 버려지는 것이 아니라 arguments 객체의 프로퍼티로 보관된다.\n\n매개변수 &gt; 인수 : 인수가 할당되지 않은 매개변수의 값은 undefined\n12345function add(x, y) &#123;  return x + y;&#125;// y가 undefined로 초기화되므로 2 + undefined = NaN 반환console.log(add(2)); // NaN\n\n\n\n\n\n5.2. 인수 확인\n자바스크립트의 경우 함수를 정의할 때 적절한 인수가 전달되었는지 확인할 필요가 있다.그 이유는 다음과 같다.\n\n자바스크립트 함수는 매개변수와 인수의 개수가 일치하는지 확인하지 않기 때문\n자바스크립트는 동적 타입 언어이므로 자바스크립트 함수는 매개변수의 타입을 사전에 지정할 수 없기 때문\n\n\n해결책\n\nTypescript 사용 - 정적 타입을 선언할 수 있는 자바스크립트의 상위 확장\n\n\n\n5.3. 매개변수의 최대 개수\n매개변수는 최대 3개 이상을 넘지 않는 것을 권장한다.\n3개 이상이 필요할 때 하나의 매개변수를 선언하고 객체를 인수로 사용하면 좋다.\n\n5.4. 반환문 (= return문)\nreturn 문은 함수 본문 안에서만 나타날 수 있다.\n\nreturn 키워드 뒤에 오는 표현식을 평가해 해당 함수 값으로 반환한다. 표현식이 명시적으로 지정하지 않으면 undefined가 반환된다.\n\nreturn 문이 실행되면 함수 본문에 다른 구문이 남아 있더라도 해당 함수의 실행이 중단된다.\n1234567function multiply(x, y) &#123;  return x * y; // 반환문  // 반환문 이후에 다른 문이 존재하면 그 문은 실행되지 않고 무시된다.  console.log(&quot;실행되지 않는다.&quot;);&#125;console.log(multiply(3, 5)); // 15\n\n반환문은 생략가능하고 암묵적으로 undefined를 반환한다.\n\n\n","dateCreated":"2020-08-27T22:58:07+09:00","dateModified":"2020-08-28T17:32:12+09:00","datePublished":"2020-08-27T22:58:07+09:00","description":"\n\nJavascript의 함수에 대해 알아보자.","headline":"12. 함수","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/27/JS-12/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/27/JS-12/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
-    <meta name="description" content="Javascript의 함수에 대해 알아보자.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 함수란?\n함수 : 일련의 과정을 문(statement)으로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것\n\n\n\n\n함수의 형식\n\n\n\n\n\n함수는 위와 같이 함수 정의(function definition)를 통해 생성하고 함수 호출(function call/invoke)을 통해 실행을 명시적으로 지시해야 한다.\n2) 함수 사용 이유\n자바스크립트의 핵심 도구는 함수이다. 함수에 대한 이해 없이는 자바스크립트를 잘 다루기 어려우며, 객체를 이해하는 데 가장 중요한 기초를 이룬다.\n함수를 사용함으로써 장점은 다음과 같다.\n코드의 재사용 : 언제든지 호출하여 재사용 가능하므로 효율적이다.\n코드의 신뢰성 : 중복을 억제하므로 유지보수의 편의성을 높이고 실수를 줄인다.\n코드의 가독성 : 적절한 함수의 이름은 내부코드 확인하지 않고도 역할 파악 가능하다.\n\n\n\n3) 함수 리터럴\n리터럴은 값을 생성하기 위한 표기법이며 함수 리터럴도 값을 생성한다. 이 값은 객체이므로, 함수는 객체 다.\n\n함수가 객체라는 사실은 다른 프로그래밍 언어와 구별되는 자바스크립트의 중요한 특징이다.\n\n일반 객체는 호출할 수 없지만 함수는 호출할 수 있다.\n\n함수 리터럴의 구성요소\n\n함수 이름\n\n함수 이름은 식별자다. 따라서 식별자 네이밍 규칙을 준수해야 한다.\n함수 이름은 함수 몸체 내에서만 참조할 수 있는 식별자다.\n함수 이름은 생략할 수 있다.\n\n\n매개변수 목록\n\n0개 이상의 매개변수를 소괄호로 감싸고 쉼표로 구분한다.\n각 매개변수에는 함수를 호출할 때 지정한 인수가 순서대로 할당된다. 즉, 매개변수 목록은 순서에 의미가 있다.\n매개변수는 함수 몸체 내에서 변수와 동일하게 취급된다. 따라서 매개변수도 식별자 네이밍 규칙을 준수해야 한다.\n\n\n함수 몸체\n\n함수가 호출되었을 때 일괄적으로 실행될 문들을 하나의 실행 단위로 정의한 코드 블록이다.\n함수 몸체는 함수 호출에 의해 실행된다.\n\n\n\n\n\n4) 함수 정의\n함수를 정의하는 방법에는 다음과 같은 4가지가 있다.\n\n함수 선언문\n\n123function add(x, y) &#123;  return x + y;&#125;\n\n\n함수 표현식\n\n123var add = function (x, y) &#123;  return x + y;&#125;;\n\n\nFunction 생성자 함수\n\n1var add = new Function(&#x27;x&#x27;, &#x27;y&#x27;, &#x27;return x + y&#x27;);\n\n\n화살표 함수 (ES6)\n\n1var add = (x, y) =&gt; x + y;\n\n\n\n4.1 함수 선언문1234567// 함수 선언문function add(x, y) &#123;  return x + y;&#125;// 함수 호출console.log(add(2, 5)); // 7\n\n\n함수 선언문에서는 함수 이름을 생략할 수 없다.\n\n함수 선언문은 표현식이 아닌 문이다. -&gt; 실행시 undefined가 출력\n\n함수 이름은 함수 몸체 내부에서만 유효한 식별자이다. -&gt; 이름으로 호출 시 ReferenceError\n\n함수 선언문은 함수 이름을 생략할 수 없다는 점을 제외하면 함수 리터럴과 형태가 동일하다. 따라서 코드 문맥에 따라 해석이 달라 질 수 있다.\n12345678910111213// 함수 리터럴을 단독으로 사용하면 함수 선언문으로 해석된다.// 함수 선언문에서는 함수 이름을 생략할 수 없다.function foo() &#123;  console.log(&quot;foo&quot;);&#125;foo(); // foo// 함수 리터럴을 피연산자로 사용하면 함수 선언문이 아니라 함수 리터럴 표현식으로 해석된다.// 함수 리터럴에서는 함수 이름을 생략할 수 있다.(function bar() &#123;  console.log(&quot;bar&quot;);&#125;);bar(); // ReferenceError: bar is not defined\n\n\n\n\n\n\n위의 예제에서 자바스크립트는 생성된 함수를 호출하기 위해 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고, 거기에 생성된 함수 객체를 할당한다. 여기서 중요한 것은 함수는 함수 이름으로 호출하는 것이 아니라 함수 객체를 가리키는 식별자로 호출 한다는 것이다.\n\n\n\n4.2 함수 표현식\n함수는 1급 객체이다. 따라서 함수를 값처럼 자유롭게 사용할 수 있다.\n1급 객체 : 값의 성질을 갖는 객체\n함수 리터럴의 이름은 생략가능하다. 이를 익명 함수라고 하며 생략하는 것이 일반적이다.\n함수 선언문과 함수 표현식의 차이는 정확히 동일하게 동작하지 않고 함수 선언문은 “표현식이 아닌 문”이다.\n\n123456// 함수 표현식var add = function (x, y) &#123;  return x + y;&#125;;console.log(add(2, 5)); // 7\n\n4.3 함수 생성 시점과 호이스팅\n함수 호이스팅 : 함수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 것\n\n\n\n\n주의해야 할 것은 함수 표현식으로 함수를 정의하면 함수 호이스팅이 발생하는 것이 아니라 변수 호이스팅이 발생한다는 것이다.\n\n함수 선언문 : 함수 선언문 이전에 함수를 참조 및 호출 가능\n함수 표현식 : 함수 참조 시 undefined로 초기화, 호출 불가능(TypeError) -&gt; 변수 호이스팅!\n\n\n함수 호이스팅은 함수를 호출하기 전에 반드시 함수를 선언해야 한다는 당연한 규칙을 무시하므로 함수 표현식을 사용하는 것이 더 권장된다.\n1234567891011121314151617// 함수 참조console.dir(add); // ƒ add(x, y)console.dir(sub); // undefined// 함수 호출console.log(add(2, 5)); // 7console.log(sub(2, 5)); // TypeError: sub is not a function  , undefined를 호출한 것과 동일// 함수 선언문function add(x, y) &#123;  return x + y;&#125;// 함수 표현식var sub = function (x, y) &#123;  return x - y;&#125;;\n\n\n\n4.4 Function 생성자 함수123var add = new Function(&quot;x&quot;, &quot;y&quot;, &quot;return x + y&quot;);console.log(add(2, 5)); // 7\n\n\n생성자 함수 : 객체를 생성하는 함수\n\n\n\n\nFunction 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며 바람직하지도 않다. 클로저(closure)를 생성하지 않으며 함수 선언문이나 함수 표현식으로 생성한 함수와 다르게 동작한다.\n\n4.5 화살표 함수 (ES6)123// 화살표 함수const add = (x, y) =&gt; x + y;console.log(add(2, 5)); // 7\n\n\nfunction 키워드 대신 화살표(=&gt;, fat arrow)를 사용해 좀 더 간략한 방법으로 함수를 선언한다.\nES6에서 새롭게 도입되었다.\n화살표 함수는 항상 익명 함수로 정의한다.\n생성자 함수로 사용할 수 없으며 기존의 함수와 this 바인딩 방식이 다르고, prototype 프로퍼티가 없으며 arguments 객체를 생성하지 않는다.\n\n5) 함수 호출5.1 매개변수와 인수\n\n\n함수 외부에서 함수 내부로 전달할 때 매개변수(parameter, 인자)를 통해 인수(argument)를 전달한다.\n\n매개변수는 함수를 정의할 때 선언하며 함수 몸체 내부에서 변수와 동일하게 취급된다. 매개변수의 스코프(유효 범위)는 함수 내부이다.\n\n인수는 함수를 호출할 때 지정하며, 개수와 타입에 제한이 없다.\n\n매개변수 &lt; 인수 : 초과된 인수는 무시되며, 버려지는 것이 아니라 arguments 객체의 프로퍼티로 보관된다.\n\n매개변수 &gt; 인수 : 인수가 할당되지 않은 매개변수의 값은 undefined\n12345function add(x, y) &#123;  return x + y;&#125;// y가 undefined로 초기화되므로 2 + undefined = NaN 반환console.log(add(2)); // NaN\n\n\n\n\n\n5.2. 인수 확인\n자바스크립트의 경우 함수를 정의할 때 적절한 인수가 전달되었는지 확인할 필요가 있다.그 이유는 다음과 같다.\n\n자바스크립트 함수는 매개변수와 인수의 개수가 일치하는지 확인하지 않기 때문\n자바스크립트는 동적 타입 언어이므로 자바스크립트 함수는 매개변수의 타입을 사전에 지정할 수 없기 때문\n\n\n해결책\n\nTypescript 사용 - 정적 타입을 선언할 수 있는 자바스크립트의 상위 확장\n\n\n\n5.3. 매개변수의 최대 개수\n매개변수는 최대 3개 이상을 넘지 않는 것을 권장한다.\n3개 이상이 필요할 때 하나의 매개변수를 선언하고 객체를 인수로 사용하면 좋다.\n\n5.4. 반환문 (= return문)\nreturn 문은 함수 본문 안에서만 나타날 수 있다.\n\nreturn 키워드 뒤에 오는 표현식을 평가해 해당 함수 값으로 반환한다. 표현식이 명시적으로 지정하지 않으면 undefined가 반환된다.\n\nreturn 문이 실행되면 함수 본문에 다른 구문이 남아 있더라도 해당 함수의 실행이 중단된다.\n1234567function multiply(x, y) &#123;  return x * y; // 반환문  // 반환문 이후에 다른 문이 존재하면 그 문은 실행되지 않고 무시된다.  console.log(&quot;실행되지 않는다.&quot;);&#125;console.log(multiply(3, 5)); // 15\n\n반환문은 생략가능하고 암묵적으로 undefined를 반환한다.\n\n\n6) 참조에 의한 전달과 외부 상태의 변경\n123456789101112131415161718192021// 매개변수 primitive는 원시값을 전달받고, 매개변수 obj는 객체를 전달받는다.function changeVal(primitive, obj) &#123;  primitive += 100;  obj.name = &quot;Kim&quot;;&#125;// 외부 상태var num = 100;var person = &#123; name: &quot;Lee&quot; &#125;;console.log(num); // 100console.log(person); // &#123;name: &quot;Lee&quot;&#125;// 원시값은 값 자체가 복사되어 전달되고 객체는 참조값이 복사되어 전달된다.changeVal(num, person);// 원시값은 원본이 훼손되지 않는다.console.log(num); // 100// 객체는 원본이 훼손된다.console.log(person); // &#123;name: &quot;Kim&quot;&#125;\n\n\nprimitive에는 원시값, obj에는 객체를 할당\n\n[값에 의한 전달] 원시 타입 인수는 값 자체가 복사되어 매개변수에 전달 -&gt; 함수 몸체에서 그 값을 변경(재할당을 통한 교체)해도 원본은 훼손되지 않는다.\n\n[참조에 의한 전달] 객체 타입 인수는 참조값이 복사되어 매개변수에 전달 -&gt; 함수 몸체에서 참조값을 통해 객체를 변경할 경우 원본이 훼손됨\n\n이는 객체가 변경할 수 있는 값이며, 참조에 의한 전달 방식으로 동작하기 때문에 발생하는 부작용이다. 이러한 부수효과는 코드의 복잡성을 증가시키고 가독성을 떨어뜨린다.\n\n\n7) 다양한 형태의 함수7.1. 즉시 실행 함수(IIFE, Immediately Invoked Function Expression)\n즉시 실행 함수(IIFE) : 함수 정의와 동시에 즉시 호출되는 함수\n\n\n단 한 번만 호출되며 다시 호출할 수 없다. 그러므로 일반적으로 익명 함수 사용한다.\n반드시 그룹 연산자 (…)로 감싸야 한다. -&gt; 함수 리터럴을 평가해서 함수 객체를 생성하기 위해서\n선언 후 바로 ()를 사용해 호출해 준다. -&gt; 함수의 스코프(유효범위) 좁아져 오류 줄이기\n\n123456// 익명 즉시 실행 함수(function () &#123;  var a = 3;  var b = 5;  return a * b;&#125;)(); // ()로 바로 호출해준다.\n\n7.2. 재귀 함수(recursive function)\n재귀 함수 : 함수가 자기 자신을 호출하는 재귀 호출을 수행하는 함수\n\n\n재귀 함수는 반복되는 처리를 위해 사용한다.\n함수 내부에서는 함수 이름을 사용해 자기 자신을 호출할 수 있다.\n재귀 함수는 자신을 무한 재귀 호출하므로 반드시 탈출 조건을 만들어야 한다. -&gt; 탈출 조건 없으면 스택 오버플로(stack overflow) 에러 발생\n\n12345678// 10부터 0까지 호출하는 함수function countdown(n) &#123;  if (n &lt; 0) return;  console.log(n);  countdown(n - 1); // 재귀 호출&#125;countdown(10);\n\n12345678910111213// 함수 표현식var factorial = function foo(n) &#123;  // 탈출 조건: n이 1 이하일 때 재귀 호출을 멈춘다.  if (n &lt;= 1) return 1;  // 함수를 가리키는 식별자로 자기 자신을 재귀 호출  return n * factorial(n - 1);  // 함수 이름으로 자기 자신을 재귀 호출할 수도 있다.  // console.log(factorial === foo); // true  // return n * foo(n - 1);&#125;;console.log(factorial(5)); // 5! = 5 * 4 * 3 * 2 * 1 = 120\n\n7.3. 중첩 함수(nested function)\n중첩 함수(= 내부 함수) : 함수 내부에 호출된 함수\n\n\n자신을 포함하는 외부 함수를 돕는 헬퍼 함수(helper function)의 역할을 한다.\nES6부터는 if 문이나 for 문 등의 코드 블록 내에서도 정의할 수 있으나 호이스팅으로 인해 혼란이 발생할 수 있으므로 바람직하지 않다.\n\n7.4. 콜백 함수(callback function)\n콜백 함수 : 함수의 매개변수를 통해 다른 함수의 내부로 전달되는 함수\n\n7.5. 순수 함수와 비순수 함수\n순수 함수\n\n부수 효과가 없는 함수\n어떤 외부 상태에도 의존하지 않으며 외부 상태를 변경하지도 않음\n동일한 인수가 전달되면 언제나 동일한 값을 반환\n\n\n비순수 함수\n\n부수 효과가 있는 함수\n외부 상태에 의존하거나 외부 상태를 변경하는 함수\n\n\n\n코딩을 함에 있어 가급적 부수효과를 억제하는 순수 함수를 사용하려는 노력이 필요하다.\n\n","dateCreated":"2020-08-27T22:58:07+09:00","dateModified":"2020-08-28T21:53:01+09:00","datePublished":"2020-08-27T22:58:07+09:00","description":"\n\n자바스크립트의 핵심 도구는 함수이다. 함수에 대한 이해 없이는 자바스크립트를 잘 다루기 어려우며, 객체를 이해하는 데 가장 중요한 기초를 이룬다.","headline":"12. 함수","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/27/JS-12/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/27/JS-12/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="자바스크립트의 핵심 도구는 함수이다. 함수에 대한 이해 없이는 자바스크립트를 잘 다루기 어려우며, 객체를 이해하는 데 가장 중요한 기초를 이룬다.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="12. 함수">
 <meta property="og:url" content="https://hanseul-lee.github.io/2020/08/27/JS-12/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="Javascript의 함수에 대해 알아보자.">
+<meta property="og:description" content="자바스크립트의 핵심 도구는 함수이다. 함수에 대한 이해 없이는 자바스크립트를 잘 다루기 어려우며, 객체를 이해하는 데 가장 중요한 기초를 이룬다.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/27/JS-12/12-1.png">
 <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/27/JS-12/12-2.png">
 <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/27/JS-12/12-3.png">
 <meta property="article:published_time" content="2020-08-27T13:58:07.000Z">
-<meta property="article:modified_time" content="2020-08-28T08:32:12.353Z">
+<meta property="article:modified_time" content="2020-08-28T12:53:01.520Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -43,16 +43,7 @@
     
     <!--STYLES-->
     
-<link rel="stylesheet" href="/assets/css/all.css">
-
-    
-<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
-
-    
-<link rel="stylesheet" href="/assets/css/thumbs.css">
-
-    
-<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+<link rel="stylesheet" href="/assets/css/style-a9cdulixum6iiauyre9arf6yh2jbbnmiihcqonq0n446tkda7ov1sbymjr6v.min.css">
 
     <!--STYLES END-->
     
@@ -275,10 +266,14 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%ED%95%A8%EC%88%98%EB%9E%80"><span class="toc-text">1) 함수란?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%9D%B4%EC%9C%A0"><span class="toc-text">2) 함수 사용 이유</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%ED%95%A8%EC%88%98-%EB%A6%AC%ED%84%B0%EB%9F%B4"><span class="toc-text">3) 함수 리터럴</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%ED%95%A8%EC%88%98-%EC%A0%95%EC%9D%98"><span class="toc-text">4) 함수 정의</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%ED%95%A8%EC%88%98-%EC%84%A0%EC%96%B8%EB%AC%B8"><span class="toc-text">4.1 함수 선언문</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%ED%95%A8%EC%88%98-%ED%91%9C%ED%98%84%EC%8B%9D"><span class="toc-text">4.2 함수 표현식</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%ED%95%A8%EC%88%98-%EC%83%9D%EC%84%B1-%EC%8B%9C%EC%A0%90%EA%B3%BC-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85"><span class="toc-text">4.3 함수 생성 시점과 호이스팅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-Function-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98"><span class="toc-text">4.4 Function 생성자 함수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%ED%99%94%EC%82%B4%ED%91%9C-%ED%95%A8%EC%88%98-ES6"><span class="toc-text">4.5 화살표 함수 (ES6)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">5) 함수 호출</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%99%80-%EC%9D%B8%EC%88%98"><span class="toc-text">5.1 매개변수와 인수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%EC%9D%B8%EC%88%98-%ED%99%95%EC%9D%B8"><span class="toc-text">5.2. 인수 확인</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%98-%EC%B5%9C%EB%8C%80-%EA%B0%9C%EC%88%98"><span class="toc-text">5.3. 매개변수의 최대 개수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%EB%B0%98%ED%99%98%EB%AC%B8-return%EB%AC%B8"><span class="toc-text">5.4. 반환문 (&#x3D; return문)</span></a></li></ol></li></ol>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%ED%95%A8%EC%88%98%EB%9E%80"><span class="toc-text">1) 함수란?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9-%EC%9D%B4%EC%9C%A0"><span class="toc-text">2) 함수 사용 이유</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%ED%95%A8%EC%88%98-%EB%A6%AC%ED%84%B0%EB%9F%B4"><span class="toc-text">3) 함수 리터럴</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%ED%95%A8%EC%88%98-%EC%A0%95%EC%9D%98"><span class="toc-text">4) 함수 정의</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%ED%95%A8%EC%88%98-%EC%84%A0%EC%96%B8%EB%AC%B8"><span class="toc-text">4.1 함수 선언문</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%ED%95%A8%EC%88%98-%ED%91%9C%ED%98%84%EC%8B%9D"><span class="toc-text">4.2 함수 표현식</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%ED%95%A8%EC%88%98-%EC%83%9D%EC%84%B1-%EC%8B%9C%EC%A0%90%EA%B3%BC-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85"><span class="toc-text">4.3 함수 생성 시점과 호이스팅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-Function-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98"><span class="toc-text">4.4 Function 생성자 함수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%ED%99%94%EC%82%B4%ED%91%9C-%ED%95%A8%EC%88%98-ES6"><span class="toc-text">4.5 화살표 함수 (ES6)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">5) 함수 호출</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%99%80-%EC%9D%B8%EC%88%98"><span class="toc-text">5.1 매개변수와 인수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%EC%9D%B8%EC%88%98-%ED%99%95%EC%9D%B8"><span class="toc-text">5.2. 인수 확인</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%98-%EC%B5%9C%EB%8C%80-%EA%B0%9C%EC%88%98"><span class="toc-text">5.3. 매개변수의 최대 개수</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%EB%B0%98%ED%99%98%EB%AC%B8-return%EB%AC%B8"><span class="toc-text">5.4. 반환문 (&#x3D; return문)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%EC%B0%B8%EC%A1%B0%EC%97%90-%EC%9D%98%ED%95%9C-%EC%A0%84%EB%8B%AC%EA%B3%BC-%EC%99%B8%EB%B6%80-%EC%83%81%ED%83%9C%EC%9D%98-%EB%B3%80%EA%B2%BD"><span class="toc-text">6) 참조에 의한 전달과 외부 상태의 변경</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%EB%8B%A4%EC%96%91%ED%95%9C-%ED%98%95%ED%83%9C%EC%9D%98-%ED%95%A8%EC%88%98"><span class="toc-text">7) 다양한 형태의 함수</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%EC%A6%89%EC%8B%9C-%EC%8B%A4%ED%96%89-%ED%95%A8%EC%88%98-IIFE-Immediately-Invoked-Function-Expression"><span class="toc-text">7.1. 즉시 실행 함수(IIFE, Immediately Invoked Function Expression)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%EC%9E%AC%EA%B7%80-%ED%95%A8%EC%88%98-recursive-function"><span class="toc-text">7.2. 재귀 함수(recursive function)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%EC%A4%91%EC%B2%A9-%ED%95%A8%EC%88%98-nested-function"><span class="toc-text">7.3. 중첩 함수(nested function)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-%EC%BD%9C%EB%B0%B1-%ED%95%A8%EC%88%98-callback-function"><span class="toc-text">7.4. 콜백 함수(callback function)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-%EC%88%9C%EC%88%98-%ED%95%A8%EC%88%98%EC%99%80-%EB%B9%84%EC%88%9C%EC%88%98-%ED%95%A8%EC%88%98"><span class="toc-text">7.5. 순수 함수와 비순수 함수</span></a></li></ol></li></ol>
 
-<h1 id="1-함수란"><a href="#1-함수란" class="headerlink" title="1) 함수란?"></a>1) 함수란?</h1><ul>
-<li><strong>함수 : 일련의 과정을 문(statement)으로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것</strong></li>
+<h1 id="1-함수란"><a href="#1-함수란" class="headerlink" title="1) 함수란?"></a>1) 함수란?</h1><blockquote>
+<p><strong>함수 : 일련의 과정을 문(statement)으로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것</strong></p>
+</blockquote>
+</br>
+
+<ul>
 <li>함수의 형식</li>
 </ul>
 <div class="figure center" style="width:600px;"><img class="fig-img" src="12-1.png" style="width:600px;"alt=""></div>
@@ -342,13 +337,15 @@
 <ol start="3">
 <li>Function 생성자 함수</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var add &#x3D; new Function(&#39;x&#39;, &#39;y&#39;, &#39;return x + y&#39;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;return x + y&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>화살표 함수 (ES6)</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var add &#x3D; (x, y) &#x3D;&gt; x + y;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function">(<span class="params">x, y</span>) =&gt;</span> x + y;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h2 id="4-1-함수-선언문"><a href="#4-1-함수-선언문" class="headerlink" title="4.1 함수 선언문"></a>4.1 함수 선언문</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 함수 선언문</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 호출</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -368,23 +365,22 @@
 <ul>
 <li>위의 예제에서 자바스크립트는 생성된 함수를 호출하기 위해 함수 이름과 동일한 이름의 식별자를 암묵적으로 생성하고, 거기에 생성된 함수 객체를 할당한다. 여기서 중요한 것은 <strong>함수는 함수 이름으로 호출하는 것이 아니라 함수 객체를 가리키는 식별자로 호출</strong> 한다는 것이다.</li>
 </ul>
-<div class="figure center" style="width:400px;"><img class="fig-img" src="12-2.png" style="width:400px;height:250px;"alt=""></div>
+<div class="figure center" style="width:400px;"><img class="fig-img" src="12-2.png" style="width:400px;"alt=""></div>
 
 <h2 id="4-2-함수-표현식"><a href="#4-2-함수-표현식" class="headerlink" title="4.2 함수 표현식"></a>4.2 함수 표현식</h2><ul>
-<li>함수는 1급 객체이다. 따라서 함수를 값처럼 자유롭게 사용할 수 있다.<ul>
+<li>함수는 1급 객체이다. 따라서 함수를 값처럼 자유롭게 사용할 수 있다.</li>
 <li>1급 객체 : 값의 성질을 갖는 객체</li>
-</ul>
-</li>
 <li>함수 리터럴의 이름은 생략가능하다. 이를 익명 함수라고 하며 생략하는 것이 일반적이다.</li>
 <li>함수 선언문과 함수 표현식의 차이는 정확히 동일하게 동작하지 않고 함수 선언문은 “표현식이 아닌 문”이다.</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 함수 표현식</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<h2 id="4-3-함수-생성-시점과-호이스팅"><a href="#4-3-함수-생성-시점과-호이스팅" class="headerlink" title="4.3 함수 생성 시점과 호이스팅"></a>4.3 함수 생성 시점과 호이스팅</h2><ul>
-<li><p><strong>함수 호이스팅 : 함수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 것</strong></p>
-</li>
+<h2 id="4-3-함수-생성-시점과-호이스팅"><a href="#4-3-함수-생성-시점과-호이스팅" class="headerlink" title="4.3 함수 생성 시점과 호이스팅"></a>4.3 함수 생성 시점과 호이스팅</h2><blockquote>
+<p><strong>함수 호이스팅 : 함수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 것</strong></p>
+</blockquote>
+</br>
+
+<ul>
 <li><p>주의해야 할 것은 함수 표현식으로 함수를 정의하면 함수 호이스팅이 발생하는 것이 아니라 변수 호이스팅이 발생한다는 것이다.</p>
 <ul>
 <li>함수 선언문 : 함수 선언문 이전에 함수를 참조 및 호출 가능</li>
@@ -394,10 +390,16 @@
 <li><p>함수 호이스팅은 함수를 호출하기 전에 반드시 함수를 선언해야 한다는 당연한 규칙을 무시하므로 함수 표현식을 사용하는 것이 더 권장된다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 함수 참조</span></span><br><span class="line"><span class="built_in">console</span>.dir(add); <span class="comment">// ƒ add(x, y)</span></span><br><span class="line"><span class="built_in">console</span>.dir(sub); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 호출</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// TypeError: sub is not a function  , undefined를 호출한 것과 동일</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 선언문</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 표현식</span></span><br><span class="line"><span class="keyword">var</span> sub = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h2 id="4-4-Function-생성자-함수"><a href="#4-4-Function-생성자-함수" class="headerlink" title="4.4 Function 생성자 함수"></a>4.4 Function 생성자 함수</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&quot;x&quot;</span>, <span class="string">&quot;y&quot;</span>, <span class="string">&quot;return x + y&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p><strong>생성자 함수 : 객체를 생성하는 함수</strong></p>
+</blockquote>
+</br>
+
 <ul>
-<li><strong>생성자 함수 : 객체를 생성하는 함수</strong></li>
 <li>Function 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며 바람직하지도 않다. 클로저(closure)를 생성하지 않으며 함수 선언문이나 함수 표현식으로 생성한 함수와 다르게 동작한다.</li>
 </ul>
 <h2 id="4-5-화살표-함수-ES6"><a href="#4-5-화살표-함수-ES6" class="headerlink" title="4.5 화살표 함수 (ES6)"></a>4.5 화살표 함수 (ES6)</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 화살표 함수</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">x, y</span>) =&gt;</span> x + y;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">2</span>, <span class="number">5</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
@@ -407,8 +409,6 @@
 <li>ES6에서 새롭게 도입되었다.</li>
 <li>화살표 함수는 항상 익명 함수로 정의한다.</li>
 <li>생성자 함수로 사용할 수 없으며 기존의 함수와 this 바인딩 방식이 다르고, prototype 프로퍼티가 없으며 arguments 객체를 생성하지 않는다.</li>
-</ul>
-</li>
 </ul>
 <h1 id="5-함수-호출"><a href="#5-함수-호출" class="headerlink" title="5) 함수 호출"></a>5) 함수 호출</h1><h2 id="5-1-매개변수와-인수"><a href="#5-1-매개변수와-인수" class="headerlink" title="5.1 매개변수와 인수"></a>5.1 매개변수와 인수</h2><div class="figure center" style="width:550px;"><img class="fig-img" src="12-3.png" style="width:550px;height:350px;"alt=""></div>
 
@@ -456,7 +456,69 @@
 <li><p>반환문은 생략가능하고 암묵적으로 undefined를 반환한다.</p>
 </li>
 </ul>
-<hr>
+<h1 id="6-참조에-의한-전달과-외부-상태의-변경"><a href="#6-참조에-의한-전달과-외부-상태의-변경" class="headerlink" title="6) 참조에 의한 전달과 외부 상태의 변경"></a>6) 참조에 의한 전달과 외부 상태의 변경</h1><hr>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 매개변수 primitive는 원시값을 전달받고, 매개변수 obj는 객체를 전달받는다.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeVal</span>(<span class="params">primitive, obj</span>) </span>&#123;</span><br><span class="line">  primitive += <span class="number">100</span>;</span><br><span class="line">  obj.name = <span class="string">&quot;Kim&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 외부 상태</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">name</span>: <span class="string">&quot;Lee&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Lee&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시값은 값 자체가 복사되어 전달되고 객체는 참조값이 복사되어 전달된다.</span></span><br><span class="line">changeVal(num, person);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시값은 원본이 훼손되지 않는다.</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 객체는 원본이 훼손된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Kim&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>primitive에는 원시값, obj에는 객체를 할당</p>
+</li>
+<li><p>[값에 의한 전달] 원시 타입 인수는 값 자체가 복사되어 매개변수에 전달 -&gt; 함수 몸체에서 그 값을 변경(재할당을 통한 교체)해도 원본은 훼손되지 않는다.</p>
+</li>
+<li><p>[참조에 의한 전달] 객체 타입 인수는 참조값이 복사되어 매개변수에 전달 -&gt; 함수 몸체에서 참조값을 통해 객체를 변경할 경우 원본이 훼손됨</p>
+</li>
+<li><p>이는 객체가 변경할 수 있는 값이며, 참조에 의한 전달 방식으로 동작하기 때문에 발생하는 부작용이다. 이러한 부수효과는 코드의 복잡성을 증가시키고 가독성을 떨어뜨린다.</p>
+</li>
+</ul>
+<h1 id="7-다양한-형태의-함수"><a href="#7-다양한-형태의-함수" class="headerlink" title="7) 다양한 형태의 함수"></a>7) 다양한 형태의 함수</h1><h2 id="7-1-즉시-실행-함수-IIFE-Immediately-Invoked-Function-Expression"><a href="#7-1-즉시-실행-함수-IIFE-Immediately-Invoked-Function-Expression" class="headerlink" title="7.1. 즉시 실행 함수(IIFE, Immediately Invoked Function Expression)"></a>7.1. 즉시 실행 함수(IIFE, Immediately Invoked Function Expression)</h2><blockquote>
+<p><strong>즉시 실행 함수(IIFE) : 함수 정의와 동시에 즉시 호출되는 함수</strong></p>
+</blockquote>
+<ul>
+<li>단 한 번만 호출되며 다시 호출할 수 없다. 그러므로 일반적으로 익명 함수 사용한다.</li>
+<li>반드시 그룹 연산자 (…)로 감싸야 한다. -&gt; 함수 리터럴을 평가해서 함수 객체를 생성하기 위해서</li>
+<li>선언 후 바로 ()를 사용해 호출해 준다. -&gt; 함수의 스코프(유효범위) 좁아져 오류 줄이기</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 익명 즉시 실행 함수</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">5</span>;</span><br><span class="line">  <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;)(); <span class="comment">// ()로 바로 호출해준다.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-재귀-함수-recursive-function"><a href="#7-2-재귀-함수-recursive-function" class="headerlink" title="7.2. 재귀 함수(recursive function)"></a>7.2. 재귀 함수(recursive function)</h2><blockquote>
+<p><strong>재귀 함수 : 함수가 자기 자신을 호출하는 재귀 호출을 수행하는 함수</strong></p>
+</blockquote>
+<ul>
+<li>재귀 함수는 반복되는 처리를 위해 사용한다.</li>
+<li>함수 내부에서는 함수 이름을 사용해 자기 자신을 호출할 수 있다.</li>
+<li>재귀 함수는 자신을 무한 재귀 호출하므로 반드시 탈출 조건을 만들어야 한다. -&gt; 탈출 조건 없으면 스택 오버플로(stack overflow) 에러 발생</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 10부터 0까지 호출하는 함수</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countdown</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(n);</span><br><span class="line">  countdown(n - <span class="number">1</span>); <span class="comment">// 재귀 호출</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">countdown(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 함수 표현식</span></span><br><span class="line"><span class="keyword">var</span> factorial = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 탈출 조건: n이 1 이하일 때 재귀 호출을 멈춘다.</span></span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// 함수를 가리키는 식별자로 자기 자신을 재귀 호출</span></span><br><span class="line">  <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 함수 이름으로 자기 자신을 재귀 호출할 수도 있다.</span></span><br><span class="line">  <span class="comment">// console.log(factorial === foo); // true</span></span><br><span class="line">  <span class="comment">// return n * foo(n - 1);</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(factorial(<span class="number">5</span>)); <span class="comment">// 5! = 5 * 4 * 3 * 2 * 1 = 120</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-3-중첩-함수-nested-function"><a href="#7-3-중첩-함수-nested-function" class="headerlink" title="7.3. 중첩 함수(nested function)"></a>7.3. 중첩 함수(nested function)</h2><blockquote>
+<p><strong>중첩 함수(= 내부 함수) : 함수 내부에 호출된 함수</strong></p>
+</blockquote>
+<ul>
+<li>자신을 포함하는 외부 함수를 돕는 헬퍼 함수(helper function)의 역할을 한다.</li>
+<li>ES6부터는 if 문이나 for 문 등의 코드 블록 내에서도 정의할 수 있으나 호이스팅으로 인해 혼란이 발생할 수 있으므로 바람직하지 않다.</li>
+</ul>
+<h2 id="7-4-콜백-함수-callback-function"><a href="#7-4-콜백-함수-callback-function" class="headerlink" title="7.4. 콜백 함수(callback function)"></a>7.4. 콜백 함수(callback function)</h2><blockquote>
+<p><strong>콜백 함수 : 함수의 매개변수를 통해 다른 함수의 내부로 전달되는 함수</strong></p>
+</blockquote>
+<h2 id="7-5-순수-함수와-비순수-함수"><a href="#7-5-순수-함수와-비순수-함수" class="headerlink" title="7.5. 순수 함수와 비순수 함수"></a>7.5. 순수 함수와 비순수 함수</h2><ul>
+<li><p>순수 함수</p>
+<ul>
+<li>부수 효과가 없는 함수</li>
+<li>어떤 외부 상태에도 의존하지 않으며 외부 상태를 변경하지도 않음</li>
+<li>동일한 인수가 전달되면 언제나 동일한 값을 반환</li>
+</ul>
+</li>
+<li><p>비순수 함수</p>
+<ul>
+<li>부수 효과가 있는 함수</li>
+<li>외부 상태에 의존하거나 외부 상태를 변경하는 함수</li>
+<li></li>
+</ul>
+</li>
+<li><p>코딩을 함에 있어 가급적 부수효과를 억제하는 순수 함수를 사용하려는 노력이 필요하다.</p>
+</li>
+</ul>
             
 
 
@@ -778,16 +840,7 @@
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
 
-<script src="/assets/js/jquery.js"></script>
-
-
-<script src="/assets/js/jquery.fancybox.js"></script>
-
-
-<script src="/assets/js/thumbs.js"></script>
-
-
-<script src="/assets/js/tranquilpeak.js"></script>
+<script src="/assets/js/script-tn2qnojsuekukvbzevqr6pxe9t0fslprhgtvii7in6ev0s69j6kaezq94gpe.min.js"></script>
 
 <!--SCRIPTS END-->
 
