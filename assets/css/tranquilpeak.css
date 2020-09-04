@@ -164,10 +164,10 @@ pre > code {
   cursor: text;
   overflow-x: auto;
   line-height: 1.7em;
-  font-size: 10px; }
+  font-size: 1.4rem; }
 
 code {
-  font-size: 10px;
+  font-size: 1.7rem;
   display: inline-block;
   font-family: "Nanum Gothic Coding", monospace;
   font-weight: 400;
