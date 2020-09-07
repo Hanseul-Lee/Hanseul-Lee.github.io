@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n종류\n\n조건문 : if else문, switch문\n반복문: for문, while문, do-while문\n기타: break문, continue문\n\n\n1) 조건문1.1. if…else문12345if (조건식) &#123;  // 조건식이 참이면 이 코드 블록이 실행된다.&#125; else &#123;  // 조건식이 거짓이면 이 코드 블록이 실행된다.&#125;\n\n1234567if (조건식1) &#123;  // 조건식1이 참이면 이 코드 블록이 실행된다.&#125; else if (조건식2) &#123;  // 조건식2가 참이면 이 코드 블록이 실행된다.&#125; else &#123;  // 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.&#125;\n\n\n조건식은 불리언타입(T/F)으로 평가되어야 함\n\nelse문과 else if문은 옵션\n\n대부분의 if…else문은 삼항연산자로 바꿔 쓸 수 있음\n  💡 삼항연산자\n  조건식 ? 참이면 이 코드 실행 : 거짓이면 이 코드 실행\n12345var x = 2;// 0은 false로 취급된다.var result = x % 2 ? &quot;홀수&quot; : &quot;짝수&quot;;console.log(result); // 짝수\n\n\n\n1.2 switch문\n조건식은 주로 변수가 많음\n조건이 많은 경우 if문보다 더 유리\n주의: break문이 선언되지 않으면 멈추지 않고 계속 수행됨(fall through)\n해당하는 조건이 없는 경우를 대비해 default문을 넣어줌 (선택사항)default문은 break필요없음\n\n12345678910switch (표현식) &#123;  case 표현식1:    실행문;    break;  case 표현식2:    실행문;    break;  default:    실행문;&#125;\n\n2) 반복문\n반복문에서는 무한반복으로 인해 교착상태에 빠지지 않도록 조건을 잘 점검할 것!\n\n2.1 for문123for (초기값; 조건식; 증감식) &#123;  실행문;&#125;\n\n\n예제\n\n123456for (var i = 0; i &lt; 2; i++) &#123;  console.log(i);&#125;// 0// 1\n\n\n\n2.2 while문\n조건이 참(true)일때까지 블록 수행\n\n1234while (조건) &#123;  실행문;  증감식;&#125;\n\n123456var count = 0;while (count &lt; 3) &#123;  console.log(count); // 0 1 2  count++;&#125;\n\n2.3 do-while문\n조건이 거짓(false)일때까지 블록 수행\n적어도 한 번 수행하고 나서 블록의 마지막 조건을 체크ex) 네이버 검색시 카페회원 아니어도 검색글 한 번은 읽기 가능\n\n1234do &#123;  실행문;  증감식;&#125; while (조건);\n\n123456var count = 0;while (count &lt; 3) &#123;  console.log(count); // 0 1 2  count++;&#125;\n\n3. 기타3.1. break문\n선언된 곳의 블록에서 탈출 - 레이블문, 반복문, switch문\n\n3.2 continue문\n반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 실행 흐름을 이동\n","dateCreated":"2020-08-25T00:25:00+09:00","dateModified":"2020-09-05T02:52:17+09:00","datePublished":"2020-08-25T00:25:00+09:00","description":"\n\n제어문은 크게 조건문, 반복문 그리고 기타(break문, continue문 등)의 3가지 종류로 나뉠 수 있다.","headline":"8. 제어문","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/JS-8/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/JS-8/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n종류\n\n조건문 : if else문, switch문\n반복문: for문, while문, do-while문\n기타: break문, continue문\n\n\n1) 조건문1.1. if…else문12345if (조건식) &#123;  // 조건식이 참이면 이 코드 블록이 실행된다.&#125; else &#123;  // 조건식이 거짓이면 이 코드 블록이 실행된다.&#125;\n\n1234567if (조건식1) &#123;  // 조건식1이 참이면 이 코드 블록이 실행된다.&#125; else if (조건식2) &#123;  // 조건식2가 참이면 이 코드 블록이 실행된다.&#125; else &#123;  // 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.&#125;\n\n\n조건식은 불리언타입(T/F)으로 평가되어야 한다.\nelse문과 else if문은 옵션\n대부분의 if…else문은 삼항연산자로 바꿔 쓸 수 있다.1💡 삼항연산자      조건식 ? 참이면 이 코드 실행 : 거짓이면 이 코드 실행\n12345var x = 2;// 0은 false로 취급된다.var result = x % 2 ? &quot;홀수&quot; : &quot;짝수&quot;;console.log(result); // 짝수\n\n\n\n1.2 switch문\n조건식은 주로 변수가 많다.\n조건이 많은 경우 if문보다 더 유리하다.\n🔴주의: break문이 선언되지 않으면 멈추지 않고 계속 수행됨(fall through)\n해당하는 조건이 없는 경우를 대비해 default문을 넣어준다. (선택사항)default문은 break 필요 없음\n\n12345678910switch (표현식) &#123;  case 표현식1:    실행문;    break;  case 표현식2:    실행문;    break;  default:    실행문;&#125;\n\n2) 반복문\n반복문에서는 무한반복으로 인해 교착상태에 빠지지 않도록 조건을 잘 점검할 것!\n\n2.1 for문123for (초기값; 조건식; 증감식) &#123;  실행문;&#125;\n\n\n예제\n\n123456for (var i = 0; i &lt; 2; i++) &#123;  console.log(i);&#125;// 0// 1\n\nfor문 해석 순서\n\n2.2 while문\n조건이 참(true)일때까지 블록 수행\n\n1234while (조건) &#123;  실행문;  증감식;&#125;\n\n123456var count = 0;while (count &lt; 3) &#123;  console.log(count); // 0 1 2  count++;&#125;\n\n2.3 do-while문\n조건이 거짓(false)일때까지 블록 수행\n적어도 한 번 수행하고 나서 블록의 마지막 조건을 체크한다.ex) 네이버 검색시 카페회원 아니어도 검색글 한 번은 읽기 가능\n\n1234do &#123;  실행문;  증감식;&#125; while (조건);\n\n123456var count = 0;while (count &lt; 3) &#123;  console.log(count); // 0 1 2  count++;&#125;\n\n3. 기타3.1. break문\n선언된 곳의 블록에서 탈출 - 레이블문, 반복문, switch문\n\n3.2 continue문\n반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 실행 흐름을 이동\n","dateCreated":"2020-08-25T00:25:00+09:00","dateModified":"2020-09-07T16:37:23+09:00","datePublished":"2020-08-25T00:25:00+09:00","description":"\n\n제어문은 크게 조건문, 반복문 그리고 기타(break문, continue문 등)의 3가지 종류로 나뉠 수 있다.","headline":"8. 제어문","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/JS-8/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/JS-8/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="제어문은 크게 조건문, 반복문 그리고 기타(break문, continue문 등)의 3가지 종류로 나뉠 수 있다.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="8. 제어문">
@@ -19,13 +19,13 @@
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:description" content="제어문은 크게 조건문, 반복문 그리고 기타(break문, continue문 등)의 3가지 종류로 나뉠 수 있다.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/img/for.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/JS-8/for.png">
 <meta property="article:published_time" content="2020-08-24T15:25:00.000Z">
-<meta property="article:modified_time" content="2020-09-04T17:52:17.150Z">
+<meta property="article:modified_time" content="2020-09-07T07:37:23.322Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/25/img/for.png">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/25/JS-8/for.png">
     
     
         
@@ -288,22 +288,18 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (조건식<span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식1이 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (조건식<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// 조건식2가 참이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 조건식1과 조건식2가 모두 거짓이면 이 코드 블록이 실행된다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>조건식은 불리언타입(T/F)으로 평가되어야 함</p>
-</li>
-<li><p>else문과 else if문은 옵션</p>
-</li>
-<li><p>대부분의 if…else문은 <strong>삼항연산자</strong>로 바꿔 쓸 수 있음</p>
-<pre><code>  💡 삼항연산자
-  조건식 ? 참이면 이 코드 실행 : 거짓이면 이 코드 실행</code></pre>
+<li>조건식은 불리언타입(T/F)으로 평가되어야 한다.</li>
+<li>else문과 else if문은 옵션</li>
+<li>대부분의 if…else문은 <strong>삼항연산자</strong>로 바꿔 쓸 수 있다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">💡 삼항연산자      조건식 ? 참이면 이 코드 실행 : 거짓이면 이 코드 실행</span><br></pre></td></tr></table></figure>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0은 false로 취급된다.</span></span><br><span class="line"><span class="keyword">var</span> result = x % <span class="number">2</span> ? <span class="string">&quot;홀수&quot;</span> : <span class="string">&quot;짝수&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 짝수</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h3 id="1-2-switch문"><a href="#1-2-switch문" class="headerlink" title="1.2 switch문"></a>1.2 switch문</h3><ul>
-<li>조건식은 주로 <strong>변수</strong>가 많음</li>
-<li>조건이 많은 경우 if문보다 더 유리</li>
-<li>주의: break문이 선언되지 않으면 멈추지 않고 계속 수행됨(fall through)</li>
-<li>해당하는 조건이 없는 경우를 대비해 default문을 넣어줌 (선택사항)<br>default문은 break필요없음</li>
+<li>조건식은 주로 <strong>변수</strong>가 많다.</li>
+<li>조건이 많은 경우 if문보다 더 유리하다.</li>
+<li>🔴주의: break문이 선언되지 않으면 멈추지 않고 계속 수행됨(fall through)</li>
+<li>해당하는 조건이 없는 경우를 대비해 default문을 넣어준다. (선택사항)<br>default문은 break 필요 없음</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (표현식) &#123;</span><br><span class="line">  <span class="keyword">case</span> 표현식<span class="number">1</span>:</span><br><span class="line">    실행문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> 표현식<span class="number">2</span>:</span><br><span class="line">    실행문;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    실행문;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -317,7 +313,7 @@
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
-<img src="../img/for.png" />
+<div class="figure center" style="width:500px;"><img class="fig-img" src="for.png" style="width:500px;"alt="for문 해석 순서"><span class="caption">for문 해석 순서</span></div>
 
 <h3 id="2-2-while문"><a href="#2-2-while문" class="headerlink" title="2.2 while문"></a>2.2 while문</h3><ul>
 <li>조건이 <strong>참(true)일때까지</strong> 블록 수행</li>
@@ -328,7 +324,7 @@
 
 <h3 id="2-3-do-while문"><a href="#2-3-do-while문" class="headerlink" title="2.3 do-while문"></a>2.3 do-while문</h3><ul>
 <li>조건이 <strong>거짓(false)일때까지</strong> 블록 수행</li>
-<li><strong>적어도 한 번 수행</strong>하고 나서 블록의 마지막 조건을 체크<br>ex) 네이버 검색시 카페회원 아니어도 검색글 한 번은 읽기 가능</li>
+<li><strong>적어도 한 번 수행</strong>하고 나서 블록의 마지막 조건을 체크한다.<br>ex) 네이버 검색시 카페회원 아니어도 검색글 한 번은 읽기 가능</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  실행문;</span><br><span class="line">  증감식;</span><br><span class="line">&#125; <span class="keyword">while</span> (조건);</span><br></pre></td></tr></table></figure>
 

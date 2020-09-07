@@ -2,6 +2,7 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
 @import url(https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css);
+@import url(https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap);
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -51,8 +52,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  tap-highlight-color: rgba(0, 0, 0, 0);
-  list-style: none; }
+  tap-highlight-color: rgba(0, 0, 0, 0); }
 
 body {
   width: 100%;
@@ -163,11 +163,11 @@ pre > code {
   margin: 0;
   cursor: text;
   overflow-x: auto;
-  line-height: 1.7em;
-  font-size: 1.4rem; }
+  line-height: 2.1em;
+  font-size: 1.6rem; }
 
 code {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   display: inline-block;
   font-family: "Nanum Gothic Coding", monospace;
   font-weight: 400;
@@ -1517,7 +1517,7 @@ figure.highlight,
   figure.highlight .line,
   .codeblock .line {
     height: 1.3em;
-    font-size: 1.4rem; }
+    font-size: 1.6rem; }
 
 .codeblock--tabbed figure.highlight,
 .codeblock--tabbed pre > code {
