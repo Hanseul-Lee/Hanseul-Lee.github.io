@@ -11,14 +11,16 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n","dateCreated":"2020-09-18T07:15:29+09:00","dateModified":"2020-09-18T07:16:18+09:00","datePublished":"2020-09-18T07:15:29+09:00","description":"","headline":"17. 생성자 함수","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/JS-17/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/JS-17/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
-    <meta property="og:type" content="blog">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) Object 생성자 함수\n\n\n\n\n2) 생성자 함수2.1. 객체 리터럴에 의한 객체 생성 방식의 문제점2.2. 생성자 함수에 의한 객체 생성 방식의 장점2.3. 생성자 함수의 인스턴스 생성 과정2.4. 내부 메서드 [[Call]]과 [[Construct]]2.5. constructor와 non-constructor의 구분2.6. new 연산자2.7. new.target","dateCreated":"2020-09-18T07:15:29+09:00","dateModified":"2020-09-18T09:10:26+09:00","datePublished":"2020-09-18T07:15:29+09:00","description":"\n 다양한 객체 생성 방식 중에서 생성자 함수를 사용하여 객체를 생성하는 방식을 살펴본다. 그리고 객체 리터럴을 사용하여 객체를 생성하는 방식과 생성자 함수를 사용하여 객체를 생성하는 방식과의 장단점을 살펴보자.","headline":"17. 생성자 함수","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/JS-17/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/JS-17/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="다양한 객체 생성 방식 중에서 생성자 함수를 사용하여 객체를 생성하는 방식을 살펴본다. 그리고 객체 리터럴을 사용하여 객체를 생성하는 방식과 생성자 함수를 사용하여 객체를 생성하는 방식과의 장단점을 살펴보자.">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="17. 생성자 함수">
 <meta property="og:url" content="https://hanseul-lee.github.io/2020/09/18/JS-17/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="다양한 객체 생성 방식 중에서 생성자 함수를 사용하여 객체를 생성하는 방식을 살펴본다. 그리고 객체 리터럴을 사용하여 객체를 생성하는 방식과 생성자 함수를 사용하여 객체를 생성하는 방식과의 장단점을 살펴보자.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-17T22:15:29.000Z">
-<meta property="article:modified_time" content="2020-09-17T22:16:18.552Z">
+<meta property="article:modified_time" content="2020-09-18T00:10:26.606Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -269,7 +271,14 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Object-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98"><span class="toc-text">1) Object 생성자 함수</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98"><span class="toc-text">2) 생성자 함수</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%EA%B0%9D%EC%B2%B4-%EB%A6%AC%ED%84%B0%EB%9F%B4%EC%97%90-%EC%9D%98%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90"><span class="toc-text">2.1. 객체 리터럴에 의한 객체 생성 방식의 문제점</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-%EC%9D%98%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EC%9E%A5%EC%A0%90"><span class="toc-text">2.2. 생성자 함수에 의한 객체 생성 방식의 장점</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%9D%98-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EA%B3%BC%EC%A0%95"><span class="toc-text">2.3. 생성자 함수의 인스턴스 생성 과정</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%EB%82%B4%EB%B6%80-%EB%A9%94%EC%84%9C%EB%93%9C-Call-%EA%B3%BC-Construct"><span class="toc-text">2.4. 내부 메서드 [[Call]]과 [[Construct]]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-constructor%EC%99%80-non-constructor%EC%9D%98-%EA%B5%AC%EB%B6%84"><span class="toc-text">2.5. constructor와 non-constructor의 구분</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-new-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-text">2.6. new 연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-new-target"><span class="toc-text">2.7. new.target</span></a></li></ol></li></ol>
+
+<h1 id="1-Object-생성자-함수"><a href="#1-Object-생성자-함수" class="headerlink" title="1) Object 생성자 함수"></a>1) Object 생성자 함수</h1><ul>
+<li><br>
+
+</li>
+</ul>
+<h1 id="2-생성자-함수"><a href="#2-생성자-함수" class="headerlink" title="2) 생성자 함수"></a>2) 생성자 함수</h1><h2 id="2-1-객체-리터럴에-의한-객체-생성-방식의-문제점"><a href="#2-1-객체-리터럴에-의한-객체-생성-방식의-문제점" class="headerlink" title="2.1. 객체 리터럴에 의한 객체 생성 방식의 문제점"></a>2.1. 객체 리터럴에 의한 객체 생성 방식의 문제점</h2><h2 id="2-2-생성자-함수에-의한-객체-생성-방식의-장점"><a href="#2-2-생성자-함수에-의한-객체-생성-방식의-장점" class="headerlink" title="2.2. 생성자 함수에 의한 객체 생성 방식의 장점"></a>2.2. 생성자 함수에 의한 객체 생성 방식의 장점</h2><h2 id="2-3-생성자-함수의-인스턴스-생성-과정"><a href="#2-3-생성자-함수의-인스턴스-생성-과정" class="headerlink" title="2.3. 생성자 함수의 인스턴스 생성 과정"></a>2.3. 생성자 함수의 인스턴스 생성 과정</h2><h2 id="2-4-내부-메서드-Call-과-Construct"><a href="#2-4-내부-메서드-Call-과-Construct" class="headerlink" title="2.4. 내부 메서드 [[Call]]과 [[Construct]]"></a>2.4. 내부 메서드 [[Call]]과 [[Construct]]</h2><h2 id="2-5-constructor와-non-constructor의-구분"><a href="#2-5-constructor와-non-constructor의-구분" class="headerlink" title="2.5. constructor와 non-constructor의 구분"></a>2.5. constructor와 non-constructor의 구분</h2><h2 id="2-6-new-연산자"><a href="#2-6-new-연산자" class="headerlink" title="2.6. new 연산자"></a>2.6. new 연산자</h2><h2 id="2-7-new-target"><a href="#2-7-new-target" class="headerlink" title="2.7. new.target"></a>2.7. new.target</h2>
             
 
 
