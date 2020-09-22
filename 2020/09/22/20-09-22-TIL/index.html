@@ -6,20 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>[과제] 20-09-18 알고리즘 과제 - HS&#39;s blog</title>
+    <title>20-09-22 화요일 TIL - HS&#39;s blog</title>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)\n1부터 10,000까지 8이라는 숫자가 총 몇번 나오는가? 이를 구하는 함수를 완성하라.단, 8이 포함되어 있는 숫자의 갯수를 카운팅 하는 것이 아니라 8이라는 숫자를 모두 카운팅 해야 한다.예를 들어 8808은 3, 8888은 4로 카운팅 해야 한다.\n(hint) 문자열 중 n번째에 있는 문자 : str.charAt(n) or str[n]\n\n123456789101112function getCount8 ()&#123;  var string = &#x27;&#x27;;  for(var i = 0; i &lt;= 10000; i++)&#123;   string += i;   &#125;  var count = 0;  for (var i = 0; i &lt; string.length; i++)&#123;    if (string[i] === &#x27;8&#x27;) count++;  &#125;  return count;&#125;console.log(getCount8()); //4000\n\n\n\n2. 이상한 문자 만들기\ntoWeirdCase함수는 문자열을 인수로 전달받는다.문자열 s에 각 단어의 짝수번째 인덱스 문자는 대문자로, 홀수번째 인덱스 문자는 소문자로 바꾼 문자열을 리턴하도록 함수를 완성하라.예를 들어 s가 ‘hello world’라면 첫 번째 단어는 ‘HeLlO’, 두 번째 단어는 ‘WoRlD’로 바꿔 ‘HeLlO WoRlD’를 리턴한다.\n주의) 문자열 전체의 짝/홀수 인덱스가 아니라 단어(공백을 기준)별로 짝/홀수 인덱스를 판단한다.\n\n123456789101112131415161718192021function toWeirdCase(s) &#123;  var string = &#x27;&#x27;;  var count = 0;  for(var i = 0; i &lt; s.length; i++)&#123;    if(s[i] === &#x27; &#x27;)&#123;      string += s[i];       count = 0;    &#125;    else if(count % 2 === 0)&#123;      string += s[i].toUpperCase();       count++;    &#125;    else&#123;      string += s[i].toLowerCase();       count++;    &#125;  &#125;  return string;&#125;console.log(toWeirdCase(&#x27;hello world&#x27;));    // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;","dateCreated":"2020-09-18T17:28:18+09:00","dateModified":"2020-09-19T02:42:37+09:00","datePublished":"2020-09-18T17:28:18+09:00","description":"","headline":"[과제] 20-09-18 알고리즘 과제","image":["HW.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/","thumbnailUrl":"HW.jpg"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n오늘 공부 한 것\n러버덕 첫날 \n\n팀원들과 공부한 내용 발표 및 피드백\n모르는 내용, 새롭게 안 내용 정리\natt.name -&gt; ‘점’이 아니라 ‘dot’으로 말하기\n네임스페이스 : 식별자들이 기억되어지는 공간\n전역객체 : 코드 실행(런타임) 이전에 가장먼저 실행하는 특수한 객체,let 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.\n변수 &lt; 식별자(더 상위 개념)\n\n\n\n\npoiemaweb\n\n이론 공부 (4강, 5강, 6강, 7강 복습)\ngithub blog에 정리\n\n\n속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation) 포스팅 및 공부\n\n\n느낀 점\n오늘 러버덕 첫 날이었다. 코로나로 휴강이 길어져서 늘어지고 공부가 제대로 되는지 잘 모르겠었는데 러버덕을 시작하니 갑자기 의욕이 생기고 더 재밌어졌다. 다들 실력이 좋아서 질문이나 피드백도 잘 해주시고 조금 버벅이거나 용어가 헷갈리는 것, 그리고 다른 분들이 말하는 내용을 들으며 새로 알게 된 내용을 정리하니 같이 공부가 됐다. 앞으로 러버덕 시간이 더 기대된다.\n\n자격증 시험이 끝나고 javascript에 온전히 집중할 시간이 많아져서 좋다. 그동안 희미해졌던 개념이나 헷갈렸지만 넘어갔던 개념을 제대로 공부해서 뒤져진 시간을 따라잡아야겠다는 의욕이 생긴다. 스터디카페 2주권도 끊어서 하루종일 공부를 했다. 앞으로 다가올 추석연휴때까지도 이 마음가짐을 잊지말자.\n\n","dateCreated":"2020-09-22T20:42:10+09:00","dateModified":"2020-09-22T20:54:12+09:00","datePublished":"2020-09-22T20:42:10+09:00","description":"","headline":"20-09-22 화요일 TIL","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/","keywords":"TIL","thumbnailUrl":"js.png"}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="[과제] 20-09-18 알고리즘 과제">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/index.html">
+<meta property="og:title" content="20-09-22 화요일 TIL">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-18T08:28:18.000Z">
-<meta property="article:modified_time" content="2020-09-18T17:42:37.426Z">
+<meta property="article:published_time" content="2020-09-22T11:42:10.000Z">
+<meta property="article:modified_time" content="2020-09-22T11:54:12.260Z">
 <meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="TIL">
 <meta name="twitter:card" content="summary">
     
     
@@ -29,8 +30,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/js.png"/>
     
     
     
@@ -242,20 +243,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            [과제] 20-09-18 알고리즘 과제
+            20-09-22 화요일 TIL
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-09-18T17:28:18+09:00">
+    <time datetime="2020-09-22T20:42:10+09:00">
 	
-		    Sep 18, 2020
+		    Sep 22, 2020
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/etc/">etc</a>
+    <a class="category-link" href="/categories/TIL/">TIL</a>
 
 
     
@@ -268,19 +269,35 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="1-1-10-000의-숫자-중-8이-등장하는-횟수-구하기-Google"><a href="#1-1-10-000의-숫자-중-8이-등장하는-횟수-구하기-Google" class="headerlink" title="1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)"></a>1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)</h1><blockquote>
-<p>1부터 10,000까지 8이라는 숫자가 총 몇번 나오는가? 이를 구하는 함수를 완성하라.<br>단, 8이 포함되어 있는 숫자의 갯수를 카운팅 하는 것이 아니라 8이라는 숫자를 모두 카운팅 해야 한다.<br>예를 들어 8808은 3, 8888은 4로 카운팅 해야 한다.</p>
-<p>(hint) 문자열 중 n번째에 있는 문자 : str.charAt(n) or str[n]</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCount8</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> string = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= <span class="number">10000</span>; i++)&#123;</span><br><span class="line">   string += i; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; string.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (string[i] === <span class="string">&#x27;8&#x27;</span>) count++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(getCount8()); <span class="comment">//4000</span></span><br></pre></td></tr></table></figure>
 
-<br>
-
-<h1 id="2-이상한-문자-만들기"><a href="#2-이상한-문자-만들기" class="headerlink" title="2. 이상한 문자 만들기"></a>2. 이상한 문자 만들기</h1><blockquote>
-<p>toWeirdCase함수는 문자열을 인수로 전달받는다.<br>문자열 s에 각 단어의 짝수번째 인덱스 문자는 대문자로, 홀수번째 인덱스 문자는 소문자로 바꾼 문자열을 리턴하도록 함수를 완성하라.<br>예를 들어 s가 ‘hello world’라면 첫 번째 단어는 ‘HeLlO’, 두 번째 단어는 ‘WoRlD’로 바꿔 ‘HeLlO WoRlD’를 리턴한다.</p>
-<p>주의) 문자열 전체의 짝/홀수 인덱스가 아니라 단어(공백을 기준)별로 짝/홀수 인덱스를 판단한다.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> string = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; s.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i] === <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">      string += s[i]; </span><br><span class="line">      count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(count % <span class="number">2</span> === <span class="number">0</span>)&#123;</span><br><span class="line">      string += s[i].toUpperCase(); </span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">      string += s[i].toLowerCase(); </span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;hello world&#x27;</span>));    <span class="comment">// &#x27;HeLlO WoRlD&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;my name is lee&#x27;</span>)); <span class="comment">// &#x27;My NaMe Is LeE&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="오늘-공부-한-것"><a href="#오늘-공부-한-것" class="headerlink" title="오늘 공부 한 것"></a>오늘 공부 한 것</h2><ol>
+<li><p>러버덕 첫날 </p>
+<ul>
+<li>팀원들과 공부한 내용 발표 및 피드백</li>
+<li>모르는 내용, 새롭게 안 내용 정리<ul>
+<li>att.name -&gt; ‘점’이 아니라 ‘dot’으로 말하기</li>
+<li>네임스페이스 : 식별자들이 기억되어지는 공간</li>
+<li>전역객체 : 코드 실행(런타임) 이전에 가장먼저 실행하는 특수한 객체,<br>let 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.</li>
+<li>변수 &lt; 식별자(더 상위 개념)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>poiemaweb</p>
+<ul>
+<li>이론 공부 (4강, 5강, 6강, 7강 복습)</li>
+<li>github blog에 정리</li>
+</ul>
+</li>
+<li><p>속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation) 포스팅 및 공부</p>
+</li>
+</ol>
+<h2 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h2><ul>
+<li><p>오늘 러버덕 첫 날이었다. 코로나로 휴강이 길어져서 늘어지고 공부가 제대로 되는지 잘 모르겠었는데 러버덕을 시작하니 갑자기 의욕이 생기고 더 재밌어졌다. 다들 실력이 좋아서 질문이나 피드백도 잘 해주시고 조금 버벅이거나 용어가 헷갈리는 것, 그리고 다른 분들이 말하는 내용을 들으며 새로 알게 된 내용을 정리하니 같이 공부가 됐다. 앞으로 러버덕 시간이 더 기대된다.</p>
+</li>
+<li><p>자격증 시험이 끝나고 javascript에 온전히 집중할 시간이 많아져서 좋다. 그동안 희미해졌던 개념이나 헷갈렸지만 넘어갔던 개념을 제대로 공부해서 뒤져진 시간을 따라잡아야겠다는 의욕이 생긴다. 스터디카페 2주권도 끊어서 하루종일 공부를 했다. 앞으로 다가올 추석연휴때까지도 이 마음가짐을 잊지말자.</p>
+</li>
+</ul>
             
 
 
@@ -288,20 +305,24 @@
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/TIL/" rel="tag">TIL</a>
+
+            </div>
+        
         
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/22/20-09-22-%EC%86%8D%EC%84%B1%EC%A0%91%EA%B7%BC%EB%B2%95/"
-                    data-tooltip="[Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
-                    aria-label="PREVIOUS: [Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -311,9 +332,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/18/JS-17/"
-                    data-tooltip="17. 생성자 함수"
-                    aria-label="NEXT: 17. 생성자 함수"
+                    href="/2020/09/22/20-09-22-%EC%86%8D%EC%84%B1%EC%A0%91%EA%B7%BC%EB%B2%95/"
+                    data-tooltip="[Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
+                    aria-label="NEXT: [Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -338,7 +359,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -351,7 +372,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -364,7 +385,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -409,14 +430,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/22/20-09-22-%EC%86%8D%EC%84%B1%EC%A0%91%EA%B7%BC%EB%B2%95/"
-                    data-tooltip="[Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
-                    aria-label="PREVIOUS: [Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -426,9 +444,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/18/JS-17/"
-                    data-tooltip="17. 생성자 함수"
-                    aria-label="NEXT: 17. 생성자 함수"
+                    href="/2020/09/22/20-09-22-%EC%86%8D%EC%84%B1%EC%A0%91%EA%B7%BC%EB%B2%95/"
+                    data-tooltip="[Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
+                    aria-label="NEXT: [Javascript] 속성접근법 - 점표기법(Dot notation) vs 괄호표기법(Bracket Notation)"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -453,7 +471,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -466,7 +484,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -479,7 +497,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -513,7 +531,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -526,7 +544,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -539,7 +557,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/22/20-09-22-TIL/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
