@@ -6,23 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>19. 프로토 타입 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/25/js-19/"/>
+    <title>[과제] 20-09-25 자료구조와 알고리즘 과제 - 정렬 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/25/20-09-25-자료구조와-알고리즘-과제/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n","dateCreated":"2020-09-25T01:28:15+09:00","dateModified":"2020-09-25T01:28:55+09:00","datePublished":"2020-09-25T01:28:15+09:00","description":"","headline":"19. 프로토 타입","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/25/JS-19/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/25/JS-19/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n2. 정렬2.1. 정렬 확인\n주어진 배열(array)이 정렬되어 있다면 true, 그렇지 않다면 false를 반환하는 함수를 구현하라. 단, 어떠한 빌트인 함수도 사용하지 않고 for 문을 사용하여 구현하여야 한다.\n\n123456function isSorted(array) &#123;&#125;console.log(isSorted([1, 2, 3, 4, 5])); // trueconsole.log(isSorted([2, 3, 4, 1, 5])); // false\n\n\n2.2. 버블 정렬\n버블 정렬(buble sort)은 순차적으로 배열을 순회하면서 인접한 두 요소를 비교하여 작은 요소를 왼쪽으로, 큰 요소를 오른쪽으로 교환한다.\n버블 정렬은 가장 간단하지만 가장 느린 정렬 알고리즘이다.\n시간 복잡도: O(n^2)버블 정렬\n\n\n\n버블 정렬을 통해 주어진 배열(array)을 정렬하는 함수를 구현하라. 단, 어떠한 빌트인 함수도 사용하지 않고 for 문을 사용하여 구현하여야 한다.\n1234567function bubbleSort(array) &#123;&#125;console.log(bubbleSort([2, 4, 5, 1, 3]));     // [1, 2, 3, 4, 5]console.log(bubbleSort([5, 2, 1, 3, 4, 6]));  // [1, 2, 3, 4, 5, 6]console.log(bubbleSort([3, 1, 0, -1, 4, 2])); // [-1, 0, 1, 2, 3, 4]\n\n\n2.3. 선택 정렬2.4. 삽입 정렬","dateCreated":"2020-09-25T23:23:10+09:00","dateModified":"2020-09-26T00:11:26+09:00","datePublished":"2020-09-25T23:23:10+09:00","description":"","headline":"[과제] 20-09-25 자료구조와 알고리즘 과제 - 정렬","image":["HW.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/","thumbnailUrl":"HW.jpg"}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="19. 프로토 타입">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/25/JS-19/index.html">
+<meta property="og:title" content="[과제] 20-09-25 자료구조와 알고리즘 과제 - 정렬">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-24T16:28:15.000Z">
-<meta property="article:modified_time" content="2020-09-24T16:28:55.614Z">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/버블.png">
+<meta property="article:published_time" content="2020-09-25T14:23:10.000Z">
+<meta property="article:modified_time" content="2020-09-25T15:11:26.874Z">
 <meta property="article:author" content="Hanseul lee">
-<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/버블.png">
     
     
         
@@ -31,8 +32,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/25/JS-19/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/25/JS-19/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
     
     
     
@@ -244,12 +245,12 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            19. 프로토 타입
+            [과제] 20-09-25 자료구조와 알고리즘 과제 - 정렬
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-09-25T01:28:15+09:00">
+    <time datetime="2020-09-25T23:23:10+09:00">
 	
 		    Sep 25, 2020
     	
@@ -257,7 +258,7 @@
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/javascript/">javascript</a>
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4/">문제풀이</a>
 
 
     
@@ -270,7 +271,25 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1>
+
+<h1 id="2-정렬"><a href="#2-정렬" class="headerlink" title="2. 정렬"></a>2. 정렬</h1><h2 id="2-1-정렬-확인"><a href="#2-1-정렬-확인" class="headerlink" title="2.1. 정렬 확인"></a>2.1. 정렬 확인</h2><ul>
+<li>주어진 배열(array)이 정렬되어 있다면 true, 그렇지 않다면 false를 반환하는 함수를 구현하라. 단, 어떠한 빌트인 함수도 사용하지 않고 for 문을 사용하여 구현하여야 한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSorted</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(isSorted([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isSorted([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>])); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="2-2-버블-정렬"><a href="#2-2-버블-정렬" class="headerlink" title="2.2. 버블 정렬"></a>2.2. 버블 정렬</h2><ul>
+<li>버블 정렬(buble sort)은 순차적으로 배열을 순회하면서 인접한 두 요소를 비교하여 작은 요소를 왼쪽으로, 큰 요소를 오른쪽으로 교환한다.</li>
+<li>버블 정렬은 가장 간단하지만 가장 느린 정렬 알고리즘이다.</li>
+<li>시간 복잡도: O(n^2)<div class="figure center" style="width:600px;"><img class="fig-img" src="버블.png" style="width:600px;"alt="버블 정렬"><span class="caption">버블 정렬</span></div>
+
+</li>
+</ul>
+<p>버블 정렬을 통해 주어진 배열(array)을 정렬하는 함수를 구현하라. 단, 어떠한 빌트인 함수도 사용하지 않고 for 문을 사용하여 구현하여야 한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bubbleSort([<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>]));     <span class="comment">// [1, 2, 3, 4, 5]</span></span><br><span class="line"><span class="built_in">console</span>.log(bubbleSort([<span class="number">5</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>]));  <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="built_in">console</span>.log(bubbleSort([<span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">4</span>, <span class="number">2</span>])); <span class="comment">// [-1, 0, 1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="2-3-선택-정렬"><a href="#2-3-선택-정렬" class="headerlink" title="2.3. 선택 정렬"></a>2.3. 선택 정렬</h2><h2 id="2-4-삽입-정렬"><a href="#2-4-삽입-정렬" class="headerlink" title="2.4. 삽입 정렬"></a>2.4. 삽입 정렬</h2>
             
 
 
@@ -278,24 +297,20 @@
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
-
-            </div>
-        
         
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a
-                        class="post-action-btn btn btn--disabled"
-                        aria-hidden="true"
-                    >
-                        
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/25/JS-19-2/"
+                    data-tooltip="JS-19-2"
+                    aria-label="PREVIOUS: JS-19-2"
+                >
+                    
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -305,9 +320,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/JS-18/"
-                    data-tooltip="18. 함수와 일급 객체"
-                    aria-label="NEXT: 18. 함수와 일급 객체"
+                    href="/2020/09/25/20-09-25-TIL/"
+                    data-tooltip="20-09-25 금요일 TIL"
+                    aria-label="NEXT: 20-09-25 금요일 TIL"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -332,7 +347,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -345,7 +360,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -358,7 +373,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -371,7 +386,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -403,11 +418,14 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a
-                        class="post-action-btn btn btn--disabled"
-                        aria-hidden="true"
-                    >
-                        
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/25/JS-19-2/"
+                    data-tooltip="JS-19-2"
+                    aria-label="PREVIOUS: JS-19-2"
+                >
+                    
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -417,9 +435,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/JS-18/"
-                    data-tooltip="18. 함수와 일급 객체"
-                    aria-label="NEXT: 18. 함수와 일급 객체"
+                    href="/2020/09/25/20-09-25-TIL/"
+                    data-tooltip="20-09-25 금요일 TIL"
+                    aria-label="NEXT: 20-09-25 금요일 TIL"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -444,7 +462,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -457,7 +475,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -470,7 +488,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -483,7 +501,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -504,7 +522,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -517,7 +535,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -530,7 +548,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-19/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
