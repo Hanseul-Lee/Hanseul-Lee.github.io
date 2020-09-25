@@ -6,20 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>18. 함수와 일급 객체 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/25/js-18/"/>
+    <title>19. 프로토 타입 (1) - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/26/js-19-1/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 일급 객체2) 함수 객체의 프로퍼티2.1. arguments 프로퍼티2.2. caller 프로퍼티2.3. length 프로퍼티2.4. name 프로퍼티2.5. proto 접근자 프로퍼티2.6. prototype 프로퍼티","dateCreated":"2020-09-25T01:28:05+09:00","dateModified":"2020-09-25T23:29:12+09:00","datePublished":"2020-09-25T01:28:05+09:00","description":"","headline":"18. 함수와 일급 객체","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/25/JS-18/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/25/JS-18/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 객체지향 프로그래밍2) 상속과 프로토타입3) 프로토타입 객체3.1. proto 접근자 프로퍼티3.2. 함수 객체의 prototype 프로퍼티3.3. 프로토타입의 constructor 프로퍼티와 생성자 함수4) 리터럴 표기법에 의해 생성된 객체의 생성자 함수와 프로토타입5) 프로토타입의 생성 시점5.1. 사용자 정의 생성자 함수와 프로토타입 생성 시점5.2. 빌트인 생성자 함수와 프로토타입 생성 시점6) 객체 생성 방식과 프로토타입의 결정6.1. 객체 리터럴에 의해 생성된 객체의 프로토타입6.2. Object 생성자 함수에 의해 생성된 객체의 프로토타입6.3. 생성자 함수에 의해 생성된 객체의 프로토타입\n\n\n( 참고 : poiemaweb.com )","dateCreated":"2020-09-26T01:28:15+09:00","dateModified":"2020-09-26T00:24:33+09:00","datePublished":"2020-09-26T01:28:15+09:00","description":"","headline":"19. 프로토 타입 (1)","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/26/JS-19-1/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/26/JS-19-1/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="18. 함수와 일급 객체">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/25/JS-18/index.html">
+<meta property="og:title" content="19. 프로토 타입 (1)">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/26/JS-19-1/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-24T16:28:05.000Z">
-<meta property="article:modified_time" content="2020-09-25T14:29:12.140Z">
+<meta property="article:published_time" content="2020-09-25T16:28:15.000Z">
+<meta property="article:modified_time" content="2020-09-25T15:24:33.490Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -31,8 +31,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/25/JS-18/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/25/JS-18/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/26/JS-19-1/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/26/JS-19-1/js.png"/>
     
     
     
@@ -244,14 +244,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            18. 함수와 일급 객체
+            19. 프로토 타입 (1)
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-09-25T01:28:05+09:00">
+    <time datetime="2020-09-26T01:28:15+09:00">
 	
-		    Sep 25, 2020
+		    Sep 26, 2020
     	
     </time>
     
@@ -270,9 +270,12 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%EC%9D%BC%EA%B8%89-%EA%B0%9D%EC%B2%B4"><span class="toc-text">1) 일급 객체</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%95%A8%EC%88%98-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2) 함수 객체의 프로퍼티</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-arguments-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.1. arguments 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-caller-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.2. caller 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-length-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.3. length 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-name-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.4. name 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.5. proto 접근자 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-prototype-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">2.6. prototype 프로퍼티</span></a></li></ol></li></ol>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D"><span class="toc-text">1) 객체지향 프로그래밍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%EC%83%81%EC%86%8D%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85"><span class="toc-text">2) 상속과 프로토타입</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EA%B0%9D%EC%B2%B4"><span class="toc-text">3) 프로토타입 객체</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">3.1. proto 접근자 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%ED%95%A8%EC%88%98-%EA%B0%9D%EC%B2%B4%EC%9D%98-prototype-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-text">3.2. 함수 객체의 prototype 프로퍼티</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-constructor-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%99%80-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98"><span class="toc-text">3.3. 프로토타입의 constructor 프로퍼티와 생성자 함수</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%EB%A6%AC%ED%84%B0%EB%9F%B4-%ED%91%9C%EA%B8%B0%EB%B2%95%EC%97%90-%EC%9D%98%ED%95%B4-%EC%83%9D%EC%84%B1%EB%90%9C-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%99%80-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85"><span class="toc-text">4) 리터럴 표기법에 의해 생성된 객체의 생성자 함수와 프로토타입</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EC%83%9D%EC%84%B1-%EC%8B%9C%EC%A0%90"><span class="toc-text">5) 프로토타입의 생성 시점</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%99%80-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EC%83%9D%EC%84%B1-%EC%8B%9C%EC%A0%90"><span class="toc-text">5.1. 사용자 정의 생성자 함수와 프로토타입 생성 시점</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%EB%B9%8C%ED%8A%B8%EC%9D%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%99%80-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EC%83%9D%EC%84%B1-%EC%8B%9C%EC%A0%90"><span class="toc-text">5.2. 빌트인 생성자 함수와 프로토타입 생성 시점</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%EA%B0%9D%EC%B2%B4-%EC%83%9D%EC%84%B1-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B2%B0%EC%A0%95"><span class="toc-text">6) 객체 생성 방식과 프로토타입의 결정</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%EA%B0%9D%EC%B2%B4-%EB%A6%AC%ED%84%B0%EB%9F%B4%EC%97%90-%EC%9D%98%ED%95%B4-%EC%83%9D%EC%84%B1%EB%90%9C-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85"><span class="toc-text">6.1. 객체 리터럴에 의해 생성된 객체의 프로토타입</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-Object-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-%EC%9D%98%ED%95%B4-%EC%83%9D%EC%84%B1%EB%90%9C-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85"><span class="toc-text">6.2. Object 생성자 함수에 의해 생성된 객체의 프로토타입</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-%EC%9D%98%ED%95%B4-%EC%83%9D%EC%84%B1%EB%90%9C-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85"><span class="toc-text">6.3. 생성자 함수에 의해 생성된 객체의 프로토타입</span></a></li></ol></li></ol>
 
-<h1 id="1-일급-객체"><a href="#1-일급-객체" class="headerlink" title="1) 일급 객체"></a>1) 일급 객체</h1><h1 id="2-함수-객체의-프로퍼티"><a href="#2-함수-객체의-프로퍼티" class="headerlink" title="2) 함수 객체의 프로퍼티"></a>2) 함수 객체의 프로퍼티</h1><h2 id="2-1-arguments-프로퍼티"><a href="#2-1-arguments-프로퍼티" class="headerlink" title="2.1. arguments 프로퍼티"></a>2.1. arguments 프로퍼티</h2><h2 id="2-2-caller-프로퍼티"><a href="#2-2-caller-프로퍼티" class="headerlink" title="2.2. caller 프로퍼티"></a>2.2. caller 프로퍼티</h2><h2 id="2-3-length-프로퍼티"><a href="#2-3-length-프로퍼티" class="headerlink" title="2.3. length 프로퍼티"></a>2.3. length 프로퍼티</h2><h2 id="2-4-name-프로퍼티"><a href="#2-4-name-프로퍼티" class="headerlink" title="2.4. name 프로퍼티"></a>2.4. name 프로퍼티</h2><h2 id="2-5-proto-접근자-프로퍼티"><a href="#2-5-proto-접근자-프로퍼티" class="headerlink" title="2.5. proto 접근자 프로퍼티"></a>2.5. <strong>proto</strong> 접근자 프로퍼티</h2><h2 id="2-6-prototype-프로퍼티"><a href="#2-6-prototype-프로퍼티" class="headerlink" title="2.6. prototype 프로퍼티"></a>2.6. prototype 프로퍼티</h2>
+<h1 id="1-객체지향-프로그래밍"><a href="#1-객체지향-프로그래밍" class="headerlink" title="1) 객체지향 프로그래밍"></a>1) 객체지향 프로그래밍</h1><h1 id="2-상속과-프로토타입"><a href="#2-상속과-프로토타입" class="headerlink" title="2) 상속과 프로토타입"></a>2) 상속과 프로토타입</h1><h1 id="3-프로토타입-객체"><a href="#3-프로토타입-객체" class="headerlink" title="3) 프로토타입 객체"></a>3) 프로토타입 객체</h1><h2 id="3-1-proto-접근자-프로퍼티"><a href="#3-1-proto-접근자-프로퍼티" class="headerlink" title="3.1. proto 접근자 프로퍼티"></a>3.1. <strong>proto</strong> 접근자 프로퍼티</h2><h2 id="3-2-함수-객체의-prototype-프로퍼티"><a href="#3-2-함수-객체의-prototype-프로퍼티" class="headerlink" title="3.2. 함수 객체의 prototype 프로퍼티"></a>3.2. 함수 객체의 prototype 프로퍼티</h2><h2 id="3-3-프로토타입의-constructor-프로퍼티와-생성자-함수"><a href="#3-3-프로토타입의-constructor-프로퍼티와-생성자-함수" class="headerlink" title="3.3. 프로토타입의 constructor 프로퍼티와 생성자 함수"></a>3.3. 프로토타입의 constructor 프로퍼티와 생성자 함수</h2><h1 id="4-리터럴-표기법에-의해-생성된-객체의-생성자-함수와-프로토타입"><a href="#4-리터럴-표기법에-의해-생성된-객체의-생성자-함수와-프로토타입" class="headerlink" title="4) 리터럴 표기법에 의해 생성된 객체의 생성자 함수와 프로토타입"></a>4) 리터럴 표기법에 의해 생성된 객체의 생성자 함수와 프로토타입</h1><h1 id="5-프로토타입의-생성-시점"><a href="#5-프로토타입의-생성-시점" class="headerlink" title="5) 프로토타입의 생성 시점"></a>5) 프로토타입의 생성 시점</h1><h2 id="5-1-사용자-정의-생성자-함수와-프로토타입-생성-시점"><a href="#5-1-사용자-정의-생성자-함수와-프로토타입-생성-시점" class="headerlink" title="5.1. 사용자 정의 생성자 함수와 프로토타입 생성 시점"></a>5.1. 사용자 정의 생성자 함수와 프로토타입 생성 시점</h2><h2 id="5-2-빌트인-생성자-함수와-프로토타입-생성-시점"><a href="#5-2-빌트인-생성자-함수와-프로토타입-생성-시점" class="headerlink" title="5.2. 빌트인 생성자 함수와 프로토타입 생성 시점"></a>5.2. 빌트인 생성자 함수와 프로토타입 생성 시점</h2><h1 id="6-객체-생성-방식과-프로토타입의-결정"><a href="#6-객체-생성-방식과-프로토타입의-결정" class="headerlink" title="6) 객체 생성 방식과 프로토타입의 결정"></a>6) 객체 생성 방식과 프로토타입의 결정</h1><h2 id="6-1-객체-리터럴에-의해-생성된-객체의-프로토타입"><a href="#6-1-객체-리터럴에-의해-생성된-객체의-프로토타입" class="headerlink" title="6.1. 객체 리터럴에 의해 생성된 객체의 프로토타입"></a>6.1. 객체 리터럴에 의해 생성된 객체의 프로토타입</h2><h2 id="6-2-Object-생성자-함수에-의해-생성된-객체의-프로토타입"><a href="#6-2-Object-생성자-함수에-의해-생성된-객체의-프로토타입" class="headerlink" title="6.2. Object 생성자 함수에 의해 생성된 객체의 프로토타입"></a>6.2. Object 생성자 함수에 의해 생성된 객체의 프로토타입</h2><h2 id="6-3-생성자-함수에-의해-생성된-객체의-프로토타입"><a href="#6-3-생성자-함수에-의해-생성된-객체의-프로토타입" class="headerlink" title="6.3. 생성자 함수에 의해 생성된 객체의 프로토타입"></a>6.3. 생성자 함수에 의해 생성된 객체의 프로토타입</h2><br>
+
+<hr>
+<p>( 참고 : poiemaweb.com )</p>
             
 
 
@@ -296,9 +299,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/JS-19-1/"
-                    data-tooltip="19. 프로토 타입 (1)"
-                    aria-label="PREVIOUS: 19. 프로토 타입 (1)"
+                    href="/2020/09/26/JS-19-2/"
+                    data-tooltip="19. 프로토 타입 (2)"
+                    aria-label="PREVIOUS: 19. 프로토 타입 (2)"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -310,9 +313,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/24/20-09-24-TIL/"
-                    data-tooltip="20-09-24 목요일 TIL"
-                    aria-label="NEXT: 20-09-24 목요일 TIL"
+                    href="/2020/09/26/JS-18/"
+                    data-tooltip="18. 함수와 일급 객체"
+                    aria-label="NEXT: 18. 함수와 일급 객체"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -337,7 +340,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -350,7 +353,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -363,7 +366,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -411,9 +414,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/JS-19-1/"
-                    data-tooltip="19. 프로토 타입 (1)"
-                    aria-label="PREVIOUS: 19. 프로토 타입 (1)"
+                    href="/2020/09/26/JS-19-2/"
+                    data-tooltip="19. 프로토 타입 (2)"
+                    aria-label="PREVIOUS: 19. 프로토 타입 (2)"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -425,9 +428,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/24/20-09-24-TIL/"
-                    data-tooltip="20-09-24 목요일 TIL"
-                    aria-label="NEXT: 20-09-24 목요일 TIL"
+                    href="/2020/09/26/JS-18/"
+                    data-tooltip="18. 함수와 일급 객체"
+                    aria-label="NEXT: 18. 함수와 일급 객체"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -452,7 +455,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -465,7 +468,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -478,7 +481,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -512,7 +515,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -525,7 +528,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -538,7 +541,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/25/JS-18/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/09/26/JS-19-1/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
