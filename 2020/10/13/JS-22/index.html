@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>22. this - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/10/13/js-22/"/>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1. this 키워드\n📒 this : 자신이 속한 객체나 생성할 인스턴스를 참조하기 위한 자기 참조 변수(self-referencing variable)\nthis는 자바스크립트 엔진에 의해 암묵적으로 생성되며, 코드 어디서든 참조할 수 있다. \nthis를 통해 자신이 속한 객체 또는 자신이 생성할 인스턴스의 프로퍼티나 메서드를 참조할 수 있다.\n\n2. 함수 호출 방식과 this 바인딩\nthis가 가리키는 값, 즉 this 바인딩은 함수 호출 방식에 의해 동적으로 결정된다.\n\ncf. 렉시컬 스코프(lexical scope)는 정적 스코프이다. 즉 함수가 생성되는 시점에 상위 스코프를 결정한다.하지만 this 바인딩은 함수 호출 시점에 동적으로 결정된다. 렉시컬 스코프와 this 바인딩은 결정 시기가 다르다.\n\n\n함수 호출방식은 다음과 같이 4가지로 나뉠 수 있으며, 동일한 함수도 다양한 방식으로 호출할 수 있다.\n\n일반 함수 호출\n메서드 호출\n생성자 함수 호출\nFunction.prototype.apply/call/bind 메서드에 의한 간접 호출\n\n\n\n\n\n\n\n\n함수 호출 방식\nthis가 가리키는 값(this 바인딩)\n\n\n\n일반 함수로서 호출\n전역 객체\n\n\n메서드로서 호출\n메서드를 호출한 객체(마침표 앞의 객체)\n\n\n생성자 함수로서 호출\n생성자 함수가 (미래에) 생성할 인스턴스\n\n\n\n\n1234567891011121314151617181920212223242526// this 바인딩은 함수 호출 방식에 따라 동적으로 결정된다.const foo = function () &#123;  console.dir(this);&#125;;// 1. 일반 함수 호출// foo 함수 내부의 this는 전역 객체 window를 가리킨다.foo(); // window// 2. 메서드 호출// foo 함수를 프로퍼티 값으로 할당하여 호출// foo 함수 내부의 this는 메서드를 호출한 객체 obj를 가리킨다.const obj = &#123; foo &#125;;obj.foo(); // obj// 3. 생성자 함수 호출// foo 함수 내부의 this는 생성자 함수가 생성한 인스턴스를 가리킨다.new foo(); // foo &#123;&#125;// 4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출// foo 함수 내부의 this는 인수에 의해 결정된다.const bar = &#123; name: &#x27;bar&#x27; &#125;;foo.call(bar);   // barfoo.apply(bar);  // barfoo.bind(bar)(); // bar\n\n\n2.1. 일반 함수 호출\n일반 함수로 this를 호출하면 일반 함수로 호출된 모든 함수(중첩 함수, 콜백 함수 포함) 내부의 this에는 전역 객체가 바인딩된다.\n다만 this는 객체의 프로퍼티나 메서드를 참조하기 위한 자기 참조 변수이므로 객체를 생성하지 않는 일반 함수에서 this는 의미가 없다. 따라서 strict mode가 적용된 일반 함수 내부의 this에는 undefined가 바인딩된다.\n또한, 중첩 함수나 콜백 함수에서 전역을 바인딩하는 문제를 해결하기 위해 Function.prototype.apply/call/bind 메서드나 화살표함수 등을 통해 this 바인딩을 일치시킬 수 있다.\n\n12345678function foo() &#123;  console.log(&quot;foo&#x27;s this: &quot;, this);  // window  function bar() &#123;    console.log(&quot;bar&#x27;s this: &quot;, this); // window  &#125;  bar();&#125;foo();\n\n2.2. 메서드 호출\n메서드 내부의 this에는 메서드를 호출한 객체, 즉 메서드를 호출할 때 메서드 이름 앞의 마침표(.) 연산자 앞에 기술한 객체가 바인딩된다. \n(🔴주의) 메서드 내부의 this는 메서드를 소유한 객체가 아닌 메서드를 호출한 객체에 바인딩된다는 것. \n\n12345678910const person = &#123;  name: &#x27;Lee&#x27;,  getName() &#123;    // 메서드 내부의 this는 메서드를 호출한 객체에 바인딩된다.    return this.name;  &#125;&#125;;// 메서드 getName을 호출한 객체는 person이다.console.log(person.getName()); // Lee\n\n\n메서드는 객체에 포함된 것이 아니라 독립적으로 존재하는 별도의 객체다.\n\n\n\n메서드는 프로퍼티에 바인딩된 함수다. 즉, person 객체의 getName 프로퍼티가 가리키는 함수 객체는 person 객체에 포함된 것이 아니라 독립적으로 존재하는 별도의 객체다. getName 프로퍼티가 함수 객체를 가리키고 있을 뿐이다.\n\n2.3. 생성자 함수 호출2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-10-13T00:54:22+09:00","dateModified":"2020-10-13T15:14:31+09:00","datePublished":"2020-10-13T00:54:22+09:00","description":"","headline":"22. this","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/10/13/JS-22/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/10/13/JS-22/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="22. this">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/10/13/JS-22/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/10/13/JS-22/22-1.png">
+<meta property="article:published_time" content="2020-10-12T15:54:22.000Z">
+<meta property="article:modified_time" content="2020-10-13T06:14:31.889Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/10/13/JS-22/22-1.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/10/13/JS-22/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/10/13/JS-22/js.png"/>
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/hanseul-lee/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            22. this
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-10-13T00:54:22+09:00">
+	
+		    Oct 13, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/javascript/">javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-this-%ED%82%A4%EC%9B%8C%EB%93%9C"><span class="toc-text">1. this 키워드</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-this-%EB%B0%94%EC%9D%B8%EB%94%A9"><span class="toc-text">2. 함수 호출 방식과 this 바인딩</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%EC%9D%BC%EB%B0%98-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.1. 일반 함수 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.2. 메서드 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.3. 생성자 함수 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Function-prototype-apply-call-bind-%EB%A9%94%EC%84%9C%EB%93%9C%EC%97%90-%EC%9D%98%ED%95%9C-%EA%B0%84%EC%A0%91-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.4. Function.prototype.apply&#x2F;call&#x2F;bind 메서드에 의한 간접 호출</span></a></li></ol></li></ol>
+
+<h1 id="1-this-키워드"><a href="#1-this-키워드" class="headerlink" title="1. this 키워드"></a>1. this 키워드</h1><ul>
+<li>📒 <strong>this : 자신이 속한 객체나 생성할 인스턴스를 참조하기 위한 자기 참조 변수(self-referencing variable)</strong></li>
+<li>this는 자바스크립트 엔진에 의해 암묵적으로 생성되며, 코드 어디서든 참조할 수 있다. </li>
+<li>this를 통해 자신이 속한 객체 또는 자신이 생성할 인스턴스의 프로퍼티나 메서드를 참조할 수 있다.</li>
+</ul>
+<h1 id="2-함수-호출-방식과-this-바인딩"><a href="#2-함수-호출-방식과-this-바인딩" class="headerlink" title="2. 함수 호출 방식과 this 바인딩"></a>2. 함수 호출 방식과 this 바인딩</h1><ul>
+<li><p><strong>this가 가리키는 값, 즉 this 바인딩은 함수 호출 방식에 의해 동적으로 결정된다.</strong></p>
+<ul>
+<li>cf. 렉시컬 스코프(lexical scope)는 정적 스코프이다. 즉 함수가 생성되는 시점에 상위 스코프를 결정한다.<br>하지만 this 바인딩은 함수 호출 시점에 동적으로 결정된다. 렉시컬 스코프와 this 바인딩은 결정 시기가 다르다.</li>
+</ul>
+</li>
+<li><p>함수 호출방식은 다음과 같이 4가지로 나뉠 수 있으며, 동일한 함수도 다양한 방식으로 호출할 수 있다.</p>
+<ol>
+<li>일반 함수 호출</li>
+<li>메서드 호출</li>
+<li>생성자 함수 호출</li>
+<li>Function.prototype.apply/call/bind 메서드에 의한 간접 호출</li>
+</ol>
+</li>
+</ul>
+<br>
+
+<table>
+<thead>
+<tr>
+<th align="center">함수 호출 방식</th>
+<th align="center">this가 가리키는 값(this 바인딩)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">일반 함수로서 호출</td>
+<td align="center">전역 객체</td>
+</tr>
+<tr>
+<td align="center">메서드로서 호출</td>
+<td align="center">메서드를 호출한 객체(마침표 앞의 객체)</td>
+</tr>
+<tr>
+<td align="center">생성자 함수로서 호출</td>
+<td align="center">생성자 함수가 (미래에) 생성할 인스턴스</td>
+</tr>
+</tbody></table>
+<br>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this 바인딩은 함수 호출 방식에 따라 동적으로 결정된다.</span></span><br><span class="line"><span class="keyword">const</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.dir(<span class="built_in">this</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 일반 함수 호출</span></span><br><span class="line"><span class="comment">// foo 함수 내부의 this는 전역 객체 window를 가리킨다.</span></span><br><span class="line">foo(); <span class="comment">// window</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 메서드 호출</span></span><br><span class="line"><span class="comment">// foo 함수를 프로퍼티 값으로 할당하여 호출</span></span><br><span class="line"><span class="comment">// foo 함수 내부의 this는 메서드를 호출한 객체 obj를 가리킨다.</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123; foo &#125;;</span><br><span class="line">obj.foo(); <span class="comment">// obj</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 생성자 함수 호출</span></span><br><span class="line"><span class="comment">// foo 함수 내부의 this는 생성자 함수가 생성한 인스턴스를 가리킨다.</span></span><br><span class="line"><span class="keyword">new</span> foo(); <span class="comment">// foo &#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출</span></span><br><span class="line"><span class="comment">// foo 함수 내부의 this는 인수에 의해 결정된다.</span></span><br><span class="line"><span class="keyword">const</span> bar = &#123; <span class="attr">name</span>: <span class="string">&#x27;bar&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line">foo.call(bar);   <span class="comment">// bar</span></span><br><span class="line">foo.apply(bar);  <span class="comment">// bar</span></span><br><span class="line">foo.bind(bar)(); <span class="comment">// bar</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="2-1-일반-함수-호출"><a href="#2-1-일반-함수-호출" class="headerlink" title="2.1. 일반 함수 호출"></a>2.1. 일반 함수 호출</h2><ul>
+<li>일반 함수로 this를 호출하면 일반 함수로 호출된 모든 함수(중첩 함수, 콜백 함수 포함) 내부의 this에는 전역 객체가 바인딩된다.</li>
+<li>다만 this는 객체의 프로퍼티나 메서드를 참조하기 위한 자기 참조 변수이므로 객체를 생성하지 않는 일반 함수에서 this는 의미가 없다. 따라서 strict mode가 적용된 일반 함수 내부의 this에는 undefined가 바인딩된다.</li>
+<li>또한, 중첩 함수나 콜백 함수에서 전역을 바인딩하는 문제를 해결하기 위해 Function.prototype.apply/call/bind 메서드나 화살표함수 등을 통해 this 바인딩을 일치시킬 수 있다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;foo&#x27;s this: &quot;</span>, <span class="built_in">this</span>);  <span class="comment">// window</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;bar&#x27;s this: &quot;</span>, <span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  &#125;</span><br><span class="line">  bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-메서드-호출"><a href="#2-2-메서드-호출" class="headerlink" title="2.2. 메서드 호출"></a>2.2. 메서드 호출</h2><ul>
+<li>메서드 내부의 this에는 메서드를 호출한 객체, 즉 메서드를 호출할 때 메서드 이름 앞의 마침표(.) 연산자 앞에 기술한 객체가 바인딩된다. </li>
+<li>(🔴주의) 메서드 내부의 this는 메서드를 소유한 객체가 아닌 메서드를 호출한 객체에 바인딩된다는 것. </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">&#x27;Lee&#x27;</span>,</span><br><span class="line">  getName() &#123;</span><br><span class="line">    <span class="comment">// 메서드 내부의 this는 메서드를 호출한 객체에 바인딩된다.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 메서드 getName을 호출한 객체는 person이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(person.getName()); <span class="comment">// Lee</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<div class="figure center" style="width:600px;"><img class="fig-img" src="22-1.png" style="width:600px;"alt="메서드는 객체에 포함된 것이 아니라 독립적으로 존재하는 별도의 객체다."><span class="caption">메서드는 객체에 포함된 것이 아니라 독립적으로 존재하는 별도의 객체다.</span></div>
+<br>
+
+<ul>
+<li>메서드는 프로퍼티에 바인딩된 함수다. 즉, person 객체의 getName 프로퍼티가 가리키는 함수 객체는 person 객체에 포함된 것이 아니라 독립적으로 존재하는 별도의 객체다. getName 프로퍼티가 함수 객체를 가리키고 있을 뿐이다.</li>
+</ul>
+<h2 id="2-3-생성자-함수-호출"><a href="#2-3-생성자-함수-호출" class="headerlink" title="2.3. 생성자 함수 호출"></a>2.3. 생성자 함수 호출</h2><h2 id="2-4-Function-prototype-apply-call-bind-메서드에-의한-간접-호출"><a href="#2-4-Function-prototype-apply-call-bind-메서드에-의한-간접-호출" class="headerlink" title="2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출"></a>2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출</h2><br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>poiemaweb.com</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/13/20-10-13-TIL/"
+                    data-tooltip="20-10-13 화요일 TIL"
+                    aria-label="PREVIOUS: 20-10-13 화요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/12/20-10-12-TIL/"
+                    data-tooltip="20-10-12 월요일 TIL"
+                    aria-label="NEXT: 20-10-12 월요일 TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/13/20-10-13-TIL/"
+                    data-tooltip="20-10-13 화요일 TIL"
+                    aria-label="PREVIOUS: 20-10-13 화요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/12/20-10-12-TIL/"
+                    data-tooltip="20-10-12 월요일 TIL"
+                    aria-label="NEXT: 20-10-12 월요일 TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                    title="Share on Google+"
+                    aria-label="Share on Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/JS-22/"
+                        aria-label="Share on Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

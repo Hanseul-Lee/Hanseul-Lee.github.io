@@ -6,22 +6,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>22. this - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/10/10/js-22/"/>
+    <title>20-10-13 화요일 TIL - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/10/13/20-10-13-til/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1. this 키워드2. 함수 호출 방식과 this 바인딩2.1. 일반 함수 호출2.2. 메서드 호출2.3. 생성자 함수 호출2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-10-10T00:54:22+09:00","dateModified":"2020-10-10T13:43:20+09:00","datePublished":"2020-10-10T00:54:22+09:00","description":"","headline":"22. this","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/10/10/JS-22/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/10/10/JS-22/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n오늘 계획\n러버덕(10:00 ~ 14:00)\n발표 및 참여\n모르는 부분 찾아보고 복습\n\n\npoiemaweb 21강 blog 포스팅 완성\npoiemaweb 22강 blog 포스팅 완성\npoiemaweb 23강 읽기\n\n오늘 계획 피드백내일 할 것","dateCreated":"2020-10-13T14:45:29+09:00","dateModified":"2020-10-13T14:47:10+09:00","datePublished":"2020-10-13T14:45:29+09:00","description":"","headline":"20-10-13 화요일 TIL","image":["TIL.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/","keywords":"TIL","thumbnailUrl":"TIL.jpg"}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="22. this">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/10/10/JS-22/index.html">
+<meta property="og:title" content="20-10-13 화요일 TIL">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-09T15:54:22.000Z">
-<meta property="article:modified_time" content="2020-10-10T04:43:20.950Z">
+<meta property="article:published_time" content="2020-10-13T05:45:29.000Z">
+<meta property="article:modified_time" content="2020-10-13T05:47:10.996Z">
 <meta property="article:author" content="Hanseul lee">
-<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="TIL">
 <meta name="twitter:card" content="summary">
     
     
@@ -31,8 +31,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/10/10/JS-22/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/10/10/JS-22/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/TIL.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/TIL.jpg"/>
     
     
     
@@ -244,20 +244,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            22. this
+            20-10-13 화요일 TIL
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-10-10T00:54:22+09:00">
+    <time datetime="2020-10-13T14:45:29+09:00">
 	
-		    Oct 10, 2020
+		    Oct 13, 2020
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/javascript/">javascript</a>
+    <a class="category-link" href="/categories/TIL/">TIL</a>
 
 
     
@@ -270,15 +270,18 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-this-%ED%82%A4%EC%9B%8C%EB%93%9C"><span class="toc-text">1. this 키워드</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C-%EB%B0%A9%EC%8B%9D%EA%B3%BC-this-%EB%B0%94%EC%9D%B8%EB%94%A9"><span class="toc-text">2. 함수 호출 방식과 this 바인딩</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%EC%9D%BC%EB%B0%98-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.1. 일반 함수 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.2. 메서드 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.3. 생성자 함수 호출</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Function-prototype-apply-call-bind-%EB%A9%94%EC%84%9C%EB%93%9C%EC%97%90-%EC%9D%98%ED%95%9C-%EA%B0%84%EC%A0%91-%ED%98%B8%EC%B6%9C"><span class="toc-text">2.4. Function.prototype.apply&#x2F;call&#x2F;bind 메서드에 의한 간접 호출</span></a></li></ol></li></ol>
 
-<h1 id="1-this-키워드"><a href="#1-this-키워드" class="headerlink" title="1. this 키워드"></a>1. this 키워드</h1><h1 id="2-함수-호출-방식과-this-바인딩"><a href="#2-함수-호출-방식과-this-바인딩" class="headerlink" title="2. 함수 호출 방식과 this 바인딩"></a>2. 함수 호출 방식과 this 바인딩</h1><h2 id="2-1-일반-함수-호출"><a href="#2-1-일반-함수-호출" class="headerlink" title="2.1. 일반 함수 호출"></a>2.1. 일반 함수 호출</h2><h2 id="2-2-메서드-호출"><a href="#2-2-메서드-호출" class="headerlink" title="2.2. 메서드 호출"></a>2.2. 메서드 호출</h2><h2 id="2-3-생성자-함수-호출"><a href="#2-3-생성자-함수-호출" class="headerlink" title="2.3. 생성자 함수 호출"></a>2.3. 생성자 함수 호출</h2><h2 id="2-4-Function-prototype-apply-call-bind-메서드에-의한-간접-호출"><a href="#2-4-Function-prototype-apply-call-bind-메서드에-의한-간접-호출" class="headerlink" title="2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출"></a>2.4. Function.prototype.apply/call/bind 메서드에 의한 간접 호출</h2><br>
-
-<hr>
-<p><strong>Reference</strong></p>
-<ul>
-<li>poiemaweb.com</li>
+<h1 id="오늘-계획"><a href="#오늘-계획" class="headerlink" title="오늘 계획"></a>오늘 계획</h1><ol>
+<li><del>러버덕(10:00 ~ 14:00)</del><ul>
+<li><del>발표 및 참여</del></li>
+<li><del>모르는 부분 찾아보고 복습</del></li>
 </ul>
+</li>
+<li>poiemaweb 21강 blog 포스팅 완성</li>
+<li>poiemaweb 22강 blog 포스팅 완성</li>
+<li>poiemaweb 23강 읽기</li>
+</ol>
+<h1 id="오늘-계획-피드백"><a href="#오늘-계획-피드백" class="headerlink" title="오늘 계획 피드백"></a>오늘 계획 피드백</h1><h1 id="내일-할-것"><a href="#내일-할-것" class="headerlink" title="내일 할 것"></a>내일 할 것</h1>
             
 
 
@@ -289,7 +292,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/TIL/" rel="tag">TIL</a>
 
             </div>
         
@@ -299,14 +302,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/10/10/20-10-10-TIL/"
-                    data-tooltip="20-10-10 토요일 TIL"
-                    aria-label="PREVIOUS: 20-10-10 토요일 TIL"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -316,9 +316,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/10/07/20-10-07-TIL/"
-                    data-tooltip="20-10-07 수요일 TIL"
-                    aria-label="NEXT: 20-10-07 수요일 TIL"
+                    href="/2020/10/13/JS-22/"
+                    data-tooltip="22. this"
+                    aria-label="NEXT: 22. this"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -343,7 +343,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -356,7 +356,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -369,7 +369,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -382,7 +382,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -414,14 +414,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/10/10/20-10-10-TIL/"
-                    data-tooltip="20-10-10 토요일 TIL"
-                    aria-label="PREVIOUS: 20-10-10 토요일 TIL"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -431,9 +428,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/10/07/20-10-07-TIL/"
-                    data-tooltip="20-10-07 수요일 TIL"
-                    aria-label="NEXT: 20-10-07 수요일 TIL"
+                    href="/2020/10/13/JS-22/"
+                    data-tooltip="22. this"
+                    aria-label="NEXT: 22. this"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -458,7 +455,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -471,7 +468,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -484,7 +481,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -497,7 +494,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -518,7 +515,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -531,7 +528,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -544,7 +541,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/10/JS-22/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/10/13/20-10-13-TIL/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
