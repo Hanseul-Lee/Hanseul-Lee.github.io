@@ -6,24 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>20-11-18 수요일 미니프로젝트 3일차 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/11/18/20-11-18-til/"/>
+    <title>[git] Github blog 포스팅하기 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/19/20-08-19-github_blog/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n오늘 한 것(피드백)\nbookmark 페이지\nlocal storage와 연동\n배우 API 연동해서 popup창에 출력\n하트 클릭시 하트 이미지 팝업 후 1초 후 사라지는 것 구현\n하트 버튼 클릭시 실시간으로 db와 연동해서 데이터에서 fetch 및 오류 수정오늘 하루종일 하트 버튼을 db와 연동하는 걸 구현하느라 시간을 다 보냈다. 이것만 해결하면 될 줄 알았는데 별 거 아니라고 생각했는데 상언오빠와 둘이 하루종일 붙잡고 9시가 다 되어서야 겨우 오류를 다 잡고 끝냈다. 처음 80%를 하루만에 다 끝내서 어제까지만 해도 너무 빨리 끝난 거 아니냐고 신났었는데 나머지 20% 구현과 트러블 슈팅에 80% 시간을 쏟은 것 같다. 정말 디버깅의 어려움과 고충을 뼈저리게 느꼈다. \n\n\n","dateCreated":"2020-11-18T21:18:37+09:00","dateModified":"2020-11-23T06:09:13+09:00","datePublished":"2020-11-18T21:18:37+09:00","description":"\n20-11-18 수요일 미니프로젝트 3일차\n\n3일차 피드백","headline":"20-11-18 수요일 미니프로젝트 3일차","image":["TIL.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/","keywords":"TIL","thumbnailUrl":"TIL.jpg"}</script>
-    <meta name="description" content="20-11-18 수요일 미니프로젝트 3일차  3일차 피드백">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\nGithub에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.\n\n\n\n\n포스트 생성\n1hexo new post &quot;yyyy-mm-dd-My new post&quot;\n\n문서 작성\n\ngit bash 나 vscode 둘 다 가능하다.\nmd파일 markdown 사용해 작성해야 한다. \n\n\n서버에 전송\n12hexo clean &amp;&amp; hexo generate //서버에 전송hexo g //축약형\n\n서버에서 확인\n1234hexo server // http://localhost:4000 에서 확인hexo s // 축약형hexo s -o // 서버 생성 및 새창에서 열기\n\ngit에 전송\n12hexo clean &amp;&amp; hexo deploy // 깃에 전송hexo d // 축약형\n\n참고로 나중에 generate과 deploy를 빨리 하기 위해 다음과 같은 축약형을 알아두면 편리하다.\n1hexo g -d\n\n\n\n\n   이제 서버가 아닌 github blog주소에서 확인 가능하다   =&gt; hanseul-lee.github.io/","dateCreated":"2020-08-19T15:25:33+09:00","dateModified":"2020-11-23T06:27:10+09:00","datePublished":"2020-08-19T15:25:33+09:00","description":"\nGithub에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.","headline":"[git] Github blog 포스팅하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/","keywords":"git, github"}</script>
+    <meta name="description" content="Github에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="20-11-18 수요일 미니프로젝트 3일차">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/index.html">
+<meta property="og:title" content="[git] Github blog 포스팅하기">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="20-11-18 수요일 미니프로젝트 3일차  3일차 피드백">
+<meta property="og:description" content="Github에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-18T12:18:37.000Z">
-<meta property="article:modified_time" content="2020-11-22T21:09:13.470Z">
+<meta property="article:published_time" content="2020-08-19T06:25:33.000Z">
+<meta property="article:modified_time" content="2020-11-22T21:27:10.825Z">
 <meta property="article:author" content="Hanseul lee">
-<meta property="article:tag" content="TIL">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary">
     
     
@@ -32,9 +33,6 @@
     
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
-    
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/TIL.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/TIL.jpg"/>
     
     
     
@@ -246,20 +244,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            20-11-18 수요일 미니프로젝트 3일차
+            [git] Github blog 포스팅하기
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-11-18T21:18:37+09:00">
+    <time datetime="2020-08-19T15:25:33+09:00">
 	
-		    Nov 18, 2020
+		    Aug 19, 2020
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/TIL/">TIL</a>
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/git/">git</a>
 
 
     
@@ -273,17 +271,38 @@
         <div class="main-content-wrap">
             <!-- excerpt -->
 
+
+<blockquote>
+<p>Github에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.</p>
+</blockquote>
+<br>
+
+<ol>
+<li><p>포스트 생성</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> post <span class="string">&quot;yyyy-mm-dd-My new post&quot;</span></span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<h2 id="오늘-한-것-피드백"><a href="#오늘-한-것-피드백" class="headerlink" title="오늘 한 것(피드백)"></a>오늘 한 것(피드백)</h2><ul>
-<li>bookmark 페이지<ul>
-<li>local storage와 연동</li>
-<li>배우 API 연동해서 popup창에 출력</li>
-<li>하트 클릭시 하트 이미지 팝업 후 1초 후 사라지는 것 구현</li>
-<li>하트 버튼 클릭시 실시간으로 db와 연동해서 데이터에서 fetch 및 오류 수정<br>오늘 하루종일 하트 버튼을 db와 연동하는 걸 구현하느라 시간을 다 보냈다. 이것만 해결하면 될 줄 알았는데 별 거 아니라고 생각했는데 상언오빠와 둘이 하루종일 붙잡고 9시가 다 되어서야 겨우 오류를 다 잡고 끝냈다. 처음 80%를 하루만에 다 끝내서 어제까지만 해도 너무 빨리 끝난 거 아니냐고 신났었는데 나머지 20% 구현과 트러블 슈팅에 80% 시간을 쏟은 것 같다. 정말 디버깅의 어려움과 고충을 뼈저리게 느꼈다. </li>
+<li><p>문서 작성</p>
+<ul>
+<li>git bash 나 vscode 둘 다 가능하다.</li>
+<li>md파일 markdown 사용해 작성해야 한다. </li>
 </ul>
 </li>
-</ul>
+<li><p>서버에 전송</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate <span class="comment">//서버에 전송</span></span><br><span class="line">hexo g <span class="comment">//축약형</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>서버에서 확인</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo server <span class="comment">// http://localhost:4000 에서 확인</span></span><br><span class="line">hexo s <span class="comment">// 축약형</span></span><br><span class="line"></span><br><span class="line">hexo s -o <span class="comment">// 서버 생성 및 새창에서 열기</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git에 전송</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo deploy <span class="comment">// 깃에 전송</span></span><br><span class="line">hexo d <span class="comment">// 축약형</span></span><br></pre></td></tr></table></figure>
+
+<p>참고로 나중에 generate과 deploy를 빨리 하기 위해 다음과 같은 축약형을 알아두면 편리하다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<p>   이제 서버가 아닌 github blog주소에서 확인 가능하다<br>   =&gt; <a href="hanseul-lee.github.io/">hanseul-lee.github.io/</a></p>
             
 
 
@@ -294,7 +313,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/TIL/" rel="tag">TIL</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/github/" rel="tag">github</a>
 
             </div>
         
@@ -307,9 +326,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/19/20-11-19-TIL/"
-                    data-tooltip="20-11-19 목요일 미니프로젝트 4일차"
-                    aria-label="PREVIOUS: 20-11-19 목요일 미니프로젝트 4일차"
+                    href="/2020/08/20/20-08-20-TIL/"
+                    data-tooltip="20-08-20 목요일 TIL"
+                    aria-label="PREVIOUS: 20-08-20 목요일 TIL"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -321,9 +340,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/17/20-11-17-TIL/"
-                    data-tooltip="20-11-17 화요일 미니프로젝트 2일차"
-                    aria-label="NEXT: 20-11-17 화요일 미니프로젝트 2일차"
+                    href="/2020/08/19/JS-4/"
+                    data-tooltip="4. 변수"
+                    aria-label="NEXT: 4. 변수"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -348,7 +367,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -361,7 +380,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -374,7 +393,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -422,9 +441,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/19/20-11-19-TIL/"
-                    data-tooltip="20-11-19 목요일 미니프로젝트 4일차"
-                    aria-label="PREVIOUS: 20-11-19 목요일 미니프로젝트 4일차"
+                    href="/2020/08/20/20-08-20-TIL/"
+                    data-tooltip="20-08-20 목요일 TIL"
+                    aria-label="PREVIOUS: 20-08-20 목요일 TIL"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -436,9 +455,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/17/20-11-17-TIL/"
-                    data-tooltip="20-11-17 화요일 미니프로젝트 2일차"
-                    aria-label="NEXT: 20-11-17 화요일 미니프로젝트 2일차"
+                    href="/2020/08/19/JS-4/"
+                    data-tooltip="4. 변수"
+                    aria-label="NEXT: 4. 변수"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -463,7 +482,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -476,7 +495,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -489,7 +508,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -523,7 +542,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -536,7 +555,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -549,7 +568,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
