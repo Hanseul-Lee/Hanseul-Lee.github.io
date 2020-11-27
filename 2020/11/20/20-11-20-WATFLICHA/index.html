@@ -6,24 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>20-11-17 화요일 미니프로젝트 2일차 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/11/17/20-11-17-til/"/>
+    <title>[미니 프로젝트] WATFLICHA - 영화 정보 사이트 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/11/20/20-11-20-watflicha/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n오늘 한 것(피드백)\nhtml, css 수정 및 보완\nbookmark 페이지\nevent handler등록open버튼, close버튼, overlay, popup 하트, 스크롤 이벤트 \ndb.json에 저장된 정보를 가져와서 화면에 렌더링 구현\npopupUI에 영화 API 가져와서 title, vote_average, overview, release_date, genres 등 출력되게 연동\npopupUI에 youtube 동영상 연결\n\n\n\n\n\n\n이웅모 강사님의 중간 피드백이 있었는데 내가 만든 bookmark 페이지에서 배치된 포스터들이 hover 되었을 때 서로의 공간을 침범하거나 가리지 않게 예쁘게 적용되어 칭찬을 받았다. \nasync/await을 통해 비동기를 다루는 부분이 헷갈려서 어진이에게 물어봤는데 내가 명확히 알지 못하는 부분을 그림까지 그려가며 설명해줘서 좋았다. poiemaweb을 읽고 정리할때까지만 해도 이해했다고 생각했는데 막상 실습을 해보니 이렇게 구멍난 부분이 발견된다.  \n강사님이 항상 강조하시는 사용자의 입장을 고려한 유능한 프론트엔드 개발자가 되기 위해 정말 디테일한 부분까지 신경써야 하는 게 정말 많다는 걸 다시 느꼈다. \n\n보충할 점\nlocal storage와 session storage 사용법 익히기\nDOM 6.5 노드삽입 부분 복습\n","dateCreated":"2020-11-17T22:00:09+09:00","dateModified":"2020-11-27T13:51:46+09:00","datePublished":"2020-11-17T22:00:09+09:00","description":"\n20-11-17 화요일 미니프로젝트 2일차\n\n2일차 피드백","headline":"20-11-17 화요일 미니프로젝트 2일차","image":["TIL.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/","keywords":"TIL, 프로젝트","thumbnailUrl":"TIL.jpg"}</script>
-    <meta name="description" content="20-11-17 화요일 미니프로젝트 2일차  2일차 피드백">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n패스트 캠퍼스 FE스쿨 미니 프로젝트에서 진행한 프로젝트 사이트입니다.\n\n(사진)\n(동영상)\n프로젝트 목표-","dateCreated":"2020-11-20T11:46:21+09:00","dateModified":"2020-11-26T11:33:12+09:00","datePublished":"2020-11-20T11:46:21+09:00","description":"\n[미니 프로젝트]WATFLICHA ( 1차 : 20.11.16 ~ 20.11.20 / 2차 : 20.11.22 ~ )","headline":"[미니 프로젝트] WATFLICHA - 영화 정보 사이트","image":["WATFLICHA-logo.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/","keywords":"프로젝트","thumbnailUrl":"WATFLICHA-logo.png"}</script>
+    <meta name="description" content="[미니 프로젝트]WATFLICHA ( 1차 : 20.11.16 ~ 20.11.20 &#x2F; 2차 : 20.11.22 ~ )">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="20-11-17 화요일 미니프로젝트 2일차">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/index.html">
+<meta property="og:title" content="[미니 프로젝트] WATFLICHA - 영화 정보 사이트">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="20-11-17 화요일 미니프로젝트 2일차  2일차 피드백">
+<meta property="og:description" content="[미니 프로젝트]WATFLICHA ( 1차 : 20.11.16 ~ 20.11.20 &#x2F; 2차 : 20.11.22 ~ )">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-17T13:00:09.000Z">
-<meta property="article:modified_time" content="2020-11-27T04:51:46.863Z">
+<meta property="article:published_time" content="2020-11-20T02:46:21.000Z">
+<meta property="article:modified_time" content="2020-11-26T02:33:12.206Z">
 <meta property="article:author" content="Hanseul lee">
-<meta property="article:tag" content="TIL">
 <meta property="article:tag" content="프로젝트">
 <meta name="twitter:card" content="summary">
     
@@ -34,8 +33,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/TIL.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/TIL.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/WATFLICHA-logo.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/WATFLICHA-logo.png"/>
     
     
     
@@ -247,20 +246,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            20-11-17 화요일 미니프로젝트 2일차
+            [미니 프로젝트] WATFLICHA - 영화 정보 사이트
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-11-17T22:00:09+09:00">
+    <time datetime="2020-11-20T11:46:21+09:00">
 	
-		    Nov 17, 2020
+		    Nov 20, 2020
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/TIL/">TIL</a>
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</a>
 
 
     
@@ -274,29 +273,12 @@
         <div class="main-content-wrap">
             <!-- excerpt -->
 
-</li>
-</ul>
-<h2 id="오늘-한-것-피드백"><a href="#오늘-한-것-피드백" class="headerlink" title="오늘 한 것(피드백)"></a>오늘 한 것(피드백)</h2><ul>
-<li>html, css 수정 및 보완</li>
-<li>bookmark 페이지<ol>
-<li>event handler등록<br>open버튼, close버튼, overlay, popup 하트, 스크롤 이벤트 </li>
-<li>db.json에 저장된 정보를 가져와서 화면에 렌더링 구현</li>
-<li>popupUI에 영화 API 가져와서 title, vote_average, overview, release_date, genres 등 출력되게 연동</li>
-<li>popupUI에 youtube 동영상 연결</li>
-</ol>
-</li>
-</ul>
-<br>
-
-<ul>
-<li>이웅모 강사님의 중간 피드백이 있었는데 내가 만든 bookmark 페이지에서 배치된 포스터들이 hover 되었을 때 서로의 공간을 침범하거나 가리지 않게 예쁘게 적용되어 칭찬을 받았다. </li>
-<li>async/await을 통해 비동기를 다루는 부분이 헷갈려서 어진이에게 물어봤는데 내가 명확히 알지 못하는 부분을 그림까지 그려가며 설명해줘서 좋았다. poiemaweb을 읽고 정리할때까지만 해도 이해했다고 생각했는데 막상 실습을 해보니 이렇게 구멍난 부분이 발견된다.  </li>
-<li>강사님이 항상 강조하시는 사용자의 입장을 고려한 유능한 프론트엔드 개발자가 되기 위해 정말 디테일한 부분까지 신경써야 하는 게 정말 많다는 걸 다시 느꼈다. </li>
-</ul>
-<h2 id="보충할-점"><a href="#보충할-점" class="headerlink" title="보충할 점"></a>보충할 점</h2><ul>
-<li>local storage와 session storage 사용법 익히기</li>
-<li>DOM 6.5 노드삽입 부분 복습</li>
-</ul>
+<blockquote>
+<p>패스트 캠퍼스 FE스쿨 미니 프로젝트에서 진행한 프로젝트 사이트입니다.</p>
+</blockquote>
+<p>(사진)</p>
+<p>(동영상)</p>
+<h1 id="프로젝트-목표"><a href="#프로젝트-목표" class="headerlink" title="프로젝트 목표"></a>프로젝트 목표</h1><p>-</p>
             
 
 
@@ -307,7 +289,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/TIL/" rel="tag">TIL</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag">프로젝트</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag">프로젝트</a>
 
             </div>
         
@@ -320,9 +302,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/18/20-11-18-TIL/"
-                    data-tooltip="20-11-18 수요일 미니프로젝트 3일차"
-                    aria-label="PREVIOUS: 20-11-18 수요일 미니프로젝트 3일차"
+                    href="/2020/11/25/20-11-25-WATFLECHA2/"
+                    data-tooltip="[미니 프로젝트] WATFLICHA - 2차 구현 TIL"
+                    aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 2차 구현 TIL"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -334,9 +316,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/16/20-11-16-TIL/"
-                    data-tooltip="20-11-16 월요일 미니프로젝트 1일차"
-                    aria-label="NEXT: 20-11-16 월요일 미니프로젝트 1일차"
+                    href="/2020/11/20/20-11-20-TIL/"
+                    data-tooltip="20-11-20 금요일 미니프로젝트 마지막날 및 최종발표"
+                    aria-label="NEXT: 20-11-20 금요일 미니프로젝트 마지막날 및 최종발표"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -361,7 +343,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -374,7 +356,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -387,7 +369,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -435,9 +417,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/18/20-11-18-TIL/"
-                    data-tooltip="20-11-18 수요일 미니프로젝트 3일차"
-                    aria-label="PREVIOUS: 20-11-18 수요일 미니프로젝트 3일차"
+                    href="/2020/11/25/20-11-25-WATFLECHA2/"
+                    data-tooltip="[미니 프로젝트] WATFLICHA - 2차 구현 TIL"
+                    aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 2차 구현 TIL"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -449,9 +431,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/16/20-11-16-TIL/"
-                    data-tooltip="20-11-16 월요일 미니프로젝트 1일차"
-                    aria-label="NEXT: 20-11-16 월요일 미니프로젝트 1일차"
+                    href="/2020/11/20/20-11-20-TIL/"
+                    data-tooltip="20-11-20 금요일 미니프로젝트 마지막날 및 최종발표"
+                    aria-label="NEXT: 20-11-20 금요일 미니프로젝트 마지막날 및 최종발표"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -476,7 +458,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -489,7 +471,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -502,7 +484,7 @@
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                    target="new" href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -536,7 +518,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -549,7 +531,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                        href="https://twitter.com/intent/tweet?text=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -562,7 +544,7 @@
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/17/20-11-17-TIL/"
+                        href="https://plus.google.com/share?url=https://hanseul-lee.github.io/2020/11/20/20-11-20-WATFLICHA/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
