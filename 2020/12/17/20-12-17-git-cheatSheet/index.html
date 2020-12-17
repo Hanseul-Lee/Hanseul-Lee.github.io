@@ -6,30 +6,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>[git] Default 브랜치명 변경하기 (master -&gt; main) - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/"/>
+    <title>[git] git 명령어 정리 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatsheet/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\ngithub의 default 브랜치가 main으로 바뀌다\n\n\n2020년 10월, github 공식 블로그는 default 브랜치의 명칭이 main으로 바뀌었음을 알렸다. 이는 이전부터 꾸준히 진행된 논쟁인 master/slave, balcklist/whitelist와 같이 인종차별적인 단어의 문제를 개선하려는 움직임에서 시작되었다. 따라서 github 역시 이러한 움직임에 동참하여 default 브랜치를 기존 master에서 main으로 변경하였고 올해 말부터 master로 생성했던 기존 브랜치의 이름 또한 원할하게 변경 가능하게 작업중이라고 한다.\n\n\n기존 Repository의 Default branch 이름을 변경하고 싶다면?따라서 기존 Repository에서 master로 만들어져있는 default 브랜치 이름을 main으로 변경하고 싶다면 다음과 같이 바꿀 수 있다.\n\n\nstep1.\ngit branch 명령어 “-m/-M” 옵션을 사용해 브랜치 이름을 변경하고 remote 저장소에 push12$ git branch -m master main$ git push -u origin main\n\n\n\nstep2.\nGithub Repository 설정 변경\n\n\n\n\n\nstep3.\n기존 브랜치 삭제\n\n\n\n이를 통해 기존 master로 되어있는 default 브랜치명을 main으로 바꿀 수 있다.\n\n\n\nReference\n\ngithub blog\ngithub/renaming\nhttps://kyeoneee.tistory.com/72\n","dateCreated":"2020-12-17T11:26:36+09:00","dateModified":"2020-12-17T13:15:31+09:00","datePublished":"2020-12-17T11:26:36+09:00","description":"\ngithub의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.","headline":"[git] Default 브랜치명 변경하기 (master -> main)","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
-    <meta name="description" content="github의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다. \n\n\n전체 흐름 요약12345            -add-&gt;      -commit-&gt;     -push-&gt;+-------------+-------------+------------+-------------+| Working dir |    Index    | Local repo | Remote repo |+-------------+-------------+------------+-------------+         &lt;-checkout-                 &lt;-fetch-\n\n\n\ngithub에 원격 저장소 생성한다.\n\n원격 저장소 (Remote repository) : github와 같이 외부 서버의 원격 프로젝트 저장소\n\n\n로컬 저장소의 작업 디렉토리에서 파일을 작성한다.\n\n로컬 저장소 (Local repository) : 본인의 컴퓨터에 저장된 프로젝트 저장소\n작업 디렉토리(Working directory): 실제 파일이 위치한 디렉토리.\n\n\ngit add [파일이름] 또는 git add .을 통해 변경된 파일들을 스테이징해 Index 영역에 등록한다.\n\n스테이징(Staging): 확정할 변경 사항을 준비시키는 것.\n인덱스(Index): 확정할 준비가 된 변경 사항들이 모인 영역.\n\n\ngit commit -m &quot;commit message&quot; 명령으로 스테이징된(Staged) 변경 사항을 commit해 로컬 저장소에 등록한다.\n\nCommit: 인덱스의 변경 사항들을 확정하는 것. \n\n\n원격 저장소를 clone 해 로컬 저장소와 연결한다. 이후 push해 커밋된 변경사항들을 원격 저장소에 게시한다.\n\nPush: 확정된 변경 사항을 원격 저장소에 게시하는 것.\norigin: 로컬 저장소의 원본 원격 저장소12git clone [내 repo 주소]git push -u origin main\n\n\n\n\n\n\n\n\ngit cheat sheet참고로 git 명령어를 사용함에 있어 다음과 같은 git cheat sheet를 사용하면 보다 유용하게 명령어를 파악할 수 있다.\ngit cheat sheet\n\n\n\n\nReference\n\nhttps://git-scm.com/docs\nhttps://parksb.github.io/article/28.html\nhttps://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/\n","dateCreated":"2020-12-17T13:56:47+09:00","dateModified":"2020-12-17T16:35:56+09:00","datePublished":"2020-12-17T13:56:47+09:00","description":"\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.","headline":"[git] git 명령어 정리","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
+    <meta name="description" content="git 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="[git] Default 브랜치명 변경하기 (master -&gt; main)">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/index.html">
+<meta property="og:title" content="[git] git 명령어 정리">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="github의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.">
+<meta property="og:description" content="git 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/main.jpg">
-<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/step2.jpg">
-<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/step3.jpg">
-<meta property="article:published_time" content="2020-12-17T02:26:36.000Z">
-<meta property="article:modified_time" content="2020-12-17T04:15:31.787Z">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/cheatSheet.png">
+<meta property="article:published_time" content="2020-12-17T04:56:47.000Z">
+<meta property="article:modified_time" content="2020-12-17T07:35:56.389Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/main.jpg">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/cheatSheet.png">
     
     
         
@@ -38,8 +36,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/git.jpeg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/git.jpeg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/git.jpeg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/git.jpeg"/>
     
     
     
@@ -251,12 +249,12 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            [git] Default 브랜치명 변경하기 (master -&gt; main)
+            [git] git 명령어 정리
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-12-17T11:26:36+09:00">
+    <time datetime="2020-12-17T13:56:47+09:00">
 	
 		    Dec 17, 2020
     	
@@ -277,42 +275,60 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%EC%A0%84%EC%B2%B4-%ED%9D%90%EB%A6%84-%EC%9A%94%EC%95%BD"><span class="toc-text">전체 흐름 요약</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-cheat-sheet"><span class="toc-text">git cheat sheet</span></a></li></ol>
 
-<h1 id="github의-default-브랜치가-main으로-바뀌다"><a href="#github의-default-브랜치가-main으로-바뀌다" class="headerlink" title="github의 default 브랜치가 main으로 바뀌다"></a>github의 default 브랜치가 main으로 바뀌다</h1><div class="figure center" style="width:600px;"><img class="fig-img" src="main.jpg" style="width:600px;"alt=""></div>
+<p>git 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다. </p>
 <br>
 
-<p>2020년 10월, <a target="_blank" rel="noopener" href="https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/">github 공식 블로그</a>는 default 브랜치의 명칭이 main으로 바뀌었음을 알렸다. 이는 이전부터 꾸준히 진행된 논쟁인 master/slave, balcklist/whitelist와 같이 인종차별적인 단어의 문제를 개선하려는 움직임에서 시작되었다. 따라서 github 역시 이러한 움직임에 동참하여 default 브랜치를 기존 <code>master</code>에서 <code>main</code>으로 변경하였고 올해 말부터 master로 생성했던 기존 브랜치의 이름 또한 원할하게 변경 가능하게 작업중이라고 한다.</p>
+<h1 id="전체-흐름-요약"><a href="#전체-흐름-요약" class="headerlink" title="전체 흐름 요약"></a>전체 흐름 요약</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            -add-&gt;      -commit-&gt;     -push-&gt;</span><br><span class="line">+-------------+-------------+------------+-------------+</span><br><span class="line">| Working dir |    Index    | Local repo | Remote repo |</span><br><span class="line">+-------------+-------------+------------+-------------+</span><br><span class="line">         &lt;-checkout-                 &lt;-fetch-</span><br></pre></td></tr></table></figure>
 <br>
 
-<h1 id="기존-Repository의-Default-branch-이름을-변경하고-싶다면"><a href="#기존-Repository의-Default-branch-이름을-변경하고-싶다면" class="headerlink" title="기존 Repository의 Default branch 이름을 변경하고 싶다면?"></a>기존 Repository의 Default branch 이름을 변경하고 싶다면?</h1><p>따라서 기존 Repository에서 master로 만들어져있는 default 브랜치 이름을 main으로 변경하고 싶다면 다음과 같이 바꿀 수 있다.</p>
-<br>
+<ol>
+<li><p>github에 <strong>원격 저장소</strong> 생성한다.</p>
+<ul>
+<li><strong>원격 저장소 (Remote repository)</strong> : github와 같이 외부 서버의 원격 프로젝트 저장소</li>
+</ul>
+</li>
+<li><p><strong>로컬 저장소</strong>의 <strong>작업 디렉토리</strong>에서 파일을 작성한다.</p>
+<ul>
+<li><strong>로컬 저장소 (Local repository)</strong> : 본인의 컴퓨터에 저장된 프로젝트 저장소</li>
+<li><strong>작업 디렉토리(Working directory)</strong>: 실제 파일이 위치한 디렉토리.</li>
+</ul>
+</li>
+<li><p><code>git add [파일이름]</code> 또는 <code>git add .</code>을 통해 변경된 파일들을 <strong>스테이징</strong>해 <strong>Index</strong> 영역에 등록한다.</p>
+<ul>
+<li><strong>스테이징(Staging)</strong>: 확정할 변경 사항을 준비시키는 것.</li>
+<li><strong>인덱스(Index)</strong>: 확정할 준비가 된 변경 사항들이 모인 영역.</li>
+</ul>
+</li>
+<li><p><code>git commit -m &quot;commit message&quot;</code> 명령으로 스테이징된(Staged) 변경 사항을 commit해 로컬 저장소에 등록한다.</p>
+<ul>
+<li><strong>Commit</strong>: 인덱스의 변경 사항들을 확정하는 것. </li>
+</ul>
+</li>
+<li><p>원격 저장소를 clone 해 로컬 저장소와 연결한다. 이후 push해 커밋된 변경사항들을 원격 저장소에 게시한다.</p>
+<ul>
+<li><strong>Push</strong>: 확정된 변경 사항을 원격 저장소에 게시하는 것.</li>
+<li><strong>origin</strong>: 로컬 저장소의 원본 원격 저장소<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone [내 repo 주소]</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
 
-<h3 id="step1"><a href="#step1" class="headerlink" title="step1."></a>step1.</h3><ul>
-<li>git branch 명령어 “-m/-M” 옵션을 사용해 브랜치 이름을 변경하고 remote 저장소에 push<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -m master main</span><br><span class="line">$ git push -u origin main</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<h3 id="step2"><a href="#step2" class="headerlink" title="step2."></a>step2.</h3><ul>
-<li>Github Repository 설정 변경</li>
-</ul>
-<div class="figure center" style="width:950px;"><img class="fig-img" src="step2.jpg" style="width:950px;"alt=""></div>
-
+</li>
+</ol>
 <br>
 
-<h3 id="step3"><a href="#step3" class="headerlink" title="step3."></a>step3.</h3><ul>
-<li>기존 브랜치 삭제</li>
-</ul>
-<div class="figure center" style="width:950px;"><img class="fig-img" src="step3.jpg" style="width:950px;"alt=""></div>
+<h1 id="git-cheat-sheet"><a href="#git-cheat-sheet" class="headerlink" title="git cheat sheet"></a>git cheat sheet</h1><p>참고로 git 명령어를 사용함에 있어 다음과 같은 git cheat sheet를 사용하면 보다 유용하게 명령어를 파악할 수 있다.<br><br></p>
+<div class="figure center" style="width:800px;"><img class="fig-img" src="cheatSheet.png" style="width:800px;"alt="git cheat sheet"><span class="caption">git cheat sheet</span></div>
 
-<p>이를 통해 기존 master로 되어있는 default 브랜치명을 main으로 바꿀 수 있다.</p>
 <br>
 
 <hr>
 <p><strong>Reference</strong></p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/">github blog</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/github/renaming/#later-this-year">github/renaming</a></li>
-<li><a target="_blank" rel="noopener" href="https://kyeoneee.tistory.com/72">https://kyeoneee.tistory.com/72</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs">https://git-scm.com/docs</a></li>
+<li><a target="_blank" rel="noopener" href="https://parksb.github.io/article/28.html">https://parksb.github.io/article/28.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/">https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/</a></li>
 </ul>
             
 
@@ -334,14 +350,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-17-git-newRepo/"
-                    data-tooltip="[git] gitHub에 new repository 생성하기"
-                    aria-label="PREVIOUS: [git] gitHub에 new repository 생성하기"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -351,9 +364,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/10/20-12-10-darkmode/"
-                    data-tooltip="[js연습] Darkmode 구현하기"
-                    aria-label="NEXT: [js연습] Darkmode 구현하기"
+                    href="/2020/12/17/20-12-17-git-newRepo/"
+                    data-tooltip="[git] gitHub에 new repository 생성하기"
+                    aria-label="NEXT: [git] gitHub에 new repository 생성하기"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -378,7 +391,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -410,14 +423,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-17-git-newRepo/"
-                    data-tooltip="[git] gitHub에 new repository 생성하기"
-                    aria-label="PREVIOUS: [git] gitHub에 new repository 생성하기"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -427,9 +437,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/10/20-12-10-darkmode/"
-                    data-tooltip="[js연습] Darkmode 구현하기"
-                    aria-label="NEXT: [js연습] Darkmode 구현하기"
+                    href="/2020/12/17/20-12-17-git-newRepo/"
+                    data-tooltip="[git] gitHub에 new repository 생성하기"
+                    aria-label="NEXT: [git] gitHub에 new repository 생성하기"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -454,7 +464,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
