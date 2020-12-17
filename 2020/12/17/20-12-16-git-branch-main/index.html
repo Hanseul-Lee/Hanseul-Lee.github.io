@@ -6,25 +6,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
-    <title>[git] 좋은 커밋 메세지 작성하기 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/"/>
+    <title>[git] Default 브랜치명 변경하기 (master -&gt; main) - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/"/>
     <meta name="author" content="Hanseul lee">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n좋은 커밋 메세지 작성하기\nCommit Message Structure제목 / 본문 / 꼬리말로 구성\n12345type: subjectbodyfooter\n\nCommit Type\n\nfeat : 새로운 기능 추가\ndocs : 문서 수정\nfix : 버그 수정\ntest : 테스트 코드, 리펙토링 테스트 코드 추가\nrefactor : 코드 리팩토링\nstyle : 코드 형식, 정렬, 주석 등의 변경, 세미콜론 추가 등\netc 위에 해당하지 않는 모든 변경\n\n\n\n\nSubject\n\n첫글자는 대문자로 작성하고 마침표(.)를 붙이지 않음\n제목은 50자를 넘기지 않음\n제목 쓰고 한 줄 띄기\n과거시제가 아닌 명령어 사용“Fixed” —&gt; “Fix”“Added” —&gt; “Add”\n\n\nBody\n\n간단명료하게 72자 단위로 개행\n‘어떻게’보다는 ‘무엇을’, ‘왜’ 바꿨는지 작성\n\n\nFooter\n\nissue tracker id 작성123456feat: 로그 출력 기능 추가커밋에 대한 설명Resolves: #123Ref: #99, #101, #456\n\n\n\n","dateCreated":"2020-08-18T00:00:00+09:00","dateModified":"2020-12-17T12:14:36+09:00","datePublished":"2020-08-18T00:00:00+09:00","description":"\n\n협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기","headline":"[git] 좋은 커밋 메세지 작성하기","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/","keywords":"git","thumbnailUrl":"git.jpeg"}</script>
-    <meta name="description" content="협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\ngithub의 default 브랜치가 main으로 바뀌다\n\n\n2020년 10월, github 공식 블로그는 default 브랜치의 명칭이 main으로 바뀌었음을 알렸다. 이는 이전부터 꾸준히 진행된 논쟁인 master/slave, balcklist/whitelist와 같이 인종차별적인 단어의 문제를 개선하려는 움직임에서 시작되었다. 따라서 github 역시 이러한 움직임에 동참하여 default 브랜치를 기존 master에서 main으로 변경하였고 올해 말부터 master로 생성했던 기존 브랜치의 이름 또한 원할하게 변경 가능하게 작업중이라고 한다.\n기존 Repository의 Default branch 이름을 변경하고 싶다면?따라서 기존 Repository에서 master로 만들어져있는 default 브랜치 이름을 main으로 변경하고 싶다면 다음과 같이 바꿀 수 있다.\n\n\nstep1.\ngit branch 명령어 “-m/-M” 옵션을 사용해 브랜치 이름을 변경하고 remote 저장소에 push12$ git branch -m master main$ git push -u origin main\n\n\n\nstep2.\nGithub Repository 설정 변경\n\n\n\n\n\nstep3.\n기존 브랜치 삭제\n\n\n\n\n\n\n\n\nReference\n\ngithub blog\ngithub/renaming\nhttps://kyeoneee.tistory.com/72\n","dateCreated":"2020-12-17T11:26:36+09:00","dateModified":"2020-12-17T12:15:46+09:00","datePublished":"2020-12-17T11:26:36+09:00","description":"\ngithub의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.","headline":"[git] Default 브랜치명 변경하기 (master -> main)","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
+    <meta name="description" content="github의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="[git] 좋은 커밋 메세지 작성하기">
-<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/index.html">
+<meta property="og:title" content="[git] Default 브랜치명 변경하기 (master -&gt; main)">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
-<meta property="og:description" content="협업 및 혼자 작업하는 데 있어 좋은 커밋 메세지 작성하는 법 알아보기">
+<meta property="og:description" content="github의 default의 브랜치명을 master에서 main으로 변경하는 방법을 알아봅시다.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-17T03:14:36.634Z">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/main.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/step2.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/step3.jpg">
+<meta property="article:published_time" content="2020-12-17T02:26:36.000Z">
+<meta property="article:modified_time" content="2020-12-17T03:15:46.404Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="git">
+<meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/main.jpg">
     
     
         
@@ -33,8 +38,8 @@
         <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/git.jpeg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git2/git.jpeg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/git.jpeg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/17/20-12-16-git-branch-main/git.jpeg"/>
     
     
     
@@ -246,14 +251,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            [git] 좋은 커밋 메세지 작성하기
+            [git] Default 브랜치명 변경하기 (master -&gt; main)
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-08-18T00:00:00+09:00">
+    <time datetime="2020-12-17T11:26:36+09:00">
 	
-		    Aug 18, 2020
+		    Dec 17, 2020
     	
     </time>
     
@@ -273,44 +278,41 @@
         <div class="main-content-wrap">
             <!-- excerpt -->
 
-<h1 id="좋은-커밋-메세지-작성하기"><a href="#좋은-커밋-메세지-작성하기" class="headerlink" title="좋은 커밋 메세지 작성하기"></a>좋은 커밋 메세지 작성하기</h1><ol>
-<li><p>Commit Message Structure<br>제목 / 본문 / 꼬리말로 구성</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type: subject</span><br><span class="line"></span><br><span class="line">body</span><br><span class="line"></span><br><span class="line">footer</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Commit Type</p>
-<ul>
-<li><strong>feat</strong> : 새로운 기능 추가</li>
-<li><strong>docs</strong> : 문서 수정</li>
-<li><strong>fix</strong> : 버그 수정</li>
-<li><strong>test</strong> : 테스트 코드, 리펙토링 테스트 코드 추가</li>
-<li><strong>refactor</strong> : 코드 리팩토링</li>
-<li><strong>style</strong> : 코드 형식, 정렬, 주석 등의 변경, 세미콜론 추가 등</li>
-<li><strong>etc</strong> 위에 해당하지 않는 모든 변경</li>
-</ul>
-</li>
-</ol>
-<ol start="3">
-<li><p>Subject</p>
-<ul>
-<li><strong>첫글자는 대문자로 작성</strong>하고 <strong>마침표(.)를 붙이지 않음</strong></li>
-<li>제목은 50자를 넘기지 않음</li>
-<li>제목 쓰고 한 줄 띄기</li>
-<li>과거시제가 아닌 <strong>명령어</strong> 사용<br>“Fixed” —&gt; “Fix”<br>“Added” —&gt; “Add”</li>
-</ul>
-</li>
-<li><p>Body</p>
-<ul>
-<li>간단명료하게 <strong>72자 단위</strong>로 개행</li>
-<li>‘어떻게’보다는 ‘<strong>무엇을’, ‘왜’</strong> 바꿨는지 작성</li>
-</ul>
-</li>
-<li><p>Footer</p>
-<ul>
-<li><strong>issue tracker id</strong> 작성<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feat: 로그 출력 기능 추가</span><br><span class="line"></span><br><span class="line">커밋에 대한 설명</span><br><span class="line"></span><br><span class="line">Resolves: #123</span><br><span class="line">Ref: #99, #101, #456</span><br></pre></td></tr></table></figure>
+<h1 id="github의-default-브랜치가-main으로-바뀌다"><a href="#github의-default-브랜치가-main으로-바뀌다" class="headerlink" title="github의 default 브랜치가 main으로 바뀌다"></a>github의 default 브랜치가 main으로 바뀌다</h1><div class="figure center" style="width:600px;"><img class="fig-img" src="main.jpg" style="width:600px;"alt=""></div>
+<br>
+
+<p>2020년 10월, <a target="_blank" rel="noopener" href="https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/">github 공식 블로그</a>는 default 브랜치의 명칭이 main으로 바뀌었음을 알렸다. 이는 이전부터 꾸준히 진행된 논쟁인 master/slave, balcklist/whitelist와 같이 인종차별적인 단어의 문제를 개선하려는 움직임에서 시작되었다. 따라서 github 역시 이러한 움직임에 동참하여 default 브랜치를 기존 <code>master</code>에서 <code>main</code>으로 변경하였고 올해 말부터 master로 생성했던 기존 브랜치의 이름 또한 원할하게 변경 가능하게 작업중이라고 한다.</p>
+<h1 id="기존-Repository의-Default-branch-이름을-변경하고-싶다면"><a href="#기존-Repository의-Default-branch-이름을-변경하고-싶다면" class="headerlink" title="기존 Repository의 Default branch 이름을 변경하고 싶다면?"></a>기존 Repository의 Default branch 이름을 변경하고 싶다면?</h1><p>따라서 기존 Repository에서 master로 만들어져있는 default 브랜치 이름을 main으로 변경하고 싶다면 다음과 같이 바꿀 수 있다.</p>
+<br>
+
+<h3 id="step1"><a href="#step1" class="headerlink" title="step1."></a>step1.</h3><ul>
+<li>git branch 명령어 “-m/-M” 옵션을 사용해 브랜치 이름을 변경하고 remote 저장소에 push<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -m master main</span><br><span class="line">$ git push -u origin main</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<h3 id="step2"><a href="#step2" class="headerlink" title="step2."></a>step2.</h3><ul>
+<li>Github Repository 설정 변경</li>
+</ul>
+<div class="figure center" style="width:800px;"><img class="fig-img" src="step2.jpg" style="width:800px;"alt=""></div>
+
+<br>
+
+<h3 id="step3"><a href="#step3" class="headerlink" title="step3."></a>step3.</h3><ul>
+<li>기존 브랜치 삭제<div class="figure center" style="width:800px;"><img class="fig-img" src="step3.jpg" style="width:800px;"alt=""></div>
+
+
+
 </li>
-</ol>
+</ul>
+<br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/">github blog</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/github/renaming/#later-this-year">github/renaming</a></li>
+<li><a target="_blank" rel="noopener" href="https://kyeoneee.tistory.com/72">https://kyeoneee.tistory.com/72</a></li>
+</ul>
             
 
 
@@ -321,7 +323,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/github/" rel="tag">github</a>
 
             </div>
         
@@ -331,14 +333,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-git/"
-                    data-tooltip="[git] git으로 협력하기"
-                    aria-label="PREVIOUS: [git] git으로 협력하기"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -348,9 +347,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/12/20-08-12-TIL/"
-                    data-tooltip="20-08-12 수요일 TIL"
-                    aria-label="NEXT: 20-08-12 수요일 TIL"
+                    href="/2020/12/10/20-12-10-darkmode/"
+                    data-tooltip="[js연습] Darkmode 구현하기"
+                    aria-label="NEXT: [js연습] Darkmode 구현하기"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -407,14 +406,11 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-git/"
-                    data-tooltip="[git] git으로 협력하기"
-                    aria-label="PREVIOUS: [git] git으로 협력하기"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -424,9 +420,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/12/20-08-12-TIL/"
-                    data-tooltip="20-08-12 수요일 TIL"
-                    aria-label="NEXT: 20-08-12 수요일 TIL"
+                    href="/2020/12/10/20-12-10-darkmode/"
+                    data-tooltip="[js연습] Darkmode 구현하기"
+                    aria-label="NEXT: [js연습] Darkmode 구현하기"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
