@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>9. 타입 변환과 단축 평가 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/25/js-9/"/>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 타입 변환📒 타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것\n\n암묵적 타입 변환, 타입 강제 변환(type coercion) : 자바스크립트 엔진에 의한 강제적 타입 변환\n명시적 타입 변환, 타입 캐스팅(type casting): 개발자에 의한 의도적 타입변환\n\n원시값은 변경 불가능한 값이므로 변경할 수 없다. 타입 변환은 기존 원시값을 직접 변경하는 것이 아닌 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것이다. 개발자는 자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 한다.\n2) 암묵적 타입 변환2.1. 문자열 타입으로 변환\n‘+’ 문자열 연결 연산자\n‘+’ 연산자는 피연산자 중 하나 이상이 문자열이면 문자열 연결 연산자로 동작\n\n\n템플릿 리터럴\n공백 추가\n\n1234567891011// 1. + 문자열 연결 연산자1 + &quot;2&quot; // -&gt; &quot;12&quot;// 2. 템플릿 리터럴`1 + 1 = $&#123;1 + 1&#125;`; // -&gt; &quot;1 + 1 = 2&quot;// 3. 공백 추가0 +&#x27;&#x27; - // -&gt; &quot;0&quot;1 +&#x27;&#x27;; // -&gt; &quot;-1&quot;true +&#x27;&#x27;// -&gt; &quot;true&quot;[(10, 20)] + &#x27;&#x27;; // -&gt; &quot;10,20&quot;\n\n\n2.2. 숫자 타입으로 변환\n산술 연산자\n피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN\n\n\n1231 - &quot;1&quot;; // -&gt; 01 * &quot;10&quot;; // -&gt; 101 / &quot;one&quot;; // -&gt; NaN\n\n\n비교 연산자불리언 값을 만듦\n\n1&quot;1&quot; &gt; 0; // -&gt; true\n\n\n단항 연산자빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환객체와 빈 배열이 아닌 배열, undefined는 변환되지 않아 NaN이 된다.\n\n123456789101112131415+&quot;0&quot;  // -&gt; 0+&quot;1&quot;  // -&gt; 1+&quot;string&quot;  // -&gt; NaN+true  // -&gt; 1+false  // -&gt; 0// null undefined의 값이 다르다는 것 구분해 알아두자!  +null  // -&gt; 0+undefined  // -&gt; NaN+&#123;&#125;  // -&gt; NaN+[]  // -&gt; 0+[10, 20]  // -&gt; NaN+function () &#123;&#125;; // -&gt; NaN\n\n2.3. 불리언 타입으로 변환\n자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분한다.\nFalsy 값(7개) :false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)\nTruthy 값:Falsy 값 외의 모든 값\n\n1234567if (&quot;&quot;) console.log(&quot;1&quot;);if (true) console.log(&quot;2&quot;);if (0) console.log(&quot;3&quot;);if (&quot;str&quot;) console.log(&quot;4&quot;);if (null) console.log(&quot;5&quot;);// 2 4\n\n3) 명시적 타입 변환3.1. 문자열 타입으로 변환1234var x = 10;console.log(String(x)); // 1. String 생성자 함수를 new 연산자 없이 호출console.log(x.toString()); // 2. Object.prototype.toString 메서드를 사용console.log(x + &#x27;&#x27;); // 3. 문자열 연결 연산자를 이용 \n\n\nString 생성자 함수를 new 연산자 없이 호출하는 방법\nObject.prototype.toString 메서드를 사용하는 방법\n문자열 연결 연산자를 이용하는 방법\n\n12345678910111213141516// 1. string 생성자 함수String(1); // -&gt; &quot;1&quot;String(NaN); // -&gt; &quot;NaN&quot;String(true); // -&gt; &quot;true&quot;// 2. Object.prototype.toString 메서드(1).toString(); // -&gt; &quot;1&quot;NaN.toString(); // -&gt; &quot;NaN&quot;true.toString(); // -&gt; &quot;true&quot;// 3. 문자열 연결 연산자 이용1 + &quot;&quot;; // -&gt; &quot;1&quot;NaN + &quot;&quot;; // -&gt; &quot;NaN&quot;Infinity + &quot;&quot;; // -&gt; &quot;Infinity&quot;// 불리언 타입 =&gt; 문자열 타입true + &quot;&quot;; // -&gt; &quot;true&quot;\n\n3.2. 숫자 타입으로 변환\nNumber 생성자 함수를 new 연산자 없이 호출하는 방법\nparseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)\n단항 산술 연산자를 이용하는 방법\n산술 연산자를 이용하는 방법\n\n12345678910111213141516171819// 1. Number 생성자 함수Number(&quot;0&quot;); // -&gt; 0Number(&quot;-1&quot;); // -&gt; -1Number(true); // -&gt; 1// 2. parseInt, parseFloat 함수를 사용parseInt(&quot;0&quot;); // -&gt; 0parseFloat(&#x27;10.53&#x27;); // -&gt; 10.53// 3. + 단항 산술 연산자를 이용+&quot;0&quot;; // -&gt; 0+&quot;-1&quot;; // -&gt; -1+true; // -&gt; 1+false; // -&gt; 0// 4. 산술 연산자를 이용&quot;0&quot; * 1; // -&gt; 0true * 1; // -&gt; 1false * 1; // -&gt; 0\n\n3.3. 불리언 타입으로 변환\nBoolean 생성자 함수를 new 연산자 없이 호출하는 방법\n! 부정 논리 연산자를 두 번 사용하는 방법\n\n12345678910111213141516171819202122232425// 1. Boolean 생성자 함수Boolean(&quot;x&quot;); // -&gt; trueBoolean(&quot;&quot;); // -&gt; falseBoolean(&quot;false&quot;); // -&gt; trueBoolean(0); // -&gt; falseBoolean(1); // -&gt; trueBoolean(NaN); // -&gt; falseBoolean(Infinity); // -&gt; trueBoolean(null); // -&gt; falseBoolean(undefined); // -&gt; false// 2. ! 부정 논리 연산자를 두 번 사용!!&quot;x&quot;; // -&gt; true!!&quot;&quot;; // -&gt; false!!&quot;false&quot;; // -&gt; true!!0; // -&gt; false!!1; // -&gt; true!!NaN; // -&gt; false!!Infinity; // -&gt; true!!null; // -&gt; false!!undefined; // -&gt; false\n\n4) 단축 평가4.1. 논리 연산자를 사용한 단축 평가\n📒 단축 평가 : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것\n\n논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다.이때 논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.\n\n단축 평가 규칙\n\n1234true || anything; // truefalse || anything; // anythingtrue &amp;&amp; anything; // anythingfalse &amp;&amp; anything; // false\n\n\n\n예제\n\n1&quot;Cat&quot; &amp;&amp; &quot;Dog&quot;; // -&gt; &quot;Dog&quot;\n\n논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환여기서 ‘Cat’은 true그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨논리곱 연산자는 논리 연산의 결과를 결정하는 두 번째 피연산자, 즉 문자열 ‘Dog’를 그대로 반환!\n마찬가지로 논리합(||) 연산자는 두 개의 피연산자 중 하나만 true로 평가되어도 true를 반환하므로 결과를 결정하는 첫 번째 피연산자, 문자열 ‘Cat’을 그대로 반환한다.\n1&quot;Cat&quot; || &quot;Dog&quot;; // -&gt; &quot;Cat&quot;\n\n\n\n\n단축 평가를 사용하면 if 문을 대체 가능하다.\n\n\n주어진 조건이 true\n\n12345678910var done = true;var message = &quot;&quot;;// 주어진 조건이 true일 때if (done) message = &quot;완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 true라면 message에 &#x27;완료&#x27;를 할당message = done &amp;&amp; &quot;완료&quot;;console.log(message); // 완료\n\n\n주어진 조건이 false\n\n12345678910var done = false;var message = &quot;&quot;;// 주어진 조건이 false일 때if (!done) message = &quot;미완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 false라면 message에 &#x27;미완료&#x27;를 할당message = done || &quot;미완료&quot;;console.log(message); // 미완료\n\n\nif…else 문\n\n1234567891011var done = true;var message = &quot;&quot;;// if...else 문if (done) message = &quot;완료&quot;;else message = &quot;미완료&quot;;console.log(message); // 완료// if...else 문은 삼항 조건 연산자로 대체 가능하다.message = done ? &quot;완료&quot; : &quot;미완료&quot;;console.log(message); // 완료\n\n\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때\n\n12var elem = null;var value = elem.value; // TypeError: Cannot read property &#x27;value&#x27; of null\n1234var elem = null;// elem이 null이나 undefined와 같은 Falsy 값이면 elem으로 평가되고// elem이 Truthy 값이면 elem.value로 평가된다.var value = elem &amp;&amp; elem.value; // -&gt; null\n\n\n\n함수 매개변수에 기본값을 설정할 때함수를 호출할 때 인수를 전달하지 않으면 매개변수는 undefined를 갖는다. 이때 단축 평가를 사용하여 매개변수의 기본값을 설정하면 undefined로 인해 발생할 수 있는 에러를 방지할 수 있다.\n\n12345678910111213141516// 단축 평가를 사용한 매개변수의 기본값 설정function getStringLength(str) &#123;  str = str || &#x27;&#x27;;  return str.length;&#125;getStringLength();     // -&gt; 0getStringLength(&#x27;hi&#x27;); // -&gt; 2// ES6의 매개변수의 기본값 설정function getStringLength(str = &#x27;&#x27;) &#123;  return str.length;&#125;getStringLength();     // -&gt; 0getStringLength(&#x27;hi&#x27;); // -&gt; 2\n\n\n4.2. 옵셔널 체이닝 연산자📒 옵셔널 체이닝(optional chaining) 연산자 :　?.\n좌항이 null 또는 undefined → undefined그렇지 않으면 우항의 프로퍼티 참조를 이어감\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용하다.\n\n4.3. null 병합 연산자📒 null 병합(nullish coalescing) 연산자 :　??\n좌항이 null 또는 undefined → 우항의 피연산자를 반환그렇지 않으면 좌항의 피연산자를 반환\n\n변수에 기본값을 설정할 때 유용하다.\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-08-25T00:26:00+09:00","dateModified":"2020-12-10T23:11:25+09:00","datePublished":"2020-08-25T00:26:00+09:00","description":"\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.","headline":"9. 타입 변환과 단축 평가","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/JS-9/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/JS-9/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="9. 타입 변환과 단축 평가">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/25/JS-9/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-24T15:26:00.000Z">
+<meta property="article:modified_time" content="2020-12-10T14:11:25.283Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="All-categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-project"
+                            
+                            rel="noopener"
+                            title="project-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-Fastcampus"
+                            
+                            rel="noopener"
+                            title="study-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-TIL"
+                            
+                            rel="noopener"
+                            title="TIL"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/hanseul-lee/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            9. 타입 변환과 단축 평가
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-08-25T00:26:00+09:00">
+	
+		    Aug 25, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/Javascript/">Javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98"><span class="toc-number">1.</span> <span class="toc-text">1) 타입 변환</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%EC%95%94%EB%AC%B5%EC%A0%81-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98"><span class="toc-number">2.</span> <span class="toc-text">2) 암묵적 타입 변환</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 문자열 타입으로 변환</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%EC%88%AB%EC%9E%90-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 숫자 타입으로 변환</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%EB%B6%88%EB%A6%AC%EC%96%B8-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">2.3.</span> <span class="toc-text">2.3. 불리언 타입으로 변환</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%EB%AA%85%EC%8B%9C%EC%A0%81-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98"><span class="toc-number">3.</span> <span class="toc-text">3) 명시적 타입 변환</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 문자열 타입으로 변환</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%EC%88%AB%EC%9E%90-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 숫자 타입으로 변환</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%EB%B6%88%EB%A6%AC%EC%96%B8-%ED%83%80%EC%9E%85%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. 불리언 타입으로 변환</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%EB%8B%A8%EC%B6%95-%ED%8F%89%EA%B0%80"><span class="toc-number">4.</span> <span class="toc-text">4) 단축 평가</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%EB%85%BC%EB%A6%AC-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%8B%A8%EC%B6%95-%ED%8F%89%EA%B0%80"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 논리 연산자를 사용한 단축 평가</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%EC%98%B5%EC%85%94%EB%84%90-%EC%B2%B4%EC%9D%B4%EB%8B%9D-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 옵셔널 체이닝 연산자</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-null-%EB%B3%91%ED%95%A9-%EC%97%B0%EC%82%B0%EC%9E%90"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. null 병합 연산자</span></a></li></ol></li></ol>
+
+<h1 id="1-타입-변환"><a href="#1-타입-변환" class="headerlink" title="1) 타입 변환"></a>1) 타입 변환</h1><p>📒 <strong>타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것</strong><br><br></p>
+<ol>
+<li><strong>암묵적 타입 변환, 타입 강제 변환(type coercion)</strong> : 자바스크립트 엔진에 의한 강제적 타입 변환</li>
+<li><strong>명시적 타입 변환, 타입 캐스팅(type casting)</strong>: 개발자에 의한 의도적 타입변환</li>
+</ol>
+<p>원시값은 변경 불가능한 값이므로 변경할 수 없다. 타입 변환은 기존 원시값을 직접 변경하는 것이 아닌 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것이다. 개발자는 자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 한다.</p>
+<h1 id="2-암묵적-타입-변환"><a href="#2-암묵적-타입-변환" class="headerlink" title="2) 암묵적 타입 변환"></a>2) 암묵적 타입 변환</h1><h2 id="2-1-문자열-타입으로-변환"><a href="#2-1-문자열-타입으로-변환" class="headerlink" title="2.1. 문자열 타입으로 변환"></a>2.1. 문자열 타입으로 변환</h2><ol>
+<li>‘+’ 문자열 연결 연산자<ul>
+<li>‘+’ 연산자는 피연산자 중 하나 이상이 문자열이면 문자열 연결 연산자로 동작</li>
+</ul>
+</li>
+<li>템플릿 리터럴</li>
+<li>공백 추가</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. + 문자열 연결 연산자</span></span><br><span class="line"><span class="number">1</span> + <span class="string">&quot;2&quot;</span> <span class="comment">// -&gt; &quot;12&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 템플릿 리터럴</span></span><br><span class="line"><span class="string">`1 + 1 = <span class="subst">$&#123;<span class="number">1</span> + <span class="number">1</span>&#125;</span>`</span>; <span class="comment">// -&gt; &quot;1 + 1 = 2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 공백 추가</span></span><br><span class="line"><span class="number">0</span> +<span class="string">&#x27;&#x27;</span> - <span class="comment">// -&gt; &quot;0&quot;</span></span><br><span class="line"><span class="number">1</span> +<span class="string">&#x27;&#x27;</span>; <span class="comment">// -&gt; &quot;-1&quot;</span></span><br><span class="line"><span class="literal">true</span> +<span class="string">&#x27;&#x27;</span><span class="comment">// -&gt; &quot;true&quot;</span></span><br><span class="line">[(<span class="number">10</span>, <span class="number">20</span>)] + <span class="string">&#x27;&#x27;</span>; <span class="comment">// -&gt; &quot;10,20&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-숫자-타입으로-변환"><a href="#2-2-숫자-타입으로-변환" class="headerlink" title="2.2. 숫자 타입으로 변환"></a>2.2. 숫자 타입으로 변환</h2><ul>
+<li><p>산술 연산자</p>
+<p>피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> - <span class="string">&quot;1&quot;</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="number">1</span> * <span class="string">&quot;10&quot;</span>; <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="number">1</span> / <span class="string">&quot;one&quot;</span>; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>비교 연산자<br>불리언 값을 만듦</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;1&quot;</span> &gt; <span class="number">0</span>; <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>단항 연산자<br>빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환<br>객체와 빈 배열이 아닌 배열, undefined는 변환되지 않아 NaN이 된다.</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">&quot;0&quot;</span>  <span class="comment">// -&gt; 0</span></span><br><span class="line">+<span class="string">&quot;1&quot;</span>  <span class="comment">// -&gt; 1</span></span><br><span class="line">+<span class="string">&quot;string&quot;</span>  <span class="comment">// -&gt; NaN</span></span><br><span class="line"></span><br><span class="line">+<span class="literal">true</span>  <span class="comment">// -&gt; 1</span></span><br><span class="line">+<span class="literal">false</span>  <span class="comment">// -&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// null undefined의 값이 다르다는 것 구분해 알아두자!  </span></span><br><span class="line">+<span class="literal">null</span>  <span class="comment">// -&gt; 0</span></span><br><span class="line">+<span class="literal">undefined</span>  <span class="comment">// -&gt; NaN</span></span><br><span class="line"></span><br><span class="line">+&#123;&#125;  <span class="comment">// -&gt; NaN</span></span><br><span class="line">+[]  <span class="comment">// -&gt; 0</span></span><br><span class="line">+[<span class="number">10</span>, <span class="number">20</span>]  <span class="comment">// -&gt; NaN</span></span><br><span class="line">+<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;; <span class="comment">// -&gt; NaN</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-불리언-타입으로-변환"><a href="#2-3-불리언-타입으로-변환" class="headerlink" title="2.3. 불리언 타입으로 변환"></a>2.3. 불리언 타입으로 변환</h2><ul>
+<li>자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분한다.</li>
+<li>Falsy 값(7개) :<br><strong><em>false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)</em></strong></li>
+<li>Truthy 값:<br>Falsy 값 외의 모든 값</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&quot;&quot;</span>) <span class="built_in">console</span>.log(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) <span class="built_in">console</span>.log(<span class="string">&quot;2&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="number">0</span>) <span class="built_in">console</span>.log(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&quot;str&quot;</span>) <span class="built_in">console</span>.log(<span class="string">&quot;4&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">null</span>) <span class="built_in">console</span>.log(<span class="string">&quot;5&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 4</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-명시적-타입-변환"><a href="#3-명시적-타입-변환" class="headerlink" title="3) 명시적 타입 변환"></a>3) 명시적 타입 변환</h1><h2 id="3-1-문자열-타입으로-변환"><a href="#3-1-문자열-타입으로-변환" class="headerlink" title="3.1. 문자열 타입으로 변환"></a>3.1. 문자열 타입으로 변환</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(x)); <span class="comment">// 1. String 생성자 함수를 new 연산자 없이 호출</span></span><br><span class="line"><span class="built_in">console</span>.log(x.toString()); <span class="comment">// 2. Object.prototype.toString 메서드를 사용</span></span><br><span class="line"><span class="built_in">console</span>.log(x + <span class="string">&#x27;&#x27;</span>); <span class="comment">// 3. 문자열 연결 연산자를 이용 </span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>String 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>Object.prototype.toString 메서드를 사용하는 방법</li>
+<li>문자열 연결 연산자를 이용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. string 생성자 함수</span></span><br><span class="line"><span class="built_in">String</span>(<span class="number">1</span>); <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">NaN</span>); <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">true</span>); <span class="comment">// -&gt; &quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Object.prototype.toString 메서드</span></span><br><span class="line">(<span class="number">1</span>).toString(); <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="literal">NaN</span>.toString(); <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="literal">true</span>.toString(); <span class="comment">// -&gt; &quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 문자열 연결 연산자 이용</span></span><br><span class="line"><span class="number">1</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;1&quot;</span></span><br><span class="line"><span class="literal">NaN</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;NaN&quot;</span></span><br><span class="line"><span class="literal">Infinity</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;Infinity&quot;</span></span><br><span class="line"><span class="comment">// 불리언 타입 =&gt; 문자열 타입</span></span><br><span class="line"><span class="literal">true</span> + <span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; &quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-숫자-타입으로-변환"><a href="#3-2-숫자-타입으로-변환" class="headerlink" title="3.2. 숫자 타입으로 변환"></a>3.2. 숫자 타입으로 변환</h2><ol>
+<li>Number 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>parseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)</li>
+<li>단항 산술 연산자를 이용하는 방법</li>
+<li>산술 연산자를 이용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Number 생성자 함수</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;0&quot;</span>); <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&quot;-1&quot;</span>); <span class="comment">// -&gt; -1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>); <span class="comment">// -&gt; 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. parseInt, parseFloat 함수를 사용</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&quot;0&quot;</span>); <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;10.53&#x27;</span>); <span class="comment">// -&gt; 10.53</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. + 단항 산술 연산자를 이용</span></span><br><span class="line">+<span class="string">&quot;0&quot;</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line">+<span class="string">&quot;-1&quot;</span>; <span class="comment">// -&gt; -1</span></span><br><span class="line">+<span class="literal">true</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line">+<span class="literal">false</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 산술 연산자를 이용</span></span><br><span class="line"><span class="string">&quot;0&quot;</span> * <span class="number">1</span>; <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="literal">true</span> * <span class="number">1</span>; <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="literal">false</span> * <span class="number">1</span>; <span class="comment">// -&gt; 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-불리언-타입으로-변환"><a href="#3-3-불리언-타입으로-변환" class="headerlink" title="3.3. 불리언 타입으로 변환"></a>3.3. 불리언 타입으로 변환</h2><ol>
+<li>Boolean 생성자 함수를 new 연산자 없이 호출하는 방법</li>
+<li>! 부정 논리 연산자를 두 번 사용하는 방법</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Boolean 생성자 함수</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;x&quot;</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;&quot;</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="string">&quot;false&quot;</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="number">0</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="number">1</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">NaN</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">Infinity</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">null</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">undefined</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. ! 부정 논리 연산자를 두 번 사용</span></span><br><span class="line">!!<span class="string">&quot;x&quot;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line">!!<span class="string">&quot;&quot;</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="string">&quot;false&quot;</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line">!!<span class="number">0</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="number">1</span>; <span class="comment">// -&gt; true</span></span><br><span class="line">!!<span class="literal">NaN</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="literal">Infinity</span>; <span class="comment">// -&gt; true</span></span><br><span class="line"></span><br><span class="line">!!<span class="literal">null</span>; <span class="comment">// -&gt; false</span></span><br><span class="line">!!<span class="literal">undefined</span>; <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="4-단축-평가"><a href="#4-단축-평가" class="headerlink" title="4) 단축 평가"></a>4) 단축 평가</h1><h2 id="4-1-논리-연산자를-사용한-단축-평가"><a href="#4-1-논리-연산자를-사용한-단축-평가" class="headerlink" title="4.1. 논리 연산자를 사용한 단축 평가"></a>4.1. 논리 연산자를 사용한 단축 평가</h2><ul>
+<li>📒 <strong>단축 평가</strong> : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것</li>
+</ul>
+<p>논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 <strong>불리언 값이 아닐 수도 있다.</strong><br>이때 논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 <strong>언제나 2개의 피연산자 중 어느 한쪽으로 평가</strong>된다.<br><br></p>
+<ul>
+<li>단축 평가 규칙</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> || anything; <span class="comment">// true</span></span><br><span class="line"><span class="literal">false</span> || anything; <span class="comment">// anything</span></span><br><span class="line"><span class="literal">true</span> &amp;&amp; anything; <span class="comment">// anything</span></span><br><span class="line"><span class="literal">false</span> &amp;&amp; anything; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>예제</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Cat&quot;</span> &amp;&amp; <span class="string">&quot;Dog&quot;</span>; <span class="comment">// -&gt; &quot;Dog&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환<br>여기서 ‘Cat’은 true<br>그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨<br>논리곱 연산자는 <strong>논리 연산의 결과를 결정하는 두 번째 피연산자</strong>, 즉 문자열 ‘Dog’를 그대로 반환!<br><br></p>
+<p>마찬가지로 논리합(||) 연산자는 두 개의 피연산자 중 하나만 true로 평가되어도 true를 반환하므로 결과를 결정하는 첫 번째 피연산자, 문자열 ‘Cat’을 그대로 반환한다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Cat&quot;</span> || <span class="string">&quot;Dog&quot;</span>; <span class="comment">// -&gt; &quot;Cat&quot;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li>단축 평가를 사용하면 if 문을 대체 가능하다.</li>
+</ul>
+<ol>
+<li>주어진 조건이 true</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 주어진 조건이 true일 때</span></span><br><span class="line"><span class="keyword">if</span> (done) message = <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if 문은 단축 평가로 대체 가능하다.</span></span><br><span class="line"><span class="comment">// done이 true라면 message에 &#x27;완료&#x27;를 할당</span></span><br><span class="line">message = done &amp;&amp; <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>주어진 조건이 false</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 주어진 조건이 false일 때</span></span><br><span class="line"><span class="keyword">if</span> (!done) message = <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if 문은 단축 평가로 대체 가능하다.</span></span><br><span class="line"><span class="comment">// done이 false라면 message에 &#x27;미완료&#x27;를 할당</span></span><br><span class="line">message = done || <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 미완료</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>if…else 문</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> done = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if...else 문</span></span><br><span class="line"><span class="keyword">if</span> (done) message = <span class="string">&quot;완료&quot;</span>;</span><br><span class="line"><span class="keyword">else</span> message = <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if...else 문은 삼항 조건 연산자로 대체 가능하다.</span></span><br><span class="line">message = done ? <span class="string">&quot;완료&quot;</span> : <span class="string">&quot;미완료&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 완료</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elem = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> value = elem.value; <span class="comment">// TypeError: Cannot read property &#x27;value&#x27; of null</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elem = <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// elem이 null이나 undefined와 같은 Falsy 값이면 elem으로 평가되고</span></span><br><span class="line"><span class="comment">// elem이 Truthy 값이면 elem.value로 평가된다.</span></span><br><span class="line"><span class="keyword">var</span> value = elem &amp;&amp; elem.value; <span class="comment">// -&gt; null</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>함수 매개변수에 기본값을 설정할 때<br>함수를 호출할 때 인수를 전달하지 않으면 매개변수는 undefined를 갖는다. 이때 단축 평가를 사용하여 매개변수의 기본값을 설정하면 undefined로 인해 발생할 수 있는 에러를 방지할 수 있다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 단축 평가를 사용한 매개변수의 기본값 설정</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStringLength</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  str = str || <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> str.length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getStringLength();     <span class="comment">// -&gt; 0</span></span><br><span class="line">getStringLength(<span class="string">&#x27;hi&#x27;</span>); <span class="comment">// -&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6의 매개변수의 기본값 설정</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStringLength</span>(<span class="params">str = <span class="string">&#x27;&#x27;</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getStringLength();     <span class="comment">// -&gt; 0</span></span><br><span class="line">getStringLength(<span class="string">&#x27;hi&#x27;</span>); <span class="comment">// -&gt; 2</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="4-2-옵셔널-체이닝-연산자"><a href="#4-2-옵셔널-체이닝-연산자" class="headerlink" title="4.2. 옵셔널 체이닝 연산자"></a>4.2. 옵셔널 체이닝 연산자</h2><p>📒 <strong>옵셔널 체이닝(optional chaining) 연산자 :　?.</strong></p>
+<p>좌항이 null 또는 undefined → undefined<br>그렇지 않으면 우항의 프로퍼티 참조를 이어감</p>
+<ul>
+<li>객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용하다.</li>
+</ul>
+<h2 id="4-3-null-병합-연산자"><a href="#4-3-null-병합-연산자" class="headerlink" title="4.3. null 병합 연산자"></a>4.3. null 병합 연산자</h2><p>📒 <strong>null 병합(nullish coalescing) 연산자 :　??</strong></p>
+<p>좌항이 null 또는 undefined → 우항의 피연산자를 반환<br>그렇지 않으면 좌항의 피연산자를 반환</p>
+<ul>
+<li>변수에 기본값을 설정할 때 유용하다.</li>
+</ul>
+<br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>poiemaweb.com</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+              </div>
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/25/20-08-25-TIL/"
+                    data-tooltip="20-08-25 화요일 TIL"
+                    aria-label="PREVIOUS: 20-08-25 화요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/25/JS-8/"
+                    data-tooltip="8. 제어문"
+                    aria-label="NEXT: 8. 제어문"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+                
+                  <!-- Comment -->
+                  <!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+                  <!-- 
+        
+    </div>
+</article>
+
+
+<!-- Comment -->
+<!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/25/20-08-25-TIL/"
+                    data-tooltip="20-08-25 화요일 TIL"
+                    aria-label="PREVIOUS: 20-08-25 화요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/25/JS-8/"
+                    data-tooltip="8. 제어문"
+                    aria-label="NEXT: 8. 제어문"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

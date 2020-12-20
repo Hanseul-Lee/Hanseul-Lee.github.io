@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>21. 빌트인 객체 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/27/js-21/"/>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 자바스크립트 객체의 분류자바스크립트 객체는 다음과 같이 크게 3개의 객체로 분류할 수 있다.\n\n표준 빌트인 객체표준 빌트인 객체(standard built-in objects / native objects / global objects)는 ECMAScript 사양에 정의된 객체를 말하며, 애플리케이션 전역의 공통 기능을 제공한다. ECMAScript 사양에 정의된 객체이므로 자바스크립트 실행 환경(브라우저 또는 Node.js 환경)과 관계없이 언제나 사용할 수 있다. 표준 빌트인 객체는 전역 객체의 프로퍼티로서 제공된다. 따라서 별도의 선언 없이 전역 변수처럼 언제나 참조할 수 있다.\n\n호스트 객체호스트 객체(host objects)는 ECMAScript 사양에 정의되어 있지 않지만 자바스크립트 실행 환경(브라우저 환경 또는 Node.js 환경)에서 추가로 제공하는 객체를 말한다. 브라우저 환경에서는 DOM, BOM, Canvas, XMLHttpRequest, fetch, requestAnimationFrame, SVG, Web Storage, Web Component, Web worker와 같은 클라이언트 사이드 Web API를 호스트 객체로 제공하고 Node.js 환경에서는 Node.js 고유의 API를 호스트 객체로 제공한다.\n\n사용자 정의 객체사용자 정의 객체(user-defined objects)는 표준 빌트인 객체와 호스트 객체처럼 기본 제공되는 객체가 아닌 사용자가 직접 정의한 객체를 말한다.\n\n\n2) 표준 빌트인 객체\n자바스크립트는 Object, String, Number, Boolean, Symbol, Date, Math, Array, Function,JSON, Error 등 40여 개의 표준 빌트인 객체를 제공한다.\n생성자 함수인 표준 빌트인 객체 : 프로토타입 메서드와 정적 메소드를 제공 /  Math, Reflect, JSON을 제외한 나머지\n생성자 함수가 아닌 표준 빌트인 객체 : 정적 메소드만 제공 / Math, Reflect, JSON\n\n\n생성자 함수인 표준 빌트인 객체가 생성한 인스턴스의 프로토타입은 표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체이다. \nex) 표준 빌트인 객체인 String을 생성자 함수로서 호출하여 생성한 String 인스턴스의 프로토타입은 String.prototype\n\n\n표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체(ex. String.prototype)는 다양한 기능의 빌트인 프로토타입 메서드를 제공한다. \n표준 빌트인 객체는 인스턴스 없이도 호출 가능한 빌트인 정적 메서드를 제공한다.\n\n12345678910// Number 생성자 함수에 의한 Number 객체 생성const numObj = new Number(1.5); // Number &#123;1.5&#125;// toFixed는 Number.prototype의 프로토타입 메서드다.// Number.prototype.toFixed는 소수점 자리를 반올림하여 문자열로 반환한다.console.log(numObj.toFixed()); // 2// isInteger는 Number의 정적 메서드다.// Number.isInteger는 인수가 정수(integer)인지 검사하여 그 결과를 Boolean으로 반환한다.console.log(Number.isInteger(0.5)); // false\n\n\n3) 원시값과 래퍼 객체문자열이나 숫자, 불리언 등의 원시값이 있는데도 문자열, 숫자, 불리언 객체를 생성하는 String, Number, Boolean 등의 표준 빌트인 생성자 함수가 존재하는 이유는 무엇일까?\n다음 예제를 살펴보자. 원시값은 객체가 아니므로 프로퍼티나 메서드를 가질 수 없는데도 원시값인 문자열이 마치 객체처럼 동작한다.\n12345const str = &#x27;hello&#x27;;// 원시 타입인 문자열이 프로퍼티와 메서드를 갖고 있는 객체처럼 동작한다.console.log(str.length); // 5console.log(str.toUpperCase()); // HELLO\n\n원시값을 객체처럼 사용하면 자바스크립트 엔진은 암묵적으로 연관된 객체를 생성하여 생성된 객체로 프로퍼티에 접근하거나 메서드를 호출하고 다시 원시값으로 되돌린다. 이러한 객체를 래퍼 객체(wrapper object)라고 한다.\n\n래퍼 객체(wrapper object) : 문자열, 숫자, 불리언 값에 대해 객체처럼 접근하면 생성되는 임시 객체 \n\n\n\n12345678const str = &#x27;hi&#x27;;// 원시 타입인 문자열이 래퍼 객체인 String 인스턴스로 변환된다.console.log(str.length); // 2console.log(str.toUpperCase()); // HI// 래퍼 객체로 프로퍼티에 접근하거나 메서드를 호출한 후, 다시 원시값으로 되돌린다.console.log(typeof str); // string\n\n래퍼 객체의 처리가 종료되면 래퍼 객체의 [[StringData]] 내부 슬롯에 할당된 원시값으로 원래의 상태, 즉 식별자가 원시값을 갖도록 되돌리고 래퍼 객체는 가비지 컬렉션의 대상이 된다. \n\n문자열, 숫자, 불리언, 심벌은 암묵적으로 생성되는 래퍼 객체에 의해 마치 객체처럼 사용할 수 있으며, 표준 빌트인 객체인 String, Number, Boolean, Symbol의 프로토타입 메서드 또는 프로퍼티를 참조할 수 있다. 따라서 String, Number, Boolean 생성자 함수를 new 연산자와 함께 호출하여 문자열, 숫자, 불리언 인스턴스를 생성할 필요가 없으며 권장하지도 않는다. \n그 외 원시값인 null과 undefined는 래퍼 객체를 생성하지 않는다. 따라서 null과 undefined 값을 객체처럼 사용하면 에러가 발생한다.\n\n\n\n\n10/8 수업 내용 추가\n\n12345const str = &#x27;hello&#x27;;// 여기서 str은 원시값이므로 str이 바뀌는 것이 아닌 결과값이 리턴되는 것!const res = str.toUpperCase();console.log(res, str); // Hello hello\n123// 1에서와 2에서의 arr 값이 달라짐, but 참조값은 같다const arr = [1, 2, 3]; // 1arr.push(4); // 2\n객체의 원시값의 차이가 여기에서 나온다.따라서 위에 예제처럼 하지 말고 불변을 지키자!즉, 재할당을 통해 주소값을 바꿔준다. -&gt; 리액트에서 활용\n123const arr = [1, 2, 3];arr = [...arr, 4];console.log(arr);\n\n\n\n4) 전역 객체\n📒 전역 객체(global object) : 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며, 어떤 객체에도 속하지 않은 최상위 객체\n\n123456789// 브라우저 환경globalThis === this   // trueglobalThis === window // trueglobalThis === self   // trueglobalThis === frames // true// Node.js 환경(12.0.0 이상)globalThis === this   // trueglobalThis === global // true\n\n브라우저 환경에서는 window(또는 self, this, frames), Node.js 환경에서는 global이 전역 객체를 가리킨다.\n전역 객체의 프로퍼티를 참조할 때 window(또는 global)를 생략할 수 있다.\n전역 객체는 개발자가 의도적으로 생성할 수 없다. 즉, 전역 객체를 생성할 수 있는 생성자 함수가 제공되지 않는다.\n전역 객체는 표준 빌트인 객체와 환경에 따른 호스트 객체(클라이언트 web API 또는 Node.js의 호스트 API), 그리고 var 키워드로 선언한 전역 변수와 전역 함수를 프로퍼티로 갖는다.\nlet이나 const 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.\n\n123456789101112131415// var 키워드로 선언한 전역 변수var foo = 1;console.log(window.foo); // 1// 선언하지 않은 변수에 값을 암묵적 전역. bar는 전역 변수가 아니라 전역 객체의 프로퍼티다.bar = 2; // window.bar = 2console.log(window.bar); // 2// 전역 함수function baz() &#123; return 3; &#125;console.log(window.baz()); // 3//let 키워드로 선언한 전역 변수let num = 123;console.log(window.num); // undefined\n\n브라우저 환경의 모든 자바스크립트 코드는 하나의 전역 객체 window를 공유한다. 여러 개의 script 태그를 통해 자바스크립트 코드를 분리해도 하나의 전역 객체 window를 공유하는 것은 변함이 없다. \n전역 객체는 계층적 구조상 어떤 객체에도 속하지 않은 모든 빌트인 객체(표준 빌트인 객체와 호스트 객체)의 최상위 객체다. 이는 프로토타입 상속 관계상에서 최상위 객체라는 의미가 아니라, 전역 객체 자신은 어떤 객체의 프로퍼티도 아니며 객체의 계층적 구조상 표준 빌트인 객체와 호스트 객체를 프로퍼티로 소유한다는 것이다.\n\n\n\n4.1 빌트인 전역 프로퍼티(built-in global property)\n빌트인 전역 프로퍼티는 전역 객체의 프로퍼티를 의미한다. 주로 애플리케이션 전역에서 사용하는 값을 제공한다.\nInfinity / NaN / undefined\n\n\n\n4.1.1. Infinity\nInfinity 프로퍼티는 무한대를 나타내는 숫자값 Infinity를 갖는다.\n\n123456789// 전역 프로퍼티는 window를 생략하고 참조할 수 있다.console.log(window.Infinity === Infinity); // true// 양의 무한대console.log(3/0);  // Infinity// 음의 무한대console.log(-3/0); // -Infinity// Infinity는 숫자값이다.console.log(typeof Infinity); // number\n4.1.2. NaN\nNaN 프로퍼티는 숫자가 아님(Not-a-Number)을 나타내는 숫자값 NaN을 갖는다. \nNaN 프로퍼티는 Number.NaN 프로퍼티와 같다.\n\n12345console.log(window.NaN); // NaNconsole.log(Number(&#x27;xyz&#x27;)); // NaNconsole.log(1 * &#x27;string&#x27;);  // NaNconsole.log(typeof NaN);    // number\n\n4.1.3. undefined\nundefined 프로퍼티는 원시 타입 undefined를 값으로 갖는다.\n\n12345console.log(window.undefined); // undefinedvar foo;console.log(foo); // undefinedconsole.log(typeof undefined); // undefined\n\n\n4.2. 빌트인 전역 함수(built-in global function)\n빌트인 전역 함수는 애플리케이션 전역에서 호출할 수 있는 빌트인 함수로서 전역 객체의 메서드다.\neval\nisFinite\nisNaN\nperseFloat\nparseInt\nencodeURI / decodeURI\nencodeURIComponent / decodeURIComponent\n\n\n\n4.2.1. eval\neval 함수는 자바스크립트 코드를 나타내는 문자열을 인수로 전달받은 후,전달받은 인수가 표현식이라면 　　　　　-&gt; 코드를 런타임에 평가하여 값을 생성전달받은 인수가 표현식이 아닌 문이라면　-&gt; 코드를 런타임에 실행\n\n123456789101112131415161718// 표현식인 문eval(&#x27;1 + 2;&#x27;); // -&gt; 3// 표현식이 아닌 문eval(&#x27;var x = 5;&#x27;); // -&gt; undefined// eval 함수에 의해 런타임에 변수 선언문이 실행되어 x 변수가 선언되었다.console.log(x); // 5// 객체 리터럴은 반드시 괄호로 둘러싼다.const o = eval(&#x27;(&#123; a: 1 &#125;)&#x27;);console.log(o); // &#123;a: 1&#125;// 함수 리터럴은 반드시 괄호로 둘러싼다.const f = eval(&#x27;(function() &#123; return 1; &#125;)&#x27;);console.log(f()); // 1// 인수로 전달받은 문자열 코드가 여러 개의 문으로 이루어져 있다면 모든 문을 실행한 다음, 마지막 결과값을 반환한다.console.log(eval(&#x27;1 + 2; 3 + 4;&#x27;)); // 7\n\n\n\neval 함수는 자신이 호출된 위치에 해당하는 기존의 스코프를 런타임에 동적으로 수정한다.\neval 함수를 통해 사용자로부터 입력받은 콘텐츠(untrusted data)를 실행하는 것은 보안에 매우 취약하다. 또한 eval 함수를 통해 실행되는 코드는 자바스크립트 엔진에 의해 최적화가 수행되지 않으므로 일반적인 코드 실행에 비해 처리 속도가 느리다.따라서 eval 함수의 사용은 금지해야 한다.\n\n4.2.2. isFinite\nisFinite 함수는 전달받은 인수가 유한수인지 확인하고 그 결과를 반환한다.\ntrue : 인수가 유한수\nfalse : 인수가 무한수, NaN\n\n\n\n1234567891011121314// 인수가 유한수이면 true를 반환한다.isFinite(0);    // -&gt; trueisFinite(2e64); // -&gt; trueisFinite(&#x27;10&#x27;); // -&gt; true: &#x27;10&#x27; → 10isFinite(null); // -&gt; true: null → 0// 인수가 무한수이면 false를 반환한다.isFinite(Infinity);  // -&gt; falseisFinite(-Infinity); // -&gt; false// 인수가 NaN으로 평가되는 값이라면 false를 반환한다.isFinite(NaN);     // -&gt; falseisFinite(&#x27;Hello&#x27;); // -&gt; falseisFinite(&#x27;2005/12/12&#x27;); // -&gt; false\n\n참고로 isFinite(null)은 true를 반환한다. 이것은 null을 숫자로 변환하여 검사를 수행했기 때문이다. null을 숫자 타입으로 변환하면 0이 된다.\n\n4.2.3. isNaN\nisNaN 함수는 전달받은 인수가 NaN인지 검사하여 그 결과를 불리언 타입으로 반환한다.전달받은 인수의 타입이 숫자가 아닌 경우 숫자로 타입을 변환한 후 검사를 수행한다.\n\n123456789101112131415161718192021222324// 숫자isNaN(NaN); // -&gt; trueisNaN(10);  // -&gt; false// 문자열isNaN(&#x27;blabla&#x27;); // -&gt; true: &#x27;blabla&#x27; =&gt; NaNisNaN(&#x27;10&#x27;);     // -&gt; false: &#x27;10&#x27; =&gt; 10isNaN(&#x27;10.12&#x27;);  // -&gt; false: &#x27;10.12&#x27; =&gt; 10.12isNaN(&#x27;&#x27;);       // -&gt; false: &#x27;&#x27; =&gt; 0isNaN(&#x27; &#x27;);      // -&gt; false: &#x27; &#x27; =&gt; 0// 불리언isNaN(true); // -&gt; false: true → 1isNaN(null); // -&gt; false: null → 0// undefinedisNaN(undefined); // -&gt; true: undefined =&gt; NaN// 객체isNaN(&#123;&#125;); // -&gt; true: &#123;&#125; =&gt; NaN// dateisNaN(new Date());            // -&gt; false: new Date() =&gt; NumberisNaN(new Date().toString()); // -&gt; true:  String =&gt; NaN\n4.2.4. parseFloat\nparseFloat 함수는 전달받은 문자열 인수를 부동 소수점 숫자(floating point number), 즉 실수로 해석(parsing)하여 반환한다.\n\n12345678910111213// 문자열을 실수로 해석하여 반환한다.parseFloat(&#x27;3.14&#x27;);  // -&gt; 3.14parseFloat(&#x27;10.00&#x27;); // -&gt; 10// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.parseFloat(&#x27;34 45 66&#x27;); // -&gt; 34parseFloat(&#x27;40 years&#x27;); // -&gt; 40// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.parseFloat(&#x27;He was 40&#x27;); // -&gt; NaN// 앞뒤 공백은 무시된다.parseFloat(&#x27; 60 &#x27;); // -&gt; 60\n4.2.5. parseInt\nparseInt 함수는 전달받은 문자열 인수를 정수(integer)로 해석(parsing)하여 반환한다.전달받은 인수가 문자열이 아니면 문자열로 변환한 다음, 정수로 해석하여 반환한다.\n\n1234567// 문자열을 정수로 해석하여 반환한다.parseInt(&#x27;10&#x27;);     // -&gt; 10parseInt(&#x27;10.123&#x27;); // -&gt; 10// 문자열이 아니면 문자열로 변환한 다음, 정수로 해석하여 반환한다.parseInt(10);     // -&gt; 10parseInt(10.123); // -&gt; 10\n\n\n\n두 번째 인수로 진법을 나타내는 기수(2 ~ 36)를 전달할 수 있다. 이때 반환값은 언제나 10진수다. 기수를 생략하면 첫 번째 인수로 전달된 문자열을 10진수로 해석하여 반환한다.\n\n12345678// 10&#x27;을 10진수로 해석하고 그 결과를 10진수 정수로 반환한다parseInt(&#x27;10&#x27;); // -&gt; 10// &#x27;10&#x27;을 2진수로 해석하고 그 결과를 10진수 정수로 반환한다parseInt(&#x27;10&#x27;, 2); // -&gt; 2// &#x27;10&#x27;을 8진수로 해석하고 그 결과를 10진수 정수로 반환한다parseInt(&#x27;10&#x27;, 8); // -&gt; 8// &#x27;10&#x27;을 16진수로 해석하고 그 결과를 10진수 정수로 반환한다parseInt(&#x27;10&#x27;, 16); // -&gt; 16\n\n\n\n첫 번째 인수로 전달한 문자열의 첫 번째 문자가 해당 지수의 숫자로 변환될 수 없다면 NaN을 반환한다.\n하지만 첫 번째 인수로 전달한 문자열의 두 번째 문자부터 해당 진수를 나타내는 숫자가 아닌 문자와 마주치면 이 문자와 계속되는 문자들은 전부 무시되며 해석된 정수값만 반환한다.\n\n1234567891011// &#x27;A&#x27;는 10진수로 해석할 수 없다.parseInt(&#x27;A0&#x27;); // -&gt; NaN// &#x27;2&#x27;는 2진수로 해석할 수 없다.parseInt(&#x27;20&#x27;, 2); // -&gt; NaN// 10진수로 해석할 수 없는 &#x27;A&#x27; 이후의 문자는 모두 무시된다.parseInt(&#x27;1A0&#x27;); // -&gt; 1// 2진수로 해석할 수 없는 &#x27;2&#x27; 이후의 문자는 모두 무시된다.parseInt(&#x27;102&#x27;, 2); // -&gt; 2// 16진수로 해석할 수 없는 &#x27;G&#x27; 이후의 문자는 모두 무시된다.parseInt(&#x27;FG&#x27;, 16); // -&gt; 15\n\n\n\n\n첫 번째 인수로 전달한 문자열에 공백이 있다면 첫 번째 문자열만 해석하여 반환하며 앞뒤 공백은 무시된다.\n\n1234567// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.parseInt(&#x27;34 45 66&#x27;); // -&gt; 34parseInt(&#x27;40 years&#x27;); // -&gt; 40// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.parseInt(&#x27;He was 40&#x27;); // -&gt; NaN// 앞뒤 공백은 무시된다.parseInt(&#x27; 60 &#x27;); // -&gt; 60\n\n4.2.6. encodeURI / decodeURI\nencodeURI 함수는 완전한 URI(Uniform Resource Identifier)를 문자열로 전달받아 이스케이프 처리를 위해 인코딩한다. \nURI : 인터넷에 있는 자원을 나타내는 유일한 주소, URI의 하위개념으로 URL, URN이 있다.\n\n\n\n\n\n\n4.2.7. encodeURIComponent / decodeURIComponent\nencodeURIComponent 함수는 전달된 URI(Uniform Resource Identifier) 구성 요소를 인코딩한다.여기서 인코딩이란 URI의 문자들을 이스케이프 처리하는 것을 의미한다.단, 알파벳, 0~9의 숫자, - _ . ! ~ * ‘ ( ) 문자는 이스케이프 처리에서 제외된다. \ndecodeURIComponent 함수는 매개변수로 전달된 URI 구성 요소를 디코딩한다. \n\n12345678910111213141516171819202122// URI의 쿼리 스트링const uriComp = &#x27;name=이웅모&amp;job=programmer&amp;teacher&#x27;;// encodeURIComponent 함수는 인수로 전달받은 문자열을 URI의 구성요소인 쿼리 스트링의 일부로 간주한다.// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &amp;까지 인코딩한다.let enc = encodeURIComponent(uriComp);console.log(enc);// name%3D%EC%9D%B4%EC%9B%85%EB%AA%A8%26job%3Dprogrammer%26teacherlet dec = decodeURIComponent(enc);console.log(dec);// 이웅모&amp;job=programmer&amp;teacher// encodeURI 함수는 인수로 전달받은 문자열을 완전한 URI로 간주한다.// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &amp;를 인코딩하지 않는다.enc = encodeURI(uriComp);console.log(enc);// name=%EC%9D%B4%EC%9B%85%EB%AA%A8&amp;job=programmer&amp;teacherdec = decodeURI(enc);console.log(dec);// name=이웅모&amp;job=programmer&amp;teacher\n\n\n4.3. 암묵적 전역12345678910var x = 10; // 전역 변수function foo () &#123;  // 선언하지 않은 식별자에 값을 할당  y = 20; // window.y = 20;&#125;foo();// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.console.log(x + y); // 30\n위 예제에서 foo 함수 내의 y는 선언하지 않은 식별자이다. 따라서 y = 20이 실행되면 참조 에러가 발생할 것처럼 보인다. 하지만 선언하지 않은 식별자 y는 마치 선언된 전역 변수처럼 동작한다. 이는 선언하지 않은 식별자에 값을 할당하면 전역 객체의 프로퍼티가 되기 때문이다. \n자바스크립트 엔진은 y = 20을 window.y = 20으로 해석하여 전역 객체에 프로퍼티를 동적 생성한다. 결국 y는 전역 객체의 프로퍼티가 되어 마치 전역 변수처럼 동작한다. 이러한 현상을 암묵적 전역(implicit global) 이라 한다.\n\n하지만 y는 변수 선언 없이 단지 전역 객체의 프로퍼티로 추가되었을 뿐, 변수가 아니므로 변수 호이스팅이 발생하지 않는다.\n또한 변수가 아니라 단지 프로퍼티인 y는 delete 연산자로 삭제할 수 있다. 전역 변수는 프로퍼티이지만 delete 연산자로 삭제할 수 없다.\n\n123456789101112131415161718// 전역 변수 x는 호이스팅이 발생한다.console.log(x); // undefined// 전역 변수가 아니라 단지 전역 객체의 프로퍼티인 y는 호이스팅이 발생하지 않는다.console.log(y); // ReferenceError: y is not definedvar x = 10; // 전역 변수function foo () &#123;  // 선언하지 않은 식별자에 값을 할당  y = 20; // window.y = 20;&#125;foo();delete x; // 전역 변수는 삭제되지 않는다.delete y; // 프로퍼티는 삭제된다.console.log(window.x); // 10console.log(window.y); // undefined\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-09-27T00:54:09+09:00","dateModified":"2020-12-10T23:12:46+09:00","datePublished":"2020-09-27T00:54:09+09:00","description":"","headline":"21. 빌트인 객체","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/27/JS-21/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/27/JS-21/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="21. 빌트인 객체">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/27/JS-21/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/27/JS-21/21-1.png">
+<meta property="article:published_time" content="2020-09-26T15:54:09.000Z">
+<meta property="article:modified_time" content="2020-12-10T14:12:46.020Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/09/27/JS-21/21-1.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/27/JS-21/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/27/JS-21/js.png"/>
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="All-categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-project"
+                            
+                            rel="noopener"
+                            title="project-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-Fastcampus"
+                            
+                            rel="noopener"
+                            title="study-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-TIL"
+                            
+                            rel="noopener"
+                            title="TIL"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/hanseul-lee/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            21. 빌트인 객체
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-09-27T00:54:09+09:00">
+	
+		    Sep 27, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/Javascript/">Javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%B6%84%EB%A5%98"><span class="toc-number">1.</span> <span class="toc-text">1) 자바스크립트 객체의 분류</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%91%9C%EC%A4%80-%EB%B9%8C%ED%8A%B8%EC%9D%B8-%EA%B0%9D%EC%B2%B4"><span class="toc-number">2.</span> <span class="toc-text">2) 표준 빌트인 객체</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%EC%9B%90%EC%8B%9C%EA%B0%92%EA%B3%BC-%EB%9E%98%ED%8D%BC-%EA%B0%9D%EC%B2%B4"><span class="toc-number">3.</span> <span class="toc-text">3) 원시값과 래퍼 객체</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%EC%A0%84%EC%97%AD-%EA%B0%9D%EC%B2%B4"><span class="toc-number">4.</span> <span class="toc-text">4) 전역 객체</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%EB%B9%8C%ED%8A%B8%EC%9D%B8-%EC%A0%84%EC%97%AD-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-built-in-global-property"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 빌트인 전역 프로퍼티(built-in global property)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-Infinity"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1. Infinity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-NaN"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2. NaN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-undefined"><span class="toc-number">4.1.3.</span> <span class="toc-text">4.1.3. undefined</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%EB%B9%8C%ED%8A%B8%EC%9D%B8-%EC%A0%84%EC%97%AD-%ED%95%A8%EC%88%98-built-in-global-function"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 빌트인 전역 함수(built-in global function)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-eval"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. eval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-isFinite"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. isFinite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3-isNaN"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. isNaN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-parseFloat"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.2.4. parseFloat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-5-parseInt"><span class="toc-number">4.2.5.</span> <span class="toc-text">4.2.5. parseInt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-6-encodeURI-decodeURI"><span class="toc-number">4.2.6.</span> <span class="toc-text">4.2.6. encodeURI &#x2F; decodeURI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-7-encodeURIComponent-decodeURIComponent"><span class="toc-number">4.2.7.</span> <span class="toc-text">4.2.7. encodeURIComponent &#x2F; decodeURIComponent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%EC%95%94%EB%AC%B5%EC%A0%81-%EC%A0%84%EC%97%AD"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 암묵적 전역</span></a></li></ol></li></ol>
+
+<h1 id="1-자바스크립트-객체의-분류"><a href="#1-자바스크립트-객체의-분류" class="headerlink" title="1) 자바스크립트 객체의 분류"></a>1) 자바스크립트 객체의 분류</h1><p>자바스크립트 객체는 다음과 같이 크게 3개의 객체로 분류할 수 있다.</p>
+<ul>
+<li><p><strong>표준 빌트인 객체</strong><br>표준 빌트인 객체(standard built-in objects / native objects / global objects)는 ECMAScript 사양에 정의된 객체를 말하며, 애플리케이션 전역의 공통 기능을 제공한다. ECMAScript 사양에 정의된 객체이므로 자바스크립트 실행 환경(브라우저 또는 Node.js 환경)과 관계없이 언제나 사용할 수 있다. 표준 빌트인 객체는 전역 객체의 프로퍼티로서 제공된다. 따라서 별도의 선언 없이 전역 변수처럼 언제나 참조할 수 있다.</p>
+</li>
+<li><p><strong>호스트 객체</strong><br>호스트 객체(host objects)는 ECMAScript 사양에 정의되어 있지 않지만 자바스크립트 실행 환경(브라우저 환경 또는 Node.js 환경)에서 추가로 제공하는 객체를 말한다. 브라우저 환경에서는 DOM, BOM, Canvas, XMLHttpRequest, fetch, requestAnimationFrame, SVG, Web Storage, Web Component, Web worker와 같은 클라이언트 사이드 Web API를 호스트 객체로 제공하고 Node.js 환경에서는 Node.js 고유의 API를 호스트 객체로 제공한다.</p>
+</li>
+<li><p><strong>사용자 정의 객체</strong><br>사용자 정의 객체(user-defined objects)는 표준 빌트인 객체와 호스트 객체처럼 기본 제공되는 객체가 아닌 사용자가 직접 정의한 객체를 말한다.</p>
+</li>
+</ul>
+<h1 id="2-표준-빌트인-객체"><a href="#2-표준-빌트인-객체" class="headerlink" title="2) 표준 빌트인 객체"></a>2) 표준 빌트인 객체</h1><ul>
+<li>자바스크립트는 Object, String, Number, Boolean, Symbol, Date, Math, Array, Function,JSON, Error 등 40여 개의 표준 빌트인 객체를 제공한다.<ul>
+<li>생성자 함수인 표준 빌트인 객체 : 프로토타입 메서드와 정적 메소드를 제공 /  Math, Reflect, JSON을 제외한 나머지</li>
+<li>생성자 함수가 아닌 표준 빌트인 객체 : 정적 메소드만 제공 / Math, Reflect, JSON</li>
+</ul>
+</li>
+<li>생성자 함수인 표준 빌트인 객체가 생성한 인스턴스의 프로토타입은 표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체이다. <ul>
+<li>ex) 표준 빌트인 객체인 String을 생성자 함수로서 호출하여 생성한 String 인스턴스의 프로토타입은 String.prototype</li>
+</ul>
+</li>
+<li>표준 빌트인 객체의 prototype 프로퍼티에 바인딩된 객체(ex. String.prototype)는 다양한 기능의 빌트인 프로토타입 메서드를 제공한다. </li>
+<li>표준 빌트인 객체는 인스턴스 없이도 호출 가능한 빌트인 정적 메서드를 제공한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Number 생성자 함수에 의한 Number 객체 생성</span></span><br><span class="line"><span class="keyword">const</span> numObj = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1.5</span>); <span class="comment">// Number &#123;1.5&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// toFixed는 Number.prototype의 프로토타입 메서드다.</span></span><br><span class="line"><span class="comment">// Number.prototype.toFixed는 소수점 자리를 반올림하여 문자열로 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(numObj.toFixed()); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// isInteger는 Number의 정적 메서드다.</span></span><br><span class="line"><span class="comment">// Number.isInteger는 인수가 정수(integer)인지 검사하여 그 결과를 Boolean으로 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(<span class="number">0.5</span>)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h1 id="3-원시값과-래퍼-객체"><a href="#3-원시값과-래퍼-객체" class="headerlink" title="3) 원시값과 래퍼 객체"></a>3) 원시값과 래퍼 객체</h1><p>문자열이나 숫자, 불리언 등의 원시값이 있는데도 문자열, 숫자, 불리언 객체를 생성하는 String, Number, Boolean 등의 표준 빌트인 생성자 함수가 존재하는 이유는 무엇일까?</p>
+<p>다음 예제를 살펴보자. 원시값은 객체가 아니므로 프로퍼티나 메서드를 가질 수 없는데도 원시값인 문자열이 마치 객체처럼 동작한다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시 타입인 문자열이 프로퍼티와 메서드를 갖고 있는 객체처럼 동작한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str.length); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(str.toUpperCase()); <span class="comment">// HELLO</span></span><br></pre></td></tr></table></figure>
+
+<p>원시값을 객체처럼 사용하면 자바스크립트 엔진은 암묵적으로 연관된 객체를 생성하여 생성된 객체로 프로퍼티에 접근하거나 메서드를 호출하고 다시 원시값으로 되돌린다. 이러한 객체를 래퍼 객체(wrapper object)라고 한다.</p>
+<ul>
+<li><strong>래퍼 객체(wrapper object) : 문자열, 숫자, 불리언 값에 대해 객체처럼 접근하면 생성되는 임시 객체</strong> <br>
+
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;hi&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 원시 타입인 문자열이 래퍼 객체인 String 인스턴스로 변환된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(str.length); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(str.toUpperCase()); <span class="comment">// HI</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 래퍼 객체로 프로퍼티에 접근하거나 메서드를 호출한 후, 다시 원시값으로 되돌린다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str); <span class="comment">// string</span></span><br></pre></td></tr></table></figure>
+
+<p>래퍼 객체의 처리가 종료되면 래퍼 객체의 [[StringData]] 내부 슬롯에 할당된 원시값으로 원래의 상태, 즉 식별자가 원시값을 갖도록 되돌리고 래퍼 객체는 가비지 컬렉션의 대상이 된다. </p>
+<ul>
+<li>문자열, 숫자, 불리언, 심벌은 암묵적으로 생성되는 래퍼 객체에 의해 마치 객체처럼 사용할 수 있으며, 표준 빌트인 객체인 String, Number, Boolean, Symbol의 프로토타입 메서드 또는 프로퍼티를 참조할 수 있다. 따라서 String, Number, Boolean 생성자 함수를 new 연산자와 함께 호출하여 문자열, 숫자, 불리언 인스턴스를 생성할 필요가 없으며 권장하지도 않는다. </li>
+<li>그 외 원시값인 null과 undefined는 래퍼 객체를 생성하지 않는다. 따라서 null과 undefined 값을 객체처럼 사용하면 에러가 발생한다.</li>
+</ul>
+<br>
+
+<ul>
+<li>10/8 수업 내용 추가</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 여기서 str은 원시값이므로 str이 바뀌는 것이 아닌 결과값이 리턴되는 것!</span></span><br><span class="line"><span class="keyword">const</span> res = str.toUpperCase();</span><br><span class="line"><span class="built_in">console</span>.log(res, str); <span class="comment">// Hello hello</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1에서와 2에서의 arr 값이 달라짐, but 참조값은 같다</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; <span class="comment">// 1</span></span><br><span class="line">arr.push(<span class="number">4</span>); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>객체의 원시값의 차이가 여기에서 나온다.<br>따라서 위에 예제처럼 하지 말고 불변을 지키자!<br>즉, 재할당을 통해 주소값을 바꿔준다. -&gt; 리액트에서 활용</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">arr = [...arr, <span class="number">4</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="4-전역-객체"><a href="#4-전역-객체" class="headerlink" title="4) 전역 객체"></a>4) 전역 객체</h1><ul>
+<li>📒 <strong>전역 객체(global object) : 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체이며, 어떤 객체에도 속하지 않은 최상위 객체</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 브라우저 환경</span></span><br><span class="line">globalThis === <span class="built_in">this</span>   <span class="comment">// true</span></span><br><span class="line">globalThis === <span class="built_in">window</span> <span class="comment">// true</span></span><br><span class="line">globalThis === self   <span class="comment">// true</span></span><br><span class="line">globalThis === frames <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Node.js 환경(12.0.0 이상)</span></span><br><span class="line">globalThis === <span class="built_in">this</span>   <span class="comment">// true</span></span><br><span class="line">globalThis === <span class="built_in">global</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>브라우저 환경에서는 window(또는 self, this, frames), Node.js 환경에서는 global이 전역 객체를 가리킨다.</li>
+<li>전역 객체의 프로퍼티를 참조할 때 window(또는 global)를 생략할 수 있다.</li>
+<li>전역 객체는 개발자가 의도적으로 생성할 수 없다. 즉, 전역 객체를 생성할 수 있는 생성자 함수가 제공되지 않는다.</li>
+<li>전역 객체는 표준 빌트인 객체와 환경에 따른 호스트 객체(클라이언트 web API 또는 Node.js의 호스트 API), 그리고 var 키워드로 선언한 전역 변수와 전역 함수를 프로퍼티로 갖는다.</li>
+<li>let이나 const 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var 키워드로 선언한 전역 변수</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.foo); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 선언하지 않은 변수에 값을 암묵적 전역. bar는 전역 변수가 아니라 전역 객체의 프로퍼티다.</span></span><br><span class="line">bar = <span class="number">2</span>; <span class="comment">// window.bar = 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.bar); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 전역 함수</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="number">3</span>; &#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.baz()); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//let 키워드로 선언한 전역 변수</span></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">123</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.num); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>브라우저 환경의 모든 자바스크립트 코드는 하나의 전역 객체 window를 공유한다. 여러 개의 script 태그를 통해 자바스크립트 코드를 분리해도 하나의 전역 객체 window를 공유하는 것은 변함이 없다. </li>
+<li>전역 객체는 계층적 구조상 어떤 객체에도 속하지 않은 모든 빌트인 객체(표준 빌트인 객체와 호스트 객체)의 최상위 객체다. 이는 프로토타입 상속 관계상에서 최상위 객체라는 의미가 아니라, 전역 객체 자신은 어떤 객체의 프로퍼티도 아니며 객체의 계층적 구조상 표준 빌트인 객체와 호스트 객체를 프로퍼티로 소유한다는 것이다.</li>
+</ul>
+<br>
+
+<h2 id="4-1-빌트인-전역-프로퍼티-built-in-global-property"><a href="#4-1-빌트인-전역-프로퍼티-built-in-global-property" class="headerlink" title="4.1 빌트인 전역 프로퍼티(built-in global property)"></a>4.1 빌트인 전역 프로퍼티(built-in global property)</h2><ul>
+<li>빌트인 전역 프로퍼티는 전역 객체의 프로퍼티를 의미한다. 주로 애플리케이션 전역에서 사용하는 값을 제공한다.<ul>
+<li>Infinity / NaN / undefined</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-1-1-Infinity"><a href="#4-1-1-Infinity" class="headerlink" title="4.1.1. Infinity"></a>4.1.1. Infinity</h3><ul>
+<li>Infinity 프로퍼티는 무한대를 나타내는 숫자값 Infinity를 갖는다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 전역 프로퍼티는 window를 생략하고 참조할 수 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.Infinity === <span class="literal">Infinity</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 양의 무한대</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>/<span class="number">0</span>);  <span class="comment">// Infinity</span></span><br><span class="line"><span class="comment">// 음의 무한대</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">-3</span>/<span class="number">0</span>); <span class="comment">// -Infinity</span></span><br><span class="line"><span class="comment">// Infinity는 숫자값이다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">Infinity</span>); <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-1-2-NaN"><a href="#4-1-2-NaN" class="headerlink" title="4.1.2. NaN"></a>4.1.2. NaN</h3><ul>
+<li>NaN 프로퍼티는 숫자가 아님(Not-a-Number)을 나타내는 숫자값 NaN을 갖는다. </li>
+<li>NaN 프로퍼티는 Number.NaN 프로퍼티와 같다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.NaN); <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">&#x27;xyz&#x27;</span>)); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> * <span class="string">&#x27;string&#x27;</span>);  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">NaN</span>);    <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-3-undefined"><a href="#4-1-3-undefined" class="headerlink" title="4.1.3. undefined"></a>4.1.3. undefined</h3><ul>
+<li>undefined 프로퍼티는 원시 타입 undefined를 값으로 갖는다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.undefined); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">undefined</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="4-2-빌트인-전역-함수-built-in-global-function"><a href="#4-2-빌트인-전역-함수-built-in-global-function" class="headerlink" title="4.2. 빌트인 전역 함수(built-in global function)"></a>4.2. 빌트인 전역 함수(built-in global function)</h2><ul>
+<li>빌트인 전역 함수는 애플리케이션 전역에서 호출할 수 있는 빌트인 함수로서 전역 객체의 메서드다.<ul>
+<li>eval</li>
+<li>isFinite</li>
+<li>isNaN</li>
+<li>perseFloat</li>
+<li>parseInt</li>
+<li>encodeURI / decodeURI</li>
+<li>encodeURIComponent / decodeURIComponent</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-2-1-eval"><a href="#4-2-1-eval" class="headerlink" title="4.2.1. eval"></a>4.2.1. eval</h3><ul>
+<li>eval 함수는 자바스크립트 코드를 나타내는 문자열을 인수로 전달받은 후,<br>전달받은 인수가 표현식이라면 　　　　　-&gt; 코드를 런타임에 평가하여 값을 생성<br>전달받은 인수가 표현식이 아닌 문이라면　-&gt; 코드를 런타임에 실행</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 표현식인 문</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&#x27;1 + 2;&#x27;</span>); <span class="comment">// -&gt; 3</span></span><br><span class="line"><span class="comment">// 표현식이 아닌 문</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&#x27;var x = 5;&#x27;</span>); <span class="comment">// -&gt; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// eval 함수에 의해 런타임에 변수 선언문이 실행되어 x 변수가 선언되었다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 객체 리터럴은 반드시 괄호로 둘러싼다.</span></span><br><span class="line"><span class="keyword">const</span> o = <span class="built_in">eval</span>(<span class="string">&#x27;(&#123; a: 1 &#125;)&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123;a: 1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 리터럴은 반드시 괄호로 둘러싼다.</span></span><br><span class="line"><span class="keyword">const</span> f = <span class="built_in">eval</span>(<span class="string">&#x27;(function() &#123; return 1; &#125;)&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(f()); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 인수로 전달받은 문자열 코드가 여러 개의 문으로 이루어져 있다면 모든 문을 실행한 다음, 마지막 결과값을 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">eval</span>(<span class="string">&#x27;1 + 2; 3 + 4;&#x27;</span>)); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>eval 함수는 <strong>자신이 호출된 위치에 해당하는 기존의 스코프를 런타임에 동적으로 수정한다.</strong></li>
+<li>eval 함수를 통해 사용자로부터 입력받은 콘텐츠(untrusted data)를 실행하는 것은 보안에 매우 취약하다. 또한 eval 함수를 통해 실행되는 코드는 자바스크립트 엔진에 의해 최적화가 수행되지 않으므로 일반적인 코드 실행에 비해 처리 속도가 느리다.<br>따라서 <strong>eval 함수의 사용은 금지해야 한다.</strong></li>
+</ul>
+<h3 id="4-2-2-isFinite"><a href="#4-2-2-isFinite" class="headerlink" title="4.2.2. isFinite"></a>4.2.2. isFinite</h3><ul>
+<li>isFinite 함수는 전달받은 인수가 유한수인지 확인하고 그 결과를 반환한다.<ul>
+<li>true : 인수가 유한수</li>
+<li>false : 인수가 무한수, NaN</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 인수가 유한수이면 true를 반환한다.</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="number">0</span>);    <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="number">2e64</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="string">&#x27;10&#x27;</span>); <span class="comment">// -&gt; true: &#x27;10&#x27; → 10</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="literal">null</span>); <span class="comment">// -&gt; true: null → 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 인수가 무한수이면 false를 반환한다.</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="literal">Infinity</span>);  <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">isFinite</span>(-<span class="literal">Infinity</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 인수가 NaN으로 평가되는 값이라면 false를 반환한다.</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="literal">NaN</span>);     <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="string">&#x27;Hello&#x27;</span>); <span class="comment">// -&gt; false</span></span><br><span class="line"><span class="built_in">isFinite</span>(<span class="string">&#x27;2005/12/12&#x27;</span>); <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>참고로 isFinite(null)은 true를 반환한다. 이것은 null을 숫자로 변환하여 검사를 수행했기 때문이다. null을 숫자 타입으로 변환하면 0이 된다.</li>
+</ul>
+<h3 id="4-2-3-isNaN"><a href="#4-2-3-isNaN" class="headerlink" title="4.2.3. isNaN"></a>4.2.3. isNaN</h3><ul>
+<li>isNaN 함수는 전달받은 인수가 NaN인지 검사하여 그 결과를 불리언 타입으로 반환한다.<br>전달받은 인수의 타입이 숫자가 아닌 경우 숫자로 타입을 변환한 후 검사를 수행한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 숫자</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="literal">NaN</span>); <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="number">10</span>);  <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27;blabla&#x27;</span>); <span class="comment">// -&gt; true: &#x27;blabla&#x27; =&gt; NaN</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27;10&#x27;</span>);     <span class="comment">// -&gt; false: &#x27;10&#x27; =&gt; 10</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27;10.12&#x27;</span>);  <span class="comment">// -&gt; false: &#x27;10.12&#x27; =&gt; 10.12</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27;&#x27;</span>);       <span class="comment">// -&gt; false: &#x27;&#x27; =&gt; 0</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27; &#x27;</span>);      <span class="comment">// -&gt; false: &#x27; &#x27; =&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 불리언</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="literal">true</span>); <span class="comment">// -&gt; false: true → 1</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="literal">null</span>); <span class="comment">// -&gt; false: null → 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="literal">undefined</span>); <span class="comment">// -&gt; true: undefined =&gt; NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 객체</span></span><br><span class="line"><span class="built_in">isNaN</span>(&#123;&#125;); <span class="comment">// -&gt; true: &#123;&#125; =&gt; NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// date</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="keyword">new</span> <span class="built_in">Date</span>());            <span class="comment">// -&gt; false: new Date() =&gt; Number</span></span><br><span class="line"><span class="built_in">isNaN</span>(<span class="keyword">new</span> <span class="built_in">Date</span>().toString()); <span class="comment">// -&gt; true:  String =&gt; NaN</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-2-4-parseFloat"><a href="#4-2-4-parseFloat" class="headerlink" title="4.2.4. parseFloat"></a>4.2.4. parseFloat</h3><ul>
+<li>parseFloat 함수는 전달받은 문자열 인수를 부동 소수점 숫자(floating point number), 즉 실수로 해석(parsing)하여 반환한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문자열을 실수로 해석하여 반환한다.</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;3.14&#x27;</span>);  <span class="comment">// -&gt; 3.14</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;10.00&#x27;</span>); <span class="comment">// -&gt; 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;34 45 66&#x27;</span>); <span class="comment">// -&gt; 34</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;40 years&#x27;</span>); <span class="comment">// -&gt; 40</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27;He was 40&#x27;</span>); <span class="comment">// -&gt; NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 앞뒤 공백은 무시된다.</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">&#x27; 60 &#x27;</span>); <span class="comment">// -&gt; 60</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-2-5-parseInt"><a href="#4-2-5-parseInt" class="headerlink" title="4.2.5. parseInt"></a>4.2.5. parseInt</h3><ul>
+<li>parseInt 함수는 전달받은 문자열 인수를 정수(integer)로 해석(parsing)하여 반환한다.<br>전달받은 인수가 문자열이 아니면 문자열로 변환한 다음, 정수로 해석하여 반환한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 문자열을 정수로 해석하여 반환한다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10&#x27;</span>);     <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10.123&#x27;</span>); <span class="comment">// -&gt; 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 문자열이 아니면 문자열로 변환한 다음, 정수로 해석하여 반환한다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">10</span>);     <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">10.123</span>); <span class="comment">// -&gt; 10</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>두 번째 인수로 진법을 나타내는 기수(2 ~ 36)를 전달할 수 있다. 이때 반환값은 언제나 10진수다. 기수를 생략하면 첫 번째 인수로 전달된 문자열을 10진수로 해석하여 반환한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 10&#x27;을 10진수로 해석하고 그 결과를 10진수 정수로 반환한다</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10&#x27;</span>); <span class="comment">// -&gt; 10</span></span><br><span class="line"><span class="comment">// &#x27;10&#x27;을 2진수로 해석하고 그 결과를 10진수 정수로 반환한다</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10&#x27;</span>, <span class="number">2</span>); <span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="comment">// &#x27;10&#x27;을 8진수로 해석하고 그 결과를 10진수 정수로 반환한다</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10&#x27;</span>, <span class="number">8</span>); <span class="comment">// -&gt; 8</span></span><br><span class="line"><span class="comment">// &#x27;10&#x27;을 16진수로 해석하고 그 결과를 10진수 정수로 반환한다</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;10&#x27;</span>, <span class="number">16</span>); <span class="comment">// -&gt; 16</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>첫 번째 인수로 전달한 문자열의 첫 번째 문자가 해당 지수의 숫자로 변환될 수 없다면 NaN을 반환한다.</li>
+<li>하지만 첫 번째 인수로 전달한 문자열의 두 번째 문자부터 해당 진수를 나타내는 숫자가 아닌 문자와 마주치면 이 문자와 계속되는 문자들은 전부 무시되며 해석된 정수값만 반환한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x27;A&#x27;는 10진수로 해석할 수 없다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;A0&#x27;</span>); <span class="comment">// -&gt; NaN</span></span><br><span class="line"><span class="comment">// &#x27;2&#x27;는 2진수로 해석할 수 없다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;20&#x27;</span>, <span class="number">2</span>); <span class="comment">// -&gt; NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 10진수로 해석할 수 없는 &#x27;A&#x27; 이후의 문자는 모두 무시된다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;1A0&#x27;</span>); <span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="comment">// 2진수로 해석할 수 없는 &#x27;2&#x27; 이후의 문자는 모두 무시된다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;102&#x27;</span>, <span class="number">2</span>); <span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="comment">// 16진수로 해석할 수 없는 &#x27;G&#x27; 이후의 문자는 모두 무시된다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;FG&#x27;</span>, <span class="number">16</span>); <span class="comment">// -&gt; 15</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li>첫 번째 인수로 전달한 문자열에 공백이 있다면 첫 번째 문자열만 해석하여 반환하며 앞뒤 공백은 무시된다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;34 45 66&#x27;</span>); <span class="comment">// -&gt; 34</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;40 years&#x27;</span>); <span class="comment">// -&gt; 40</span></span><br><span class="line"><span class="comment">// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27;He was 40&#x27;</span>); <span class="comment">// -&gt; NaN</span></span><br><span class="line"><span class="comment">// 앞뒤 공백은 무시된다.</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">&#x27; 60 &#x27;</span>); <span class="comment">// -&gt; 60</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-6-encodeURI-decodeURI"><a href="#4-2-6-encodeURI-decodeURI" class="headerlink" title="4.2.6. encodeURI / decodeURI"></a>4.2.6. encodeURI / decodeURI</h3><ul>
+<li>encodeURI 함수는 완전한 URI(Uniform Resource Identifier)를 문자열로 전달받아 이스케이프 처리를 위해 인코딩한다. <ul>
+<li>URI : 인터넷에 있는 자원을 나타내는 유일한 주소, URI의 하위개념으로 URL, URN이 있다.</li>
+</ul>
+</li>
+</ul>
+<div class="figure center" style="width:800px;"><img class="fig-img" src="21-1.png" style="width:800px;"alt=""></div>
+
+
+<h3 id="4-2-7-encodeURIComponent-decodeURIComponent"><a href="#4-2-7-encodeURIComponent-decodeURIComponent" class="headerlink" title="4.2.7. encodeURIComponent / decodeURIComponent"></a>4.2.7. encodeURIComponent / decodeURIComponent</h3><ul>
+<li>encodeURIComponent 함수는 전달된 URI(Uniform Resource Identifier) 구성 요소를 인코딩한다.<br>여기서 인코딩이란 URI의 문자들을 이스케이프 처리하는 것을 의미한다.<br>단, 알파벳, 0~9의 숫자, - _ . ! ~ * ‘ ( ) 문자는 이스케이프 처리에서 제외된다. </li>
+<li>decodeURIComponent 함수는 매개변수로 전달된 URI 구성 요소를 디코딩한다. </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// URI의 쿼리 스트링</span></span><br><span class="line"><span class="keyword">const</span> uriComp = <span class="string">&#x27;name=이웅모&amp;job=programmer&amp;teacher&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// encodeURIComponent 함수는 인수로 전달받은 문자열을 URI의 구성요소인 쿼리 스트링의 일부로 간주한다.</span></span><br><span class="line"><span class="comment">// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &amp;까지 인코딩한다.</span></span><br><span class="line"><span class="keyword">let</span> enc = <span class="built_in">encodeURIComponent</span>(uriComp);</span><br><span class="line"><span class="built_in">console</span>.log(enc);</span><br><span class="line"><span class="comment">// name%3D%EC%9D%B4%EC%9B%85%EB%AA%A8%26job%3Dprogrammer%26teacher</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dec = <span class="built_in">decodeURIComponent</span>(enc);</span><br><span class="line"><span class="built_in">console</span>.log(dec);</span><br><span class="line"><span class="comment">// 이웅모&amp;job=programmer&amp;teacher</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// encodeURI 함수는 인수로 전달받은 문자열을 완전한 URI로 간주한다.</span></span><br><span class="line"><span class="comment">// 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &amp;를 인코딩하지 않는다.</span></span><br><span class="line">enc = <span class="built_in">encodeURI</span>(uriComp);</span><br><span class="line"><span class="built_in">console</span>.log(enc);</span><br><span class="line"><span class="comment">// name=%EC%9D%B4%EC%9B%85%EB%AA%A8&amp;job=programmer&amp;teacher</span></span><br><span class="line"></span><br><span class="line">dec = <span class="built_in">decodeURI</span>(enc);</span><br><span class="line"><span class="built_in">console</span>.log(dec);</span><br><span class="line"><span class="comment">// name=이웅모&amp;job=programmer&amp;teacher</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="4-3-암묵적-전역"><a href="#4-3-암묵적-전역" class="headerlink" title="4.3. 암묵적 전역"></a>4.3. 암묵적 전역</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 선언하지 않은 식별자에 값을 할당</span></span><br><span class="line">  y = <span class="number">20</span>; <span class="comment">// window.y = 20;</span></span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x + y); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p>위 예제에서 foo 함수 내의 y는 선언하지 않은 식별자이다. 따라서 <code>y = 20</code>이 실행되면 참조 에러가 발생할 것처럼 보인다. 하지만 선언하지 않은 식별자 y는 마치 선언된 전역 변수처럼 동작한다. 이는 <strong>선언하지 않은 식별자에 값을 할당하면 전역 객체의 프로퍼티가 되기 때문이다.</strong> </p>
+<p>자바스크립트 엔진은 <code>y = 20</code>을 <code>window.y = 20</code>으로 해석하여 전역 객체에 프로퍼티를 동적 생성한다. 결국 y는 전역 객체의 프로퍼티가 되어 마치 전역 변수처럼 동작한다. 이러한 현상을 <strong>암묵적 전역(implicit global)</strong> 이라 한다.</p>
+<ul>
+<li>하지만 y는 변수 선언 없이 단지 전역 객체의 프로퍼티로 추가되었을 뿐, 변수가 아니므로 변수 호이스팅이 발생하지 않는다.</li>
+<li>또한 변수가 아니라 단지 프로퍼티인 y는 delete 연산자로 삭제할 수 있다. 전역 변수는 프로퍼티이지만 delete 연산자로 삭제할 수 없다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 전역 변수 x는 호이스팅이 발생한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// 전역 변수가 아니라 단지 전역 객체의 프로퍼티인 y는 호이스팅이 발생하지 않는다.</span></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// ReferenceError: y is not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>; <span class="comment">// 전역 변수</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 선언하지 않은 식별자에 값을 할당</span></span><br><span class="line">  y = <span class="number">20</span>; <span class="comment">// window.y = 20;</span></span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> x; <span class="comment">// 전역 변수는 삭제되지 않는다.</span></span><br><span class="line"><span class="keyword">delete</span> y; <span class="comment">// 프로퍼티는 삭제된다.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.x); <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.y); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>poiemaweb.com</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+              </div>
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/02/20-10-02-TIL/"
+                    data-tooltip="20-10-02 금요일 TIL"
+                    aria-label="PREVIOUS: 20-10-02 금요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/27/JS-20/"
+                    data-tooltip="20. Strict mode"
+                    aria-label="NEXT: 20. Strict mode"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+                
+                  <!-- Comment -->
+                  <!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+                  <!-- 
+        
+    </div>
+</article>
+
+
+<!-- Comment -->
+<!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/10/02/20-10-02-TIL/"
+                    data-tooltip="20-10-02 금요일 TIL"
+                    aria-label="PREVIOUS: 20-10-02 금요일 TIL"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/27/JS-20/"
+                    data-tooltip="20. Strict mode"
+                    aria-label="NEXT: 20. Strict mode"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

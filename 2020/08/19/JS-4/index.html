@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>4. 변수 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/19/js-4/"/>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\n💡 변수(variable) \n\n하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름\n변경 가능한 데이터가 담길 수 있는 공간\n\n\n따라서 개발자가 직접 메모리 주소를 통해 값을 저장하고 참조할 필요가 없고 변수를 통해 안전하게 값에 접근할 수 있다.\n변수는 3단계에 걸쳐 생성된다.\n\n선언 단계 - 변수 이름 등록\n초기화 단계 - 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당해 초기화한다.\n할당 단계 - undefined로 초기화된 변수에 실제 값을 할당한다.\n\n\n\n1) 변수 선언\nvar / let / const\nvar 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 undefined라는 값을 갖는다.\n\nundefined : javascript에서 제공하는 원시 타입의 값(primitive value) , 변경 불가능한 값임\n\n\n변수 선언은 다음과 같은 2단계로 나뉜다.\n\n선언 단계 - 변수 이름 등록\n초기화 단계 - 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당해 초기화\n\n\n\n2) 값의 할당1234var score; // 변수 선언score = 1; // 값의 할당var score = 1; // 변수 선언과 값 할당\n\n변수의 선언과 값의 할당\n\n변수를 선언하면 컴퓨터는 메모리의 빈 공간에 식별자를 저장하고, undefined를 할당한다. 이후 그 변수에 기본형 데이터를 할당하려고 하면 별도의 공간에 데이터를 저장하고, 그 공간의 주소를 변수의 값 영역에 할당한다.\n이때 주의할 점은 이전 값 undefined가 저장되어 있던 메모리 공간을 지우고 그 메모리 공간에 할당 값 80을 새롭게 저장하는 것이 아니라 새로운 메모리 공간을 확보하고 그 곳에 할당 값 80을 저장하는 것이다.\n3) 값의 재할당12var score = 80; // 변수 선언과 값의 할당score = 90; // 값의 재할당\n\n재할당 역시 이전 값 80이 저장되어 있던 메모리 공간을 지우고 그 메모리 공간에 재할당 값 90을 새롭게 저장하는 것이 아니라 새로운 메모리 공간을 확보하고 그 메모리 공간에 숫자 값 90을 저장한다.\n\n\n값의 재할당\n\n\n만약 80과 undefined가 더이상 사용되지 않으면 가비지 콜렉터에 의해 메모리에서 자동 해제된다.\n\n가비지 콜렉터(garbage collector)가비지 콜렉터는 애플리케이션이 할당한 메모리 공간을 주기적으로 검사하여 더 이상 사용되고 있지 않는 메모리를 해제하는 기능을 말한다. 자바스크립트는 가비지 콜렉터를 내장하고 있는 매니지드 언어로서 가바지 콜렉터를 통해 메모리 누수(memory leak)를 방지한다.\n\n\ncf. const (상수)한 번 정해지면 변하지 않는 값 ∴ 재할당 불가능!\n\n\n4) 변수 호이스팅자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 소스코드의 어디에 위치하는지와 상관없이 어디서든지 변수를 참조할 수 있다.\n123456789console.log(score); // undefinedscore = 90;var score;console.log(score); // 90//마치 이렇게 출력한 것과 같이 받아들인다.var score;console.log(score); // undefinedscore = 90;\n\n참고로변수 선언은 소스코드가 순차적으로 실행되는 시점인 런타임 이전에 먼저 실행값의 할당은 소스코드가 순차적으로 실행되는 시점인 런타임에 실행\n이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 변수 호이스팅(variable hoisting) 이라 한다.\n이를 방지하기 위해 ES6에서 let과 const를 도입해 변수 호이스팅이 발생하지 않는 것처럼 동작하도록 한다.\n5) 식별자\n💡 식별자(identifier)어떤 값을 구별해서 식별할 수 있는 고유한 이름 (변수의 이름)\n값이 아니라 메모리 주소를 기억함 . 즉, 메모리 주소에 붙인 이름\n\n\n\n식별자 네이밍 규칙\n\n문자, 숫자, underscore(_), 달러기호($)\n문자, underscore(_), 달러기호($) 로만 시작가능 (숫자로 시작 불가❌)\n사용불가❌ : 특수문자, 예약어(function var this class true 등)\n변수나 함수의 이름에는 카멜 케이스생성자 함수, 클래스의 이름에는 파스칼 케이스 사용\n\n\n\n123456// 카멜 케이스 (camelCase)var firstName;// 파스칼 케이스 (PascalCase)var FirstName;// 스네이크 케이스 (snake_case)var first_name;\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-08-19T14:55:23+09:00","dateModified":"2020-12-10T23:10:41+09:00","datePublished":"2020-08-19T14:55:23+09:00","description":"\n\n변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.","headline":"4. 변수","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/19/JS-4/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/19/JS-4/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="4. 변수">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/08/19/JS-4/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="변수(variable)는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 나타낸다.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/JS-4/변수1.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/JS-4/4-1.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/JS-4/변수2.jpg">
+<meta property="article:published_time" content="2020-08-19T05:55:23.000Z">
+<meta property="article:modified_time" content="2020-12-10T14:10:41.656Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/08/19/JS-4/변수1.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/JS-4/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/19/JS-4/js.png"/>
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="All-categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-project"
+                            
+                            rel="noopener"
+                            title="project-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-Fastcampus"
+                            
+                            rel="noopener"
+                            title="study-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-TIL"
+                            
+                            rel="noopener"
+                            title="TIL"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/hanseul-lee/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            4. 변수
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-08-19T14:55:23+09:00">
+	
+		    Aug 19, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/Javascript/">Javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%EB%B3%80%EC%88%98-%EC%84%A0%EC%96%B8"><span class="toc-number">1.</span> <span class="toc-text">1) 변수 선언</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%EA%B0%92%EC%9D%98-%ED%95%A0%EB%8B%B9"><span class="toc-number">2.</span> <span class="toc-text">2) 값의 할당</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%EA%B0%92%EC%9D%98-%EC%9E%AC%ED%95%A0%EB%8B%B9"><span class="toc-number">3.</span> <span class="toc-text">3) 값의 재할당</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%EB%B3%80%EC%88%98-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85"><span class="toc-number">4.</span> <span class="toc-text">4) 변수 호이스팅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%EC%8B%9D%EB%B3%84%EC%9E%90"><span class="toc-number">5.</span> <span class="toc-text">5) 식별자</span></a></li></ol>
+
+<blockquote>
+<p>💡 변수(variable) </p>
+<ul>
+<li>하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름</li>
+<li>변경 가능한 데이터가 담길 수 있는 공간</li>
+</ul>
+</blockquote>
+<p>따라서 개발자가 직접 메모리 주소를 통해 값을 저장하고 참조할 필요가 없고 변수를 통해 안전하게 값에 접근할 수 있다.</p>
+<p>변수는 3단계에 걸쳐 생성된다.</p>
+<ol>
+<li>선언 단계 - 변수 이름 등록</li>
+<li>초기화 단계 - 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당해 초기화한다.</li>
+<li>할당 단계 - undefined로 초기화된 변수에 실제 값을 할당한다.</li>
+</ol>
+<Br>
+
+<h2 id="1-변수-선언"><a href="#1-변수-선언" class="headerlink" title="1) 변수 선언"></a>1) 변수 선언</h2><ul>
+<li><p>var / let / const</p>
+<p>var 키워드로 선언한 변수는 어떠한 값도 할당하지 않아도 <code>undefined</code>라는 값을 갖는다.</p>
+<ul>
+<li><code>undefined</code> : javascript에서 제공하는 원시 타입의 값(primitive value) , 변경 불가능한 값임</li>
+</ul>
+</li>
+<li><p>변수 선언은 다음과 같은 2단계로 나뉜다.</p>
+<ol>
+<li>선언 단계 - 변수 이름 등록</li>
+<li>초기화 단계 - 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 undefined를 할당해 초기화</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-값의-할당"><a href="#2-값의-할당" class="headerlink" title="2) 값의 할당"></a>2) 값의 할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score; <span class="comment">// 변수 선언</span></span><br><span class="line">score = <span class="number">1</span>; <span class="comment">// 값의 할당</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> score = <span class="number">1</span>; <span class="comment">// 변수 선언과 값 할당</span></span><br></pre></td></tr></table></figure>
+
+<div class="figure center" style="width:700px;"><img class="fig-img" src="변수1.jpg" style="width:700px;"alt="변수의 선언과 값의 할당"><span class="caption">변수의 선언과 값의 할당</span></div>
+
+<p>변수를 선언하면 컴퓨터는 메모리의 빈 공간에 식별자를 저장하고, undefined를 할당한다. 이후 그 변수에 기본형 데이터를 할당하려고 하면 별도의 공간에 데이터를 저장하고, 그 공간의 주소를 변수의 값 영역에 할당한다.</p>
+<p>이때 주의할 점은 이전 값 undefined가 저장되어 있던 메모리 공간을 지우고 그 메모리 공간에 할당 값 80을 새롭게 저장하는 것이 아니라 새로운 메모리 공간을 확보하고 그 곳에 할당 값 80을 저장하는 것이다.</p>
+<h2 id="3-값의-재할당"><a href="#3-값의-재할당" class="headerlink" title="3) 값의 재할당"></a>3) 값의 재할당</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>; <span class="comment">// 변수 선언과 값의 할당</span></span><br><span class="line">score = <span class="number">90</span>; <span class="comment">// 값의 재할당</span></span><br></pre></td></tr></table></figure>
+
+<p>재할당 역시 이전 값 80이 저장되어 있던 메모리 공간을 지우고 그 메모리 공간에 재할당 값 90을 새롭게 저장하는 것이 아니라 새로운 메모리 공간을 확보하고 그 메모리 공간에 숫자 값 90을 저장한다.</p>
+<br>
+
+<div class="figure center" style="width:800px;"><img class="fig-img" src="4-1.png" style="width:800px;"alt="값의 재할당"><span class="caption">값의 재할당</span></div>
+<br>
+
+<p>만약 80과 undefined가 더이상 사용되지 않으면 가비지 콜렉터에 의해 메모리에서 자동 해제된다.</p>
+<ul>
+<li>가비지 콜렉터(garbage collector)<br>가비지 콜렉터는 애플리케이션이 할당한 메모리 공간을 주기적으로 검사하여 더 이상 사용되고 있지 않는 메모리를 해제하는 기능을 말한다. 자바스크립트는 가비지 콜렉터를 내장하고 있는 매니지드 언어로서 가바지 콜렉터를 통해 메모리 누수(memory leak)를 방지한다.</li>
+</ul>
+<blockquote>
+<dl><dt>cf. <strong>const (상수)</strong></dt><dd>한 번 정해지면 변하지 않는 값 ∴ <strong>재할당 불가능</strong>!</dd></dl></blockquote>
+<br>
+
+<h2 id="4-변수-호이스팅"><a href="#4-변수-호이스팅" class="headerlink" title="4) 변수 호이스팅"></a>4) 변수 호이스팅</h2><p>자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. 따라서 변수 선언이 <strong>소스코드의 어디에 위치하는지와 상관없이</strong> 어디서든지 변수를 참조할 수 있다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// 90</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//마치 이렇게 출력한 것과 같이 받아들인다.</span></span><br><span class="line"><span class="keyword">var</span> score;</span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// undefined</span></span><br><span class="line">score = <span class="number">90</span>;</span><br></pre></td></tr></table></figure>
+
+<p>참고로<br><strong>변수 선언</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임 이전에 먼저 실행</strong><br><strong>값의 할당</strong>은 소스코드가 순차적으로 실행되는 시점인 <strong>런타임에 실행</strong></p>
+<p>이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 <strong>변수 호이스팅(variable hoisting)</strong> 이라 한다.</p>
+<p>이를 방지하기 위해 ES6에서 let과 const를 도입해 변수 호이스팅이 발생하지 않는 것처럼 동작하도록 한다.</p>
+<h2 id="5-식별자"><a href="#5-식별자" class="headerlink" title="5) 식별자"></a>5) 식별자</h2><blockquote>
+<dl><dt>💡 식별자(identifier)</dt><dd>어떤 값을 구별해서 식별할 수 있는 고유한 이름 (변수의 이름)</dd></dl></blockquote>
+<p>값이 아니라 <strong>메모리 주소를 기억</strong>함 . 즉, 메모리 주소에 붙인 이름</p>
+<div class="figure center" style="width:;"><img class="fig-img" src="변수2.jpg" alt=""></div>
+
+<ul>
+<li><p>식별자 네이밍 규칙</p>
+<ul>
+<li>문자, 숫자, underscore(_), 달러기호($)</li>
+<li>문자, underscore(_), 달러기호($) 로만 시작가능 (숫자로 시작 불가❌)</li>
+<li>사용불가❌ : 특수문자, 예약어(function var this class true 등)</li>
+<li><strong>변수나 함수의 이름</strong>에는 <strong>카멜 케이스</strong><br><strong>생성자 함수, 클래스의 이름</strong>에는 <strong>파스칼 케이스</strong> 사용</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 카멜 케이스 (camelCase)</span></span><br><span class="line"><span class="keyword">var</span> firstName;</span><br><span class="line"><span class="comment">// 파스칼 케이스 (PascalCase)</span></span><br><span class="line"><span class="keyword">var</span> FirstName;</span><br><span class="line"><span class="comment">// 스네이크 케이스 (snake_case)</span></span><br><span class="line"><span class="keyword">var</span> first_name;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>poiemaweb.com</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+              </div>
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/19/20-08-19-Github_blog/"
+                    data-tooltip="[git] hexo를 이용한 github blog 포스팅하기"
+                    aria-label="PREVIOUS: [git] hexo를 이용한 github blog 포스팅하기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/19/20-08-19-TIL/"
+                    data-tooltip="20-08-19 수요일 TIL"
+                    aria-label="NEXT: 20-08-19 수요일 TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+                
+                  <!-- Comment -->
+                  <!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+                  <!-- 
+        
+    </div>
+</article>
+
+
+<!-- Comment -->
+<!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/19/20-08-19-Github_blog/"
+                    data-tooltip="[git] hexo를 이용한 github blog 포스팅하기"
+                    aria-label="PREVIOUS: [git] hexo를 이용한 github blog 포스팅하기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/19/20-08-19-TIL/"
+                    data-tooltip="20-08-19 수요일 TIL"
+                    aria-label="NEXT: 20-08-19 수요일 TIL"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

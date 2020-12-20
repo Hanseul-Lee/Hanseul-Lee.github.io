@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>16. 프로퍼티 어트리뷰트 - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/18/js-16/"/>
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 내부 슬롯과 내부 메서드\n📒 내부 슬롯과 내부 메서드자바스크립트 엔진의 구현 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 pseudo property(의사 프로퍼티)와 pseudo method(의사 메서드). \n이중 대괄호([[]])로 감싸 표기한다.\n자바스크립트 엔진의 내부 로직이므로 외부로 공개되지 않고 감춰져 있다.그러므로 원칙적으로 자바스크립트는 내부 슬롯과 내부 메서드에 직접적으로 접근하거나 호출할 수 있는 방법을 제공하지 않는다.\n단, 일부 내부 슬롯과 내부 메서드에 한하여 간접적으로 접근할 수 있는 수단을 제공하기는 한다.  예를 들어, 모든 객체는 [[Prototype]]이라는 내부 슬롯을 갖는다. 내부 슬롯은 자바스크립트 엔진의 내부 로직이므로 원칙적으로 직접 접근할 수 없지만 [[Prototype]] 내부 슬롯의 경우 __proto__를 통해 간접적으로 접근할 수 있다.\n\n\n\n2) 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체\n자바스크립트 엔진은 프로퍼티를 생성할 때 프로퍼티의 상태를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다. \n📒 프로퍼티 어트리뷰트: 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]] \nvalue : 프로퍼티의 값\nwritable : 값의 변경 가능 여부\nenumerable : 열거 가능 여부\nconfigurable : 재정의 가능 여부\n\n\n프로퍼티 어트리뷰트에 직접 접근할 수 없지만 Object.getOwnPropertyDescriptor 메서드를 사용하여 간접적으로 확인 가능하다.1234567const person = &#123;  name: &#x27;Lee&#x27;&#125;;// 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환한다.console.log(Object.getOwnPropertyDescriptor(person, &#x27;name&#x27;));// &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: true&#125;\n메서드를 호출할 때 첫 번째 매개변수에는 객체의 참조를 전달하고 두 번째 매개변수에는 프로퍼티 키를 문자열로 전달한다.(🔴주의!) 위의 ‘name’과 같이 프로퍼티 키를 꼭 문자열로 전달해야 한다.\nObject.getOwnPropertyDescriptor 메서드는 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터(PropertyDescriptor) 객체를 반환한다. 만약 존재하지 않는 프로퍼티나 상속받은 프로퍼티에 대한 프로퍼티 디스크립터를 요구하면 undefined가 반환된다.\n\n\n\n3) 데이터 프로퍼티와 접근자 프로퍼티\n프로퍼티는 데이터 프로퍼티와 접근자 프로퍼티로 구분할 수 있다.\n📒 데이터 프로퍼티(data property)키와 값으로 구성된 일반적인 프로퍼티.\n📒 접근자 프로퍼티(accessor property)자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(accessor function)로 구성된 프로퍼티\n\n\n\n3.1. 데이터 프로퍼티(data property)\n데이터 프로퍼티의 프로퍼티 어트리뷰트는 자바스크립트 엔진이 프로퍼티를 생성할 때 기본값으로 자동 정의된다.\n\n데이터 프로퍼티\n\n1234567891011121314const person = &#123;  name: &#x27;Lee&#x27;&#125;;// 프로퍼티 동적 생성person.age = 20;console.log(Object.getOwnPropertyDescriptors(person));/*&#123;  name: &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: true&#125;,  age: &#123;value: 20, writable: true, enumerable: true, configurable: true&#125;&#125;*/\n\nObject.getOwnPropertyDescriptor 메서드가 반환한 프로퍼티 디스크립터 객체를 살펴보면 value 프로퍼티의 값은 ‘Lee’다. 이것은 프로퍼티 어트리뷰트 [[Value]]의 값이 ‘Lee’인 것을 의미한다.\nwritable, enumerable, configurable 프로퍼티의 값은 모두 true다. 이것은 프로퍼티 어트리뷰트 [[Writable]], [[Enumerable]], [[Configurable]]의 값이 모두 true인 것을 의미한다.\n프로퍼티가 생성될 때 [[Value]]의 값은 프로퍼티 값으로 초기화되며 [[Writable]], [[Enumerable]], [[Configurable]]의 값은 true로 초기화된다. 이것은 프로퍼티를 동적 추가해도 마찬가지다.\n\n3.2. 접근자 프로퍼티(accessor property)\n접근자 프로퍼티는 자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수로 구성된 프로퍼티 이다.\n접근자 함수는 getter/setter 함수라고도 부른다.접근자 프로퍼티는 getter와 setter 함수를 모두 정의할 수도 있고 하나만 정의할 수도 있다. \n접근자 프로퍼티는 자체적으로 값(프로퍼티 어트리뷰트 [[Value]])을 가지지 않으며 다만 데이터 프로퍼티의 값을 읽거나 저장할 때 관여할 뿐이다.\n\n접근자 프로퍼티\n\n12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849const person = &#123;  // 데이터 프로퍼티  firstName: &#x27;Hanseul&#x27;,  lastName: &#x27;Lee&#x27;,  // fullName은 접근자 함수로 구성된 접근자 프로퍼티다.  // getter 함수  get fullName() &#123;    return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;  &#125;,  // setter 함수  set fullName(name) &#123;    // 배열 디스트럭처링 할당    // setter 함수는 return문이 필요없고 할당받는 인수가 필요하다.    [this.firstName, this.lastName] = name.split(&#x27; &#x27;);  &#125;  // cf. 어려우면 getter/setter 함수 대신 이렇게 메서드를 추가해도 동일하게 동작한다.  getFullName() &#123;    return this.firstName + &#x27; &#x27; + this.lastName;  &#125;  setFullName() &#123;    [this.firstName, this.lastname] = name.split(&#x27; &#x27;);  &#125;&#125;;// 데이터 프로퍼티를 통한 프로퍼티 값의 참조.console.log(person.firstName + &#x27; &#x27; + person.lastName); // Hanseul Lee// 접근자 프로퍼티를 통한 프로퍼티 값의 저장// 접근자 프로퍼티 fullName에 값을 저장하면 setter 함수가 호출된다.person.fullName = &#x27;Apple Lee&#x27;;console.log(person); // &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;// 접근자 프로퍼티를 통한 프로퍼티 값의 참조// 접근자 프로퍼티 fullName에 접근하면 getter 함수가 호출된다.console.log(person.fullName); // Apple Lee// firstName은 데이터 프로퍼티다.// 데이터 프로퍼티는 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]] 프로퍼티 어트리뷰트를 갖는다let descriptor = Object.getOwnPropertyDescriptor(person, &#x27;firstName&#x27;);console.log(descriptor);// &#123;value: &quot;Apple&quot;, writable: true, enumerable: true, configurable: true&#125;// fullName은 접근자 프로퍼티다.// 접근자 프로퍼티는 [[Get]], [[Set]], [[Enumerable]], [[Configurable]] 프로퍼티 어트리뷰트를 갖는다.descriptor = Object.getOwnPropertyDescriptor(person, &#x27;fullName&#x27;);console.log(descriptor);// &#123;get: ƒ, set: ƒ, enumerable: true, configurable: true&#125;\n\n\n\n\n접근자 프로퍼티와 데이터 프로퍼티를 구별하는 방법\n\n1234567// 일반 객체의 __proto__는 접근자 프로퍼티다.Object.getOwnPropertyDescriptor(Object.prototype, &#x27;__proto__&#x27;);// &#123;get: ƒ, set: ƒ, enumerable: false, configurable: true&#125;// 함수 객체의 prototype은 데이터 프로퍼티다.Object.getOwnPropertyDescriptor(function() &#123;&#125;, &#x27;prototype&#x27;);// &#123;value: &#123;...&#125;, writable: true, enumerable: false, configurable: false&#125;\n\n\n\n4) 프로퍼티 정의\n📒 프로퍼티 정의 :새로운 프로퍼티를 추가하면서 프로퍼티 어트리뷰트를 명시적으로 정의하거나, 기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의하는 것Object.defineProperty 메서드를 사용한다.\n\n4.1. 데이터 프로퍼티의 정의12345678910111213141516171819202122const person = &#123;&#125;;// 데이터 프로퍼티 정의Object.defineProperty(person, &#x27;firstName&#x27;, &#123;  value: &#x27;Hanseul&#x27;,  writable: true,  enumerable: true,  configurable: true&#125;);Object.defineProperty(person, &#x27;lastName&#x27;, &#123;  value: &#x27;Lee&#x27;&#125;);let descriptor = Object.getOwnPropertyDescriptor(person, &#x27;firstName&#x27;);console.log(&#x27;firstName&#x27;, descriptor);// firstName &#123;value: &quot;Hanseul&quot;, writable: true, enumerable: true, configurable: true&#125;// 디스크립터 객체의 프로퍼티를 누락시키면 undefined, false가 기본값이다.descriptor = Object.getOwnPropertyDescriptor(person, &#x27;lastName&#x27;);console.log(&#x27;lastName&#x27;, descriptor);// lastName &#123;value: &quot;Lee&quot;, writable: false, enumerable: false, configurable: false&#125;\n\nObject.defineProperty 메서드로 프로퍼티를 정의할 때 프로퍼티 디스크립터 객체의 프로퍼티를 일부 생략할 수 있다. 프로퍼티 디스크립터 객체에서 생략된 어트리뷰트는 다음과 같이 기본값이 적용된다.\n\n\n\n\n\n4.2. 접근자 프로퍼티의 정의1234567891011121314151617181920// 접근자 프로퍼티 정의Object.defineProperty(person, &#x27;fullName&#x27;, &#123;  // getter 함수  get() &#123;    return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;  &#125;,  // setter 함수  set(name) &#123;    [this.firstName, this.lastName] = name.split(&#x27; &#x27;);  &#125;,  enumerable: true,  configurable: true&#125;);descriptor = Object.getOwnPropertyDescriptor(person, &#x27;fullName&#x27;);console.log(&#x27;fullName&#x27;, descriptor);// fullName &#123;get: ƒ, set: ƒ, enumerable: true, configurable: true&#125;person.fullName = &#x27;Apple Lee&#x27;;console.log(person); // &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;\n\n\n\nObject.defineProperties 메서드를 사용하면 여러 개의 프로퍼티를 한 번에 정의할 수 있다.\n\n123456789101112131415161718192021222324252627282930313233const person = &#123;&#125;;Object.defineProperties(person, &#123;  // 데이터 프로퍼티 정의  firstName: &#123;    value: &#x27;Hanseul&#x27;,    writable: true,    enumerable: true,    configurable: true  &#125;,  lastName: &#123;    value: &#x27;Lee&#x27;,    writable: true,    enumerable: true,    configurable: true  &#125;,  // 접근자 프로퍼티 정의  fullName: &#123;    // getter 함수    get() &#123;      return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;    &#125;,    // setter 함수    set(name) &#123;      [this.firstName, this.lastName] = name.split(&#x27; &#x27;);    &#125;,    enumerable: true,    configurable: true  &#125;&#125;);person.fullName = &#x27;Apple Lee&#x27;;console.log(person); // &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;\n\n\n5) 객체 변경 방지\n객체는 변경 가능한 값이므로 직접 프로퍼티를 추가하거나 삭제할 수 있고, 프로퍼티 값을 갱신할 수 있으며, 프로퍼티 어트리뷰트를 재정의할 수도 있다.\n자바스크립트는 객체의 변경을 방지하는 다양한 메서드를 제공한다. 객체 변경 방지 메서드들은 객체의 변경을 금지하는 강도가 다르다.      \n\n\n\n\n5.1. 객체 확장 금지\nObject.preventExtensions 메서드 사용\n프로퍼티 추가 금지를 의미한다.\n프로퍼티 추가는 금지되지만 삭제는 가능하다.\n확장이 가능한 객체인지 여부는 Object.isExtensible 메서드로 확인할 수 있다.1234567891011121314const person = &#123; name: &#x27;Lee&#x27; &#125;;// person 객체는 확장이 금지된 객체가 아니다.console.log(Object.isExtensible(person)); // true// person 객체의 확장을 금지하여 프로퍼티 추가를 금지한다.Object.preventExtensions(person);// person 객체는 확장이 금지된 객체다.console.log(Object.isExtensible(person)); // false// 프로퍼티 추가가 금지된다.person.age = 20; // 무시. strict mode에서는 에러console.log(person); // &#123;name: &quot;Lee&quot;&#125;\n\n\n\n5.2. 객체 밀봉\nObject.seal 메서드 사용\n프로퍼티 추가 및 삭제, 프로퍼티 어트리뷰트 재정의가 금지된다. 즉, 밀봉된 객체는 읽기와 쓰기만 가능하다. (프로퍼티 값 갱신은 가능하다.)\n밀봉된 객체인지 여부는 Object.isSealed 메서드로 확인 할 수 있다.\n밀봉된 객체는 configurable이 false다.123456789101112131415161718const person = &#123; name: &#x27;Lee&#x27; &#125;;// person 객체는 밀봉(seal)된 객체가 아니다.console.log(Object.isSealed(person)); // false// person 객체를 밀봉(seal)하여 프로퍼티 추가, 삭제, 재정의를 금지한다.Object.seal(person);// person 객체는 밀봉(seal)된 객체다.console.log(Object.isSealed(person)); // true// 밀봉(seal)된 객체는 configurable이 false다.console.log(Object.getOwnPropertyDescriptors(person));/*&#123;  name: &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: false&#125;,&#125;*/\n\n\n\n5.3. 객체 동결\nObject.freeze 메서드 사용\n프로퍼티 추가 및 삭제와 프로퍼티 어트리뷰트 재정의 금지, 프로퍼티 값 갱신 금지를 의미한다. 즉, 동결된 객체는 읽기만 가능하다.\n동결된 객체인지 여부는 Object.isFrozen 메서드로 확인 할 수 있다.123456789101112131415161718const person = &#123; name: &#x27;Lee&#x27; &#125;;// person 객체는 동결(freeze)된 객체가 아니다.console.log(Object.isFrozen(person)); // false// person 객체를 동결(freeze)하여 프로퍼티 추가, 삭제, 재정의, 쓰기를 금지한다.Object.freeze(person);// person 객체는 동결(freeze)된 객체다.console.log(Object.isFrozen(person)); // true// 동결(freeze)된 객체는 writable과 configurable이 false다.console.log(Object.getOwnPropertyDescriptors(person));/*&#123;  name: &#123;value: &quot;Lee&quot;, writable: false, enumerable: true, configurable: false&#125;,&#125;*/\n\n\n\n5.4. 불변 객체\n위의 3가지 변경 방지 메서드들은 얕은 변경 방지(shallow only)로 직속 프로퍼티만 변경이 방지되고 중첩 객체까지는 영향을 주지는 못한다. 따라서 Object.freeze 메서드로 객체를 동결하여도 중첩 객체까지 동결할 수 없다. -&gt; 얕은 객체 동결(cf. 얕은 복사(shallow copy)와 깊은 복사(deep copy))\n\n123456789101112131415const person = &#123;  name: &#x27;Lee&#x27;,  address: &#123; city: &#x27;Seoul&#x27; &#125;&#125;;// 얕은 객체 동결Object.freeze(person);// 직속 프로퍼티만 동결한다.console.log(Object.isFrozen(person)); // true// 중첩 객체까지 동결하지 못한다.console.log(Object.isFrozen(person.address)); // falseperson.address.city = &#x27;LA&#x27;;console.log(person); // &#123;name: &quot;Lee&quot;, address: &#123;city: &quot;LA&quot;&#125;&#125;\n\n\n\n만약 객체의 중첩 객체까지 동결(깊은 객체 동결)하여 변경이 불가능한 읽기 전용의 불변 객체를 구현하려면객체를 값으로 갖는 모든 프로퍼티에 대해 재귀적으로 Object.freeze 메서드를 호출해야 한다.\n\n12345678910111213141516171819202122232425262728function deepFreeze(target) &#123;  // 객체가 아니거나 동결된 객체는 무시하고 객체이고 동결되지 않은 객체만 동결한다.  if (target &amp;&amp; typeof target === &#x27;object&#x27; &amp;&amp; !Object.isFrozen(target)) &#123;    Object.freeze(target);    /*      모든 프로퍼티를 순회하며 재귀적으로 동결한다.      Object.keys 메서드는 객체 자신의 열거 가능한 프로퍼티 키를 배열로 반환한다.      forEach 메서드는 배열을 순회하며 배열의 각 요소에 대하여 콜백 함수를 실행한다.    */    Object.keys(target).forEach(key =&gt; deepFreeze(target[key]));  &#125;  return target;&#125;const person = &#123;  name: &#x27;Lee&#x27;,  address: &#123; city: &#x27;Seoul&#x27; &#125;&#125;;// 깊은 객체 동결deepFreeze(person);console.log(Object.isFrozen(person)); // true// 중첩 객체까지 동결한다.console.log(Object.isFrozen(person.address)); // trueperson.address.city = &#x27;LA&#x27;;console.log(person); // &#123;name: &quot;Lee&quot;, address: &#123;city: &quot;Seoul&quot;&#125;&#125;\n\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-09-18T07:14:59+09:00","dateModified":"2020-12-10T23:12:18+09:00","datePublished":"2020-09-18T07:14:59+09:00","description":"\n자바스크립트 엔진은 프로퍼티를 생성할 때 프로퍼티의 상태를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다. 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]]이다.","headline":"16. 프로퍼티 어트리뷰트","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/JS-16/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/JS-16/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
+    <meta name="description" content="자바스크립트 엔진은 프로퍼티를 생성할 때 프로퍼티의 상태를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다. 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]]이다.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="16. 프로퍼티 어트리뷰트">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/18/JS-16/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="자바스크립트 엔진은 프로퍼티를 생성할 때 프로퍼티의 상태를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다. 프로퍼티 어트리뷰트는 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]]이다.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/16-1.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/16-2.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/16-4.jpg">
+<meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/16-3.jpg">
+<meta property="article:published_time" content="2020-09-17T22:14:59.000Z">
+<meta property="article:modified_time" content="2020-12-10T14:12:18.542Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/16-1.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/JS-16/js.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/18/JS-16/js.png"/>
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="All-categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-project"
+                            
+                            rel="noopener"
+                            title="project-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-Fastcampus"
+                            
+                            rel="noopener"
+                            title="study-log"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/category-TIL"
+                            
+                            rel="noopener"
+                            title="TIL"
+                        >
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/hanseul-lee/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            16. 프로퍼티 어트리뷰트
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-09-18T07:14:59+09:00">
+	
+		    Sep 18, 2020
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/Javascript/">Javascript</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%EB%82%B4%EB%B6%80-%EC%8A%AC%EB%A1%AF%EA%B3%BC-%EB%82%B4%EB%B6%80-%EB%A9%94%EC%84%9C%EB%93%9C"><span class="toc-number">1.</span> <span class="toc-text">1) 내부 슬롯과 내부 메서드</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%96%B4%ED%8A%B8%EB%A6%AC%EB%B7%B0%ED%8A%B8%EC%99%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EB%94%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%84%B0-%EA%B0%9D%EC%B2%B4"><span class="toc-number">2.</span> <span class="toc-text">2) 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%99%80-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0"><span class="toc-number">3.</span> <span class="toc-text">3) 데이터 프로퍼티와 접근자 프로퍼티</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-data-property"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 데이터 프로퍼티(data property)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-accessor-property"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 접근자 프로퍼티(accessor property)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%A0%95%EC%9D%98"><span class="toc-number">4.</span> <span class="toc-text">4) 프로퍼티 정의</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-%EC%A0%95%EC%9D%98"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 데이터 프로퍼티의 정의</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-%EC%A0%95%EC%9D%98"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 접근자 프로퍼티의 정의</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%EA%B0%9D%EC%B2%B4-%EB%B3%80%EA%B2%BD-%EB%B0%A9%EC%A7%80"><span class="toc-number">5.</span> <span class="toc-text">5) 객체 변경 방지</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%EA%B0%9D%EC%B2%B4-%ED%99%95%EC%9E%A5-%EA%B8%88%EC%A7%80"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. 객체 확장 금지</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%EA%B0%9D%EC%B2%B4-%EB%B0%80%EB%B4%89"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. 객체 밀봉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%EA%B0%9D%EC%B2%B4-%EB%8F%99%EA%B2%B0"><span class="toc-number">5.3.</span> <span class="toc-text">5.3. 객체 동결</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4"><span class="toc-number">5.4.</span> <span class="toc-text">5.4. 불변 객체</span></a></li></ol></li></ol>
+
+<h1 id="1-내부-슬롯과-내부-메서드"><a href="#1-내부-슬롯과-내부-메서드" class="headerlink" title="1) 내부 슬롯과 내부 메서드"></a>1) 내부 슬롯과 내부 메서드</h1><ul>
+<li>📒 <strong><em>내부 슬롯과 내부 메서드</em></strong><br>자바스크립트 엔진의 구현 알고리즘을 설명하기 위해 ECMAScript 사양에서 사용하는 pseudo property(의사 프로퍼티)와 pseudo method(의사 메서드). </li>
+<li>이중 대괄호([[]])로 감싸 표기한다.</li>
+<li>자바스크립트 엔진의 내부 로직이므로 외부로 공개되지 않고 감춰져 있다.<br>그러므로 원칙적으로 자바스크립트는 내부 슬롯과 내부 메서드에 직접적으로 접근하거나 호출할 수 있는 방법을 제공하지 않는다.</li>
+<li>단, 일부 내부 슬롯과 내부 메서드에 한하여 간접적으로 접근할 수 있는 수단을 제공하기는 한다.<br>  예를 들어, 모든 객체는 [[Prototype]]이라는 내부 슬롯을 갖는다. 내부 슬롯은 자바스크립트 엔진의 내부 로직이므로 원칙적으로 직접 접근할 수 없지만 [[Prototype]] 내부 슬롯의 경우 <code>__proto__</code>를 통해 간접적으로 접근할 수 있다.</li>
+</ul>
+<br>
+
+<h1 id="2-프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체"><a href="#2-프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체" class="headerlink" title="2) 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체"></a>2) 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체</h1><ul>
+<li>자바스크립트 엔진은 프로퍼티를 생성할 때 프로퍼티의 상태를 나타내는 프로퍼티 어트리뷰트를 기본값으로 자동 정의한다. </li>
+<li>📒 <strong><em>프로퍼티 어트리뷰트</em></strong><br>: 자바스크립트 엔진이 관리하는 내부 상태 값(meta-property)인 내부 슬롯 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]] <ul>
+<li>value : 프로퍼티의 값</li>
+<li>writable : 값의 변경 가능 여부</li>
+<li>enumerable : 열거 가능 여부</li>
+<li>configurable : 재정의 가능 여부</li>
+</ul>
+</li>
+<li>프로퍼티 어트리뷰트에 직접 접근할 수 없지만 <code>Object.getOwnPropertyDescriptor</code> 메서드를 사용하여 간접적으로 확인 가능하다.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">&#x27;Lee&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;name&#x27;</span>));</span><br><span class="line"><span class="comment">// &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>메서드를 호출할 때 첫 번째 매개변수에는 객체의 참조를 전달하고 두 번째 매개변수에는 프로퍼티 키를 문자열로 전달한다.<br>(🔴주의!) 위의 ‘name’과 같이 프로퍼티 키를 꼭 문자열로 전달해야 한다.</li>
+<li><code>Object.getOwnPropertyDescriptor</code> 메서드는 프로퍼티 어트리뷰트 정보를 제공하는 <strong><em>프로퍼티 디스크립터(PropertyDescriptor)</em></strong> 객체를 반환한다. 만약 존재하지 않는 프로퍼티나 상속받은 프로퍼티에 대한 프로퍼티 디스크립터를 요구하면 undefined가 반환된다.</li>
+</ul>
+<br>
+
+<h1 id="3-데이터-프로퍼티와-접근자-프로퍼티"><a href="#3-데이터-프로퍼티와-접근자-프로퍼티" class="headerlink" title="3) 데이터 프로퍼티와 접근자 프로퍼티"></a>3) 데이터 프로퍼티와 접근자 프로퍼티</h1><ul>
+<li>프로퍼티는 데이터 프로퍼티와 접근자 프로퍼티로 구분할 수 있다.<ul>
+<li>📒 <strong><em>데이터 프로퍼티(data property)</em></strong><br>키와 값으로 구성된 일반적인 프로퍼티.</li>
+<li>📒 <strong><em>접근자 프로퍼티(accessor property)</em></strong><br>자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(accessor function)로 구성된 프로퍼티</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-1-데이터-프로퍼티-data-property"><a href="#3-1-데이터-프로퍼티-data-property" class="headerlink" title="3.1. 데이터 프로퍼티(data property)"></a>3.1. 데이터 프로퍼티(data property)</h2><ul>
+<li>데이터 프로퍼티의 프로퍼티 어트리뷰트는 자바스크립트 엔진이 프로퍼티를 생성할 때 기본값으로 자동 정의된다.</li>
+</ul>
+<div class="figure center" style="width:;"><img class="fig-img" src="16-1.jpg" alt="데이터 프로퍼티"><span class="caption">데이터 프로퍼티</span></div>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">&#x27;Lee&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 동적 생성</span></span><br><span class="line">person.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptors(person));</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  name: &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: true&#125;,</span></span><br><span class="line"><span class="comment">  age: &#123;value: 20, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Object.getOwnPropertyDescriptor 메서드가 반환한 프로퍼티 디스크립터 객체를 살펴보면 value 프로퍼티의 값은 ‘Lee’다. 이것은 프로퍼티 어트리뷰트 [[Value]]의 값이 ‘Lee’인 것을 의미한다.</li>
+<li>writable, enumerable, configurable 프로퍼티의 값은 모두 true다. 이것은 프로퍼티 어트리뷰트 [[Writable]], [[Enumerable]], [[Configurable]]의 값이 모두 true인 것을 의미한다.</li>
+<li>프로퍼티가 생성될 때 [[Value]]의 값은 프로퍼티 값으로 초기화되며 [[Writable]], [[Enumerable]], [[Configurable]]의 값은 true로 초기화된다. 이것은 프로퍼티를 동적 추가해도 마찬가지다.</li>
+</ul>
+<h2 id="3-2-접근자-프로퍼티-accessor-property"><a href="#3-2-접근자-프로퍼티-accessor-property" class="headerlink" title="3.2. 접근자 프로퍼티(accessor property)"></a>3.2. 접근자 프로퍼티(accessor property)</h2><ul>
+<li>접근자 프로퍼티는 <strong><em>자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 사용하는 접근자 함수로 구성된 프로퍼티</em></strong> 이다.</li>
+<li>접근자 함수는 getter/setter 함수라고도 부른다.<br>접근자 프로퍼티는 getter와 setter 함수를 모두 정의할 수도 있고 하나만 정의할 수도 있다. </li>
+<li>접근자 프로퍼티는 자체적으로 값(프로퍼티 어트리뷰트 [[Value]])을 가지지 않으며 다만 데이터 프로퍼티의 값을 읽거나 저장할 때 관여할 뿐이다.</li>
+</ul>
+<div class="figure center" style="width:;"><img class="fig-img" src="16-2.jpg" alt="접근자 프로퍼티"><span class="caption">접근자 프로퍼티</span></div>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="comment">// 데이터 프로퍼티</span></span><br><span class="line">  firstName: <span class="string">&#x27;Hanseul&#x27;</span>,</span><br><span class="line">  lastName: <span class="string">&#x27;Lee&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// fullName은 접근자 함수로 구성된 접근자 프로퍼티다.</span></span><br><span class="line">  <span class="comment">// getter 함수</span></span><br><span class="line">  <span class="keyword">get</span> <span class="title">fullName</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="built_in">this</span>.lastName&#125;</span>`</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// setter 함수</span></span><br><span class="line">  <span class="keyword">set</span> <span class="title">fullName</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="comment">// 배열 디스트럭처링 할당</span></span><br><span class="line">    <span class="comment">// setter 함수는 return문이 필요없고 할당받는 인수가 필요하다.</span></span><br><span class="line">    [<span class="built_in">this</span>.firstName, <span class="built_in">this</span>.lastName] = name.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// cf. 어려우면 getter/setter 함수 대신 이렇게 메서드를 추가해도 동일하게 동작한다.</span></span><br><span class="line">  getFullName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.firstName + <span class="string">&#x27; &#x27;</span> + <span class="built_in">this</span>.lastName;</span><br><span class="line">  &#125;</span><br><span class="line">  setFullName() &#123;</span><br><span class="line">    [<span class="built_in">this</span>.firstName, <span class="built_in">this</span>.lastname] = name.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 데이터 프로퍼티를 통한 프로퍼티 값의 참조.</span></span><br><span class="line"><span class="built_in">console</span>.log(person.firstName + <span class="string">&#x27; &#x27;</span> + person.lastName); <span class="comment">// Hanseul Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 접근자 프로퍼티를 통한 프로퍼티 값의 저장</span></span><br><span class="line"><span class="comment">// 접근자 프로퍼티 fullName에 값을 저장하면 setter 함수가 호출된다.</span></span><br><span class="line">person.fullName = <span class="string">&#x27;Apple Lee&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 접근자 프로퍼티를 통한 프로퍼티 값의 참조</span></span><br><span class="line"><span class="comment">// 접근자 프로퍼티 fullName에 접근하면 getter 함수가 호출된다.</span></span><br><span class="line"><span class="built_in">console</span>.log(person.fullName); <span class="comment">// Apple Lee</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// firstName은 데이터 프로퍼티다.</span></span><br><span class="line"><span class="comment">// 데이터 프로퍼티는 [[Value]], [[Writable]], [[Enumerable]], [[Configurable]] 프로퍼티 어트리뷰트를 갖는다</span></span><br><span class="line"><span class="keyword">let</span> descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;firstName&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(descriptor);</span><br><span class="line"><span class="comment">// &#123;value: &quot;Apple&quot;, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// fullName은 접근자 프로퍼티다.</span></span><br><span class="line"><span class="comment">// 접근자 프로퍼티는 [[Get]], [[Set]], [[Enumerable]], [[Configurable]] 프로퍼티 어트리뷰트를 갖는다.</span></span><br><span class="line">descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;fullName&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(descriptor);</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: ƒ, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li>접근자 프로퍼티와 데이터 프로퍼티를 구별하는 방법</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 일반 객체의 __proto__는 접근자 프로퍼티다.</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="built_in">Object</span>.prototype, <span class="string">&#x27;__proto__&#x27;</span>);</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: ƒ, enumerable: false, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 객체의 prototype은 데이터 프로퍼티다.</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;, <span class="string">&#x27;prototype&#x27;</span>);</span><br><span class="line"><span class="comment">// &#123;value: &#123;...&#125;, writable: true, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="4-프로퍼티-정의"><a href="#4-프로퍼티-정의" class="headerlink" title="4) 프로퍼티 정의"></a>4) 프로퍼티 정의</h1><ul>
+<li>📒 <strong><em>프로퍼티 정의</em></strong> :<br>새로운 프로퍼티를 추가하면서 프로퍼티 어트리뷰트를 명시적으로 정의하거나, 기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의하는 것<br><code>Object.defineProperty</code> 메서드를 사용한다.</li>
+</ul>
+<h2 id="4-1-데이터-프로퍼티의-정의"><a href="#4-1-데이터-프로퍼티의-정의" class="headerlink" title="4.1. 데이터 프로퍼티의 정의"></a>4.1. 데이터 프로퍼티의 정의</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 데이터 프로퍼티 정의</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">&#x27;firstName&#x27;</span>, &#123;</span><br><span class="line">  value: <span class="string">&#x27;Hanseul&#x27;</span>,</span><br><span class="line">  writable: <span class="literal">true</span>,</span><br><span class="line">  enumerable: <span class="literal">true</span>,</span><br><span class="line">  configurable: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">&#x27;lastName&#x27;</span>, &#123;</span><br><span class="line">  value: <span class="string">&#x27;Lee&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;firstName&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;firstName&#x27;</span>, descriptor);</span><br><span class="line"><span class="comment">// firstName &#123;value: &quot;Hanseul&quot;, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 디스크립터 객체의 프로퍼티를 누락시키면 undefined, false가 기본값이다.</span></span><br><span class="line">descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;lastName&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;lastName&#x27;</span>, descriptor);</span><br><span class="line"><span class="comment">// lastName &#123;value: &quot;Lee&quot;, writable: false, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Object.defineProperty 메서드로 프로퍼티를 정의할 때 프로퍼티 디스크립터 객체의 프로퍼티를 일부 생략할 수 있다. 프로퍼티 디스크립터 객체에서 생략된 어트리뷰트는 다음과 같이 기본값이 적용된다.<div class="figure center" style="width:;"><img class="fig-img" src="16-4.jpg" alt=""></div>
+
+</li>
+</ul>
+<br>
+
+<h2 id="4-2-접근자-프로퍼티의-정의"><a href="#4-2-접근자-프로퍼티의-정의" class="headerlink" title="4.2. 접근자 프로퍼티의 정의"></a>4.2. 접근자 프로퍼티의 정의</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 접근자 프로퍼티 정의</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">&#x27;fullName&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// getter 함수</span></span><br><span class="line">  get() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="built_in">this</span>.lastName&#125;</span>`</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// setter 함수</span></span><br><span class="line">  set(name) &#123;</span><br><span class="line">    [<span class="built_in">this</span>.firstName, <span class="built_in">this</span>.lastName] = name.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  enumerable: <span class="literal">true</span>,</span><br><span class="line">  configurable: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(person, <span class="string">&#x27;fullName&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;fullName&#x27;</span>, descriptor);</span><br><span class="line"><span class="comment">// fullName &#123;get: ƒ, set: ƒ, enumerable: true, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line">person.fullName = <span class="string">&#x27;Apple Lee&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>Object.defineProperties 메서드를 사용하면 여러 개의 프로퍼티를 한 번에 정의할 수 있다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperties(person, &#123;</span><br><span class="line">  <span class="comment">// 데이터 프로퍼티 정의</span></span><br><span class="line">  firstName: &#123;</span><br><span class="line">    value: <span class="string">&#x27;Hanseul&#x27;</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  lastName: &#123;</span><br><span class="line">    value: <span class="string">&#x27;Lee&#x27;</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 접근자 프로퍼티 정의</span></span><br><span class="line">  fullName: &#123;</span><br><span class="line">    <span class="comment">// getter 함수</span></span><br><span class="line">    get() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="built_in">this</span>.lastName&#125;</span>`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// setter 함수</span></span><br><span class="line">    set(name) &#123;</span><br><span class="line">      [<span class="built_in">this</span>.firstName, <span class="built_in">this</span>.lastName] = name.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">person.fullName = <span class="string">&#x27;Apple Lee&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;firstName: &quot;Apple&quot;, lastName: &quot;Lee&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h1 id="5-객체-변경-방지"><a href="#5-객체-변경-방지" class="headerlink" title="5) 객체 변경 방지"></a>5) 객체 변경 방지</h1><ul>
+<li>객체는 변경 가능한 값이므로 직접 프로퍼티를 추가하거나 삭제할 수 있고, 프로퍼티 값을 갱신할 수 있으며, 프로퍼티 어트리뷰트를 재정의할 수도 있다.</li>
+<li>자바스크립트는 객체의 변경을 방지하는 다양한 메서드를 제공한다. 객체 변경 방지 메서드들은 객체의 변경을 금지하는 강도가 다르다.      <div class="figure center" style="width:;"><img class="fig-img" src="16-3.jpg" alt=""></div>
+<br>
+
+</li>
+</ul>
+<h2 id="5-1-객체-확장-금지"><a href="#5-1-객체-확장-금지" class="headerlink" title="5.1. 객체 확장 금지"></a>5.1. 객체 확장 금지</h2><ul>
+<li><code>Object.preventExtensions</code> 메서드 사용</li>
+<li>프로퍼티 추가 금지를 의미한다.</li>
+<li>프로퍼티 추가는 금지되지만 삭제는 가능하다.</li>
+<li>확장이 가능한 객체인지 여부는 <code>Object.isExtensible</code> 메서드로 확인할 수 있다.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;Lee&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 확장이 금지된 객체가 아니다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(person)); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체의 확장을 금지하여 프로퍼티 추가를 금지한다.</span></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(person);</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 확장이 금지된 객체다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(person)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 추가가 금지된다.</span></span><br><span class="line">person.age = <span class="number">20</span>; <span class="comment">// 무시. strict mode에서는 에러</span></span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Lee&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="5-2-객체-밀봉"><a href="#5-2-객체-밀봉" class="headerlink" title="5.2. 객체 밀봉"></a>5.2. 객체 밀봉</h2><ul>
+<li><code>Object.seal</code> 메서드 사용</li>
+<li>프로퍼티 추가 및 삭제, 프로퍼티 어트리뷰트 재정의가 금지된다. 즉, 밀봉된 객체는 읽기와 쓰기만 가능하다. (프로퍼티 값 갱신은 가능하다.)</li>
+<li>밀봉된 객체인지 여부는 <code>Object.isSealed</code> 메서드로 확인 할 수 있다.</li>
+<li>밀봉된 객체는 configurable이 false다.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;Lee&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 밀봉(seal)된 객체가 아니다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(person)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체를 밀봉(seal)하여 프로퍼티 추가, 삭제, 재정의를 금지한다.</span></span><br><span class="line"><span class="built_in">Object</span>.seal(person);</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 밀봉(seal)된 객체다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(person)); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 밀봉(seal)된 객체는 configurable이 false다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptors(person));</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  name: &#123;value: &quot;Lee&quot;, writable: true, enumerable: true, configurable: false&#125;,</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="5-3-객체-동결"><a href="#5-3-객체-동결" class="headerlink" title="5.3. 객체 동결"></a>5.3. 객체 동결</h2><ul>
+<li><code>Object.freeze</code> 메서드 사용</li>
+<li>프로퍼티 추가 및 삭제와 프로퍼티 어트리뷰트 재정의 금지, 프로퍼티 값 갱신 금지를 의미한다. 즉, 동결된 객체는 읽기만 가능하다.</li>
+<li>동결된 객체인지 여부는 <code>Object.isFrozen</code> 메서드로 확인 할 수 있다.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;Lee&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 동결(freeze)된 객체가 아니다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체를 동결(freeze)하여 프로퍼티 추가, 삭제, 재정의, 쓰기를 금지한다.</span></span><br><span class="line"><span class="built_in">Object</span>.freeze(person);</span><br><span class="line"></span><br><span class="line"><span class="comment">// person 객체는 동결(freeze)된 객체다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person)); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 동결(freeze)된 객체는 writable과 configurable이 false다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptors(person));</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  name: &#123;value: &quot;Lee&quot;, writable: false, enumerable: true, configurable: false&#125;,</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="5-4-불변-객체"><a href="#5-4-불변-객체" class="headerlink" title="5.4. 불변 객체"></a>5.4. 불변 객체</h2><ul>
+<li>위의 3가지 변경 방지 메서드들은 얕은 변경 방지(shallow only)로 직속 프로퍼티만 변경이 방지되고 중첩 객체까지는 영향을 주지는 못한다. 따라서 Object.freeze 메서드로 객체를 동결하여도 중첩 객체까지 동결할 수 없다. -&gt; 얕은 객체 동결<br>(cf. <a href="https://hanseul-lee.github.io/2020/08/26/JS-11/#%EC%96%95%EC%9D%80-%EB%B3%B5%EC%82%AC-shallow-copy-%EC%99%80-%EA%B9%8A%EC%9D%80-%EB%B3%B5%EC%82%AC-deep-copy">얕은 복사(shallow copy)와 깊은 복사(deep copy)</a>)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">&#x27;Lee&#x27;</span>,</span><br><span class="line">  address: &#123; <span class="attr">city</span>: <span class="string">&#x27;Seoul&#x27;</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 얕은 객체 동결</span></span><br><span class="line"><span class="built_in">Object</span>.freeze(person);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 직속 프로퍼티만 동결한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person)); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 중첩 객체까지 동결하지 못한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person.address)); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">person.address.city = <span class="string">&#x27;LA&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Lee&quot;, address: &#123;city: &quot;LA&quot;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<ul>
+<li>만약 객체의 중첩 객체까지 동결(깊은 객체 동결)하여 변경이 불가능한 읽기 전용의 불변 객체를 구현하려면<br>객체를 값으로 갖는 모든 프로퍼티에 대해 재귀적으로 Object.freeze 메서드를 호출해야 한다.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepFreeze</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 객체가 아니거나 동결된 객체는 무시하고 객체이고 동결되지 않은 객체만 동결한다.</span></span><br><span class="line">  <span class="keyword">if</span> (target &amp;&amp; <span class="keyword">typeof</span> target === <span class="string">&#x27;object&#x27;</span> &amp;&amp; !<span class="built_in">Object</span>.isFrozen(target)) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.freeze(target);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">      모든 프로퍼티를 순회하며 재귀적으로 동결한다.</span></span><br><span class="line"><span class="comment">      Object.keys 메서드는 객체 자신의 열거 가능한 프로퍼티 키를 배열로 반환한다.</span></span><br><span class="line"><span class="comment">      forEach 메서드는 배열을 순회하며 배열의 각 요소에 대하여 콜백 함수를 실행한다.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">Object</span>.keys(target).forEach(<span class="function"><span class="params">key</span> =&gt;</span> deepFreeze(target[key]));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">&#x27;Lee&#x27;</span>,</span><br><span class="line">  address: &#123; <span class="attr">city</span>: <span class="string">&#x27;Seoul&#x27;</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 깊은 객체 동결</span></span><br><span class="line">deepFreeze(person);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person)); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 중첩 객체까지 동결한다.</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person.address)); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">person.address.city = <span class="string">&#x27;LA&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Lee&quot;, address: &#123;city: &quot;Seoul&quot;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<br>
+
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>poiemaweb.com</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
+
+              </div>
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/18/JS-17/"
+                    data-tooltip="17. 생성자 함수에 의한 객체 생성"
+                    aria-label="PREVIOUS: 17. 생성자 함수에 의한 객체 생성"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/17/20-09-17-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/"
+                    data-tooltip="[과제] 자료구조와 알고리즘 - 1. 검색"
+                    aria-label="NEXT: [과제] 자료구조와 알고리즘 - 1. 검색"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+                
+                  <!-- Comment -->
+                  <!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+                  <!-- 
+        
+    </div>
+</article>
+
+
+<!-- Comment -->
+<!--  utteranc comment -->
+
+  <script src="https://utteranc.es/client.js"
+  repo="hanseul-lee / blog-comments"
+  issue-term="title"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+  
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2020 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/18/JS-17/"
+                    data-tooltip="17. 생성자 함수에 의한 객체 생성"
+                    aria-label="PREVIOUS: 17. 생성자 함수에 의한 객체 생성"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/09/17/20-09-17-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/"
+                    data-tooltip="[과제] 자료구조와 알고리즘 - 1. 검색"
+                    aria-label="NEXT: [과제] 자료구조와 알고리즘 - 1. 검색"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
