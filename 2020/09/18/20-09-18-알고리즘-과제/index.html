@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[과제] 알고리즘 과제 - 2020.09.18  - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/18/20-09-18-알고리즘-과제/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/18/20-09-18-알고리즘-과제/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)\n1부터 10,000까지 8이라는 숫자가 총 몇번 나오는가? 이를 구하는 함수를 완성하라.단, 8이 포함되어 있는 숫자의 갯수를 카운팅 하는 것이 아니라 8이라는 숫자를 모두 카운팅 해야 한다.예를 들어 8808은 3, 8888은 4로 카운팅 해야 한다.\n(hint) 문자열 중 n번째에 있는 문자 : str.charAt(n) or str[n]\n\n123456789101112function getCount8 ()&#123;  var string = &#x27;&#x27;;  for(var i = 0; i &lt;= 10000; i++)&#123;   string += i;   &#125;  var count = 0;  for (var i = 0; i &lt; string.length; i++)&#123;    if (string[i] === &#x27;8&#x27;) count++;  &#125;  return count;&#125;console.log(getCount8()); //4000\n\n\n\n2. 이상한 문자 만들기\ntoWeirdCase함수는 문자열을 인수로 전달받는다.문자열 s에 각 단어의 짝수번째 인덱스 문자는 대문자로, 홀수번째 인덱스 문자는 소문자로 바꾼 문자열을 리턴하도록 함수를 완성하라.예를 들어 s가 ‘hello world’라면 첫 번째 단어는 ‘HeLlO’, 두 번째 단어는 ‘WoRlD’로 바꿔 ‘HeLlO WoRlD’를 리턴한다.\n주의) 문자열 전체의 짝/홀수 인덱스가 아니라 단어(공백을 기준)별로 짝/홀수 인덱스를 판단한다.\n\n123456789101112131415161718192021function toWeirdCase(s) &#123;  var string = &#x27;&#x27;;  var count = 0;  for(var i = 0; i &lt; s.length; i++)&#123;    if(s[i] === &#x27; &#x27;)&#123;      string += s[i];       count = 0;    &#125;    else if(count % 2 === 0)&#123;      string += s[i].toUpperCase();       count++;    &#125;    else&#123;      string += s[i].toLowerCase();       count++;    &#125;  &#125;  return string;&#125;console.log(toWeirdCase(&#x27;hello world&#x27;));    // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;\n\n방법1\n\n123456789101112131415161718192021function toWeirdCase(s) &#123;  // str을 단어로 구분하여 배열 생성  const words = s.split(&#x27; &#x27;);  // console.log(words); // [ &#x27;hello&#x27;, &#x27;world&#x27; ]  function toUpperLower(word) &#123;    let res = &#x27;&#x27;;    for (let i = 0; i &lt; word.length; i++) &#123;      // 짝수 인덱스 문자는 대문자로, 홀수 인덱스 문자는 소문자로      res += i % 2 ? word[i].toLowerCase() : word[i].toUpperCase();    &#125;    return res;  &#125;  let res = &#x27;&#x27;;  for (let i = 0; i &lt; words.length; i++) &#123;    res += toUpperLower(words[i]) + &#x27; &#x27;;  &#125;  return res;&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds\n\n방법2\n\n1234567891011// mapfunction toWeirdCase(s) &#123;  return s    .split(&#x27; &#x27;)    .map(word =&gt; word.split(&#x27;&#x27;))    .map(word =&gt; word.map((c, i) =&gt; (i % 2 ? c.toLowerCase() : c.toUpperCase())).join(&#x27;&#x27;))    .join(&#x27; &#x27;);&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds\n\n방법3\n\n1234567function toWeirdCase(s) &#123;  // 정규 표현식 /(\\w)(\\w)/g로 두 글자를 캡쳐해서 replacer 함수로 변형  return s.toUpperCase().replace(/(\\w)(\\w)/g, c =&gt; c[0] + c[1].toLowerCase());&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds","dateCreated":"2020-09-18T17:28:18+09:00","dateModified":"2020-10-24T15:19:32+09:00","datePublished":"2020-09-18T17:28:18+09:00","description":"","headline":"[과제] 알고리즘 과제 - 2020.09.18 ","image":["HW.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/","thumbnailUrl":"HW.jpg"}</script>
     <meta property="og:type" content="blog">
@@ -27,11 +31,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg">
     
     
     
@@ -72,24 +76,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -106,11 +102,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -124,13 +117,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -138,13 +125,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -152,13 +133,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -166,13 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -180,13 +149,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -194,13 +157,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -208,13 +165,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -226,15 +177,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -246,8 +189,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -326,12 +268,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/"
-                    data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)"
-                    aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/" data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)" aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -340,12 +277,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/18/JS-17/"
-                    data-tooltip="17. 생성자 함수에 의한 객체 생성"
-                    aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/18/JS-17/" data-tooltip="17. 생성자 함수에 의한 객체 생성" aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -355,11 +287,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -386,12 +314,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -410,12 +333,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/"
-                    data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)"
-                    aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/" data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)" aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -424,12 +342,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/18/JS-17/"
-                    data-tooltip="17. 생성자 함수에 의한 객체 생성"
-                    aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/18/JS-17/" data-tooltip="17. 생성자 함수에 의한 객체 생성" aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -439,11 +352,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -480,7 +389,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -490,7 +399,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -498,7 +407,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

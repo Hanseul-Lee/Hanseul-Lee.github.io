@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[React] Router : history, match, location - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/24/20-12-24-router/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/24/20-12-24-router/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\nRouter propshistory, match, location은 리액트 라우트로 사용된 컴포넌트에 전달되는 props 중 하나로, 이 객체들를 통해 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다. \n1234567891011121314151617181920212223242526272829303132333435// App.jsimport &#x27;./App.css&#x27;;import &#123; Route, Link, Switch &#125; from &#x27;react-router-dom&#x27;;import About from &#x27;./About&#x27;;import Home from &#x27;./Home&#x27;;function App() &#123;  return (    &lt;div&gt;      &lt;ul&gt;        &lt;li&gt;          &lt;Link to=&#123;&#x27;/&#x27;&#125;&gt;홈&lt;/Link&gt;        &lt;/li&gt;        &lt;li&gt;          &lt;Link to=&#123;&#x27;/about&#x27;&#125;&gt;About&lt;/Link&gt;        &lt;/li&gt;      &lt;/ul&gt;      &lt;hr /&gt;      &lt;Switch&gt;        &lt;Route path=&quot;/&quot; exact component=&#123;Home&#125; /&gt;        &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;        &lt;Route          render=&#123;(&#123; location &#125;) =&gt; (            &lt;div&gt;              &lt;h2&gt;존재하지 않는 페이지 입니다.&lt;/h2&gt;              &lt;p&gt;&#123;location.pathname&#125;&lt;/p&gt;            &lt;/div&gt;          )&#125;        /&gt;      &lt;/Switch&gt;    &lt;/div&gt;  );&#125;export default App;\n\n\n123456789101112131415// About.jsximport React from &#x27;react&#x27;;const About = (props) =&gt; &#123;  console.log(props);  return (    &lt;div&gt;      &lt;h1&gt;소개&lt;/h1&gt;      &lt;p&gt;안녕하세요 라라랜드 맛있는 레몬워터&lt;/p&gt;    &lt;/div&gt;  );&#125;;export default About;\n\n\n\n위에서 console.log(props)를 해주면 다음과 같은 결과를 볼 수 있다.\n\n\nconsole.log(props)\n\n\n반환된 객체(props)에서 history, location, match가 담겨있는 것을 확인할 수 있다.\n\n\nhistoryhistory 객체는 브라우저의 history와 유사하다.스택(stack)에 현재까지 이동한 url 경로들이 담겨있는 형태로 주소를 임의로 변경하거나 되돌아갈 수 있도록 해준다.history객체는 mutable하므로 history.location보다는 location을 직접 사용해 주기를 권장한다.\n\n\n\n\n\n\n\nlength : [number] 전체 history 스택의 길이\naction : [string] 최근에 수행된 action (PUSH, REPLACE or POP)\nlocation : [JSON object] 최근 경로 정보\npush(path, [state]) : [function] 새로운 경로를 history 스택으로 푸시하여 페이지를 이동\nreplace(path, [state]) : [function] 최근 경로를 history 스택에서 교체하여 페이지를 이동\ngo(n) : [function] : history 스택의 포인터를 n번째로 이동\ngoBack() : [function] 이전 페이지로 이동\ngoForward() : [function] 앞 페이지로 이동\nblock(prompt) : [function] history 스택의 PUSH/POP 동작을 제어\n\n\n\nmatchmatch 객체에는 ‘Route path’와 URL이 매칭된 것에 대한 정보가 담겨져있다.대표적으로 match.params로 path에 설정한 파라미터값을 가져올 수 있다.\n\n\n\n\n\n\n\npath : [string] 라우터에 정의된 path\nurl : [string] 실제 클라이언트로부터 요청된 url path\nisExact : [boolean] true일 경우 전체 경로가 완전히 매칭될 경우에만 요청을 수행\nparams : [JSON object] url path로 전달된 파라미터 객체 \n\n\n\nlocationlocation 객체에는 현재 페이지의 정보를 가지고 있다.대표적으로 location.search로 현재 url의 쿼리 스트링을 가져올 수 있다.\n\n\n\n\n\n\n\nReference\n\n김민준, 리액트를 다루는 기술\nhttps://reactrouter.com/web/api/history\nhttps://gongbu-ing.tistory.com/45\nhttps://medium.com/@han7096/react-router-v4-%EC%A0%95%EB%A6%AC-e9931b63dcae\n","dateCreated":"2020-12-24T10:05:17+09:00","dateModified":"2020-12-24T15:38:04+09:00","datePublished":"2020-12-24T10:05:17+09:00","description":"\nhistory, match, location은 리액트 라우트로 사용된 컴포넌트에 전달되는 props 중 하나로, 이 객체들를 통해 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다.  ","headline":"[React] Router : history, match, location","image":["React.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/","keywords":"React","thumbnailUrl":"React.jpg"}</script>
     <meta name="description" content="history, match, location은 리액트 라우트로 사용된 컴포넌트에 전달되는 props 중 하나로, 이 객체들를 통해 컴포넌트 내에 구현하는 메서드에서 라우터 API를 호출할 수 있다.">
@@ -35,11 +39,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/React.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/React.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/React.jpg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/24/20-12-24-Router/React.jpg">
     
     
     
@@ -80,24 +84,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -114,11 +110,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -132,13 +125,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -146,13 +133,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -160,13 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -174,13 +149,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -188,13 +157,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -202,13 +165,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -216,13 +173,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -234,15 +185,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -254,8 +197,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -303,18 +245,18 @@
 <p>위에서 <code>console.log(props)</code>를 해주면 다음과 같은 결과를 볼 수 있다.</p>
 <br>
 
-<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-29-52.png" style="width:700px;"alt="console.log(props)"><span class="caption">console.log(props)</span></div>
+<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-29-52.png" style="width:700px;" alt="console.log(props)"><span class="caption">console.log(props)</span></div>
 
 
 <p>반환된 객체(props)에서 history, location, match가 담겨있는 것을 확인할 수 있다.</p>
-<Br>
+<br>
 
 <h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>history 객체는 브라우저의 history와 유사하다.<br>스택(stack)에 현재까지 이동한 url 경로들이 담겨있는 형태로 주소를 임의로 변경하거나 되돌아갈 수 있도록 해준다.<br>history객체는 mutable하므로 history.location보다는 location을 직접 사용해 주기를 권장한다.</p>
-<Br>
+<br>
 
-<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-38-17.png" style="width:700px;"alt=""></div>
+<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-38-17.png" style="width:700px;" alt></div>
 
-<Br>
+<br>
 
 <ul>
 <li><strong>length</strong> : [number] 전체 history 스택의 길이</li>
@@ -327,14 +269,14 @@
 <li><strong>goForward()</strong> : [function] 앞 페이지로 이동</li>
 <li><strong>block(prompt)</strong> : [function] history 스택의 PUSH/POP 동작을 제어</li>
 </ul>
-<Br>
+<br>
 
 <h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><p><strong>match 객체에는 ‘Route path’와 URL이 매칭된 것에 대한 정보가 담겨져있다.</strong><br>대표적으로 match.params로 path에 설정한 파라미터값을 가져올 수 있다.</p>
-<Br>
+<br>
 
-<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-42-05.png" style="width:700px;"alt=""></div>
+<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-42-05.png" style="width:700px;" alt></div>
 
-<Br>
+<br>
 
 <ul>
 <li><strong>path</strong> : [string] 라우터에 정의된 path</li>
@@ -345,19 +287,19 @@
 </li>
 </ul>
 <h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p><strong>location 객체에는 현재 페이지의 정보를 가지고 있다.</strong><br>대표적으로 location.search로 현재 url의 쿼리 스트링을 가져올 수 있다.</p>
-<Br>
+<br>
 
-<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-41-01.png" style="width:700px;"alt=""></div>
+<div class="figure center" style="width:700px;"><img class="fig-img" src="2020-12-24-14-41-01.png" style="width:700px;" alt></div>
 
-<Br>
+<br>
 
 <hr>
 <p><strong>Reference</strong></p>
 <ul>
 <li>김민준, 리액트를 다루는 기술</li>
-<li><a target="_blank" rel="noopener" href="https://reactrouter.com/web/api/history">https://reactrouter.com/web/api/history</a></li>
-<li><a target="_blank" rel="noopener" href="https://gongbu-ing.tistory.com/45">https://gongbu-ing.tistory.com/45</a></li>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@han7096/react-router-v4-%EC%A0%95%EB%A6%AC-e9931b63dcae">https://medium.com/@han7096/react-router-v4-%EC%A0%95%EB%A6%AC-e9931b63dcae</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://reactrouter.com/web/api/history">https://reactrouter.com/web/api/history</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://gongbu-ing.tistory.com/45">https://gongbu-ing.tistory.com/45</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://medium.com/@han7096/react-router-v4-%EC%A0%95%EB%A6%AC-e9931b63dcae">https://medium.com/@han7096/react-router-v4-%EC%A0%95%EB%A6%AC-e9931b63dcae</a></li>
 </ul>
             
 
@@ -367,7 +309,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/React/" rel="tag">React</a>
 
@@ -384,12 +326,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-URL/"
-                    data-tooltip="URL의 구조"
-                    aria-label="PREVIOUS: URL의 구조"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-URL/" data-tooltip="URL의 구조" aria-label="PREVIOUS: URL의 구조">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -398,12 +335,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-VScode/"
-                    data-tooltip="[VS Code] VS Code에서 md파일 미리보기"
-                    aria-label="NEXT: [VS Code] VS Code에서 md파일 미리보기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-VScode/" data-tooltip="[VS Code] VS Code에서 md파일 미리보기" aria-label="NEXT: [VS Code] VS Code에서 md파일 미리보기">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -413,11 +345,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -444,12 +372,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -468,12 +391,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-URL/"
-                    data-tooltip="URL의 구조"
-                    aria-label="PREVIOUS: URL의 구조"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-URL/" data-tooltip="URL의 구조" aria-label="PREVIOUS: URL의 구조">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -482,12 +400,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-VScode/"
-                    data-tooltip="[VS Code] VS Code에서 md파일 미리보기"
-                    aria-label="NEXT: [VS Code] VS Code에서 md파일 미리보기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-VScode/" data-tooltip="[VS Code] VS Code에서 md파일 미리보기" aria-label="NEXT: [VS Code] VS Code에서 md파일 미리보기">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -497,11 +410,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -538,7 +447,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -548,7 +457,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -556,7 +465,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

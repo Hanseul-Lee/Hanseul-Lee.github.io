@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[git] hexo를 이용한 github blog 포스팅하기 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/19/20-08-19-github_blog/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/19/20-08-19-github_blog/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n\nGithub에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.\n\n\n\n\n포스트 생성\n1hexo new post &quot;yyyy-mm-dd-My new post&quot;\n\n문서 작성\n\ngit bash 나 vscode 둘 다 가능하다.\nmd파일 markdown 사용해 작성해야 한다. \n\n\n서버에 전송\n12hexo clean &amp;&amp; hexo generate //서버에 전송hexo g //축약형\n\n서버에서 확인\n1234hexo server // http://localhost:4000 에서 확인hexo s // 축약형hexo s -o // 서버 생성 및 새창에서 열기\n\ngit에 전송\n12hexo clean &amp;&amp; hexo deploy // 깃에 전송hexo d // 축약형\n\n참고로 나중에 generate과 deploy를 빨리 하기 위해 다음과 같은 축약형을 알아두면 편리하다.\n1hexo g -d\n\n\n\n\n   이제 서버가 아닌 github blog주소에서 확인 가능하다   =&gt; hanseul-lee.github.io/","dateCreated":"2020-08-19T15:25:33+09:00","dateModified":"2020-12-17T12:14:42+09:00","datePublished":"2020-08-19T15:25:33+09:00","description":"\nhexo를 이용해 Github에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.","headline":"[git] hexo를 이용한 github blog 포스팅하기","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
     <meta name="description" content="hexo를 이용해 Github에 만든 blog에 글을 포스팅하는 방법을 알아봅시다.">
@@ -31,11 +35,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/git.jpeg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/git.jpeg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/git.jpeg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/19/20-08-19-Github_blog/git.jpeg">
     
     
     
@@ -76,24 +80,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -110,11 +106,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -128,13 +121,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -142,13 +129,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -156,13 +137,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -170,13 +145,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -184,13 +153,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -198,13 +161,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -212,13 +169,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -230,15 +181,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -250,8 +193,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -328,7 +270,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/github/" rel="tag">github</a>
 
@@ -345,12 +287,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/20/20-08-20-TIL/"
-                    data-tooltip="20-08-20 목요일 TIL"
-                    aria-label="PREVIOUS: 20-08-20 목요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/20/20-08-20-TIL/" data-tooltip="20-08-20 목요일 TIL" aria-label="PREVIOUS: 20-08-20 목요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -359,12 +296,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/JS-4/"
-                    data-tooltip="4. 변수"
-                    aria-label="NEXT: 4. 변수"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/19/JS-4/" data-tooltip="4. 변수" aria-label="NEXT: 4. 변수">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -374,11 +306,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -405,12 +333,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -429,12 +352,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/20/20-08-20-TIL/"
-                    data-tooltip="20-08-20 목요일 TIL"
-                    aria-label="PREVIOUS: 20-08-20 목요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/20/20-08-20-TIL/" data-tooltip="20-08-20 목요일 TIL" aria-label="PREVIOUS: 20-08-20 목요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -443,12 +361,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/19/JS-4/"
-                    data-tooltip="4. 변수"
-                    aria-label="NEXT: 4. 변수"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/19/JS-4/" data-tooltip="4. 변수" aria-label="NEXT: 4. 변수">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -458,11 +371,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -499,7 +408,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -509,7 +418,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -517,7 +426,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>11. 원시값과 객체의 비교 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/26/js-11/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/26/js-11/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n자바스크립트의 값은 7가지 데이터 타입(숫자, 문자열, 불리언, null, undefined, 심벌, 객체 타입)으로 분류되고크게 원시타입과 객체타입으로 나뉜다.\n\n이들의 차이점은 다음과 같은 크게 3가지로 구분된다.\n\n\n\n\n\n원시값\n객체\n\n\n\n변경 가능 여부\nX\nO\n\n\n변수에 할당\n변수에 실제값 저장\n변수에 참조값 저장\n\n\n다른 변수에 할당\n값에 의한 전달(pass by value)\n참조에 의한 전달(pass by reference)\n\n\n\n\n1) 원시값1.1. 변경 불가능한 값원시값은 변경 불가능한 값, 즉 읽기전용(read only) 값이다.여기서 변경 불가능하다는 것은 변수가 아니라 값에 대한 진술인데 원시값 자체를 변경할 수 없다는 것이지 변수 값을 변경할 수 없다는 것이 아니다. 변수는 언제든지 재할당을 통해 변수 값을 변경할 수 있다.\n\n변수 : 메모리 공간 자체\n값 : 변수에 저장된 데이터\n\ncf. 변수의 상대 개념인 상수는 재할당이 금지되어 단 한번의 할당만이 허용된 변수를 의미한다.\n원시값은 불변성(immutability) 을 띄며 재할당 이외에 변수 값을 변경할 수 있는 방법이 없다. 이는 데이터의 신뢰성을 보장한다는 큰 장점을 지닌다.\n아래 그림과 같이 원시값을 할당한 변수에 새로운 원시값을 재할당하면 원시값을 변경하는 것이 아니라 새로운 메모리 공간을 확보하고 변수가 참조하던 메모리 공간의 주소가 바뀐다.\n\n\n\n\n\n1.2. 문자열과 불변성원시값을 저장하려면 먼저 확보해야 하는 메모리 공간의 크기를 결정해야 한다. 이 때 원시값인 문자열은 다른 원시값과 비교할 때 독특한 특징이 있는데 몇 개의 문자로 이뤄졌느냐에 따라 필요한 메모리 공간의 크기가 결정된다.\n자바스크립트의 장점은 개발자의 편의를 위해 원시 타입인 문자열 타입을 제공한다는 것이다. 이것은 문자열이 생성된 이후에는 변경할 수 없음을 의미한다.\n아래 예제처럼 한 번 생성된 문자열은 읽기 전용 값으로서 변경할 수 없고 이는 곧 데이터의 신뢰성을 보장한다.\n1234var str = &quot;hello&quot;;str[0] = &quot;H&quot;;console.log(str); // hello\n\n1.3. 값에 의한 전달변수에 원시값을 갖는 변수를 할당하는 경우 두 변수의 원시값은 서로 다른 메모리 공간에 별개의 값이 되어 저장된다. 이를 값에 의한 전달(Pass by value) 이라고 한다.\n이는 곧 어느 한쪽에서 재할당을 통해 값을 변경하더라도 서로 간섭할 수 없다는 것이다. 다음 예제를 통해 자세히 알아보자.\n12345678910var score = 80;var copy = score;console.log(score); // 80console.log(copy); // 80score = 100;console.log(score); // 100console.log(copy); // 80\n\ncopy = score에서 score는 변수 값 80으로 평가되므로 copy 변수에도 80이 할당될 것이다. 이때 아래 그림처럼 새로운 숫자 값 80이 생성되어 copy 변수에 할당된다. 즉, score 변수와 copy 변수의 값 80은 다른 메모리 공간에 저장된 별개의 값이다. 그러므로 console.log(copy)를 했을 때 score의 재할당 된 값이 100이 아니라 80이 출력되는 것이다.\n\n\n참고로 “값의 의한 전달” 도 사실은 값을 전달하는 것이 아니라 메모리 주소를 전달 한다는 것에 주의하자. 변수와 같은 식별자는 값이 아니라 메모리 주소를 기억하고 있기 때문에 변수에는 값이 전달되는 것이 아니라 메모리 주소가 전달되기 때문이다. 이름때문에 헷갈릴 수 있다.\n다시 강조하자면, 결국은 두 변수의 원시값은 서로 다른 메모리 공간에 저장된 별개의 값이 되어 어느 한쪽에서 재할당을 통해 값을 변경하더라도 서로 간섭할 수 없다는 것이 중요하다.\n2) 객체2.1. 변경 가능한 값객체는 변경 가능한 값이다. 원시값을 할당한 변수가 원시값 자체를 값으로 갖는 반면, 객체를 할당한 변수는 기억하는 메모리 주소를 통해 메모리 공간에 접근하면 참조값(reference value) 에 접근한다.\n\n📒 참조값(reference value) : 생성된 객체가 저장된 메모리 공간의 주소\n\n아래 그림처럼 객체를 할당한 변수에는 생성된 객체가 실제로 저장된 메모리 공간의 주소가 저장되고 변수는 이 참조값을 통해 객체에 접근할 수 있다. 또한 변경가능하므로 재할당 없이 프로퍼티를 동적으로 추가할 수도 있고 프로퍼티 값을 갱신할 수도 있으며 프로퍼티 자체를 삭제할 수도 있다.\n1234567891011var person = &#123;  name: &quot;Lee&quot;,&#125;;// 프로퍼티 값 갱신person.name = &quot;Kim&quot;;// 프로퍼티 동적 생성person.address = &quot;Seoul&quot;;console.log(person); // &#123;name: &quot;Kim&quot;, address: &quot;Seoul&quot;&#125;\n\n\n객체는 변경가능하다.\n\n\n이러한 객체의 특징은 원시값처럼 매번 값을 복사해 새롭게 생성하는 것보다 비용을 절약하여 성능을 향상시키고 메모리를 효율적으로 사용가능하게 한다. \n반면, 단점은 여러 개의 식별자가 하나의 객체를 공유할 수 있다는 것이다. 즉, 같은 객체를 공유하는 식별자 중 하나가 값을 변경하면 다른 쪽이 영향을 받는 간섭이 일어나게 된다.\n얕은 복사(shallow copy)와 깊은 복사(deep copy)\n📒 얕은 복사(shallow copy) : 객체를 한 단계까지만 복사하는 것\n📒 깊은 복사(deep copy) : 객체에 중첩되어 있는 객체까지 모두 복사하는 것\n\n얕은 복사와 깊은 복사로 생성된 객체는 원본과는 다른 객체다. 즉, 원본과 복사본은 참조값이 다른 별개의 객체다. 하지만 얕은 복사는 객체에 중첩되어 있는 객체의 경우 참조값을 복사하고 깊은 복사는 객체에 중첩되어 있는 객체까지 모두 복사해서 원시값처럼 완전한 복사본을 만든다는 차이가 있다.\n1234567891011121314151617181920212223242526272829303132const o = &#123;  a: &#123;    b: 2  &#125;,  f() &#123;&#125;&#125;;// 얕은 복사let c = &#123; ...o &#125;; console.log(o === c); // falseconsole.log(o.a === c.a); // true// 얕은 복사c = Object.assign(&#123;&#125;, o);console.log(o === c); // falseconsole.log(o.a === c.a); // true// JSON.parse와 JSON.stringify를 사용한 깊은 복사c = JSON.parse(JSON.stringify(o));console.log(o === c); // falseconsole.log(o.a === c.a); // false// 메서드가 사라진다!console.log(c.f); // undefined// lodash의 cloneDeep을 사용한 깊은 복사// &quot;npm install lodash&quot;로 lodash를 설치한 후, Node.js 환경에서 실행const _ = require(&#x27;lodash&#x27;);c = _.cloneDeep(o);console.log(o === c); // falseconsole.log(o.a === c.a); // falseconsole.log(c.f); // f\n\n2.2. 참조에 의한 전달참조에 의한 전달(pass by reference) 은 객체를 가리키는 변수를 다른 변수에 할당하면 원본의 참조값이 복사되어 전달되는 것이다.\n\n참조에 의한 전달\n\n\n참조에 의한 전달이 하나의 객체를 공유하기 때문에 변경사항에 모두 영향을 받아 나타나는 부작용이 있다.이를 다음 예제를 통해 확인해 보자.\n1234567891011121314151617181920var person = &#123;  name: &quot;Lee&quot;,&#125;;// 참조값을 복사(얕은 복사). copy와 person은 동일한 참조값을 갖는다.var copy = person;// copy와 person은 동일한 객체를 참조한다.console.log(copy === person); // true// copy를 통해 객체를 변경한다.copy.name = &quot;Kim&quot;;// person을 통해 객체를 변경한다.person.address = &quot;Seoul&quot;;// copy와 person은 동일한 객체를 가리킨다.// 따라서 어느 한쪽에서 객체를 변경하면 서로 영향을 주고 받는다.console.log(person); // &#123;name: &quot;Kim&quot;, address: &quot;Seoul&quot;&#125;console.log(copy); // &#123;name: &quot;Kim&quot;, address: &quot;Seoul&quot;&#125;\n\n\n한편, 같은 내용의 객체를 가지고 있더라도 이는 복사가 아닌 2개의 객체가 생성되어 각각의 메모리 공간에 저장된 것이다. 따라서 이를 참조하는 참조값 역시 다르다는 것에 주의하자.\n123456789const original = &#123; x = 1 &#125;;const copy = Object.assign(&#123;&#125;, original);console.log(copy); // &#123; x = 1 &#125;// original과 copy의 참조값이 다르므로 false가 나온다.console.log(original === copy); // falseoriginal.y = 2;console.log(copy); // &#123; x = 1 &#125;\n\n\n\n\n결국 “값에 의한 전달”과 “참조에 의한 전달”은 식별자가 기억하는 메모리 공간에 저장되어 있는 값을 복사해서 전달한다는 면에서 동일하다. 다만 식별자가 기억하는 메모리 공간, 즉 변수에 저장되어 있는 값이 원시값이냐 참조값이냐의 차이 만 있을 뿐이다.\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-08-26T17:12:43+09:00","dateModified":"2020-12-10T23:15:04+09:00","datePublished":"2020-08-26T17:12:43+09:00","description":"\n\n자바스크립트의 값은 크게 원시타입과 객체타입으로 나뉜다. 원시값과 객체를 비교하며 특징과 차이점에 대해 알아보자.","headline":"11. 원시값과 객체의 비교","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/26/JS-11/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/26/JS-11/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="자바스크립트의 값은 크게 원시타입과 객체타입으로 나뉜다. 원시값과 객체를 비교하며 특징과 차이점에 대해 알아보자.">
@@ -35,11 +39,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/26/JS-11/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/26/JS-11/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/26/JS-11/js.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/26/JS-11/js.png">
     
     
     
@@ -80,24 +84,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -114,11 +110,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -132,13 +125,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -146,13 +133,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -160,13 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -174,13 +149,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -188,13 +157,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -202,13 +165,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -216,13 +173,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -234,15 +185,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -254,8 +197,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -331,10 +273,10 @@
 <p>cf. 변수의 상대 개념인 <strong>상수</strong>는 재할당이 금지되어 단 한번의 할당만이 허용된 변수를 의미한다.</p>
 <p>원시값은 <strong>불변성(immutability)</strong> 을 띄며 재할당 이외에 변수 값을 변경할 수 있는 방법이 없다. 이는 <strong>데이터의 신뢰성을 보장</strong>한다는 큰 장점을 지닌다.</p>
 <p>아래 그림과 같이 원시값을 할당한 변수에 새로운 원시값을 재할당하면 원시값을 변경하는 것이 아니라 새로운 메모리 공간을 확보하고 변수가 참조하던 <strong>메모리 공간의 주소가 바뀐다</strong>.</p>
-<br/>
+<br>
 
-<div class="figure center" style="width:;"><img class="fig-img" src="11-1.png" alt=""></div>
-</br>
+<div class="figure center" style="width:;"><img class="fig-img" src="11-1.png" alt></div>
+<br>
 
 <h2 id="1-2-문자열과-불변성"><a href="#1-2-문자열과-불변성" class="headerlink" title="1.2. 문자열과 불변성"></a>1.2. 문자열과 불변성</h2><p>원시값을 저장하려면 먼저 확보해야 하는 메모리 공간의 크기를 결정해야 한다. 이 때 원시값인 문자열은 다른 원시값과 비교할 때 독특한 특징이 있는데 몇 개의 문자로 이뤄졌느냐에 따라 필요한 메모리 공간의 크기가 결정된다.</p>
 <p>자바스크립트의 장점은 개발자의 편의를 위해 <strong>원시 타입인 문자열 타입을 제공</strong>한다는 것이다. 이것은 문자열이 생성된 이후에는 변경할 수 없음을 의미한다.</p>
@@ -346,7 +288,7 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> score = <span class="number">80</span>;</span><br><span class="line"><span class="keyword">var</span> copy = score;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// 80</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">// 80</span></span><br><span class="line"></span><br><span class="line">score = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(score); <span class="comment">// 100</span></span><br><span class="line"><span class="built_in">console</span>.log(copy); <span class="comment">// 80</span></span><br></pre></td></tr></table></figure>
 
 <p>copy = score에서 score는 변수 값 80으로 평가되므로 copy 변수에도 80이 할당될 것이다. 이때 아래 그림처럼 새로운 숫자 값 80이 생성되어 copy 변수에 할당된다. 즉, score 변수와 copy 변수의 값 80은 다른 메모리 공간에 저장된 별개의 값이다. 그러므로 console.log(copy)를 했을 때 score의 재할당 된 값이 100이 아니라 80이 출력되는 것이다.<br><br></p>
-<img src="/2020/08/26/JS-11/11-2.png" class="" title="값에 의한 전달">
+<img src="/2020/08/26/JS-11/11-2.png" class title="값에 의한 전달">
 
 <p>참고로 <strong>“값의 의한 전달”</strong> 도 사실은 값을 전달하는 것이 아니라 <strong>메모리 주소를 전달</strong> 한다는 것에 주의하자. 변수와 같은 식별자는 값이 아니라 메모리 주소를 기억하고 있기 때문에 변수에는 값이 전달되는 것이 아니라 메모리 주소가 전달되기 때문이다. 이름때문에 헷갈릴 수 있다.</p>
 <p>다시 강조하자면, 결국은 두 변수의 원시값은 서로 다른 메모리 공간에 저장된 별개의 값이 되어 어느 한쪽에서 재할당을 통해 값을 변경하더라도 서로 간섭할 수 없다는 것이 중요하다.</p>
@@ -357,9 +299,9 @@
 <p>아래 그림처럼 객체를 할당한 변수에는 생성된 객체가 실제로 저장된 메모리 공간의 주소가 저장되고 변수는 이 참조값을 통해 객체에 접근할 수 있다. 또한 변경가능하므로 재할당 없이 프로퍼티를 동적으로 추가할 수도 있고 프로퍼티 값을 갱신할 수도 있으며 프로퍼티 자체를 삭제할 수도 있다.</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">&quot;Lee&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 값 갱신</span></span><br><span class="line">person.name = <span class="string">&quot;Kim&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 프로퍼티 동적 생성</span></span><br><span class="line">person.address = <span class="string">&quot;Seoul&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person); <span class="comment">// &#123;name: &quot;Kim&quot;, address: &quot;Seoul&quot;&#125;</span></span><br></pre></td></tr></table></figure>
 
-</br>
+<br>
 <div class="figure center" style="width:;"><img class="fig-img" src="11-3.png" alt="객체는 변경가능하다."><span class="caption">객체는 변경가능하다.</span></div>
-</br>
+<br>
 
 <p>이러한 객체의 특징은 원시값처럼 매번 값을 복사해 새롭게 생성하는 것보다 비용을 절약하여 성능을 향상시키고 메모리를 효율적으로 사용가능하게 한다. </p>
 <p>반면, 단점은 <strong>여러 개의 식별자가 하나의 객체를 공유할 수 있다는 것</strong>이다. 즉, 같은 객체를 공유하는 식별자 중 하나가 값을 변경하면 다른 쪽이 영향을 받는 간섭이 일어나게 된다.</p>
@@ -401,7 +343,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
 
@@ -418,12 +360,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/27/20-08-27-code/"
-                    data-tooltip="[과제] 아스키(ASCII) 코드와 유니코드(Unicode)"
-                    aria-label="PREVIOUS: [과제] 아스키(ASCII) 코드와 유니코드(Unicode)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/27/20-08-27-code/" data-tooltip="[과제] 아스키(ASCII) 코드와 유니코드(Unicode)" aria-label="PREVIOUS: [과제] 아스키(ASCII) 코드와 유니코드(Unicode)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -432,12 +369,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/26/JS-10/"
-                    data-tooltip="10. 객체 리터럴"
-                    aria-label="NEXT: 10. 객체 리터럴"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/26/JS-10/" data-tooltip="10. 객체 리터럴" aria-label="NEXT: 10. 객체 리터럴">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -447,11 +379,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -478,12 +406,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -502,12 +425,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/27/20-08-27-code/"
-                    data-tooltip="[과제] 아스키(ASCII) 코드와 유니코드(Unicode)"
-                    aria-label="PREVIOUS: [과제] 아스키(ASCII) 코드와 유니코드(Unicode)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/27/20-08-27-code/" data-tooltip="[과제] 아스키(ASCII) 코드와 유니코드(Unicode)" aria-label="PREVIOUS: [과제] 아스키(ASCII) 코드와 유니코드(Unicode)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -516,12 +434,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/26/JS-10/"
-                    data-tooltip="10. 객체 리터럴"
-                    aria-label="NEXT: 10. 객체 리터럴"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/26/JS-10/" data-tooltip="10. 객체 리터럴" aria-label="NEXT: 10. 객체 리터럴">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -531,11 +444,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -572,7 +481,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -582,7 +491,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -590,7 +499,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

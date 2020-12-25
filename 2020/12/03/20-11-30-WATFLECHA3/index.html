@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[미니 프로젝트] WATFLICHA - 2차 구현 TIL (2주차 : 20.11.30 ~ 20.12.06) - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/03/20-11-30-watflecha3/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/03/20-11-30-watflecha3/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\nWATFLICHA 2차 구현 TIL( 2차 구현 2주차: 20.11.30 ~ 20.12.06 )\n20-11-30 월요일\n페이지 구현 내용\n정보수정 페이지 리팩토링 진행중\n\n\n기본적인 레이아웃 및 이벤트 위임으로 focusout 됐을 때 input창 border 색 변화 틀 구현\n수정 활성화 연필 아이콘 추가123$penIcon.onclick = e =&gt; &#123;  $modiIfName.toggleAttribute(&#x27;disabled&#x27;);&#125;\n이름 수정 기능 구현 완료\n비밀번호 수정 기능 구현중\n\n\n\n\n\n20-12-02 수요일\n페이지 구현 내용\n정보수정 페이지 리팩토링 진행중\n\n\nsubmit 버튼 클릭 이벤트 완성\n에러 존재하는 지 확인\n에러 없을 시 localStorage로 바뀐 정보 보내기(이름, 장르)\n에러 없을 시 DB로 바뀐 정보 보내기(이름, 비밀번호, 장르)\n\n\n비밀번호 변경 input 디버깅중\n\n\n\n\n\n오늘의 배운점\ninput창에 스페이스 바 입력 방지trim()을 써서 거르는 것보다 아예 입력을 막는 방법이 더 유용하다는 것을 배웠다.1234child.onkeydown = e =&gt; &#123;  const kcode = e.keyCode;  if(kcode === 32) return false;&#125;\n\n\n\n\n\n\nkey값으로 매개변수 넣고 싶을 때 점 표현식이 아닌 대괄호 표현식으로!!key 매개변수에는 ‘문자’로 넣어주기12345678910showChangedInput(name, input)  // (X)showChangedInput(&#x27;name&#x27;, input) // (O)const showChangedInput = (key, input) =&gt; &#123;  if (input.value !== user[key]) &#123;    showGreenInput(input);   // 이하 생략&#125;showChahngedInput(&#x27;name&#x27;, input)\n\n\n\n\n\n\nfetch가 onfocusout 안에 있으면 focusout 됐을 때 계속해서 호출되므로 전역이나 조건을 주고 한번만 불러주고 변수 가져와 사용하기!\n\n\n\n\n화살표 함수에서 return이 없으면 {} 로 꼭 묶어주기!!예를 들어, 아래처럼 반복문 안에 if문 넣어주고 싶을 때 =&gt;(화살표 함수) 뒤 {}를 안 해줘서 계속 에러가 나왔었다.12345678[...$pw].forEach(input =&gt; &#123;    if (input.classList.contains(&#x27;changedColor&#x27;)) &#123;      input.classList.remove(&#x27;changedColor&#x27;);      input.nextElementSibling.textContent = &#x27;&#x27;    &#125; else if (input.classList.contains(&#x27;errorColor&#x27;)) &#123;      input.classList.remove(&#x27;errorColor&#x27;);      input.nextElementSibling.textContent = &#x27;&#x27;    &#125;\n\n\n\n\n\n\n값 변경 이벤트 (poiemaweb 참고)\n\n\n\noninput :input(text, checkbox, radio), select, textarea 요소의 값이 입력되었을 때.\nonchange: input(text, checkbox, radio), select, textarea 요소의 값이 변경되었을 때.\n\n\n\n\n같은 form 밑의 자식 구조로 되어있지 않을 때[...$iconInput.children]이 아니라 div.querySelector(&#39;input&#39;)으로! 12if ([...$modiIfForm.children].find(input =&gt; input.classList.contains(&#x27;errorColor&#x27;)) || [...$iconInput].find(div =&gt; div.querySelector(&#x27;input&#x27;).classList.contains(&#x27;errorColor&#x27;))\n\n\n\n\n\n\n뒤로가기\n1234$cancleBt.onclick = () =&gt; &#123;  window.history.back(); // 방법1  window.history.go(-1); // 방법2&#125;\n\n\n\n\n\n\n깔끔하게 만드는 것에 목숨걸지 말 것일단 완성한 다음에 리팩토링하는 게 더 중요하다\n\n20-12-03 목요일20-12-04 금요일20-12-05 &amp; 20-12-06 토,일요일","dateCreated":"2020-12-03T01:21:23+09:00","dateModified":"2020-12-20T14:18:46+09:00","datePublished":"2020-12-03T01:21:23+09:00","description":"\n[미니 프로젝트] WATFLICHA - 2차 구현 TIL( 2차 구현 2주차: 20.11.30 ~ 20.12.06 )","headline":"[미니 프로젝트] WATFLICHA - 2차 구현 TIL (2주차 : 20.11.30 ~ 20.12.06)","image":["WATFLICHA-logo.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/","keywords":"프로젝트, Fastcampus, WATFLICHA","thumbnailUrl":"WATFLICHA-logo.png"}</script>
     <meta name="description" content="[미니 프로젝트] WATFLICHA - 2차 구현 TIL( 2차 구현 2주차: 20.11.30 ~ 20.12.06 )">
@@ -34,11 +38,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/WATFLICHA-logo.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/WATFLICHA-logo.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/WATFLICHA-logo.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/03/20-11-30-WATFLECHA3/WATFLICHA-logo.png">
     
     
     
@@ -79,24 +83,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -113,11 +109,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -131,13 +124,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -145,13 +132,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -159,13 +140,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -173,13 +148,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -187,13 +156,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -201,13 +164,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -215,13 +172,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -233,15 +184,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -253,8 +196,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -304,7 +246,7 @@
 </ul>
 </li>
 </ul>
-<Br>
+<br>
 
 <h2 id="20-12-02-수요일"><a href="#20-12-02-수요일" class="headerlink" title="20-12-02 수요일"></a>20-12-02 수요일</h2><ul>
 <li><strong>페이지 구현 내용</strong><ol>
@@ -350,7 +292,7 @@
 <br>
 
 <ol start="5">
-<li>값 변경 이벤트 (<a target="_blank" rel="noopener" href="https://poiemaweb.com/fastcampus/event#25-%EA%B0%92-%EB%B3%80%EA%B2%BD-%EC%9D%B4%EB%B2%A4%ED%8A%B8">poiemaweb 참고</a>)<div class="figure center" style="width:;"><img class="fig-img" src="값변경이벤트.jpg" alt=""></div>
+<li>값 변경 이벤트 (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://poiemaweb.com/fastcampus/event#25-%EA%B0%92-%EB%B3%80%EA%B2%BD-%EC%9D%B4%EB%B2%A4%ED%8A%B8">poiemaweb 참고</a>)<div class="figure center" style="width:;"><img class="fig-img" src="값변경이벤트.jpg" alt></div>
 </li>
 </ol>
 <ul>
@@ -386,7 +328,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/Fastcampus/" rel="tag">Fastcampus</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/WATFLICHA/" rel="tag">WATFLICHA</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag">프로젝트</a>
 
@@ -403,12 +345,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/05/20-11-20-WATFLICHA/"
-                    data-tooltip="[미니 프로젝트] WATFLICHA - 영화 정보 사이트"
-                    aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 영화 정보 사이트"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/05/20-11-20-WATFLICHA/" data-tooltip="[미니 프로젝트] WATFLICHA - 영화 정보 사이트" aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 영화 정보 사이트">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -417,12 +354,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/29/20-11-29-Agile/"
-                    data-tooltip="[Agile] 애자일 방법론과 스크럼, 스프린트"
-                    aria-label="NEXT: [Agile] 애자일 방법론과 스크럼, 스프린트"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/11/29/20-11-29-Agile/" data-tooltip="[Agile] 애자일 방법론과 스크럼, 스프린트" aria-label="NEXT: [Agile] 애자일 방법론과 스크럼, 스프린트">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -432,11 +364,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -463,12 +391,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -487,12 +410,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/05/20-11-20-WATFLICHA/"
-                    data-tooltip="[미니 프로젝트] WATFLICHA - 영화 정보 사이트"
-                    aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 영화 정보 사이트"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/05/20-11-20-WATFLICHA/" data-tooltip="[미니 프로젝트] WATFLICHA - 영화 정보 사이트" aria-label="PREVIOUS: [미니 프로젝트] WATFLICHA - 영화 정보 사이트">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -501,12 +419,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/29/20-11-29-Agile/"
-                    data-tooltip="[Agile] 애자일 방법론과 스크럼, 스프린트"
-                    aria-label="NEXT: [Agile] 애자일 방법론과 스크럼, 스프린트"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/11/29/20-11-29-Agile/" data-tooltip="[Agile] 애자일 방법론과 스크럼, 스프린트" aria-label="NEXT: [Agile] 애자일 방법론과 스크럼, 스프린트">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -516,11 +429,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -557,7 +466,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -567,7 +476,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -575,7 +484,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

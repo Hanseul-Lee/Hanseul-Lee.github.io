@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[git] gitHub에 new repository 생성하기 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newrepo/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newrepo/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n1. GitHub Repository 생성\n\n\n\nGitHub에서 다음과 같이 새로운 Repository name을 입력하고 Create repository 버튼을 눌러 새 Repository를 생성한다. \n\n\n2. Initialize repository1git init\n\n위의 명령어를 통해 해당 프로젝트 폴더 내에 숨겨진 .git 폴더를 생성하고 이제 Git은 현재 repository에 대한 모든 변경 사항들을 추적 및 관리하게 된다.\n\n\n3. 새로운 폴더(파일) 만들고 작업 생성12git add . git commit -m &quot;commit massage&quot;\n새로운 repository에 올릴 폴더(파일)을 만들고 코드를 작성한 뒤, add, commit을 해준다.\n\n\n4. 원격 저장소와 연결 후 pushrepository 주소 복사하기\n\n생성된 repository에서 code 버튼을 누른 후, 이를 복사해 git remote add origin [repository 주소]명령으로 local과 remote repository를 연결해 준다. \n\nLocal repository : 본인의 컴퓨터에 저장된 프로젝트 저장소\nRemote repository : 로컬이 아닌 외부 서버의 원격 프로젝트 저장소\n\n이 후 git remote -v | --verbose 를 통해 원격 저장소 목록을 불러와 연결된 것을 확인할 수 있다. 이 후, 로컬에서 작업한 파일을 원격 저장소로 push 해주면 된다. -u(–set-upstream)를 통해 upstream origin 정보를 설정한 후에는 해당 브랜치에서 git push만 입력해줘도 push가 가능하다.\n123git remote add origin [repository 주소]git remote -vgit push -u origin main\n\nerror - fatal: refusing to merge unrelated histories만약 git pull이나 push를 할 때 fatal: refusing to merge unrelated histories 에러가 뜨는 경우가 있다. 이는 로컬 저장소와 원격지의 저장소의 기록(History)을 비교했을 때 소스코드의 차이가 심한 저장소의 경우, 병합 오류가 날 것을 대비하여 오류 메시지를 띄우는 것이다. 다음과 같은 명령어를 통해 해결 할 수 있다.\n1$ git pull origin 브랜치명 --allow-unrelated-histories\n\n\n\n\n\n\n\nReference\n\nhttps://git-scm.com/docs/git-remote\n[Git] GitHub 레파지토리(Repository) 생성하고 소스 올리기\n\nhttps://parksb.github.io/article/28.html\nhttps://nochoco-lee.tistory.com/34?category=343045\nhttps://ndb796.tistory.com/275\n","dateCreated":"2020-12-17T12:21:32+09:00","dateModified":"2020-12-20T10:57:55+09:00","datePublished":"2020-12-17T12:21:32+09:00","description":"\ngithub에 new repository 생성하는 방법을 알아봅시다.","headline":"[git] gitHub에 new repository 생성하기","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/","keywords":"git, gitHub","thumbnailUrl":"git.jpeg"}</script>
     <meta name="description" content="github에 new repository 생성하는 방법을 알아봅시다.">
@@ -34,11 +38,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/git.jpeg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/git.jpeg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/git.jpeg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-newRepo/git.jpeg">
     
     
     
@@ -79,24 +83,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -113,11 +109,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -131,13 +124,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -145,13 +132,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -159,13 +140,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -173,13 +148,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -187,13 +156,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -201,13 +164,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -215,13 +172,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -233,15 +184,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -253,8 +196,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -291,12 +233,12 @@
         <div class="main-content-wrap">
             <!-- excerpt -->
 
-<h2 id="1-GitHub-Repository-생성"><a href="#1-GitHub-Repository-생성" class="headerlink" title="1. GitHub Repository 생성"></a>1. GitHub Repository 생성</h2><div class="figure center" style="width:700px;"><img class="fig-img" src="1.jpg" style="width:700px;"alt=""></div>
+<h2 id="1-GitHub-Repository-생성"><a href="#1-GitHub-Repository-생성" class="headerlink" title="1. GitHub Repository 생성"></a>1. GitHub Repository 생성</h2><div class="figure center" style="width:700px;"><img class="fig-img" src="1.jpg" style="width:700px;" alt></div>
 
 <br>
 
 <p>GitHub에서 다음과 같이 새로운 Repository name을 입력하고 Create repository 버튼을 눌러 새 Repository를 생성한다. </p>
-<Br>
+<br>
 
 <h2 id="2-Initialize-repository"><a href="#2-Initialize-repository" class="headerlink" title="2. Initialize repository"></a>2. Initialize repository</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
@@ -307,7 +249,7 @@
 <p>새로운 repository에 올릴 폴더(파일)을 만들고 코드를 작성한 뒤, add, commit을 해준다.</p>
 <br>
 
-<h2 id="4-원격-저장소와-연결-후-push"><a href="#4-원격-저장소와-연결-후-push" class="headerlink" title="4. 원격 저장소와 연결 후 push"></a>4. 원격 저장소와 연결 후 push</h2><div class="figure center" style="width:700px;"><img class="fig-img" src="4.jpg" style="width:700px;"alt="repository 주소 복사하기"><span class="caption">repository 주소 복사하기</span></div>
+<h2 id="4-원격-저장소와-연결-후-push"><a href="#4-원격-저장소와-연결-후-push" class="headerlink" title="4. 원격 저장소와 연결 후 push"></a>4. 원격 저장소와 연결 후 push</h2><div class="figure center" style="width:700px;"><img class="fig-img" src="4.jpg" style="width:700px;" alt="repository 주소 복사하기"><span class="caption">repository 주소 복사하기</span></div>
 
 <p>생성된 repository에서 code 버튼을 누른 후, 이를 복사해 <code>git remote add origin [repository 주소]</code>명령으로 local과 remote repository를 연결해 준다. </p>
 <ul>
@@ -328,12 +270,12 @@
 <hr>
 <p><strong>Reference</strong></p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-remote">https://git-scm.com/docs/git-remote</a></li>
-<li><a target="_blank" rel="noopener" href="https://velog.io/@kho5420/Git-GitHub-%EB%A0%88%ED%8C%8C%EC%A7%80%ED%86%A0%EB%A6%ACRepository-%EC%83%9D%EC%84%B1%ED%95%98%EA%B3%A0-%EC%86%8C%EC%8A%A4-%EC%98%AC%EB%A6%AC%EA%B8%B0">[Git] GitHub 레파지토리(Repository) 생성하고 소스 올리기
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://git-scm.com/docs/git-remote">https://git-scm.com/docs/git-remote</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@kho5420/Git-GitHub-%EB%A0%88%ED%8C%8C%EC%A7%80%ED%86%A0%EB%A6%ACRepository-%EC%83%9D%EC%84%B1%ED%95%98%EA%B3%A0-%EC%86%8C%EC%8A%A4-%EC%98%AC%EB%A6%AC%EA%B8%B0">[Git] GitHub 레파지토리(Repository) 생성하고 소스 올리기
 </a></li>
-<li><a target="_blank" rel="noopener" href="https://parksb.github.io/article/28.html">https://parksb.github.io/article/28.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://nochoco-lee.tistory.com/34?category=343045">https://nochoco-lee.tistory.com/34?category=343045</a></li>
-<li><a target="_blank" rel="noopener" href="https://ndb796.tistory.com/275">https://ndb796.tistory.com/275</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://parksb.github.io/article/28.html">https://parksb.github.io/article/28.html</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://nochoco-lee.tistory.com/34?category=343045">https://nochoco-lee.tistory.com/34?category=343045</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://ndb796.tistory.com/275">https://ndb796.tistory.com/275</a></li>
 </ul>
             
 
@@ -343,7 +285,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/gitHub/" rel="tag">gitHub</a>
 
@@ -360,12 +302,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-17-git-cheatSheet/"
-                    data-tooltip="[git] git 명령어 정리"
-                    aria-label="PREVIOUS: [git] git 명령어 정리"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/17/20-12-17-git-cheatSheet/" data-tooltip="[git] git 명령어 정리" aria-label="PREVIOUS: [git] git 명령어 정리">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -374,12 +311,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-16-git-branch-main/"
-                    data-tooltip="[git] Default 브랜치명 변경하기 (master -&gt; main)"
-                    aria-label="NEXT: [git] Default 브랜치명 변경하기 (master -&gt; main)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/17/20-12-16-git-branch-main/" data-tooltip="[git] Default 브랜치명 변경하기 (master -&gt; main)" aria-label="NEXT: [git] Default 브랜치명 변경하기 (master -&gt; main)">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -389,11 +321,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -420,12 +348,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -444,12 +367,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-17-git-cheatSheet/"
-                    data-tooltip="[git] git 명령어 정리"
-                    aria-label="PREVIOUS: [git] git 명령어 정리"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/17/20-12-17-git-cheatSheet/" data-tooltip="[git] git 명령어 정리" aria-label="PREVIOUS: [git] git 명령어 정리">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -458,12 +376,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/17/20-12-16-git-branch-main/"
-                    data-tooltip="[git] Default 브랜치명 변경하기 (master -&gt; main)"
-                    aria-label="NEXT: [git] Default 브랜치명 변경하기 (master -&gt; main)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/17/20-12-16-git-branch-main/" data-tooltip="[git] Default 브랜치명 변경하기 (master -&gt; main)" aria-label="NEXT: [git] Default 브랜치명 변경하기 (master -&gt; main)">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -473,11 +386,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -514,7 +423,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -524,7 +433,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -532,7 +441,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

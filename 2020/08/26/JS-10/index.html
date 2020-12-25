@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>10. 객체 리터럴 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/26/js-10/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/26/js-10/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 객체란?\n\n📒객체는 키(key) 와 값(value) 으로 구성된 0개 이상의 프로퍼티의 집합이다.키엔 ‘문자형’, 값엔 모든 자료형이 허용된다.\n\n프로퍼티: 객체의 상태를 나타내는 값\n메서드: 프로퍼티를 참조하고 조작할 수 있는 동작, 프로퍼티 값이 함수일 경우 구분을 위해 메서드라고 한다.\n\n\n\n\n\n\n객체는 변경가능한 값이다. ( cf. 원시값은 변경 불가능한 값)\n자바스크립트는 객체(object) 기반 스크립트 언어이며, 거의 모든 것이 객체로 구성되었다.참고로 자바스크립트에서 함수와 객체는 분리해서 생각할 수 없는 개념이다.자바스크립트의 객체는 함수와 밀접한 관계를 가지며 함수로 객체를 생성하기도 하며 함수 자체가 객체이기도 하다.\n자바스크립트의 객체는 객체지향의 상속을 구현하기 위해 “프로토타입(prototype)”이라고 불리는 객체의 프로퍼티와 메소드를 상속받을 수 있다. 이 프로토타입은 타 언어와 구별되는 중요한 개념이다.\n\n2) 객체 리터럴에 의한 객체 생성\n\n자바스크립트는 프로토타입 기반 객체지향 언어 이다.(참고로 C++나 JAVA는 클래스 기반 객체지향 언어이다. 클래스를 사전에 정의하고 필요한 시점에 new 연산자와 함께 생성자를 호출하여 인스턴스를 생성하는 방식으로 객체를 생성한다.)\n\n다음과 같이 다양하게 객체를 생성할 수 있다.\n\n객체 리터럴\nObject 생성자 함수\n생성자 함수\nObject.create 메서드\n클래스 (ES6)\n\n\n\n객체를 생성하는 가장 일반적인 것이 객체 리터럴을 사용하는 것이다. 객체 리터럴은 자바스크립트의 유연함과 강력함을 대표하는 객체 생성 방식이다.\n\n리터럴(literal) : 사람이 이해할 수 있는 문자나 약속된 기호를 사용하여 값을 생성하는 표기법\n\n2.1. 객체 리터럴을 이용한 객체 생성 방법\n중괄호 {} 이용하며 콤마(,)로 구분\n각 멤버는 콜론(:)으로 키와 초기값이 구분\n(🔴주의!) 객체 리터럴 내 중괄호는 코드 블록을 의미하지 않으므로 객체 리터럴의 닫는 중괄호 뒤에는 세미콜론을 붙여야 한다.즉, 객체 리터럴 내 중괄호는 값으로 취급된다.\n\n123456var person = &#123;  name: &quot;foo&quot;,  age: 20,&#125;;console.log(person); // &#123;name: &quot;Lee&quot;, age : 20&#125;\n\n3) 프로퍼티(property)\n\n객체는 0개 이상의 프로퍼티의 집합 이며 프로퍼티는 키와 값으로 구성된다.\n\n프로퍼티 키 :\n빈 문자열을 포함하는 모든 문자열 또는 심벌 값\n프로퍼티 값에 접근할 수 있는 이름으로서 식별자 역할\n자바스크립트에서 사용 가능한 유효한 이름인 경우 따옴표 생략 가능\n식별자 네이밍 규칙을 따르지 않아도 된다. 만약 식별자 네이밍 규칙을 따르지 않는 이름에는 반드시 따옴표를 사용해야 한다.\n\n\n프로퍼티 값 : 자바스크립트에서 사용할 수 있는 모든 값\n\n\n프로퍼티 값 갱신 - 이미 존재하는 프로퍼티에 값을 할당하면 프로퍼티 값이 갱신됨\n\n프로퍼티 동적 생성 - 존재하지 않는 프로퍼티에 값을 할당하면 프로퍼티가 동적으로 생성되어 추가되고 프로퍼티 값이 할당됨\n\n프로퍼티 값 삭제 - delete 연산자는 객체의 프로퍼티를 삭제함\n\n\n123456789101112var person = &#123;  name: &quot;Lee&quot;,&#125;;// 프로퍼티 값 갱신person.name = &quot;Kim&quot;;// 프로퍼티 동적 생성person.age = 20;// 프로퍼티 값 삭제delete person.age;console.log(person); // &#123;name: &quot;Kim&quot;&#125;\n\n3.1. 프로퍼티 접근프로퍼티에 접근하는 방법으로는 다음과 같은 2가지가 있다. (참고: 프로퍼티 접근법 : 점 표기법(dot notation) vs 대괄호 표기법(bracket notation))\n123456789var person = &#123;  name: &quot;Lee&quot;,&#125;;// 점 표기법에 의한 프로퍼티 접근console.log(person.name); // Lee// 대괄호 표기법에 의한 프로퍼티 접근console.log(person[&quot;name&quot;]); // Lee\n\n점 표기법(dot notation) : 점 프로퍼티 접근 연산자(.)를 사용\n대괄호 표기법(bracket notation) : 대괄호 프로퍼티 접근 연산자([…])를 사용\n자바스크립트에서 사용 가능한 유효한 이름이 아니면 반드시 대괄호 표기법을 사용해야 한다.\n대괄호 내 반드시 따옴표로 감싼 문자열(예외 : 숫자)을 사용 해야 한다.만약 따옴표로 감싸지 않으며 자바스크립트가 식별자로 인식하기 때문이다.\n객체에 존재하지 않는 프로퍼티에 접근하면 ReferenceError가 아닌 undefined를 반환하므로 주의하자.\n\n\n\n다음 예제를 통해 각 접근법의 특징을 명확히 파악해보자.\n1234567891011121314151617181920212223var person = &#123;  &#x27;first-name&#x27;: &#x27;Hanseul&#x27;,  &#x27;last-name&#x27;: &#x27;Lee&#x27;,  gender: &#x27;female&#x27;,  1: 10&#125;;console.log(person);console.log(person.first-name);    // -&gt; 브라우저 환경: NaN                                  // -&gt; Node.js 환경: ReferenceError: name is not definedconsole.log(person[first-name]);   // ReferenceError: first is not definedconsole.log(person[&#x27;first-name&#x27;]); // &#x27;Hanseul&#x27;console.log(person.gender);    // &#x27;female&#x27;console.log(person[gender]);   // ReferenceError: gender is not definedconsole.log(person[&#x27;gender&#x27;]); // &#x27;female&#x27;console.log(person.1);    // SyntaxErrorconsole.log(person[1]);   // 10 : person[1] -&gt; person[&#x27;1&#x27;]console.log(person[&#x27;1&#x27;]); // 10console.log(person.age); // undefined\n\nperson.first-name을 실행할 때 자바스크립트 엔진은 먼저 person.first를 평가한다. person 객체에는 프로퍼티 키가 first인 프로퍼티가 없기 때문에 person.first는 undefined로 평가된다. 따라서 person.first-name은 undefined – name과 같다. 다음으로 자바스크립트 엔진은 name이라는 식별자를 찾는다. 이때 name은 프로퍼티 키가 아니라 식별자로 해석된다. Node.js 환경에서는 현재 어디에도 name이라는 식별자(변수, 함수 등의 이름) 선언이 없으므로 “ReferenceError: name is not defined”이라는 에러가 발생한다. 그런데 브라우저 환경에서는 name이라는 전역 변수(전역 객체 window의 프로퍼티)가 암묵적으로 존재한다. 따라서 person.first-name은 undefined – &#39;&#39;과 같으므로 NaN이 된다.\n\n\n\n4) 메서드(method)\n프로퍼티 값이 함수일 경우 일반 함수와 구분을 위해 메서드라고 한다.\n객체에 묶여있는 함수\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-08-26T15:45:16+09:00","dateModified":"2020-12-10T23:11:32+09:00","datePublished":"2020-08-26T15:45:16+09:00","description":"\n\n자바스크립트는 객체기반 언어이며, 객체 리터럴을 통해 객체를 생성하고 객체는 프로퍼티로 구성되었다. 프로퍼티와 함수로 된 프로퍼티인 메서드에 대해 알아보자.","headline":"10. 객체 리터럴","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/26/JS-10/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/26/JS-10/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="자바스크립트는 객체기반 언어이며, 객체 리터럴을 통해 객체를 생성하고 객체는 프로퍼티로 구성되었다. 프로퍼티와 함수로 된 프로퍼티인 메서드에 대해 알아보자.">
@@ -32,11 +36,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/26/JS-10/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/26/JS-10/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/26/JS-10/js.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/26/JS-10/js.png">
     
     
     
@@ -77,24 +81,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -111,11 +107,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -129,13 +122,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -143,13 +130,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -157,13 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -171,13 +146,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -185,13 +154,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -199,13 +162,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -213,13 +170,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -231,15 +182,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -251,8 +194,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -299,7 +241,7 @@
 </ul>
 </li>
 </ul>
-<img src="/2020/08/26/JS-10/10.png" class="" width="400" height="250">
+<img src="/2020/08/26/JS-10/10.png" class width="400" height="250">
 
 <ul>
 <li>객체는 <strong>변경가능한 값</strong>이다. ( cf. 원시값은 변경 불가능한 값)</li>
@@ -391,7 +333,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
 
@@ -408,12 +350,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/26/JS-11/"
-                    data-tooltip="11. 원시값과 객체의 비교"
-                    aria-label="PREVIOUS: 11. 원시값과 객체의 비교"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/26/JS-11/" data-tooltip="11. 원시값과 객체의 비교" aria-label="PREVIOUS: 11. 원시값과 객체의 비교">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -422,12 +359,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/20-08-25-TIL/"
-                    data-tooltip="20-08-25 화요일 TIL"
-                    aria-label="NEXT: 20-08-25 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/20-08-25-TIL/" data-tooltip="20-08-25 화요일 TIL" aria-label="NEXT: 20-08-25 화요일 TIL">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -437,11 +369,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -468,12 +396,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -492,12 +415,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/26/JS-11/"
-                    data-tooltip="11. 원시값과 객체의 비교"
-                    aria-label="PREVIOUS: 11. 원시값과 객체의 비교"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/26/JS-11/" data-tooltip="11. 원시값과 객체의 비교" aria-label="PREVIOUS: 11. 원시값과 객체의 비교">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -506,12 +424,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/20-08-25-TIL/"
-                    data-tooltip="20-08-25 화요일 TIL"
-                    aria-label="NEXT: 20-08-25 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/20-08-25-TIL/" data-tooltip="20-08-25 화요일 TIL" aria-label="NEXT: 20-08-25 화요일 TIL">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -521,11 +434,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -562,7 +471,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -572,7 +481,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -580,7 +489,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

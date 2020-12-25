@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>20. Strict mode - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/27/js-20/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/27/js-20/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\nESLint 같은 린트 도구를 사용하여도 strict mode와 유사한 효과를 얻을 수 있다. strict mode보다는 ESLint를 쓰는 것을 더 추천한다. 따라서 strict mode에 대해서는 간단하게만 알아두자.\n1) strict mode란?123456function foo() &#123;  x = 10;&#125;foo();console.log(x); // ?\n\n위의 예제를 살펴보자. foo 함수가 실행되면 자바스크립트 엔진은 x 변수가 어디에 선언되었는지 스코프 체인을 통해 검색한다. 이 때 전역 스코프에서도 x 변수가 선언되어 있지 않으므로 ReferenceError를 발생시킬 것 같지만 자바스크립트 엔진은 암묵적으로 전역 객체에 x 프로퍼티를 동적 생성한다. 이러한 현상을 암묵적 전역(implicit global) 이라고 한다.\n이와 같이 개발자의 의도와는 상관없이 발생한 암묵적 전역은 오류를 발생시키는 원인이 될 가능성이 크다. 따라서 이를 해결하기 위해 ES5부터 strict mode(엄격 모드) 가 추가되었다. strict mode는 자바스크립트 언어의 문법을 좀 더 엄격히 적용하여 오류를 발생시킬 가능성이 높거나 자바스크립트 엔진의 최적화 작업에 문제를 일으킬 수 있는 코드에 대해 명시적인 에러를 발생시킨다. 참고로 ESLint 같은 린트 도구를 사용하여도 strict mode와 유사한 효과를 얻을 수 있다. strict mode보다는 ESLint를 쓰는 것을 더 추천한다. 따라서 strict mode에 대해서는 간단하게만 알아두자.\n2) strict mode의 적용\nstrict mode를 적용하려면 전역의 선두 또는 함수 몸체의 선두에 &#39;use strict&#39;;를 추가한다. \n\n1234567891011121314&#x27;use strict&#x27;;function foo() &#123;  x = 10; // ReferenceError: x is not defined&#125;foo();// 만약 코드 선두에 위치하지 않으면 strict mode가 적용되지 않는다.function foo() &#123;  x = 10; // 에러를 발생시키지 않는다.  &#x27;use strict&#x27;;&#125;foo();\n\n\n3) 전역에 strict mode를 적용하는 것은 피하자전역에 적용한 strict mode는 스크립트 단위로 한정되어 적용된다.\n123456789101112131415161718&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;  &lt;script&gt;    &#x27;use strict&#x27;;  &lt;/script&gt;  &lt;script&gt;    x = 1; // 에러가 발생하지 않는다.    console.log(x); // 1  &lt;/script&gt;  &lt;script&gt;    &#x27;use strict&#x27;;    y = 1; // ReferenceError: y is not defined    console.log(y);  &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;\n하지만 strict mode 스크립트와 non-strict mode 스크립트를 혼용하는 것은 오류를 발생시킬 수 있다. 특히 외부 서드파티 라이브러리를 사용하는 경우 라이브러리가 non-strict mode인 경우도 있기 때문에 전역에 strict mode를 적용하는 것은 바람직하지 않다. 이러한 경우, 즉시 실행 함수로 스크립트 전체를 감싸서 스코프를 구분하고 즉시 실행 함수의 선두에 strict mode를 적용한다.\n123456// 즉시 실행 함수의 선두에 strict mode 적용(function () &#123;  &#x27;use strict&#x27;;  // Do something...&#125;());\n\n4) 함수 단위로 strict mode를 적용하는 것도 피하자1234567891011(function () &#123;  // non-strict mode  var lеt = 10; // 에러가 발생하지 않는다.  function foo() &#123;    &#x27;use strict&#x27;;    let = 20; // SyntaxError: Unexpected strict mode reserved word  &#125;  foo();&#125;());\n\n위와같이 함수 단위로 strict mode를 적용하기보다 즉시 실행 함수로 감싼 스크립트 단위로 적용하는 것이 바람직하다.\n5) strict mode가 발생시키는 에러5.1. 암묵적 전역\n선언하지 않은 변수를 참조하면 ReferenceError가 발생한다.\n\n123456(function () &#123;  &#x27;use strict&#x27;;  x = 1;  console.log(x); // ReferenceError: x is not defined&#125;());\n\n5.2. 변수, 함수, 매개변수의 삭제\ndelete 연산자로 변수, 함수, 매개변수를 삭제하면 SyntaxError가 발생한다.\n\n1234567891011121314(function () &#123;  &#x27;use strict&#x27;;  var x = 1;  delete x;  // SyntaxError: Delete of an unqualified identifier in strict mode.  function foo(a) &#123;    delete a;    // SyntaxError: Delete of an unqualified identifier in strict mode.  &#125;  delete foo;  // SyntaxError: Delete of an unqualified identifier in strict mode.&#125;());\n5.3. 매개변수 이름의 중복\n중복된 매개변수 이름을 사용하면 SyntaxError가 발생한다.\n\n123456789(function () &#123;  &#x27;use strict&#x27;;  //SyntaxError: Duplicate parameter name not allowed in this context  function foo(x, x) &#123;    return x + x;  &#125;  console.log(foo(1, 2));&#125;());\n5.4. with 문의 사용\nwith 문을 사용하면 SyntaxError가 발생한다.with 문은 전달된 객체를 스코프 체인에 추가한다. with 문은 동일한 객체의 프로퍼티를 반복해서 사용할 때 객체 이름을 생략할 수 있어서 코드가 간단해지는 효과가 있지만 성능과 가독성이 나빠지는 문제가 있다. 따라서 with 문은 사용하지 않는 것이 좋다.\n\n12345678(function () &#123;  &#x27;use strict&#x27;;  // SyntaxError: Strict mode code may not include a with statement  with(&#123; x: 1 &#125;) &#123;    console.log(x);  &#125;&#125;());\n\n\n6) strict mode 적용에 의한 변화6.1. 일반 함수의 this\nstrict mode 에서 함수를 일반 함수로서 호출하면 this에 undefined가 바인딩된다.생성자 함수가 아닌 일반 함수 내부에서는 this를 사용할 필요가 없기 때문이다. 이때 에러는 발생하지 않는다.\n\n12345678910111213(function () &#123;  &#x27;use strict&#x27;;  function foo() &#123;    console.log(this); // undefined  &#125;  foo();  function Foo() &#123;    console.log(this); // Foo  &#125;  new Foo();&#125;());\n6.2. arguments 객체\nstrict mode 에서는 매개변수에 전달된 인수를 재할당하여 변경하여도 arguments 객체에 반영되지 않는다.\n\n12345678(function (a) &#123;  &#x27;use strict&#x27;;  // 매개변수에 전달된 인수를 재할당하여 변경  a = 2;  // 변경된 인수가 arguments 객체에 반영되지 않는다.  console.log(arguments); // &#123; 0: 1, length: 1 &#125;&#125;(1));\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-09-27T00:01:53+09:00","dateModified":"2020-12-10T23:12:39+09:00","datePublished":"2020-09-27T00:01:53+09:00","description":"\n개발자의 의도와는 상관없이 발생한 암묵적 전역은 오류를 발생시키는 원인이 될 가능성이 크다. 따라서 이를 해결하기 위해 ES5부터 strict mode가 추가되었다. strict mode는 자바스크립트 언어의 문법을 좀 더 엄격히 적용하여 오류를 발생시킬 가능성이 높거나 자바스크립트 엔진의 최적화 작업에 문제를 일으킬 수 있는 코드에 대해 명시적인 에러를 발생시킨다.","headline":"20. Strict mode","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/27/JS-20/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/27/JS-20/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="개발자의 의도와는 상관없이 발생한 암묵적 전역은 오류를 발생시키는 원인이 될 가능성이 크다. 따라서 이를 해결하기 위해 ES5부터 strict mode가 추가되었다. strict mode는 자바스크립트 언어의 문법을 좀 더 엄격히 적용하여 오류를 발생시킬 가능성이 높거나 자바스크립트 엔진의 최적화 작업에 문제를 일으킬 수 있는 코드에 대해 명시적인 에러를">
@@ -30,11 +34,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/27/JS-20/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/27/JS-20/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/27/JS-20/js.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/27/JS-20/js.png">
     
     
     
@@ -75,24 +79,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -109,11 +105,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -127,13 +120,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -141,13 +128,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -155,13 +136,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -169,13 +144,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -183,13 +152,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -197,13 +160,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -211,13 +168,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -229,15 +180,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -249,8 +192,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -350,7 +292,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
 
@@ -367,12 +309,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/27/JS-21/"
-                    data-tooltip="21. 빌트인 객체"
-                    aria-label="PREVIOUS: 21. 빌트인 객체"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/27/JS-21/" data-tooltip="21. 빌트인 객체" aria-label="PREVIOUS: 21. 빌트인 객체">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -381,12 +318,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/26/JS-19-2/"
-                    data-tooltip="19. 프로토 타입 (2)"
-                    aria-label="NEXT: 19. 프로토 타입 (2)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/26/JS-19-2/" data-tooltip="19. 프로토 타입 (2)" aria-label="NEXT: 19. 프로토 타입 (2)">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -396,11 +328,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -427,12 +355,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -451,12 +374,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/27/JS-21/"
-                    data-tooltip="21. 빌트인 객체"
-                    aria-label="PREVIOUS: 21. 빌트인 객체"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/27/JS-21/" data-tooltip="21. 빌트인 객체" aria-label="PREVIOUS: 21. 빌트인 객체">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -465,12 +383,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/26/JS-19-2/"
-                    data-tooltip="19. 프로토 타입 (2)"
-                    aria-label="NEXT: 19. 프로토 타입 (2)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/26/JS-19-2/" data-tooltip="19. 프로토 타입 (2)" aria-label="NEXT: 19. 프로토 타입 (2)">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -480,11 +393,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -521,7 +430,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -531,7 +440,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -539,7 +448,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

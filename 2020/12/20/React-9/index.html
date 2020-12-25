@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[React] 컴포넌트 스타일링 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/20/react-9/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/12/20/react-9/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n리액트는 Vue, Angular와는 다르게 스타일이 스코핑되지 않는다는 문제점을 가지고 있다. 즉, CSS가 캡슐화되지 않아 예기치 못한 문제가 발생하기 쉽고 이를 자동화시켜주기 위해 다양한 방법들이 제시되었다. 리액트에서 컴포넌트를 스타일링하는 방법으로는 크게 다음과 같은 4가지로 나눌 수 있다.\n\n\n\n일반 CSS\nSass\nCSS Module\nstyled-components\n\n1. 일반 CSS일반 CSS로 CSS 스타일링을 하는 방법은 2가지가 있다.\n\n\n\n네이밍 규칙 이용BEM과 같이 이름을 지을 때 일종의 규칙을 준수하여 작성\n\nCSS SelectorCSS class의 상속 관계를 이용해 스타일 적용\n1234567891011/* App.css *//* 기존 */.App-logo &#123;  color: #fff;&#125;/* CSS Selecotr 사용 */.App .logo &#123;  color: #fff;&#125;\n\n\n\n\n\n2. SassSass(Syntactically Awesome StyleSheets)는 CSS 전처리기로 CSS의 한계와 단점을 보완하여 보다 가독성이 높고 코드의 재사용에 유리한 CSS를 생성하기 위해 탄생했다.\n\nSass에서는 두 가지 확장자 .scss와 .sass를 지원하는데 기존 CSS와 작성방법이 비슷한 .scss를 사용하는 것을 권장한다.\n스타일 코드를 계층적으로 구조화해 가독성이 높고, 스타일 코드의 재활용성을 높여주거나 설정을 커스터마이징하는 다양한 기능 및 라이브러리를 제공한다는 장점 또한 지니고 있다.\n\n먼저 node-sass 라이브러리를 설치한다.\n12$ npm install node-sass$ npm start\n\n이 후 .scss 파일에 sass문법을 적용해 스타일링을 해가면 기존 CSS를 사용하는 것보다 훨씬 가독성 좋은 스타일링을 구현할 수 있다.\n12345678910/* App.scss */.App &#123;  text-align: center;  .logo &#123;    height: 40vmin;    pointer-events: none;  &#125;&#125;\n\n\n\n3. CSS Module\n클래스 이름을 [filename]_[classname]__[hash] 형태로 자동 변환해 이름의 중첩을 방지.\n자동으로 변환되므로 클래스 네이밍 시 BEM과 같이 복잡하게 규칙 정하지 않고 마음대로 사용 가능함.\n.module.css 확장자로 파일 저장 시 CSS Module 적용됨.\n\nclassnames\nclass를 조건부로 설정할 때 유용한 라이브러리\n\n\n\n4. styled-components\n자바스크립트 파일 안에 스타일을 선언하는 방식(CSS-in-JS)\n스타일을 선언하며 바로 컴포넌트 생성 가능\nTagged 템플릿 리터럴\n\n\n\n\nReference\n\n김민준, 리액트를 다루는 기술\npoiemaweb.com/\n","dateCreated":"2020-12-20T09:49:03+09:00","dateModified":"2020-12-20T14:46:44+09:00","datePublished":"2020-12-20T09:49:03+09:00","description":"\n리액트는 Vue, Angular와는 다르게 스타일이 스코핑되지 않는다는 문제점을 가지고 있다. 따라서 이를 해결하기 위해 리액트에서 컴포넌트를 스타일링하는 다양한 방식을 알아보자.","headline":"[React] 컴포넌트 스타일링","image":["React.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/20/React-9/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/20/React-9/","keywords":"React","thumbnailUrl":"React.jpg"}</script>
     <meta name="description" content="리액트는 Vue, Angular와는 다르게 스타일이 스코핑되지 않는다는 문제점을 가지고 있다. 따라서 이를 해결하기 위해 리액트에서 컴포넌트를 스타일링하는 다양한 방식을 알아보자.">
@@ -30,11 +34,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/20/React-9/React.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/20/React-9/React.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/20/React-9/React.jpg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/12/20/React-9/React.jpg">
     
     
     
@@ -75,24 +79,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -109,11 +105,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -127,13 +120,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -141,13 +128,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -155,13 +136,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -169,13 +144,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -183,13 +152,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -197,13 +160,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -211,13 +168,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -229,15 +180,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -249,8 +192,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -354,7 +296,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/React/" rel="tag">React</a>
 
@@ -371,12 +313,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-VScode/"
-                    data-tooltip="[VS Code] VS Code에서 md파일 미리보기"
-                    aria-label="PREVIOUS: [VS Code] VS Code에서 md파일 미리보기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-VScode/" data-tooltip="[VS Code] VS Code에서 md파일 미리보기" aria-label="PREVIOUS: [VS Code] VS Code에서 md파일 미리보기">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -385,12 +322,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/18/React-2/"
-                    data-tooltip="[React] JSX 문법"
-                    aria-label="NEXT: [React] JSX 문법"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/18/React-2/" data-tooltip="[React] JSX 문법" aria-label="NEXT: [React] JSX 문법">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -400,11 +332,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -431,12 +359,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -455,12 +378,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/24/20-12-24-VScode/"
-                    data-tooltip="[VS Code] VS Code에서 md파일 미리보기"
-                    aria-label="PREVIOUS: [VS Code] VS Code에서 md파일 미리보기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/24/20-12-24-VScode/" data-tooltip="[VS Code] VS Code에서 md파일 미리보기" aria-label="PREVIOUS: [VS Code] VS Code에서 md파일 미리보기">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -469,12 +387,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/12/18/React-2/"
-                    data-tooltip="[React] JSX 문법"
-                    aria-label="NEXT: [React] JSX 문법"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/18/React-2/" data-tooltip="[React] JSX 문법" aria-label="NEXT: [React] JSX 문법">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -484,11 +397,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -525,7 +434,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -535,7 +444,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -543,7 +452,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

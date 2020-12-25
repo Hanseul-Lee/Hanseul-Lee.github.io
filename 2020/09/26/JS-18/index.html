@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>18. 함수와 일급 객체 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/26/js-18/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/26/js-18/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 일급 객체(first-class object)자바스크립트 함수는 일급 객체(first-class object) 이다.일급객체는 다음과 같은 조건을 충족시킨다.\n\n무명의 리터럴로 생성할 수 있다. 즉, 런타임에 생성이 가능하다.\n변수나 자료구조(객체, 배열 등)에 저장할 수 있다.\n함수의 매개변수에게 전달할 수 있다.\n함수의 반환값으로 사용할 수 있다.\n\n일급 객체로서 함수가 가지는 가장 큰 특징은 일반 객체와 같이 함수의 매개변수에 전달할 수 있으며, 함수의 반환값으로 사용할 수도 있다는 것이다. 이는 함수형 프로그래밍을 가능케하는 자바스크립트의 장점 중에 하나이다.\n반면 함수는 일반 객체와 달리 호출이 가능하고, 일반 객체에는 없는 함수 고유의 프로퍼티를 소유한다는 차이점이 존재한다.\n12345678910111213141516171819202122232425262728293031323334// 1. 함수는 무명의 리터럴로 생성할 수 있다.// 2. 함수는 변수에 저장할 수 있다.// 런타임(할당 단계)에 함수 리터럴이 평가되어 함수 객체가 생성되고 변수에 할당된다.const increase = function (num) &#123;  return ++num;&#125;;const decrease = function (num) &#123;  return --num;&#125;;// 2. 함수는 객체에 저장할 수 있다.const predicates = &#123; increase, decrease &#125;;// 3. 함수의 매개변수에게 전달할 수 있다.// 4. 함수의 반환값으로 사용할 수 있다.function makeCounter(predicate) &#123;  let num = 0;  return function () &#123;    num = predicate(num);    return num;  &#125;;&#125;// 3. 함수는 매개변수에게 함수를 전달할 수 있다.const increaser = makeCounter(predicates.increase);console.log(increaser()); // 1console.log(increaser()); // 2// 3. 함수는 매개변수에게 함수를 전달할 수 있다.const decreaser = makeCounter(predicates.decrease);console.log(decreaser()); // -1console.log(decreaser()); // -2\n\n\n\n2) 함수 객체의 프로퍼티함수는 객체이므로 함수도 프로퍼티를 가질 수 있다. 브라우저 콘솔에서 console.dir 메서드를 사용하여 다음과 같이 함수 객체의 내부를 들여다 볼 수 있다.\n함수 객체의 프로퍼티\n\n\nsquare 함수의 모든 프로퍼티의 프로퍼티 어트리뷰트를 Object.getOwnPropertyDescriptors 메서드로 확인해 보면 다음과 같다.\n\narguments, caller, length, name, prototype 프로퍼티는 모두 일반 객체에는 없는 함수 객체 고유의 데이터 프로퍼티이다. \n반면, __proto__는 접근자 프로퍼티이며, 함수 객체 고유의 프로퍼티가 아니라 Object.prototype 객체의 프로퍼티를 상속받은 것이다.\n\n12345678910111213141516171819202122function square(number) &#123;  return number * number;&#125;console.log(Object.getOwnPropertyDescriptors(square));/*&#123;  length: &#123;value: 1, writable: false, enumerable: false, configurable: true&#125;,  name: &#123;value: &quot;square&quot;, writable: false, enumerable: false, configurable: true&#125;,  arguments: &#123;value: null, writable: false, enumerable: false, configurable: false&#125;,  caller: &#123;value: null, writable: false, enumerable: false, configurable: false&#125;,  prototype: &#123;value: &#123;...&#125;, writable: true, enumerable: false, configurable: false&#125;&#125;*/// __proto__는 square 함수의 프로퍼티가 아니다.console.log(Object.getOwnPropertyDescriptor(square, &#x27;__proto__&#x27;)); // undefined// __proto__는 Object.prototype 객체의 접근자 프로퍼티다.// square 함수는 Object.prototype 객체로부터 __proto__ 접근자 프로퍼티를 상속받는다.console.log(Object.getOwnPropertyDescriptor(Object.prototype, &#x27;__proto__&#x27;));// &#123;get: ƒ, set: ƒ, enumerable: false, configurable: true&#125;\n\n2.1. arguments 프로퍼티\n함수 객체의 arguments(인수) 프로퍼티 값은 arguments 객체다.arguments 객체는 함수 호출 시 전달된 인수(argument)들의 정보를 담고 있는 순회 가능한 유사 배열 객체이다. \n📒 유사 배열 객체 : length 프로퍼티를 가진 객체로 for 문으로 순회할 수 있는 객체\n\n\n\n자바스크립트는 함수의 매개변수와 인수의 개수가 일치하는지 확인하지 않는다. 따라서 함수 호출 시 매개변수 개수만큼 인수를 전달하지 않아도 에러가 발생하지 않는다.\n123456789function multiply(x, y) &#123;  console.log(arguments);  return x * y;&#125;console.log(multiply());        // NaNconsole.log(multiply(1));       // NaNconsole.log(multiply(1, 2));    // 2console.log(multiply(1, 2, 3)); // 2\n선언된 매개변수의 개수보다 인수를 적게 전달했을 경우, 인수가 전달되지 않은 매개변수는 undefined로 초기화된 상태를 유지한다. 매개변수의 개수보다 인수를 더 많이 전달한 경우 초과된 인수는 무시된다. 그렇다고 초과된 인수가 그냥 버려지는 것은 아니라 다음과 같이 암묵적으로 arguments 객체의 프로퍼티로 보관된다. \n\n\narguments 객체의 프로퍼티\n\narguments 객체의 프로퍼티 키는 인수의 순서를, 프로퍼티 값으로 인수를 소유한다. arguments 객체의 callee 프로퍼티는 호출되어 arguments 객체를 생성한 함수, 즉 함수 자신을 가리키고, length 프로퍼티는 인수의 개수를 가리킨다.\n\n\n\narguments 객체는 매개변수 개수를 확정할 수 없는 가변 인자 함수를 구현할 때 유용하다.\n\n1234567891011121314unction sum() &#123;  let res = 0;  // arguments 객체는 length 프로퍼티가 있는 유사 배열 객체이므로 for 문으로 순회할 수 있다.  for (let i = 0; i &lt; arguments.length; i++) &#123;    res += arguments[i];  &#125;  return res;&#125;console.log(sum());        // 0console.log(sum(1, 2));    // 3console.log(sum(1, 2, 3)); // 6\n\n\n\n2.2. caller 프로퍼티\n📒 caller 프로퍼티 : 함수 자신을 호출한 함수\nECMAScript 사양에 포함되지 않은 비표준 프로퍼티이며, 이후 표준화될 예정도 없는 프로퍼티이므로 사용하지 말고 참고로만 알아둘 것.\n\n1234567891011function foo(func) &#123;  return func();&#125;function bar() &#123;  return &#x27;caller : &#x27; + bar.caller;&#125;// 브라우저에서의 실행한 결과console.log(foo(bar)); // caller : function foo(func) &#123;...&#125;console.log(bar());    // caller : null\n\n2.3. length 프로퍼티\n📒 length 프로퍼티 : 함수를 정의할 때 선언한 매개변수의 개수\narguments 객체의 length 프로퍼티와 함수 객체의 length 프로퍼티의 값은 다를 수 있으므로 주의하자.\n\n123456789101112function foo() &#123;&#125;console.log(foo.length); // 0function bar(x) &#123;  return x;&#125;console.log(bar.length); // 1function baz(x, y) &#123;  return x * y;&#125;console.log(baz.length); // 2\n\n2.4. name 프로퍼티\n📒 name 프로퍼티 : 함수 이름\n(🔴주의!) name 프로퍼티는 ES5와 ES6에서 동작을 다르게 한다. 익명 함수 표현식의 경우 ES5에서 name 프로퍼티는 빈 문자열을 값으로 갖는다. 하지만 ES6에서는 함수 객체를 가리키는 식별자를 값으로 갖는다.\n\n12345678910111213// 기명 함수 표현식var namedFunc = function foo() &#123;&#125;;console.log(namedFunc.name); // foo// 익명 함수 표현식var anonymousFunc = function() &#123;&#125;;// ES5: name 프로퍼티는 빈 문자열을 값으로 갖는다.// ES6: name 프로퍼티는 함수 객체를 가리키는 변수 이름을 값으로 갖는다.console.log(anonymousFunc.name); // anonymousFunc// 함수 선언문(Function declaration)function bar() &#123;&#125;console.log(bar.name); // bar\n\n\n2.5. prototype 프로퍼티\n📒 prototype 프로퍼티 : 생성자 함수로 호출할 수 있는 함수 객체, 즉 constructor만이 소유하는 프로퍼티\n일반 객체와 생성자 함수로 호출할 수 없는 non-constructor에는 prototype 프로퍼티가 없다.\nprototype 프로퍼티는 함수가 객체를 생성하는 생성자 함수로 호출될 때 생성자 함수가 생성할 인스턴스의 프로토타입 객체를 가리킨다.\n\n12345// 함수 객체는 prototype 프로퍼티를 소유한다.(function () &#123;&#125;).hasOwnProperty(&#x27;prototype&#x27;); // -&gt; true// 일반 객체는 prototype 프로퍼티를 소유하지 않는다.(&#123;&#125;).hasOwnProperty(&#x27;prototype&#x27;); // -&gt; false\n\n\n\n2.6. __proto__ 접근자 프로퍼티\n📒 __proto__ 접근자 프로퍼티 : [[Prototype]] 내부 슬롯이 가리키는 프로토타입 객체에 접근하기 위해 사용하는 접근자 프로퍼티\n내부 슬롯에는 직접 접근할 수 없으므로 [[Prototype]] 내부 슬롯에 __proto__ 접근자 프로퍼티를 통해 간접적으로 프로토타입 객체에 접근할 수 있다.\n\n123456789const obj = &#123; a: 1 &#125;;// 객체 리터럴 방식으로 생성한 객체의 프로토타입 객체는 Object.prototype이다.console.log(obj.__proto__ === Object.prototype); // true// 객체 리터럴 방식으로 생성한 객체는 프로토타입 객체인 Object.prototype의 프로퍼티를 상속받는다.// hasOwnProperty 메서드는 Object.prototype의 메서드다.console.log(obj.hasOwnProperty(&#x27;a&#x27;));         // trueconsole.log(obj.hasOwnProperty(&#x27;__proto__&#x27;)); // false\n\nhasOwnProperty 메서드: 인수로 전달받은 프로퍼티 키가 객체 고유의 프로퍼티 키인 경우에만 true를 반환하고상속받은 프로토타입의 프로퍼티 키인 경우 false를 반환한다.\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-09-26T01:28:05+09:00","dateModified":"2020-12-10T23:12:28+09:00","datePublished":"2020-09-26T01:28:05+09:00","description":"\n자바스크립트 함수는 일급 객체이다. 일급 객체로서 함수가 가지는 가장 큰 특징은 일반 객체와 같이 함수의 매개변수에 전달할 수 있으며, 함수의 반환값으로 사용할 수도 있다는 것이다. 반면 함수는 일반 객체와 달리 호출이 가능하고, 일반 객체에는 없는 함수 고유의 프로퍼티를 소유한다는 차이점이 존재한다.일급 객체로서의 조건과 일반 객체와 다른 함수 객체만의 특징을 살펴보자.","headline":"18. 함수와 일급 객체","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/26/JS-18/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/26/JS-18/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="자바스크립트 함수는 일급 객체이다. 일급 객체로서 함수가 가지는 가장 큰 특징은 일반 객체와 같이 함수의 매개변수에 전달할 수 있으며, 함수의 반환값으로 사용할 수도 있다는 것이다. 반면 함수는 일반 객체와 달리 호출이 가능하고, 일반 객체에는 없는 함수 고유의 프로퍼티를 소유한다는 차이점이 존재한다.일급 객체로서의 조건과 일반 객체와 다른 함수 객체만의">
@@ -33,11 +37,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/26/JS-18/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/26/JS-18/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/26/JS-18/js.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/26/JS-18/js.png">
     
     
     
@@ -78,24 +82,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -112,11 +108,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -130,13 +123,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -144,13 +131,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -158,13 +139,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -172,13 +147,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -186,13 +155,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -200,13 +163,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -214,13 +171,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -232,15 +183,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -252,8 +195,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -305,7 +247,7 @@
 <br>
 
 <h1 id="2-함수-객체의-프로퍼티"><a href="#2-함수-객체의-프로퍼티" class="headerlink" title="2) 함수 객체의 프로퍼티"></a>2) 함수 객체의 프로퍼티</h1><p>함수는 객체이므로 함수도 프로퍼티를 가질 수 있다. 브라우저 콘솔에서 console.dir 메서드를 사용하여 다음과 같이 함수 객체의 내부를 들여다 볼 수 있다.</p>
-<div class="figure center" style="width:400px;"><img class="fig-img" src="18-1.png" style="width:400px;"alt="함수 객체의 프로퍼티"><span class="caption">함수 객체의 프로퍼티</span></div>
+<div class="figure center" style="width:400px;"><img class="fig-img" src="18-1.png" style="width:400px;" alt="함수 객체의 프로퍼티"><span class="caption">함수 객체의 프로퍼티</span></div>
 <br>
 
 <p>square 함수의 모든 프로퍼티의 프로퍼티 어트리뷰트를 Object.getOwnPropertyDescriptors 메서드로 확인해 보면 다음과 같다.<br><br></p>
@@ -326,7 +268,7 @@
 <p>선언된 매개변수의 개수보다 인수를 적게 전달했을 경우, 인수가 전달되지 않은 매개변수는 undefined로 초기화된 상태를 유지한다. 매개변수의 개수보다 인수를 더 많이 전달한 경우 초과된 인수는 무시된다. 그렇다고 초과된 인수가 그냥 버려지는 것은 아니라 다음과 같이 <strong>암묵적으로 arguments 객체의 프로퍼티로 보관</strong>된다. </p>
 <br>
 
-<div class="figure center" style="width:600px;"><img class="fig-img" src="18-2.png" style="width:600px;"alt="arguments 객체의 프로퍼티"><span class="caption">arguments 객체의 프로퍼티</span></div>
+<div class="figure center" style="width:600px;"><img class="fig-img" src="18-2.png" style="width:600px;" alt="arguments 객체의 프로퍼티"><span class="caption">arguments 객체의 프로퍼티</span></div>
 
 <p>arguments 객체의 프로퍼티 키는 인수의 순서를, 프로퍼티 값으로 인수를 소유한다. arguments 객체의 callee 프로퍼티는 호출되어 arguments 객체를 생성한 함수, 즉 함수 자신을 가리키고, length 프로퍼티는 인수의 개수를 가리킨다.</p>
 <br>
@@ -355,7 +297,7 @@
 <li>(🔴주의!) name 프로퍼티는 ES5와 ES6에서 동작을 다르게 한다. 익명 함수 표현식의 경우 ES5에서 name 프로퍼티는 빈 문자열을 값으로 갖는다. 하지만 ES6에서는 함수 객체를 가리키는 식별자를 값으로 갖는다.</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 기명 함수 표현식</span></span><br><span class="line"><span class="keyword">var</span> namedFunc = <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(namedFunc.name); <span class="comment">// foo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 익명 함수 표현식</span></span><br><span class="line"><span class="keyword">var</span> anonymousFunc = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="comment">// ES5: name 프로퍼티는 빈 문자열을 값으로 갖는다.</span></span><br><span class="line"><span class="comment">// ES6: name 프로퍼티는 함수 객체를 가리키는 변수 이름을 값으로 갖는다.</span></span><br><span class="line"><span class="built_in">console</span>.log(anonymousFunc.name); <span class="comment">// anonymousFunc</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 함수 선언문(Function declaration)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(bar.name); <span class="comment">// bar</span></span><br></pre></td></tr></table></figure>
-<Br>
+<br>
 
 <h2 id="2-5-prototype-프로퍼티"><a href="#2-5-prototype-프로퍼티" class="headerlink" title="2.5. prototype 프로퍼티"></a>2.5. prototype 프로퍼티</h2><ul>
 <li>📒 <strong>prototype 프로퍼티 : 생성자 함수로 호출할 수 있는 함수 객체, 즉 constructor만이 소유하는 프로퍼티</strong></li>
@@ -389,7 +331,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
 
@@ -406,12 +348,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/26/JS-19-1/"
-                    data-tooltip="19. 프로토 타입 (1)"
-                    aria-label="PREVIOUS: 19. 프로토 타입 (1)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/26/JS-19-1/" data-tooltip="19. 프로토 타입 (1)" aria-label="PREVIOUS: 19. 프로토 타입 (1)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -420,12 +357,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
-                    data-tooltip="[과제] 자료구조와 알고리즘 - 2. 정렬"
-                    aria-label="NEXT: [과제] 자료구조와 알고리즘 - 2. 정렬"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/" data-tooltip="[과제] 자료구조와 알고리즘 - 2. 정렬" aria-label="NEXT: [과제] 자료구조와 알고리즘 - 2. 정렬">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -435,11 +367,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -466,12 +394,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -490,12 +413,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/26/JS-19-1/"
-                    data-tooltip="19. 프로토 타입 (1)"
-                    aria-label="PREVIOUS: 19. 프로토 타입 (1)"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/26/JS-19-1/" data-tooltip="19. 프로토 타입 (1)" aria-label="PREVIOUS: 19. 프로토 타입 (1)">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -504,12 +422,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"
-                    data-tooltip="[과제] 자료구조와 알고리즘 - 2. 정렬"
-                    aria-label="NEXT: [과제] 자료구조와 알고리즘 - 2. 정렬"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/25/20-09-25-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/" data-tooltip="[과제] 자료구조와 알고리즘 - 2. 정렬" aria-label="NEXT: [과제] 자료구조와 알고리즘 - 2. 정렬">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -519,11 +432,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -560,7 +469,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -570,7 +479,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -578,7 +487,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

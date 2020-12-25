@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>9. 타입 변환과 단축 평가 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/25/js-9/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/25/js-9/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1) 타입 변환📒 타입 변환 : 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것\n\n암묵적 타입 변환, 타입 강제 변환(type coercion) : 자바스크립트 엔진에 의한 강제적 타입 변환\n명시적 타입 변환, 타입 캐스팅(type casting): 개발자에 의한 의도적 타입변환\n\n원시값은 변경 불가능한 값이므로 변경할 수 없다. 타입 변환은 기존 원시값을 직접 변경하는 것이 아닌 기존 원시값을 사용해 다른 타입의 새로운 원시값을 생성하는 것이다. 개발자는 자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 한다.\n2) 암묵적 타입 변환2.1. 문자열 타입으로 변환\n‘+’ 문자열 연결 연산자\n‘+’ 연산자는 피연산자 중 하나 이상이 문자열이면 문자열 연결 연산자로 동작\n\n\n템플릿 리터럴\n공백 추가\n\n1234567891011// 1. + 문자열 연결 연산자1 + &quot;2&quot; // -&gt; &quot;12&quot;// 2. 템플릿 리터럴`1 + 1 = $&#123;1 + 1&#125;`; // -&gt; &quot;1 + 1 = 2&quot;// 3. 공백 추가0 +&#x27;&#x27; - // -&gt; &quot;0&quot;1 +&#x27;&#x27;; // -&gt; &quot;-1&quot;true +&#x27;&#x27;// -&gt; &quot;true&quot;[(10, 20)] + &#x27;&#x27;; // -&gt; &quot;10,20&quot;\n\n\n2.2. 숫자 타입으로 변환\n산술 연산자\n피연산자를 숫자 타입으로 변환할 수 없는 경우 평가 결과는 NaN\n\n\n1231 - &quot;1&quot;; // -&gt; 01 * &quot;10&quot;; // -&gt; 101 / &quot;one&quot;; // -&gt; NaN\n\n\n비교 연산자불리언 값을 만듦\n\n1&quot;1&quot; &gt; 0; // -&gt; true\n\n\n단항 연산자빈 문자열(‘’), 빈 배열([]), null, false는 0으로, true는 1로 변환객체와 빈 배열이 아닌 배열, undefined는 변환되지 않아 NaN이 된다.\n\n123456789101112131415+&quot;0&quot;  // -&gt; 0+&quot;1&quot;  // -&gt; 1+&quot;string&quot;  // -&gt; NaN+true  // -&gt; 1+false  // -&gt; 0// null undefined의 값이 다르다는 것 구분해 알아두자!  +null  // -&gt; 0+undefined  // -&gt; NaN+&#123;&#125;  // -&gt; NaN+[]  // -&gt; 0+[10, 20]  // -&gt; NaN+function () &#123;&#125;; // -&gt; NaN\n\n2.3. 불리언 타입으로 변환\n자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분한다.\nFalsy 값(7개) :false , undefined, null, 0, -0, NaN, ’’ (빈 문자열)\nTruthy 값:Falsy 값 외의 모든 값\n\n1234567if (&quot;&quot;) console.log(&quot;1&quot;);if (true) console.log(&quot;2&quot;);if (0) console.log(&quot;3&quot;);if (&quot;str&quot;) console.log(&quot;4&quot;);if (null) console.log(&quot;5&quot;);// 2 4\n\n3) 명시적 타입 변환3.1. 문자열 타입으로 변환1234var x = 10;console.log(String(x)); // 1. String 생성자 함수를 new 연산자 없이 호출console.log(x.toString()); // 2. Object.prototype.toString 메서드를 사용console.log(x + &#x27;&#x27;); // 3. 문자열 연결 연산자를 이용 \n\n\nString 생성자 함수를 new 연산자 없이 호출하는 방법\nObject.prototype.toString 메서드를 사용하는 방법\n문자열 연결 연산자를 이용하는 방법\n\n12345678910111213141516// 1. string 생성자 함수String(1); // -&gt; &quot;1&quot;String(NaN); // -&gt; &quot;NaN&quot;String(true); // -&gt; &quot;true&quot;// 2. Object.prototype.toString 메서드(1).toString(); // -&gt; &quot;1&quot;NaN.toString(); // -&gt; &quot;NaN&quot;true.toString(); // -&gt; &quot;true&quot;// 3. 문자열 연결 연산자 이용1 + &quot;&quot;; // -&gt; &quot;1&quot;NaN + &quot;&quot;; // -&gt; &quot;NaN&quot;Infinity + &quot;&quot;; // -&gt; &quot;Infinity&quot;// 불리언 타입 =&gt; 문자열 타입true + &quot;&quot;; // -&gt; &quot;true&quot;\n\n3.2. 숫자 타입으로 변환\nNumber 생성자 함수를 new 연산자 없이 호출하는 방법\nparseInt, parseFloat 함수를 사용하는 방법(문자열만 숫자 타입으로 변환 가능)\n단항 산술 연산자를 이용하는 방법\n산술 연산자를 이용하는 방법\n\n12345678910111213141516171819// 1. Number 생성자 함수Number(&quot;0&quot;); // -&gt; 0Number(&quot;-1&quot;); // -&gt; -1Number(true); // -&gt; 1// 2. parseInt, parseFloat 함수를 사용parseInt(&quot;0&quot;); // -&gt; 0parseFloat(&#x27;10.53&#x27;); // -&gt; 10.53// 3. + 단항 산술 연산자를 이용+&quot;0&quot;; // -&gt; 0+&quot;-1&quot;; // -&gt; -1+true; // -&gt; 1+false; // -&gt; 0// 4. 산술 연산자를 이용&quot;0&quot; * 1; // -&gt; 0true * 1; // -&gt; 1false * 1; // -&gt; 0\n\n3.3. 불리언 타입으로 변환\nBoolean 생성자 함수를 new 연산자 없이 호출하는 방법\n! 부정 논리 연산자를 두 번 사용하는 방법\n\n12345678910111213141516171819202122232425// 1. Boolean 생성자 함수Boolean(&quot;x&quot;); // -&gt; trueBoolean(&quot;&quot;); // -&gt; falseBoolean(&quot;false&quot;); // -&gt; trueBoolean(0); // -&gt; falseBoolean(1); // -&gt; trueBoolean(NaN); // -&gt; falseBoolean(Infinity); // -&gt; trueBoolean(null); // -&gt; falseBoolean(undefined); // -&gt; false// 2. ! 부정 논리 연산자를 두 번 사용!!&quot;x&quot;; // -&gt; true!!&quot;&quot;; // -&gt; false!!&quot;false&quot;; // -&gt; true!!0; // -&gt; false!!1; // -&gt; true!!NaN; // -&gt; false!!Infinity; // -&gt; true!!null; // -&gt; false!!undefined; // -&gt; false\n\n4) 단축 평가4.1. 논리 연산자를 사용한 단축 평가\n📒 단축 평가 : 표현식을 평가하는 도중에 평가 결과가 확정된 경우 나머지 평가 과정을 생략하는 것\n\n논리합(||) 연산자와 논리곱(&amp;&amp;) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다.이때 논리합(||), 논리곱(&amp;&amp;) 연산자 표현식은 언제나 2개의 피연산자 중 어느 한쪽으로 평가된다.\n\n단축 평가 규칙\n\n1234true || anything; // truefalse || anything; // anythingtrue &amp;&amp; anything; // anythingfalse &amp;&amp; anything; // false\n\n\n\n예제\n\n1&quot;Cat&quot; &amp;&amp; &quot;Dog&quot;; // -&gt; &quot;Dog&quot;\n\n논리곱(&amp;&amp;) 연산자는 두 개의 피연산자가 모두 true로 평가될 때 true를 반환여기서 ‘Cat’은 true그러므로 뒤의 ‘Dog’에 의해 결과값 결정됨논리곱 연산자는 논리 연산의 결과를 결정하는 두 번째 피연산자, 즉 문자열 ‘Dog’를 그대로 반환!\n마찬가지로 논리합(||) 연산자는 두 개의 피연산자 중 하나만 true로 평가되어도 true를 반환하므로 결과를 결정하는 첫 번째 피연산자, 문자열 ‘Cat’을 그대로 반환한다.\n1&quot;Cat&quot; || &quot;Dog&quot;; // -&gt; &quot;Cat&quot;\n\n\n\n\n단축 평가를 사용하면 if 문을 대체 가능하다.\n\n\n주어진 조건이 true\n\n12345678910var done = true;var message = &quot;&quot;;// 주어진 조건이 true일 때if (done) message = &quot;완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 true라면 message에 &#x27;완료&#x27;를 할당message = done &amp;&amp; &quot;완료&quot;;console.log(message); // 완료\n\n\n주어진 조건이 false\n\n12345678910var done = false;var message = &quot;&quot;;// 주어진 조건이 false일 때if (!done) message = &quot;미완료&quot;;// if 문은 단축 평가로 대체 가능하다.// done이 false라면 message에 &#x27;미완료&#x27;를 할당message = done || &quot;미완료&quot;;console.log(message); // 미완료\n\n\nif…else 문\n\n1234567891011var done = true;var message = &quot;&quot;;// if...else 문if (done) message = &quot;완료&quot;;else message = &quot;미완료&quot;;console.log(message); // 완료// if...else 문은 삼항 조건 연산자로 대체 가능하다.message = done ? &quot;완료&quot; : &quot;미완료&quot;;console.log(message); // 완료\n\n\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때\n\n12var elem = null;var value = elem.value; // TypeError: Cannot read property &#x27;value&#x27; of null\n1234var elem = null;// elem이 null이나 undefined와 같은 Falsy 값이면 elem으로 평가되고// elem이 Truthy 값이면 elem.value로 평가된다.var value = elem &amp;&amp; elem.value; // -&gt; null\n\n\n\n함수 매개변수에 기본값을 설정할 때함수를 호출할 때 인수를 전달하지 않으면 매개변수는 undefined를 갖는다. 이때 단축 평가를 사용하여 매개변수의 기본값을 설정하면 undefined로 인해 발생할 수 있는 에러를 방지할 수 있다.\n\n12345678910111213141516// 단축 평가를 사용한 매개변수의 기본값 설정function getStringLength(str) &#123;  str = str || &#x27;&#x27;;  return str.length;&#125;getStringLength();     // -&gt; 0getStringLength(&#x27;hi&#x27;); // -&gt; 2// ES6의 매개변수의 기본값 설정function getStringLength(str = &#x27;&#x27;) &#123;  return str.length;&#125;getStringLength();     // -&gt; 0getStringLength(&#x27;hi&#x27;); // -&gt; 2\n\n\n4.2. 옵셔널 체이닝 연산자📒 옵셔널 체이닝(optional chaining) 연산자 :　?.\n좌항이 null 또는 undefined → undefined그렇지 않으면 우항의 프로퍼티 참조를 이어감\n\n객체를 가리키기를 기대하는 변수가 null 또는 undefined이 아닌지 확인하고 프로퍼티를 참조할 때 유용하다.\n\n4.3. null 병합 연산자📒 null 병합(nullish coalescing) 연산자 :　??\n좌항이 null 또는 undefined → 우항의 피연산자를 반환그렇지 않으면 좌항의 피연산자를 반환\n\n변수에 기본값을 설정할 때 유용하다.\n\n\n\n\nReference\n\npoiemaweb.com\n","dateCreated":"2020-08-25T00:26:00+09:00","dateModified":"2020-12-10T23:11:25+09:00","datePublished":"2020-08-25T00:26:00+09:00","description":"\n\n자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.","headline":"9. 타입 변환과 단축 평가","image":["js.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/25/JS-9/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/25/JS-9/","keywords":"javascript","thumbnailUrl":"js.png"}</script>
     <meta name="description" content="자신이 작성한 코드에서 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 변환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 함.">
@@ -30,11 +34,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/25/JS-9/js.png">
     
     
     
@@ -75,24 +79,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -109,11 +105,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -127,13 +120,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -141,13 +128,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -155,13 +136,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -169,13 +144,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -183,13 +152,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -197,13 +160,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -211,13 +168,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -229,15 +180,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -249,8 +192,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -430,7 +372,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/javascript/" rel="tag">javascript</a>
 
@@ -447,12 +389,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/20-08-25-TIL/"
-                    data-tooltip="20-08-25 화요일 TIL"
-                    aria-label="PREVIOUS: 20-08-25 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/20-08-25-TIL/" data-tooltip="20-08-25 화요일 TIL" aria-label="PREVIOUS: 20-08-25 화요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -461,12 +398,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/JS-8/"
-                    data-tooltip="8. 제어문"
-                    aria-label="NEXT: 8. 제어문"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/JS-8/" data-tooltip="8. 제어문" aria-label="NEXT: 8. 제어문">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -476,11 +408,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -507,12 +435,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -531,12 +454,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/20-08-25-TIL/"
-                    data-tooltip="20-08-25 화요일 TIL"
-                    aria-label="PREVIOUS: 20-08-25 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/20-08-25-TIL/" data-tooltip="20-08-25 화요일 TIL" aria-label="PREVIOUS: 20-08-25 화요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -545,12 +463,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/25/JS-8/"
-                    data-tooltip="8. 제어문"
-                    aria-label="NEXT: 8. 제어문"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/25/JS-8/" data-tooltip="8. 제어문" aria-label="NEXT: 8. 제어문">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -560,11 +473,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -601,7 +510,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -611,7 +520,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -619,7 +528,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         

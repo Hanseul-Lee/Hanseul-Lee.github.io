@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="HS&#39;s blog">
     <title>[git] git으로 협력하기 - HS&#39;s blog</title>
-    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/"/>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/">
     <meta name="author" content="Hanseul lee">
     
     
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
     
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\ngit으로 협력하는 방법은 크게 2가지로 나눠진다. 하나는 fork 후 작업하는 것이고 다른 하나는 git organization을 사용하는 것이다.\nGit으로 협력하기\n\n팀장이 자기 소유의 repo 생성\nclone하여 약간의 작업 후 add, commit, push\nnotice 받은 팀원은 fork하여 자신의 소유가 된 repo를 clone\n작업할 내용을 미리 issue 등록\n$ git remote add pmorigin {pm의 repo 주소} 하여 미리 등록\nfeature branch 생성 후 작업, add, commit(with issue no)\nmain으로 marge 한 후, 나의 main로 push\npull request 생성\n팀장은 확인 후 merge(conflict, file change 확인 필수)\n\n\n이를 코드로 나타내면 다음과 같다.\n1234567891011121314151617git clone 팀장레포주소git remote add pmorigin 팀장레포주소git branch 이름vi → 작성git checkout 이름git add index.htmlgit commit -m &quot;feat: Fill contents in body                solved: #9 &quot;(만약 팀장 repo에 변경이 일어나면 pull request를 해야 함)git pull pmorigin develop&#x3D;&gt; conflict 해결!git checkout mastergit merge 이름git push origin master\n\ngit fork 후 협업하기\n\ngit organization으로 협업하기\n\n\nReference\n\nhttps://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/\nhttps://meetup.toast.com/posts/116?fbclid=IwAR2hvjhyVGqoXQzV21r8nEnb_ePUe76fELqHX1JOFLU5tdKHfJaz6qq5uEI\nhttps://parksb.github.io/article/28.html\n","dateCreated":"2020-08-18T00:00:00+09:00","dateModified":"2020-12-17T14:33:23+09:00","datePublished":"2020-08-18T00:00:00+09:00","description":"\n\nGit으로 협력하기 위해 팀장과 팀원이 해야할 것들을 차례대로 알아보자.","headline":"[git] git으로 협력하기","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/08/18/20-08-18-git/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/08/18/20-08-18-git/","keywords":"git","thumbnailUrl":"git.jpeg"}</script>
     <meta name="description" content="Git으로 협력하기 위해 팀장과 팀원이 해야할 것들을 차례대로 알아보자.">
@@ -32,11 +36,11 @@
         
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
     
     
-        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/git.jpeg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/git.jpeg"/>
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/git.jpeg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/08/18/20-08-18-git/git.jpeg">
     
     
     
@@ -77,24 +81,16 @@
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
-        <a
-            class="header-title-link"
-            href="/"
-            aria-label=""
-        >
+        <a class="header-title-link" href="/" aria-label>
             HS&#39;s blog
         </a>
     </div>
     
         
-            <a
-                class="header-right-picture "
-                href="#about"
-                aria-label="Open the link: /#about"
-            >
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
         
         
-            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
         </a>
     
@@ -111,11 +107,8 @@
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
-                <a
-                    href="/#about"
-                    aria-label="Read more about the author"
-                >
-                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
                 </a>
                 <h4 class="sidebar-profile-name">Hanseul lee</h4>
                 
@@ -129,13 +122,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/"
-                            
-                            rel="noopener"
-                            title="Home"
-                        >
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
@@ -143,13 +130,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="All-categories"
-                        >
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
                         <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">All-categories</span>
                     </a>
@@ -157,13 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-project"
-                            
-                            rel="noopener"
-                            title="project-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">project-log</span>
                     </a>
@@ -171,13 +146,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-Fastcampus"
-                            
-                            rel="noopener"
-                            title="study-log"
-                        >
+                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -185,13 +154,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/category-TIL"
-                            
-                            rel="noopener"
-                            title="TIL"
-                        >
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">TIL</span>
                     </a>
@@ -199,13 +162,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
                         <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
@@ -213,13 +170,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="#about"
-                            
-                            rel="noopener"
-                            title="About"
-                        >
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
                         <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
@@ -231,15 +182,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a
-                            class="sidebar-button-link "
-                            href="https://github.com/hanseul-lee/"
-                            
-                                target="_blank"
-                            
-                            rel="noopener"
-                            title="GitHub"
-                        >
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
@@ -251,8 +194,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
-                 class="
+            <div id="main" data-behavior="2" class="
                         hasCoverMetaIn
                         ">
                 
@@ -306,16 +248,16 @@
 <p>이를 코드로 나타내면 다음과 같다.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git clone 팀장레포주소</span><br><span class="line">git remote add pmorigin 팀장레포주소</span><br><span class="line"></span><br><span class="line">git branch 이름</span><br><span class="line">vi → 작성</span><br><span class="line">git checkout 이름</span><br><span class="line">git add index.html</span><br><span class="line">git commit -m &quot;feat: Fill contents in body</span><br><span class="line">                solved: #9 &quot;</span><br><span class="line"></span><br><span class="line">(만약 팀장 repo에 변경이 일어나면 pull request를 해야 함)</span><br><span class="line">git pull pmorigin develop</span><br><span class="line">&#x3D;&gt; conflict 해결!</span><br><span class="line"></span><br><span class="line">git checkout master</span><br><span class="line">git merge 이름</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
-<h1 id="git-fork-후-협업하기"><a href="#git-fork-후-협업하기" class="headerlink" title="git fork 후 협업하기"></a>git fork 후 협업하기</h1><div class="figure center" style="width:600px;"><img class="fig-img" src="local.png" style="width:600px;"alt=""></div>
+<h1 id="git-fork-후-협업하기"><a href="#git-fork-후-협업하기" class="headerlink" title="git fork 후 협업하기"></a>git fork 후 협업하기</h1><div class="figure center" style="width:600px;"><img class="fig-img" src="local.png" style="width:600px;" alt></div>
 
 <h1 id="git-organization으로-협업하기"><a href="#git-organization으로-협업하기" class="headerlink" title="git organization으로 협업하기"></a>git organization으로 협업하기</h1><br>
 
 <hr>
 <p><strong>Reference</strong></p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/">https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/</a></li>
-<li><a target="_blank" rel="noopener" href="https://meetup.toast.com/posts/116?fbclid=IwAR2hvjhyVGqoXQzV21r8nEnb_ePUe76fELqHX1JOFLU5tdKHfJaz6qq5uEI">https://meetup.toast.com/posts/116?fbclid=IwAR2hvjhyVGqoXQzV21r8nEnb_ePUe76fELqHX1JOFLU5tdKHfJaz6qq5uEI</a></li>
-<li><a target="_blank" rel="noopener" href="https://parksb.github.io/article/28.html">https://parksb.github.io/article/28.html</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/">https://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://meetup.toast.com/posts/116?fbclid=IwAR2hvjhyVGqoXQzV21r8nEnb_ePUe76fELqHX1JOFLU5tdKHfJaz6qq5uEI">https://meetup.toast.com/posts/116?fbclid=IwAR2hvjhyVGqoXQzV21r8nEnb_ePUe76fELqHX1JOFLU5tdKHfJaz6qq5uEI</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://parksb.github.io/article/28.html">https://parksb.github.io/article/28.html</a></li>
 </ul>
             
 
@@ -325,7 +267,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br>
                 
     <a class="tag tag--primary tag--small t-none-link" href="/tags/git/" rel="tag">git</a>
 
@@ -342,12 +284,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-TIL/"
-                    data-tooltip="20-08-18 화요일 TIL"
-                    aria-label="PREVIOUS: 20-08-18 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/18/20-08-18-TIL/" data-tooltip="20-08-18 화요일 TIL" aria-label="PREVIOUS: 20-08-18 화요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -356,12 +293,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-git2/"
-                    data-tooltip="[git] 좋은 커밋 메세지 작성하기"
-                    aria-label="NEXT: [git] 좋은 커밋 메세지 작성하기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/18/20-08-18-git2/" data-tooltip="[git] 좋은 커밋 메세지 작성하기" aria-label="NEXT: [git] 좋은 커밋 메세지 작성하기">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -371,11 +303,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -402,12 +330,7 @@
 <!-- Comment -->
 <!--  utteranc comment -->
 
-  <script src="https://utteranc.es/client.js"
-  repo="hanseul-lee/blog-comments"
-  issue-term="title"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
+  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
 </script>
   
 
@@ -426,12 +349,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-TIL/"
-                    data-tooltip="20-08-18 화요일 TIL"
-                    aria-label="PREVIOUS: 20-08-18 화요일 TIL"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/18/20-08-18-TIL/" data-tooltip="20-08-18 화요일 TIL" aria-label="PREVIOUS: 20-08-18 화요일 TIL">
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -440,12 +358,7 @@
             <li class="post-action">
                 
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/08/18/20-08-18-git2/"
-                    data-tooltip="[git] 좋은 커밋 메세지 작성하기"
-                    aria-label="NEXT: [git] 좋은 커밋 메세지 작성하기"
-                >
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/08/18/20-08-18-git2/" data-tooltip="[git] 좋은 커밋 메세지 작성하기" aria-label="NEXT: [git] 좋은 커밋 메세지 작성하기">
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -455,11 +368,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -496,7 +405,7 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
         
             <h4 id="about-card-name">Hanseul lee</h4>
         
@@ -506,7 +415,7 @@
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>Programmer</p>
 
             </div>
@@ -514,7 +423,7 @@
         
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
-                <br/>
+                <br>
                 Korea
             </div>
         
