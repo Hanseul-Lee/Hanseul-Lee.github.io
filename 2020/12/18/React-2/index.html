@@ -16,7 +16,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\nJSX(Javascript XML) : 리액트에서 XML형태 코드를 Javascript로 변환\n\n최상위 요소는 하나만 존재해야 함\n\n최상위 요소 리턴하는 경우, () 로 감싸야 함\n\n태그는 꼭 닫아야 하고,  자식요소가 없을 시 self closing을 사용함.\n\n&lt;p&gt;Hello, World&lt;/p&gt;\n&lt;br /&gt;\n\n\n2개 이상의 엘리먼트는 무조건 하나의 태그로 감싸야 함만약, 불필요한 div 생성 시, Fragment 사용(태그 이름 없이 작성)\n1234&lt;&gt;  &lt;div&gt;2개 이상의&lt;/div&gt;  &lt;p&gt;태그는 감싸자&lt;/p&gt;&lt;/&gt;\n\n\nJSX내부에서 Javascript 변수를 표현할 땐 {}로 감싸야 함\n12const name = &#x27;이렇게&#x27;;return &lt;div&gt;JavaScript 값을 보여줄 땐, &#123;name&#125;&lt;/div&gt;\n\n\n인라인 style은 객체 형태로 작성하고, camelCase로 네이밍 함.\n\nclass를 설정 할 때는 class가 아닌 className으로 설정해야 함.\n12345678910const style = &#123;  background: &#x27;grey&#x27;;&#125;return (  &lt;div style=&#123;style&#125;&gt;    &lt;div className=&quot;my-style&quot;&gt;      style과 className    &lt;/div&gt;  &lt;/div&gt;)\n\n\nJSX 내부 주석 : &#123;/* 내부 주석은 이렇게*/&#125;태그 내부 주석 : // 태그 내 주석은 이렇게\n\n","dateCreated":"2020-12-18T01:01:01+09:00","dateModified":"2021-01-01T13:35:28+09:00","datePublished":"2020-12-18T01:01:01+09:00","description":"\n리액트에서 JSX 문법을 사용해 XML형태 코드를 Javascript로 손쉽게 변환할 수 있다. JSX 문법의 규칙에 대해 자세히 알아보자.","headline":"[React] JSX 문법","image":["React.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/18/React-2/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/18/React-2/","keywords":"React","thumbnailUrl":"React.jpg"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\nJSX(Javascript XML) : 리액트에서 XML형태 코드를 Javascript로 변환\n\n최상위 요소는 하나만 존재해야 함\n\n최상위 요소 리턴하는 경우, () 로 감싸야 함\n\n태그는 꼭 닫아야 하고,  자식요소가 없을 시 self closing을 사용함.\n\n&lt;p&gt;Hello, World&lt;/p&gt;\n&lt;br /&gt;\n\n\n2개 이상의 엘리먼트는 무조건 하나의 태그로 감싸야 함만약, 불필요한 div 생성 시, Fragment 사용(태그 이름 없이 작성)\n1234&lt;&gt;  &lt;div&gt;2개 이상의&lt;/div&gt;  &lt;p&gt;태그는 감싸자&lt;/p&gt;&lt;/&gt;\n\n\nJSX내부에서 Javascript 변수를 표현할 땐 {}로 감싸야 함\n12const name = &#x27;이렇게&#x27;;return &lt;div&gt;JavaScript 값을 보여줄 땐, &#123;name&#125;&lt;/div&gt;\n\n\n인라인 style은 객체 형태로 작성하고, camelCase로 네이밍 함.\n\nclass를 설정 할 때는 class가 아닌 className으로 설정해야 함.\n12345678910const style = &#123;  background: &#x27;grey&#x27;;&#125;return (  &lt;div style=&#123;style&#125;&gt;    &lt;div className=&quot;my-style&quot;&gt;      style과 className    &lt;/div&gt;  &lt;/div&gt;)\n\n\nJSX 내부 주석 : &#123;/* 내부 주석은 이렇게*/&#125;태그 내부 주석 : // 태그 내 주석은 이렇게\n\n\n\nReference\n\n김민준, 리액트를 다루는 기술\n","dateCreated":"2020-12-18T01:01:01+09:00","dateModified":"2021-01-01T14:42:31+09:00","datePublished":"2020-12-18T01:01:01+09:00","description":"\n리액트에서 JSX 문법을 사용해 XML형태 코드를 Javascript로 손쉽게 변환할 수 있다. JSX 문법의 규칙에 대해 자세히 알아보자.","headline":"[React] JSX 문법","image":["React.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/18/React-2/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/18/React-2/","keywords":"React","thumbnailUrl":"React.jpg"}</script>
     <meta name="description" content="리액트에서 JSX 문법을 사용해 XML형태 코드를 Javascript로 손쉽게 변환할 수 있다. JSX 문법의 규칙에 대해 자세히 알아보자.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="[React] JSX 문법">
@@ -25,7 +25,7 @@
 <meta property="og:description" content="리액트에서 JSX 문법을 사용해 XML형태 코드를 Javascript로 손쉽게 변환할 수 있다. JSX 문법의 규칙에 대해 자세히 알아보자.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-17T16:01:01.000Z">
-<meta property="article:modified_time" content="2021-01-01T04:35:28.916Z">
+<meta property="article:modified_time" content="2021-01-01T05:42:31.908Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
     <span>LastUpdated  </span>
     <time datetime="2020-12-18T01:01:01+09:00">
         
-                2021.01.01 13:35:28
+                2021.01.01 14:42:31
             
     </time>
 
@@ -266,6 +266,11 @@
 </li>
 <li><p>JSX 내부 주석 : <code>&#123;/* 내부 주석은 이렇게*/&#125;</code><br>태그 내부 주석 : <code>// 태그 내 주석은 이렇게</code></p>
 </li>
+</ul>
+<hr>
+<p><strong>Reference</strong></p>
+<ul>
+<li>김민준, 리액트를 다루는 기술</li>
 </ul>
             
 
