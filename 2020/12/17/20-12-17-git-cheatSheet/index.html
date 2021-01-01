@@ -16,7 +16,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다. \n\n\n전체 흐름 요약12345            -add-&gt;      -commit-&gt;     -push-&gt;+-------------+-------------+------------+-------------+| Working dir |    Index    | Local repo | Remote repo |+-------------+-------------+------------+-------------+         &lt;-checkout-                 &lt;-fetch-\n\n\n\ngithub에 원격 저장소 생성한다.\n\n원격 저장소 (Remote repository) : github와 같이 외부 서버의 원격 프로젝트 저장소\n\n\n로컬 저장소의 작업 디렉토리에서 파일을 작성한다.\n\n로컬 저장소 (Local repository) : 본인의 컴퓨터에 저장된 프로젝트 저장소\n작업 디렉토리(Working directory): 실제 파일이 위치한 디렉토리.\n\n\ngit add [파일이름] 또는 git add .을 통해 변경된 파일들을 스테이징해 Index 영역에 등록한다.\n\n스테이징(Staging): 확정할 변경 사항을 준비시키는 것.\n인덱스(Index): 확정할 준비가 된 변경 사항들이 모인 영역.\n\n\ngit commit -m &quot;commit message&quot; 명령으로 스테이징된(Staged) 변경 사항을 commit해 로컬 저장소에 등록한다.\n\nCommit: 인덱스의 변경 사항들을 확정하는 것. \n\n\n원격 저장소를 clone 해 로컬 저장소와 연결한다. 이후 push해 커밋된 변경사항들을 원격 저장소에 게시한다.\n\nPush: 확정된 변경 사항을 원격 저장소에 게시하는 것.\norigin: 로컬 저장소의 원본 원격 저장소12git clone [내 repo 주소]git push -u origin main\n\n\n\n\n\n\n\n\ngit cheat sheet참고로 git 명령어를 사용함에 있어 다음과 같은 git cheat sheet를 사용하면 보다 유용하게 명령어를 파악할 수 있다.\ngit cheat sheet\n\n\n\n\nReference\n\nhttps://git-scm.com/docs\nhttps://parksb.github.io/article/28.html\nhttps://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/\n","dateCreated":"2020-12-17T13:56:47+09:00","dateModified":"2020-12-17T16:35:56+09:00","datePublished":"2020-12-17T13:56:47+09:00","description":"\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.","headline":"[git] git 명령어 정리","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다. \n\n\n전체 흐름 요약12345            -add-&gt;      -commit-&gt;     -push-&gt;+-------------+-------------+------------+-------------+| Working dir |    Index    | Local repo | Remote repo |+-------------+-------------+------------+-------------+         &lt;-checkout-                 &lt;-fetch-\n\n\n\ngithub에 원격 저장소 생성한다.\n\n원격 저장소 (Remote repository) : github와 같이 외부 서버의 원격 프로젝트 저장소\n\n\n로컬 저장소의 작업 디렉토리에서 파일을 작성한다.\n\n로컬 저장소 (Local repository) : 본인의 컴퓨터에 저장된 프로젝트 저장소\n작업 디렉토리(Working directory): 실제 파일이 위치한 디렉토리.\n\n\ngit add [파일이름] 또는 git add .을 통해 변경된 파일들을 스테이징해 Index 영역에 등록한다.\n\n스테이징(Staging): 확정할 변경 사항을 준비시키는 것.\n인덱스(Index): 확정할 준비가 된 변경 사항들이 모인 영역.\n\n\ngit commit -m &quot;commit message&quot; 명령으로 스테이징된(Staged) 변경 사항을 commit해 로컬 저장소에 등록한다.\n\nCommit: 인덱스의 변경 사항들을 확정하는 것. \n\n\n원격 저장소를 clone 해 로컬 저장소와 연결한다. 이후 push해 커밋된 변경사항들을 원격 저장소에 게시한다.\n\nPush: 확정된 변경 사항을 원격 저장소에 게시하는 것.\norigin: 로컬 저장소의 원본 원격 저장소12git clone [내 repo 주소]git push -u origin main\n\n\n\n\n\n\n\n\ngit cheat sheet참고로 git 명령어를 사용함에 있어 다음과 같은 git cheat sheet를 사용하면 보다 유용하게 명령어를 파악할 수 있다.\ngit cheat sheet\n\n\n\n\nReference\n\nhttps://git-scm.com/docs\nhttps://parksb.github.io/article/28.html\nhttps://github.blog/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/\n","dateCreated":"2020-12-17T13:56:47+09:00","dateModified":"2021-01-01T13:49:09+09:00","datePublished":"2020-12-17T13:56:47+09:00","description":"\ngit 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.","headline":"[git] git 명령어 정리","image":["git.jpeg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/","keywords":"git, github","thumbnailUrl":"git.jpeg"}</script>
     <meta name="description" content="git 명령어를 보다 유용하게 사용하기 위해 자주 사용하는 명령어를 정리하였습니다.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="[git] git 명령어 정리">
@@ -26,7 +26,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hanseul-lee.github.io/2020/12/17/20-12-17-git-cheatSheet/cheatSheet.png">
 <meta property="article:published_time" content="2020-12-17T04:56:47.000Z">
-<meta property="article:modified_time" content="2020-12-17T07:35:56.389Z">
+<meta property="article:modified_time" content="2021-01-01T04:49:09.908Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="github">
@@ -147,7 +147,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="/category-Fastcampus" rel="noopener" title="study-log">
+                        <a class="sidebar-button-link " href="/category-StudyLog" rel="noopener" title="study-log">
                         <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">study-log</span>
                     </a>
@@ -218,7 +218,7 @@
     
         <span>in </span>
         
-    <a class="category-link" href="/categories/Fastcampus/">Fastcampus</a>, <a class="category-link" href="/categories/Fastcampus/git/">git</a>
+    <a class="category-link" href="/categories/StudyLog/">StudyLog</a>, <a class="category-link" href="/categories/StudyLog/git/">git</a>
 
 
     
@@ -227,7 +227,7 @@
     <span>LastUpdated  </span>
     <time datetime="2020-12-17T13:56:47+09:00">
         
-                2020.12.17 16:35:56
+                2021.01.01 13:49:09
             
     </time>
 
