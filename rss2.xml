@@ -9,8 +9,33 @@
     <atom:link href="https://hanseul-lee.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 01 Jan 2021 05:46:49 GMT</pubDate>
+    <pubDate>Tue, 05 Jan 2021 04:08:17 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>[React] 리액트 라우터로 SPA 개발하기</title>
+      <link>https://hanseul-lee.github.io/2021/01/05/React-13/</link>
+      <guid>https://hanseul-lee.github.io/2021/01/05/React-13/</guid>
+      <pubDate>Tue, 05 Jan 2021 04:33:09 GMT</pubDate>
+      
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<!-- excerpt --><!-- toc --><h3 id="프로젝트-생성-및-라이브러리-설치"><a href="#프로젝트-생성-및-라이브러리-설치" class="headerlink" title="프로젝트 생성 및 라이브러리 설치"></a>프로젝트 생성 및 라이브러리 설치</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npx create-react-app router-tutorial</span><br><span class="line">$ cd router-tutorial</span><br><span class="line">$ npm i react-router-dom</span><br></pre></td></tr></table></figure><h3 id="라우터-적용-BrowserRouter로-감싸기"><a href="#라우터-적용-BrowserRouter로-감싸기" class="headerlink" title="라우터 적용 - BrowserRouter로 감싸기"></a>라우터 적용 - BrowserRouter로 감싸기</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;BrowserRouter&gt;</span><br><span class="line">        &lt;App /&gt;</span><br><span class="line">    &lt;/BrowserRouter&gt;</span><br><span class="line">    documnet.getElementById(<span class="string">&#x27;root&#x27;</span>);</span><br><span class="line">)</span><br></pre></td></tr></table></figure><h3 id="Route-컴포넌트로-특정-주소에-연결"><a href="#Route-컴포넌트로-특정-주소에-연결" class="headerlink" title="Route 컴포넌트로 특정 주소에 연결"></a><strong>Route 컴포넌트로 특정 주소에 연결</strong></h3><p>정확한 path만을 명시하려면 <code>exact</code>를 붙여준다.</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=<span class="string">&quot;주소규칙&quot;</span> component=&#123;보여줄 컴포넌트&#125; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;Route path=<span class="string">&quot;/profile&quot;</span> exact component=&#123;Profile&#125; /&gt;</span><br></pre></td></tr></table></figure><h3 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h3><p><code>&lt;a&gt;</code> 태그와 비슷하지만 페이지 전환되지 X</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link to=<span class="string">&quot;주소&quot;</span>&gt;내용&lt;/Link&gt;</span><br><span class="line"></span><br><span class="line">&lt;Link to=<span class="string">&quot;/profile&quot;</span>&gt;프로필&lt;/Link&gt;</span><br></pre></td></tr></table></figure><h3 id="URL-parameter와-query"><a href="#URL-parameter와-query" class="headerlink" title="URL parameter와 query"></a>URL parameter와 query</h3><p>페이지에 유동적인 값을 전달할 때 사용</p><ul><li><strong>parameter</strong><br>특정 아이디나 이름을 사용하여 조회할 때<br>ex.  <code>/profile/lemon</code></li></ul><br><ul><li><strong>query</strong><br>특정 키워드를 검색하거나 페이지에 필요한 옵션을 전달할 때<br>ex. <code>/about?details=ture</code> <br><br>location의 search값에서 조회 가능<br>search에서 특정 값을 읽어오려면 문자열 → 객체 형태로 변환해야 함<br>쿼리 문자열을 객체로 변환할 때 qs 라이브러리 사용 <code>npm install qs</code></li></ul><p><strong>쿼리의 파싱 결과값</strong>은 항상 <strong>문자열</strong>이라는 것에 주의할 것 (숫자는 parseInt사용)</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> qs form <span class="string">&#x27;qs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> query = qs.parse(location.search, &#123;</span><br><span class="line">  ignoreQueryPrefix: <span class="literal">true</span>                  <span class="comment">// 문자열 맨 앞의 ? 생략</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br><h3 id="서브라우트-sub-Route"><a href="#서브라우트-sub-Route" class="headerlink" title="서브라우트(sub Route)"></a>서브라우트(sub Route)</h3><p>라우트 내부에 또 라우트를 정의하는 것</p><br><h3 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h3><p>HoC(High-order Component)로 라우트로 사용된 컴포넌트가 아니더라도 history, location, match에 접근가능하게 해 줌</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; withRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br></pre></td></tr></table></figure><br><h3 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h3><p>여러 Route를 감싸서 그 중 일치하는 단 하나의 라우트만을 렌더링<br>Not Found 페이지도 구현 가능</p><br><hr><p><strong>Reference</strong></p><ul><li>김민준, 리액트를 다루는 기술</li></ul>]]></content:encoded>
+      
+      
+      <category domain="https://hanseul-lee.github.io/categories/StudyLog/">StudyLog</category>
+      
+      <category domain="https://hanseul-lee.github.io/categories/StudyLog/React/">React</category>
+      
+      
+      <category domain="https://hanseul-lee.github.io/tags/React/">React</category>
+      
+      
+      <comments>https://hanseul-lee.github.io/2021/01/05/React-13/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>[React] Hooks</title>
@@ -61,31 +86,6 @@
       
       
       <comments>https://hanseul-lee.github.io/2021/01/01/React-3/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>[React] 리액트 초기 셋팅하기</title>
-      <link>https://hanseul-lee.github.io/2021/01/01/React-0/</link>
-      <guid>https://hanseul-lee.github.io/2021/01/01/React-0/</guid>
-      <pubDate>Fri, 01 Jan 2021 04:33:09 GMT</pubDate>
-      
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
-      
-      
-      
-      <content:encoded><![CDATA[<!-- excerpt --><!-- toc --><br><hr><p><strong>Reference</strong></p><ul><li>김민준, 리액트를 다루는 기술</li></ul>]]></content:encoded>
-      
-      
-      <category domain="https://hanseul-lee.github.io/categories/StudyLog/">StudyLog</category>
-      
-      <category domain="https://hanseul-lee.github.io/categories/StudyLog/React/">React</category>
-      
-      
-      <category domain="https://hanseul-lee.github.io/tags/React/">React</category>
-      
-      
-      <comments>https://hanseul-lee.github.io/2021/01/01/React-0/#disqus_thread</comments>
       
     </item>
     
