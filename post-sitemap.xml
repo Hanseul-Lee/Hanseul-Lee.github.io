@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://hanseul-lee.github.io/2021/01/01/React-3/</loc>
+        <lastmod>2021-01-05T03:58:05.733Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://hanseul-lee.github.io/2020/12/24/20-12-24-VScode/</loc>
         <lastmod>2021-01-01T05:48:57.812Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -27,14 +35,6 @@
     <url>
         <loc>https://hanseul-lee.github.io/2021/01/01/React-8/</loc>
         <lastmod>2021-01-01T05:46:49.745Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://hanseul-lee.github.io/2021/01/01/React-3/</loc>
-        <lastmod>2021-01-01T05:42:50.959Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
