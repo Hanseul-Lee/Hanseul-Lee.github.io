@@ -9,7 +9,7 @@
     <atom:link href="https://hanseul-lee.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 05 Jan 2021 04:08:17 GMT</pubDate>
+    <pubDate>Wed, 06 Jan 2021 06:48:47 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -18,7 +18,8 @@
       <guid>https://hanseul-lee.github.io/2021/01/05/React-13/</guid>
       <pubDate>Tue, 05 Jan 2021 04:33:09 GMT</pubDate>
       
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;리액트 라우터를 이용해 SPA를 개발하는 과정과 기본적인 사용법에 대해 알아보자.&lt;/p&gt;</description>
       
       
       
