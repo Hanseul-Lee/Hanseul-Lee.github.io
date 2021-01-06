@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>[과제] 알고리즘 과제 - 2020.09.18  - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2020/09/18/20-09-18-알고리즘-과제/">
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)\n1부터 10,000까지 8이라는 숫자가 총 몇번 나오는가? 이를 구하는 함수를 완성하라.단, 8이 포함되어 있는 숫자의 갯수를 카운팅 하는 것이 아니라 8이라는 숫자를 모두 카운팅 해야 한다.예를 들어 8808은 3, 8888은 4로 카운팅 해야 한다.\n(hint) 문자열 중 n번째에 있는 문자 : str.charAt(n) or str[n]\n\n123456789101112function getCount8 ()&#123;  var string = &#x27;&#x27;;  for(var i = 0; i &lt;= 10000; i++)&#123;   string += i;   &#125;  var count = 0;  for (var i = 0; i &lt; string.length; i++)&#123;    if (string[i] === &#x27;8&#x27;) count++;  &#125;  return count;&#125;console.log(getCount8()); //4000\n\n\n\n2. 이상한 문자 만들기\ntoWeirdCase함수는 문자열을 인수로 전달받는다.문자열 s에 각 단어의 짝수번째 인덱스 문자는 대문자로, 홀수번째 인덱스 문자는 소문자로 바꾼 문자열을 리턴하도록 함수를 완성하라.예를 들어 s가 ‘hello world’라면 첫 번째 단어는 ‘HeLlO’, 두 번째 단어는 ‘WoRlD’로 바꿔 ‘HeLlO WoRlD’를 리턴한다.\n주의) 문자열 전체의 짝/홀수 인덱스가 아니라 단어(공백을 기준)별로 짝/홀수 인덱스를 판단한다.\n\n123456789101112131415161718192021function toWeirdCase(s) &#123;  var string = &#x27;&#x27;;  var count = 0;  for(var i = 0; i &lt; s.length; i++)&#123;    if(s[i] === &#x27; &#x27;)&#123;      string += s[i];       count = 0;    &#125;    else if(count % 2 === 0)&#123;      string += s[i].toUpperCase();       count++;    &#125;    else&#123;      string += s[i].toLowerCase();       count++;    &#125;  &#125;  return string;&#125;console.log(toWeirdCase(&#x27;hello world&#x27;));    // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;\n\n방법1\n\n123456789101112131415161718192021function toWeirdCase(s) &#123;  // str을 단어로 구분하여 배열 생성  const words = s.split(&#x27; &#x27;);  // console.log(words); // [ &#x27;hello&#x27;, &#x27;world&#x27; ]  function toUpperLower(word) &#123;    let res = &#x27;&#x27;;    for (let i = 0; i &lt; word.length; i++) &#123;      // 짝수 인덱스 문자는 대문자로, 홀수 인덱스 문자는 소문자로      res += i % 2 ? word[i].toLowerCase() : word[i].toUpperCase();    &#125;    return res;  &#125;  let res = &#x27;&#x27;;  for (let i = 0; i &lt; words.length; i++) &#123;    res += toUpperLower(words[i]) + &#x27; &#x27;;  &#125;  return res;&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds\n\n방법2\n\n1234567891011// mapfunction toWeirdCase(s) &#123;  return s    .split(&#x27; &#x27;)    .map(word =&gt; word.split(&#x27;&#x27;))    .map(word =&gt; word.map((c, i) =&gt; (i % 2 ? c.toLowerCase() : c.toUpperCase())).join(&#x27;&#x27;))    .join(&#x27; &#x27;);&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds\n\n방법3\n\n1234567function toWeirdCase(s) &#123;  // 정규 표현식 /(\\w)(\\w)/g로 두 글자를 캡쳐해서 replacer 함수로 변형  return s.toUpperCase().replace(/(\\w)(\\w)/g, c =&gt; c[0] + c[1].toLowerCase());&#125;console.log(toWeirdCase(&#x27;hello world&#x27;)); // &#x27;HeLlO WoRlD&#x27;console.log(toWeirdCase(&#x27;my name is lee&#x27;)); // &#x27;My NaMe Is LeE&#x27;// 0.06 seconds","dateCreated":"2020-09-18T17:28:18+09:00","dateModified":"2021-01-01T13:48:10+09:00","datePublished":"2020-09-18T17:28:18+09:00","description":"","headline":"[과제] 알고리즘 과제 - 2020.09.18 ","image":["HW.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/","thumbnailUrl":"HW.jpg"}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="[과제] 알고리즘 과제 - 2020.09.18 ">
+<meta property="og:url" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-18T08:28:18.000Z">
+<meta property="article:modified_time" content="2021-01-01T04:48:10.370Z">
+<meta property="article:author" content="Hanseul lee">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2020/09/18/20-09-18-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EA%B3%BC%EC%A0%9C/HW.jpg">
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-StudyLog" rel="noopener" title="study-log">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            [과제] 알고리즘 과제 - 2020.09.18 
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-09-18T17:28:18+09:00">
+	
+		    20.09.18
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/StudyLog/">StudyLog</a>, <a class="category-link" href="/categories/StudyLog/%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4/">문제 풀이</a>
+
+
+    
+    <br>
+
+    <span>LastUpdated  </span>
+    <time datetime="2020-09-18T17:28:18+09:00">
+        
+                21.01.01 13:48:10
+            
+    </time>
+
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="1-1-10-000의-숫자-중-8이-등장하는-횟수-구하기-Google"><a href="#1-1-10-000의-숫자-중-8이-등장하는-횟수-구하기-Google" class="headerlink" title="1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)"></a>1. 1 ~ 10,000의 숫자 중 8이 등장하는 횟수 구하기 (Google)</h1><blockquote>
+<p>1부터 10,000까지 8이라는 숫자가 총 몇번 나오는가? 이를 구하는 함수를 완성하라.<br>단, 8이 포함되어 있는 숫자의 갯수를 카운팅 하는 것이 아니라 8이라는 숫자를 모두 카운팅 해야 한다.<br>예를 들어 8808은 3, 8888은 4로 카운팅 해야 한다.</p>
+<p>(hint) 문자열 중 n번째에 있는 문자 : str.charAt(n) or str[n]</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCount8</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> string = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= <span class="number">10000</span>; i++)&#123;</span><br><span class="line">   string += i; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; string.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (string[i] === <span class="string">&#x27;8&#x27;</span>) count++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(getCount8()); <span class="comment">//4000</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="2-이상한-문자-만들기"><a href="#2-이상한-문자-만들기" class="headerlink" title="2. 이상한 문자 만들기"></a>2. 이상한 문자 만들기</h1><blockquote>
+<p>toWeirdCase함수는 문자열을 인수로 전달받는다.<br>문자열 s에 각 단어의 짝수번째 인덱스 문자는 대문자로, 홀수번째 인덱스 문자는 소문자로 바꾼 문자열을 리턴하도록 함수를 완성하라.<br>예를 들어 s가 ‘hello world’라면 첫 번째 단어는 ‘HeLlO’, 두 번째 단어는 ‘WoRlD’로 바꿔 ‘HeLlO WoRlD’를 리턴한다.</p>
+<p>주의) 문자열 전체의 짝/홀수 인덱스가 아니라 단어(공백을 기준)별로 짝/홀수 인덱스를 판단한다.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> string = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; s.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i] === <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">      string += s[i]; </span><br><span class="line">      count = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(count % <span class="number">2</span> === <span class="number">0</span>)&#123;</span><br><span class="line">      string += s[i].toUpperCase(); </span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">      string += s[i].toLowerCase(); </span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;hello world&#x27;</span>));    <span class="comment">// &#x27;HeLlO WoRlD&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;my name is lee&#x27;</span>)); <span class="comment">// &#x27;My NaMe Is LeE&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>방법1</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// str을 단어로 구분하여 배열 생성</span></span><br><span class="line">  <span class="keyword">const</span> words = s.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">  <span class="comment">// console.log(words); // [ &#x27;hello&#x27;, &#x27;world&#x27; ]</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">toUpperLower</span>(<span class="params">word</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; word.length; i++) &#123;</span><br><span class="line">      <span class="comment">// 짝수 인덱스 문자는 대문자로, 홀수 인덱스 문자는 소문자로</span></span><br><span class="line">      res += i % <span class="number">2</span> ? word[i].toLowerCase() : word[i].toUpperCase();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">    res += toUpperLower(words[i]) + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;hello world&#x27;</span>)); <span class="comment">// &#x27;HeLlO WoRlD&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;my name is lee&#x27;</span>)); <span class="comment">// &#x27;My NaMe Is LeE&#x27;</span></span><br><span class="line"><span class="comment">// 0.06 seconds</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>방법2</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> s</span><br><span class="line">    .split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    .map(<span class="function"><span class="params">word</span> =&gt;</span> word.split(<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">    .map(<span class="function"><span class="params">word</span> =&gt;</span> word.map(<span class="function">(<span class="params">c, i</span>) =&gt;</span> (i % <span class="number">2</span> ? c.toLowerCase() : c.toUpperCase())).join(<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">    .join(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;hello world&#x27;</span>)); <span class="comment">// &#x27;HeLlO WoRlD&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;my name is lee&#x27;</span>)); <span class="comment">// &#x27;My NaMe Is LeE&#x27;</span></span><br><span class="line"><span class="comment">// 0.06 seconds</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>방법3</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toWeirdCase</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 정규 표현식 /(\w)(\w)/g로 두 글자를 캡쳐해서 replacer 함수로 변형</span></span><br><span class="line">  <span class="keyword">return</span> s.toUpperCase().replace(<span class="regexp">/(\w)(\w)/g</span>, <span class="function"><span class="params">c</span> =&gt;</span> c[<span class="number">0</span>] + c[<span class="number">1</span>].toLowerCase());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;hello world&#x27;</span>)); <span class="comment">// &#x27;HeLlO WoRlD&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(toWeirdCase(<span class="string">&#x27;my name is lee&#x27;</span>)); <span class="comment">// &#x27;My NaMe Is LeE&#x27;</span></span><br><span class="line"><span class="comment">// 0.06 seconds</span></span><br></pre></td></tr></table></figure>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+              <!-- Comment -->
+              
+                
+                  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
+</script>
+                
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/" data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)" aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)">
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/18/JS-17/" data-tooltip="17. 생성자 함수에 의한 객체 생성" aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/22/20-09-22-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%20%EC%A0%91%EA%B7%BC%EB%B2%95/" data-tooltip="[Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)" aria-label="PREVIOUS: [Javascript] 프로퍼티 접근법 - 점 표기법(Dot notation) vs 대괄호 표기법(Bracket Notation)">
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/18/JS-17/" data-tooltip="17. 생성자 함수에 의한 객체 생성" aria-label="NEXT: 17. 생성자 함수에 의한 객체 생성">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
