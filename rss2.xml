@@ -9,8 +9,46 @@
     <atom:link href="https://hanseul-lee.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 06 Jan 2021 06:48:47 GMT</pubDate>
+    <pubDate>Tue, 02 Feb 2021 14:05:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>21-02-02</title>
+      <link>https://hanseul-lee.github.io/2021/02/02/21-02-02/</link>
+      <guid>https://hanseul-lee.github.io/2021/02/02/21-02-02/</guid>
+      <pubDate>Tue, 02 Feb 2021 14:05:05 GMT</pubDate>
+      
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<!-- excerpt --><!-- toc -->]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://hanseul-lee.github.io/2021/02/02/21-02-02/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>21-01-24</title>
+      <link>https://hanseul-lee.github.io/2021/01/24/21-01-24/</link>
+      <guid>https://hanseul-lee.github.io/2021/01/24/21-01-24/</guid>
+      <pubDate>Sun, 24 Jan 2021 14:58:31 GMT</pubDate>
+      
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      
+      
+      
+      <content:encoded><![CDATA[<!-- excerpt --><!-- toc -->]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://hanseul-lee.github.io/2021/01/24/21-01-24/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>[React] 리액트 라우터로 SPA 개발하기</title>
@@ -495,66 +533,6 @@
       
       
       <comments>https://hanseul-lee.github.io/2020/11/20/20-11-20-TIL/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>[미니 프로젝트] 20-11-19 목요일 미니프로젝트 4일차</title>
-      <link>https://hanseul-lee.github.io/2020/11/19/20-11-19-TIL/</link>
-      <guid>https://hanseul-lee.github.io/2020/11/19/20-11-19-TIL/</guid>
-      <pubDate>Wed, 18 Nov 2020 19:20:43 GMT</pubDate>
-      
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;20-11-19 목요일 미니프로젝트 4일차&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;4일차 피드백</description>
-      
-      
-      
-      <content:encoded><![CDATA[<!-- excerpt --></li></ul><h2 id="오늘-한-것-피드백"><a href="#오늘-한-것-피드백" class="headerlink" title="오늘 한 것(피드백)"></a>오늘 한 것(피드백)</h2><ul><li>bookmark 페이지 마무리</li><li>search 페이지 시작<ol><li>HTML, css 완성</li><li>API 렌더링 연동</li><li>API에 정보 없는 부분(예고편 동영상, 포스터 등) 준비중 이미지 대체</li><li>팝업창 연동</li><li>팝업창에서 좋아요 눌렀을 시 db에 반영되게 설정</li></ol></li><li>Scrum - 최종 점검을 위해 팀원들과 각자 구현한 페이지 피드백<br>모든 팀원이 모여서 각자 페이지 설명하고 디테일한 부분까지 버그가 나거나 수정해야 할 부분을 서로 피드백했다. 적게는 5개부터 많게는 12개까지 CSS 오차나 신경쓰이는 부분, 다른 페이지와 위치 연동되는 것부터 공통적으로 적용해야 할 것까지 피드백 받고, 고치고, 다시 피드백하고 고치고를 계속 반복했다. 나중에 알고 보니 이게 Agile 방법론의 Scrum을 우리도 모르게 실천하고 있었던거라 신기하기도 하고 기분이 좋았다.</li></ul><p>새롭게 search 페이지를 만들기 시작했다. 어진이와 함께 html, css 레이아웃을 잡고 영화검색 API를 사용하니 금방 완성할 수 있었다. 무엇보다 우리 디자인이 깔끔해서 많은 걸 안해도 결과물이 그럴듯하게 나와서 괜히 뿌듯했다. 나머지 팝업창 부분은 bookmark페이지와는 다르게 DB와 실시간 연동이 되게 해야했는데 상언오빠가 만들어둔 popup.js를 가져다 연동하는 작업을 했다. 중간중간 에러가 나는걸 계속 잡고 집에 가서도 렌더링 될 때 API에 없는 부분 때문에 레이아웃이 망가지지 않도록 준비중 이미지를 추가하는 등 세세한 부분에도 신경을 써서 완성했다.</p>]]></content:encoded>
-      
-      
-      <category domain="https://hanseul-lee.github.io/categories/project/">project</category>
-      
-      
-      <category domain="https://hanseul-lee.github.io/tags/TIL/">TIL</category>
-      
-      <category domain="https://hanseul-lee.github.io/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</category>
-      
-      <category domain="https://hanseul-lee.github.io/tags/Fastcampus/">Fastcampus</category>
-      
-      
-      <comments>https://hanseul-lee.github.io/2020/11/19/20-11-19-TIL/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>[미니 프로젝트] 20-11-18 수요일 미니프로젝트 3일차</title>
-      <link>https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/</link>
-      <guid>https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/</guid>
-      <pubDate>Wed, 18 Nov 2020 12:18:37 GMT</pubDate>
-      
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;20-11-18 수요일 미니프로젝트 3일차&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;3일차 피드백</description>
-      
-      
-      
-      <content:encoded><![CDATA[<!-- excerpt --></li></ul><h2 id="오늘-한-것-피드백"><a href="#오늘-한-것-피드백" class="headerlink" title="오늘 한 것(피드백)"></a>오늘 한 것(피드백)</h2><ul><li>bookmark 페이지<ol><li>local storage와 연동</li><li>배우 API 연동해서 popup창에 출력</li><li>하트 클릭시 하트 이미지 팝업 후 1초 후 사라지는 것 구현</li><li>하트 버튼 클릭시 실시간으로 db와 연동해서 데이터에서 fetch 및 오류 수정</li></ol></li></ul><p>오늘 하루종일 하트 버튼을 db와 연동하는 걸 구현하느라 시간을 다 보냈다. 이것만 해결하면 될 줄 알았는데 별 거 아니라고 생각했는데 상언오빠와 둘이 하루종일 붙잡고 9시가 다 되어서야 겨우 오류를 다 잡고 끝냈다. 처음 80%를 하루만에 다 끝내서 어제까지만 해도 너무 빨리 끝난 거 아니냐고 신났었는데 나머지 20% 구현과 트러블 슈팅에 80% 시간을 쏟은 것 같다. 정말 디버깅의 어려움과 고충을 뼈저리게 느꼈다. </p>]]></content:encoded>
-      
-      
-      <category domain="https://hanseul-lee.github.io/categories/project/">project</category>
-      
-      
-      <category domain="https://hanseul-lee.github.io/tags/TIL/">TIL</category>
-      
-      <category domain="https://hanseul-lee.github.io/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/">프로젝트</category>
-      
-      <category domain="https://hanseul-lee.github.io/tags/Fastcampus/">Fastcampus</category>
-      
-      
-      <comments>https://hanseul-lee.github.io/2020/11/18/20-11-18-TIL/#disqus_thread</comments>
       
     </item>
     
