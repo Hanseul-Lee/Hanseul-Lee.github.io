@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="HS&#39;s blog">
+    <title>[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07) - HS&#39;s blog</title>
+    <link rel="canonical" href="https://hanseul-lee.github.io/2021/02/02/sweetypie_1주차/">
+    <meta name="author" content="Hanseul lee">
+    
+    
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n1일차 - 21.02.01 월요일\ngit\n12345$ git flow init$ git flow feature start RoomDetail$ git checkout develop$ npm ci &#x2F;&#x2F; npm i를 대체하면서 모든 걸 통합해주는 것$ nvm use 14.15.1\n\nindex.css\n1234567891011121314151617181920212223242526272829303132html &#123;  height: 100%;  font-size: 10px;&#125;@import url(&#39;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;moonspam&#x2F;NanumBarunGothic@latest&#x2F;nanumbarungothicsubset.css&#39;);*,*::before,*::after &#123;  box-sizing: border-box;&#125;a &#123;  color: inherit;  text-decoration: none;&#125;.a11y-hidden,legend &#123;  overflow: hidden;  position: absolute;  clip: rect(0 0 0 0);  &#x2F;* IE 6,7 *&#x2F;  clip: rect(0, 0, 0, 0);  width: 1px;  height: 1px;  margin: -1px;  border: 0;  padding: 0;&#125;.clearfix::after &#123;  content: &#39;&#39;;  display: block;  clear: both;&#125;\n\ngit rebase\n\n\n\n\n1$ git pull origin develop --rebase\n\n\n\n2일차 - 21.02.02 화요일\nroomDetail 컴포넌트 구현\n\nTitle.jsx\nPhotos.jsx - 구현중\nIntroduction.jsx\nIcons.jsx\nDescription.jsx\nBeds.jsx\nCalendarDetail.jsx\nPayment.jsx - 구현중\n\n\n해야할 것\n\nPayment.jsx 구현 마무리\nreact potals 이용한 팝업창 구현 &amp; 이해하기 (https://ko.reactjs.org/docs/portals.html)\nroomDetail 나머지 아랫부분 구현 완성\nDB에서 받아온 accommodationDesc 개행 문자마다 개행 처리해주기\n금액 세자리수마다 , 찍어주기\n금액 소수점 버리기 적용하기\n\n\n\n\n\n3일차 - 21.02.03 수요일\n오늘 한 것\n\n금액 소수점 버리기 적용하기Math.round(): 인수로 전달된 숫자의 소수점 이하를 반올림한 정수 반환\ntoFixed(): 숫자를 반올림하여 문자열로 반환, 인수 생략 시 기본값 0\n1234// Number.prototype.toFixedconst fees = (price * 0.07).toFixed();const fees = Math.round(price * 0.07)\n\nPayment에서 자식 엘리먼트들이 div에 종속되지 않는 문제 해결\n\n동찬오빠와 전체 레이아웃 비율 통일\n\nPM 트러블 슈팅 (3시 ~ 3시 50분)\n\nGithub 이슈관리 체크\n\n문서화꼭 문서화로 남길 것!!Technical writer\n\ngithub 해당 이슈 댓글 관리로 관리할 것 \nREADME.md 템플릿으로 작성해놓고 실시간으로 추가하고 수정할 것\nAPI관리 - 나중에 backend에서 만들어주면 POSTMAN으로 확인할 것\n\n\ngit commit - 컴포넌트 단위로 잘게 쪼개서 commit할 것\n\ngit - reset보다는 revert\n\ngit - rebase 지양할 것\n\n각 스프린트가 끝나면 메인 브랜치에 완성된 프로덕트 커밋 찍을 것$ git flow release start(finish) &#123;version_name&#125;\n\n페이스를 꾸준히 유지할 것 - 정해진 시간에 자고, 일어난 이후에 계속 키보드에 손을 잡고 있을 것\n\n\n\ngit revert이전에 작업했던 기록들을 git add .로 처리한 걸 다시 컴포넌트 별로 commit하기 위해 git revert를 사용했다.\n12$ git reflog // 이전 기록 확인$ git revert HEAD@&#123;번호&#125; // 돌아가고 싶은 번호로 revert\n\ngit revert 취소\n12$ git reflog // 이전 기록 확인$ git reset --hard HEAD@&#123;번호&#125; // 원하는 곳으로 이동\n\n\n\nMark 강사님 트러블 슈팅 (19시 ~ 19시 30분)\n\n\n\n\n\n\n4일차 - 21.02.04 목요일\nroomDetail 컴포넌트 구현\n\nMap\nHost\nThingsToKnow\nPayment - 금액 소수점 3째자리 콤마(,)찍기 함수 추가\n\n123function numberWithCommas(x) &#123;  return x.toString().replace(/\\B(?=(\\d&#123;3&#125;)+(?!\\d))/g, &#x27;,&#x27;);&#125;\n\nReviewProfile - 날짜 년, 월만 나오게 하기\n12const createdDate = &#x27;2021 - 02 - 06&#x27;&#123;createdDate.split(&#x27; -&#x27;)[0]&#125;년 &#123;createdDate.split(&#x27; -&#x27;)[1]&#125;월\n\n해야할 것\n\nMap, Calendar - API 연결\nThingsToKnow - 링크에 SVG 화살표 넣고 팝업창 구현\nPayment - 날짜, 인원 팝업 만들기 &amp; 연결\nDB data 연동 제대로 변수 넣었는지 확인\n\n\n\n\n\n5일차 - 21.02.05 금요일\ngithub merge로 1주차 스프린트 \n12345678$ git flow feature finish RoomDetail$ git push origin develop내 레포에서 pull request이후$ git remote add upstream 주소$ git pull upstream develop$ npm ci\n\ngithub rebase 관련 이슈\n\n트러블슈팅 - Mark강사님 (18:00 ~ 18:50)\n\nDOM에 접근해 data를 쓰려면 -&gt; dataset 사용해볼 것\n컴포넌트에도 ref를 달 수 있음 -&gt; forwardRef\n\n\n\n\n\n6,7일차 - 21.02.06, 21.02.07 토, 일요일\ngoogle map API 연습\n팝업 UI 구현중\n팀 회식❤\n","dateCreated":"2021-02-02T23:05:05+09:00","dateModified":"2021-03-08T00:13:30+09:00","datePublished":"2021-02-02T23:05:05+09:00","description":"\nSweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)","headline":"[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)","image":["logo.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/","keywords":"프로젝트, Fastcampus, SweetyPie","thumbnailUrl":"logo.png"}</script>
+    <meta name="description" content="SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)">
+<meta property="og:url" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/index.html">
+<meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/rebase.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/revert.png">
+<meta property="article:published_time" content="2021-02-02T14:05:05.000Z">
+<meta property="article:modified_time" content="2021-03-07T15:13:30.185Z">
+<meta property="article:author" content="Hanseul lee">
+<meta property="article:tag" content="프로젝트">
+<meta property="article:tag" content="Fastcampus">
+<meta property="article:tag" content="SweetyPie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/rebase.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/assets/images/myphoto.jpg">
+    
+    
+        <meta property="og:image" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/logo.png">
+        <meta class="swiftype" name="image" data-type="enum" content="https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/logo.png">
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/all.css">
+
+    
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+
+    
+<link rel="stylesheet" href="/assets/css/thumbs.css">
+
+    
+<link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="2">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            HS&#39;s blog
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="Open the link: /#about">
+        
+        
+            <img class="header-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="2">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about" aria-label="Read more about the author">
+                    <img class="sidebar-profile-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+                </a>
+                <h4 class="sidebar-profile-name">Hanseul lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Hello, I’m Hanseul:)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="All-categories">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">All-categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-project" rel="noopener" title="project-log">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">project-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-StudyLog" rel="noopener" title="study-log">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">study-log</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/category-TIL" rel="noopener" title="TIL">
+                        <i class="sidebar-button-icon fa fa-caret-right" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">TIL</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="Tags">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-user-circle" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/hanseul-lee/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="2" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            [프로젝트] SweetyPie - Airbnb 클론코딩 TIL (1주차: 21.02.01 ~ 21.02.07)
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-02-02T23:05:05+09:00">
+	
+		    21.02.02
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/project/">project</a>
+
+
+    
+    <br>
+
+    <span>LastUpdated  </span>
+    <time datetime="2021-02-02T23:05:05+09:00">
+        
+                21.03.08 00:13:30
+            
+    </time>
+
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EC%9D%BC%EC%B0%A8-21-02-01-%EC%9B%94%EC%9A%94%EC%9D%BC"><span class="toc-text">1일차 - 21.02.01 월요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EC%9D%BC%EC%B0%A8-21-02-02-%ED%99%94%EC%9A%94%EC%9D%BC"><span class="toc-text">2일차 - 21.02.02 화요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EC%9D%BC%EC%B0%A8-21-02-03-%EC%88%98%EC%9A%94%EC%9D%BC"><span class="toc-text">3일차 - 21.02.03 수요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EC%9D%BC%EC%B0%A8-21-02-04-%EB%AA%A9%EC%9A%94%EC%9D%BC"><span class="toc-text">4일차 - 21.02.04 목요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%EC%9D%BC%EC%B0%A8-21-02-05-%EA%B8%88%EC%9A%94%EC%9D%BC"><span class="toc-text">5일차 - 21.02.05 금요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-7%EC%9D%BC%EC%B0%A8-21-02-06-21-02-07-%ED%86%A0-%EC%9D%BC%EC%9A%94%EC%9D%BC"><span class="toc-text">6,7일차 - 21.02.06, 21.02.07 토, 일요일</span></a></li></ol>
+
+<h3 id="1일차-21-02-01-월요일"><a href="#1일차-21-02-01-월요일" class="headerlink" title="1일차 - 21.02.01 월요일"></a>1일차 - 21.02.01 월요일</h3><ul>
+<li><p>git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git flow init</span><br><span class="line">$ git flow feature start RoomDetail</span><br><span class="line">$ git checkout develop</span><br><span class="line">$ npm ci &#x2F;&#x2F; npm i를 대체하면서 모든 걸 통합해주는 것</span><br><span class="line">$ nvm use 14.15.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>index.css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">html &#123;</span><br><span class="line">  height: 100%;</span><br><span class="line">  font-size: 10px;</span><br><span class="line">&#125;</span><br><span class="line">@import url(&#39;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;moonspam&#x2F;NanumBarunGothic@latest&#x2F;nanumbarungothicsubset.css&#39;);</span><br><span class="line">*,</span><br><span class="line">*::before,</span><br><span class="line">*::after &#123;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">&#125;</span><br><span class="line">a &#123;</span><br><span class="line">  color: inherit;</span><br><span class="line">  text-decoration: none;</span><br><span class="line">&#125;</span><br><span class="line">.a11y-hidden,</span><br><span class="line">legend &#123;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  position: absolute;</span><br><span class="line">  clip: rect(0 0 0 0);</span><br><span class="line">  &#x2F;* IE 6,7 *&#x2F;</span><br><span class="line">  clip: rect(0, 0, 0, 0);</span><br><span class="line">  width: 1px;</span><br><span class="line">  height: 1px;</span><br><span class="line">  margin: -1px;</span><br><span class="line">  border: 0;</span><br><span class="line">  padding: 0;</span><br><span class="line">&#125;</span><br><span class="line">.clearfix::after &#123;</span><br><span class="line">  content: &#39;&#39;;</span><br><span class="line">  display: block;</span><br><span class="line">  clear: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git rebase</p>
+</li>
+</ul>
+<div class="figure center" style="width:;"><img class="fig-img" src="rebase.png" alt></div>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin develop --rebase</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="2일차-21-02-02-화요일"><a href="#2일차-21-02-02-화요일" class="headerlink" title="2일차 - 21.02.02 화요일"></a>2일차 - 21.02.02 화요일</h3><ul>
+<li><p>roomDetail 컴포넌트 구현</p>
+<ul>
+<li>Title.jsx</li>
+<li>Photos.jsx - 구현중</li>
+<li>Introduction.jsx</li>
+<li>Icons.jsx</li>
+<li>Description.jsx</li>
+<li>Beds.jsx</li>
+<li>CalendarDetail.jsx</li>
+<li>Payment.jsx - 구현중</li>
+</ul>
+</li>
+<li><p>해야할 것</p>
+<ol>
+<li>Payment.jsx 구현 마무리</li>
+<li>react potals 이용한 팝업창 구현 &amp; 이해하기 (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.reactjs.org/docs/portals.html">https://ko.reactjs.org/docs/portals.html</a>)</li>
+<li>roomDetail 나머지 아랫부분 구현 완성</li>
+<li>DB에서 받아온 accommodationDesc 개행 문자마다 개행 처리해주기</li>
+<li>금액 세자리수마다 , 찍어주기</li>
+<li>금액 소수점 버리기 적용하기</li>
+</ol>
+</li>
+</ul>
+<br>
+
+<h3 id="3일차-21-02-03-수요일"><a href="#3일차-21-02-03-수요일" class="headerlink" title="3일차 - 21.02.03 수요일"></a>3일차 - 21.02.03 수요일</h3><ul>
+<li><p>오늘 한 것</p>
+<ol>
+<li><p>금액 소수점 버리기 적용하기<br><code>Math.round()</code>: 인수로 전달된 숫자의 소수점 이하를 반올림한 정수 반환</p>
+<p><code>toFixed()</code>: 숫자를 반올림하여 문자열로 반환, 인수 생략 시 기본값 0</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Number.prototype.toFixed</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fees = (price * <span class="number">0.07</span>).toFixed();</span><br><span class="line"><span class="keyword">const</span> fees = <span class="built_in">Math</span>.round(price * <span class="number">0.07</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Payment에서 자식 엘리먼트들이 div에 종속되지 않는 문제 해결</p>
+</li>
+<li><p>동찬오빠와 전체 레이아웃 비율 통일</p>
+</li>
+<li><p>PM 트러블 슈팅 (3시 ~ 3시 50분)</p>
+<ul>
+<li><p>Github 이슈관리 체크</p>
+</li>
+<li><p>문서화<br>꼭 문서화로 남길 것!!<br>Technical writer</p>
+<ul>
+<li>github 해당 이슈 댓글 관리로 관리할 것 </li>
+<li>README.md 템플릿으로 작성해놓고 실시간으로 추가하고 수정할 것</li>
+<li>API관리 - 나중에 backend에서 만들어주면 POSTMAN으로 확인할 것</li>
+</ul>
+</li>
+<li><p>git commit - 컴포넌트 단위로 잘게 쪼개서 commit할 것</p>
+</li>
+<li><p>git - reset보다는 revert</p>
+</li>
+<li><p>git - rebase 지양할 것</p>
+</li>
+<li><p>각 스프린트가 끝나면 메인 브랜치에 완성된 프로덕트 커밋 찍을 것<br><code>$ git flow release start(finish) &#123;version_name&#125;</code></p>
+</li>
+<li><p>페이스를 꾸준히 유지할 것 - 정해진 시간에 자고, 일어난 이후에 계속 키보드에 손을 잡고 있을 것</p>
+</li>
+</ul>
+</li>
+<li><p>git revert<br>이전에 작업했던 기록들을 <code>git add .</code>로 처리한 걸 다시 컴포넌트 별로 commit하기 위해 git revert를 사용했다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog // 이전 기록 확인</span><br><span class="line">$ git revert HEAD@&#123;번호&#125; // 돌아가고 싶은 번호로 revert</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git revert 취소</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog // 이전 기록 확인</span><br><span class="line">$ git reset --hard HEAD@&#123;번호&#125; // 원하는 곳으로 이동</span><br></pre></td></tr></table></figure>
+
+<div class="figure center" style="width:;"><img class="fig-img" src="revert.png" alt></div>
+</li>
+<li><p>Mark 강사님 트러블 슈팅 (19시 ~ 19시 30분)</p>
+</li>
+</ol>
+</li>
+</ul>
+<br>
+
+<h3 id="4일차-21-02-04-목요일"><a href="#4일차-21-02-04-목요일" class="headerlink" title="4일차 - 21.02.04 목요일"></a>4일차 - 21.02.04 목요일</h3><ul>
+<li><p>roomDetail 컴포넌트 구현</p>
+<ul>
+<li>Map</li>
+<li>Host</li>
+<li>ThingsToKnow</li>
+<li>Payment - 금액 소수점 3째자리 콤마(,)찍기 함수 추가</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberWithCommas</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x.toString().replace(<span class="regexp">/\B(?=(\d&#123;3&#125;)+(?!\d))/g</span>, <span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ReviewProfile - 날짜 년, 월만 나오게 하기</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createdDate = <span class="string">&#x27;2021 - 02 - 06&#x27;</span></span><br><span class="line">&#123;createdDate.split(<span class="string">&#x27; -&#x27;</span>)[<span class="number">0</span>]&#125;년 &#123;createdDate.split(<span class="string">&#x27; -&#x27;</span>)[<span class="number">1</span>]&#125;월</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>해야할 것</p>
+<ul>
+<li>Map, Calendar - API 연결</li>
+<li>ThingsToKnow - 링크에 SVG 화살표 넣고 팝업창 구현</li>
+<li>Payment - 날짜, 인원 팝업 만들기 &amp; 연결</li>
+<li>DB data 연동 제대로 변수 넣었는지 확인</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="5일차-21-02-05-금요일"><a href="#5일차-21-02-05-금요일" class="headerlink" title="5일차 - 21.02.05 금요일"></a>5일차 - 21.02.05 금요일</h3><ul>
+<li><p>github merge로 1주차 스프린트 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git flow feature finish RoomDetail</span><br><span class="line">$ git push origin develop</span><br><span class="line">내 레포에서 pull request</span><br><span class="line"></span><br><span class="line">이후</span><br><span class="line">$ git remote add upstream 주소</span><br><span class="line">$ git pull upstream develop</span><br><span class="line">$ npm ci</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>github rebase 관련 이슈</p>
+</li>
+<li><p>트러블슈팅 - Mark강사님 (18:00 ~ 18:50)</p>
+<ul>
+<li>DOM에 접근해 data를 쓰려면 -&gt; dataset 사용해볼 것</li>
+<li>컴포넌트에도 ref를 달 수 있음 -&gt; forwardRef</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="6-7일차-21-02-06-21-02-07-토-일요일"><a href="#6-7일차-21-02-06-21-02-07-토-일요일" class="headerlink" title="6,7일차 - 21.02.06, 21.02.07 토, 일요일"></a>6,7일차 - 21.02.06, 21.02.07 토, 일요일</h3><ul>
+<li>google map API 연습</li>
+<li>팝업 UI 구현중</li>
+<li>팀 회식❤</li>
+</ul>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Fastcampus/" rel="tag">Fastcampus</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/SweetyPie/" rel="tag">SweetyPie</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag">프로젝트</a>
+
+              </div>
+              
+              <!-- Comment -->
+              
+                
+                  <script src="https://utteranc.es/client.js" repo="hanseul-lee/blog-comments" issue-term="title" theme="github-light" crossorigin="anonymous" async>
+</script>
+                
+              
+              
+                <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/02/08/SweetyPie_2%EC%A3%BC%EC%B0%A8/" data-tooltip="[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (2주차: 21.02.08 ~ 21.02.14)" aria-label="PREVIOUS: [프로젝트] SweetyPie - Airbnb 클론코딩 TIL (2주차: 21.02.08 ~ 21.02.14)">
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/24/SweetyPie_0%EC%A3%BC%EC%B0%A8(%EA%B8%B0%ED%9A%8D)/" data-tooltip="[프로젝트] SweetyPie - Airbnb 클론코딩 기획 TIL (0주차: 21.01.25 ~ 21.01.31)" aria-label="NEXT: [프로젝트] SweetyPie - Airbnb 클론코딩 기획 TIL (0주차: 21.01.25 ~ 21.01.31)">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="javascript:history.back()" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Hanseul lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/02/08/SweetyPie_2%EC%A3%BC%EC%B0%A8/" data-tooltip="[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (2주차: 21.02.08 ~ 21.02.14)" aria-label="PREVIOUS: [프로젝트] SweetyPie - Airbnb 클론코딩 TIL (2주차: 21.02.08 ~ 21.02.14)">
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/24/SweetyPie_0%EC%A3%BC%EC%B0%A8(%EA%B8%B0%ED%9A%8D)/" data-tooltip="[프로젝트] SweetyPie - Airbnb 클론코딩 기획 TIL (0주차: 21.01.25 ~ 21.01.31)" aria-label="NEXT: [프로젝트] SweetyPie - Airbnb 클론코딩 기획 TIL (0주차: 21.01.25 ~ 21.01.31)">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="javascript:history.back()" aria-label="Table of Contents">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/myphoto.jpg" alt="Author&#39;s picture">
+        
+            <h4 id="about-card-name">Hanseul lee</h4>
+        
+            <div id="about-card-bio"><p>Hello, I’m Hanseul:)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>Programmer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br>
+                Korea
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/jquery.js"></script>
+
+
+<script src="/assets/js/jquery.fancybox.js"></script>
+
+
+<script src="/assets/js/thumbs.js"></script>
+
+
+<script src="/assets/js/tranquilpeak.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
