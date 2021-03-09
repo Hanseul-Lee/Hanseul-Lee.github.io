@@ -99,11 +99,12 @@
       <guid>https://hanseul-lee.github.io/2021/02/08/SweetyPie_2%EC%A3%BC%EC%B0%A8/</guid>
       <pubDate>Mon, 08 Feb 2021 14:26:14 GMT</pubDate>
       
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;SweetyPie - Airbnb 클론코딩 TIL (2주차: 21.02.08 ~ 21.02.14)&lt;/p&gt;</description>
       
       
       
-      <content:encoded><![CDATA[<!-- excerpt --><!-- toc -->]]></content:encoded>
+      <content:encoded><![CDATA[<!-- excerpt --><!-- toc --><h3 id="이번-주-해야할-것"><a href="#이번-주-해야할-것" class="headerlink" title="이번 주 해야할 것"></a><strong>이번 주 해야할 것</strong></h3><ul><li>상세보기 페이지 (슬)<ul><li>건강 및 환불 모달 구현 (월)</li><li>반응형 Header</li><li>지도 UI 구현 -&gt; 검색한 위치 렌더링</li><li>API 요청해서 정보 받아오기 (GET)</li><li>달력 UI 구현 -&gt; 선택한 날짜 정보 받아오기</li><li>달력 UI 구현 -&gt; 여행 일정에 따른 예약 기능 구현</li></ul></li></ul><h3 id="1일차-21-02-08-월요일"><a href="#1일차-21-02-08-월요일" class="headerlink" title="1일차 - 21.02.08 월요일"></a><strong>1일차 - 21.02.08 월요일</strong></h3><ul><li>백엔드, 프론트엔드 2주차 스프린트 회의<ul><li>각자 진행사항 및 이번주 예정 계획 발표</li><li>백엔드 업무 이해 안되는 부분 질문<br>(입력한 데이터를 잘 정리해서 검증, 넣어놓고 보내주고)</li></ul></li><li>오늘 한 일<ul><li>모달창 구현<ul><li>safetyModal - 레이아웃 완성, onShowModal 애니메이션 적용</li><li>reviewModal - 레이아웃 구현 중</li><li>스크롤</li></ul></li></ul></li><li>배운 점<ul><li>동찬오빠 말투 - 같은 말을 하더라도 부드럽게 하는 것<br>ex) 재민이한테 이슈작성하라고 하는 상황    재민아 이슈 작성 지금 해줘 (X)<br>재민아 시간나면 혹시 이슈 작성 좀 해줄 수 있겠니<del>?    재민아 시간나면 혹시 이슈 작성 좀 부탁해도 될까</del>?</li></ul></li></ul><p>나 역시도 같은 말이라도 왠지 동찬오빠가 해주면 기분나쁜 적 없고 항상 부드럽게 넘어가게 되었던 것 같다.</p>]]></content:encoded>
       
       
       <category domain="https://hanseul-lee.github.io/categories/project/">project</category>
