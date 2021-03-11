@@ -16,19 +16,28 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n","dateCreated":"2021-02-15T23:26:21+09:00","dateModified":"2021-03-07T23:29:11+09:00","datePublished":"2021-02-15T23:26:21+09:00","description":"","headline":"[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)","image":["logo.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/","keywords":"프로젝트, Fastcampus, SweetyPie","thumbnailUrl":"logo.png"}</script>
-    <meta property="og:type" content="blog">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg"},"articleBody":"\n\n\n21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙1일차 - 21.02.15 월요일\n오늘 한 것\nPayment에서 RoomDetailGuestEditPopup 구현\nUI 구현\n성인, 어린이, 유아 클릭 시, url query에 변경사항 실시간 반영 로직 구현(참고: https://www.fbchandra.com/developers/add-remove-query-string-url-without-reloading-page )\n\n\n\n\n오늘의 이슈\n팀 로고 정하기!백엔드 재복님이 갑자기 너무 예쁜 디자인의 로고 5개를 만들어서 투표에 올리셨다. 각자 원하는 걸 투표했는데 정말 센스있고 예뻐서 감동받았다. 최종 후보에 오른 5가지 중에 가장 인기가 많았던 아래 로고가 우리 SweetyPie의 로고로 뽑혔다.\n\n\n\n\n\n\n\n2일차 - 21.02.16 화요일\n오늘 한 것\nPayment에서 RoomDetailGuestEditPopup에서 totalGuest 계산 및 url 반영 구현\n문제점 : setState가 비동기로 작동하므로 url에 반영이 한 박자 늦어짐.=&gt; totoalGuest를 직접 url에 반영해 빼오지 말고, 필요한 부분에서 url의 adult, child, infant를 더해서 계산할 것\n\n\n\n\n\n\n\n\n우영강사님 트러블 슈팅(14:00 ~ 14:50)\n\nrelease 단계에서 하는 것 - ex. gulf를 통한 테스트 자동화\ncommit을 잘게 잘라서 할 것이는 나중에 회사에서 업무 시, 인사 고과 평가에서도 좋음git organization의 Insights -&gt; Contributions에 들어가면 아래와 같이 각 팀원 별 commit과 같은 기여도를 한 눈에 파악할 수 있다.\n\ngit organization -> Insights -> Contributions\n\n\nrelease finish할때 commit창 3번 떠야 함\npull request의 이슈close는 미처 파악하지 못한 이슈를 정리, 이슈에 대한 명시 용도로 사용하고 git project에서 실시간 진행 사항을 반영할 것\n저번 hard reset을 통한 교훈을 얻은 것으로 우리 프로젝트의 역할은 다했다  =&gt; 실제 프로젝트에서 탕비실에 갈 일은 없겠구나~ 감사하게 생각할 것~\n내 주언어가 JS일때 node.js로 코테가 진행될 수 있으므로 조금씩 다른 부분이 있을 때 당황할 수 있으므로 잘 준비해 놓아야 함.\n중간발표 준비\n중간발표.md로 간략히 정리\n백엔드와 융화되어 발표할 수 있도록 준비할 것\n\n\n\n\n\n\n\n3일차 - 21.02.17 수요일\n오늘 한 것\n네비게이션 Header 스크롤 이동 기능 구현이렇게 컴포넌트에 id넣는게 아니라 컴포넌트 내부 최상위 div에 적용할 것!!!\n\n\n\n\n\n\n\n\n중간 발표 준비\n중간발표.md 파일 템플릿 생성 및 내용 작성\n백엔드와 각 페이지 별 기능 및 api 설명 데모 시연 연습\n\n\n중간발표 피드백\nmark 강사님\n완성도는 프론트엔드에서 나옴따라서 앞으로는 최대한 디테일을 올리는 방향으로, 시간 여유롭다고 다른 걸 추가하지 말 것\n\n\n백엔드 강사님\n팀 로고 정한 게 너무 좋음책같은 거 쓸 때 동물 고르는 게 더 중요ex) 조시룽 - 책 1년동안 쓰면 동물 고르는 건 2년ㅋㅋㅋ\n\n\n\n\n\n\n\n4일차 - 21.02.18 목요일\n오늘 할 것\n\n Review - 리뷰 모달 완성\n Calendar - 지우기 기능 구현\n Calendar - url의 checkIn, checkOut 가져와 표시 기능 구현\n Payment - 달력모달 넣기\n Payment - 달력모달과 CalendarDetail 컴포넌트 연동\n Payment - 1박 당 7%로 수수료 변경\n GuestPopup - 인원수에 따라 버튼 조정\n Payment - 입력된 값에 따라 버튼 조정\n\n\n\n -박 나오는 것 고치기\n 예약하기 클릭 시 url에 정보 담아 예약페이지로 이동\n 이슈 템플릿 만들기\n\n\n오늘 배운 것\n\nnull의 type은 object\n1typeof null  //object\n\nurl 쿼리 쉽게 가져다 쓰기\n1234let url = new URL(window.location.href);url.searchParams.delete(&#x27;checkIn&#x27;);url.searchParams.delete(&#x27;checkOut&#x27;);history.push(url.search);\n\n\n\n\n오늘의 이슈\n\n우리 팀 커버곡 : Pink Sweat$ - At My Worst오늘 영서가 튼 노래가 좋아서 이곡 뭐야? 했더니 저번에도 내가 좋아서 물어봤던 노래였다. 재민이도 좋아하는 노래고 가사도 너무 달달해서 바로 우리팀 SweetyPie 커버곡으로 정했다. 이제 로고에 이어 노래까지 완성~우리 팀 단체로 프로필 뮤직 맞춘 모습\n\n\n\n\n\n\n5일차 - 21.02.19 금요일\n오늘 할 것\n GuestPopup - 인원수에 따라 버튼 조정 (이어서)url과 state의 인원수 값 역시 초기화 되도록 하기\n GuestPopup, 달력 - URLSearchParams로 리팩토링\n Payment - 달력모달 넣기\n Payment - 달력모달과 CalendarDetail 컴포넌트 연동\n -박 나오는 것 고치기\n lazyloading 구현\n\n\n\n 예약하기 버튼 클릭 시 url에 adultNum,childNum,infantNum 중 존재하지 않는 값에 null이 아니라 0넣어주기\n\n\n\n\n\n\n오늘 배운 것\n\nurl.searchParams 이용해서 쉽게 url 파라미터 가져오기\n\n수정 전 코드\n\n\n\n\n수정 후 코드\n\n\n\n\n\n\n\n\n\n\n6,7일차 - 21.02.20,21 토,일요일\n주말에 할 것\n meta 태그 설정하기\n 북마크 api 요청(POST, DELETE)\n Payment - 달력모달과 CalendarDetail 컴포넌트 연동 에러 고치기(이어서)\n 예약하기 버튼 클릭 시 url에 adultNum,childNum,infantNum 중 존재하지 않는 값에 null이 아니라 0넣어주기\n Header - 스크롤 시 nav Header보이게 하기\n lazyloading 구현\n 환불 모달 만들기\n 후기 0개 일 때, 레이아웃 만들기\n\n\n\n","dateCreated":"2021-02-15T23:26:21+09:00","dateModified":"2021-03-12T00:07:08+09:00","datePublished":"2021-02-15T23:26:21+09:00","description":"\nSweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)\n\n21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙\napi 연동 및 개별 페이지 통합\n","headline":"[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)","image":["logo.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/"},"publisher":{"@type":"Organization","name":"Hanseul lee","sameAs":["https://github.com/hanseul-lee/"],"image":"myphoto.jpg","logo":{"@type":"ImageObject","url":"myphoto.jpg"}},"url":"https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/","keywords":"프로젝트, Fastcampus, SweetyPie","thumbnailUrl":"logo.png"}</script>
+    <meta name="description" content="SweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)  21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙 api 연동 및 개별 페이지 통합">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="[프로젝트] SweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)">
 <meta property="og:url" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/index.html">
 <meta property="og:site_name" content="HS&#39;s blog">
+<meta property="og:description" content="SweetyPie - Airbnb 클론코딩 TIL (3주차: 21.02.15 ~ 21.02.21)  21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙 api 연동 및 개별 페이지 통합">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/logo_PK.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/commit.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/id.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/music2.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/url.png">
+<meta property="og:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/url2.png">
 <meta property="article:published_time" content="2021-02-15T14:26:21.000Z">
-<meta property="article:modified_time" content="2021-03-07T14:29:11.865Z">
+<meta property="article:modified_time" content="2021-03-11T15:07:08.600Z">
 <meta property="article:author" content="Hanseul lee">
 <meta property="article:tag" content="프로젝트">
 <meta property="article:tag" content="Fastcampus">
 <meta property="article:tag" content="SweetyPie">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/logo_PK.png">
     
     
         
@@ -224,7 +233,7 @@
     <span>LastUpdated  </span>
     <time datetime="2021-02-15T23:26:21+09:00">
         
-                21.03.07 23:29:11
+                21.03.12 00:07:08
             
     </time>
 
@@ -237,7 +246,181 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt -->
-<h1 id="table-of-contents">Table of Contents</h1>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#21-02-17-%EC%88%98-21-02-27-%EC%9D%BC-%ED%99%8D%EB%8C%80-%EC%97%90%EC%96%B4%EB%B9%84%EC%95%A4%EB%B9%84-%ED%95%A9%EC%88%99"><span class="toc-text">21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EC%9D%BC%EC%B0%A8-21-02-15-%EC%9B%94%EC%9A%94%EC%9D%BC"><span class="toc-text">1일차 - 21.02.15 월요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EC%9D%BC%EC%B0%A8-21-02-16-%ED%99%94%EC%9A%94%EC%9D%BC"><span class="toc-text">2일차 - 21.02.16 화요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EC%9D%BC%EC%B0%A8-21-02-17-%EC%88%98%EC%9A%94%EC%9D%BC"><span class="toc-text">3일차 - 21.02.17 수요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EC%9D%BC%EC%B0%A8-21-02-18-%EB%AA%A9%EC%9A%94%EC%9D%BC"><span class="toc-text">4일차 - 21.02.18 목요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%EC%9D%BC%EC%B0%A8-21-02-19-%EA%B8%88%EC%9A%94%EC%9D%BC"><span class="toc-text">5일차 - 21.02.19 금요일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-7%EC%9D%BC%EC%B0%A8-21-02-20-21-%ED%86%A0-%EC%9D%BC%EC%9A%94%EC%9D%BC"><span class="toc-text">6,7일차 - 21.02.20,21 토,일요일</span></a></li></ol></li></ol>
+
+<h2 id="21-02-17-수-21-02-27-일-홍대-에어비앤비-합숙"><a href="#21-02-17-수-21-02-27-일-홍대-에어비앤비-합숙" class="headerlink" title="21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙"></a>21.02.17(수) ~ 21.02.27(일) : 홍대 에어비앤비 합숙</h2><h3 id="1일차-21-02-15-월요일"><a href="#1일차-21-02-15-월요일" class="headerlink" title="1일차 - 21.02.15 월요일"></a>1일차 - 21.02.15 월요일</h3><ul>
+<li>오늘 한 것<ul>
+<li>Payment에서 RoomDetailGuestEditPopup 구현<ul>
+<li>UI 구현</li>
+<li>성인, 어린이, 유아 클릭 시, url query에 변경사항 실시간 반영 로직 구현<br>(참고: <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.fbchandra.com/developers/add-remove-query-string-url-without-reloading-page">https://www.fbchandra.com/developers/add-remove-query-string-url-without-reloading-page</a> )</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>오늘의 이슈<ul>
+<li>팀 로고 정하기!<br>백엔드 재복님이 갑자기 너무 예쁜 디자인의 로고 5개를 만들어서 투표에 올리셨다. 각자 원하는 걸 투표했는데 정말 센스있고 예뻐서 감동받았다. 최종 후보에 오른 5가지 중에 가장 인기가 많았던 아래 로고가 우리 SweetyPie의 로고로 뽑혔다.<div class="figure center" style="width:;"><img class="fig-img" src="logo_PK.png" alt></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="2일차-21-02-16-화요일"><a href="#2일차-21-02-16-화요일" class="headerlink" title="2일차 - 21.02.16 화요일"></a>2일차 - 21.02.16 화요일</h3><ul>
+<li>오늘 한 것<ul>
+<li>Payment에서 RoomDetailGuestEditPopup에서 totalGuest 계산 및 url 반영 구현<ul>
+<li>문제점 : setState가 비동기로 작동하므로 url에 반영이 한 박자 늦어짐.<br>=&gt; totoalGuest를 직접 url에 반영해 빼오지 말고, 필요한 부분에서 url의 adult, child, infant를 더해서 계산할 것</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><p>우영강사님 트러블 슈팅(14:00 ~ 14:50)</p>
+<ul>
+<li>release 단계에서 하는 것 - ex. gulf를 통한 테스트 자동화</li>
+<li>commit을 잘게 잘라서 할 것<br>이는 나중에 회사에서 업무 시, 인사 고과 평가에서도 좋음<br>git organization의 Insights -&gt; Contributions에 들어가면 아래와 같이 각 팀원 별 commit과 같은 기여도를 한 눈에 파악할 수 있다.</li>
+</ul>
+<div class="figure center" style="width:900px;"><img class="fig-img" src="commit.png" style="width:900px;" alt="git organization -> Insights -> Contributions"><span class="caption">git organization -> Insights -> Contributions</span></div>
+
+<ul>
+<li>release finish할때 commit창 3번 떠야 함</li>
+<li>pull request의 이슈close는 미처 파악하지 못한 이슈를 정리, 이슈에 대한 명시 용도로 사용하고 git project에서 실시간 진행 사항을 반영할 것</li>
+<li>저번 hard reset을 통한 교훈을 얻은 것으로 우리 프로젝트의 역할은 다했다<br>  =&gt; 실제 프로젝트에서 탕비실에 갈 일은 없겠구나~ 감사하게 생각할 것~</li>
+<li>내 주언어가 JS일때 node.js로 코테가 진행될 수 있으므로 조금씩 다른 부분이 있을 때 당황할 수 있으므로 잘 준비해 놓아야 함.</li>
+<li>중간발표 준비<ul>
+<li>중간발표.md로 간략히 정리</li>
+<li>백엔드와 융화되어 발표할 수 있도록 준비할 것</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="3일차-21-02-17-수요일"><a href="#3일차-21-02-17-수요일" class="headerlink" title="3일차 - 21.02.17 수요일"></a>3일차 - 21.02.17 수요일</h3><ul>
+<li>오늘 한 것<ul>
+<li>네비게이션 Header 스크롤 이동 기능 구현<br>이렇게 컴포넌트에 id넣는게 아니라 컴포넌트 내부 최상위 div에 적용할 것!!!<div class="figure center" style="width:600px;"><img class="fig-img" src="id.png" style="width:600px;" alt></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li>중간 발표 준비<ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/hanseul-lee/SweetyPie_Frontend/blob/main/%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.md">중간발표.md</a> 파일 템플릿 생성 및 내용 작성</li>
+<li>백엔드와 각 페이지 별 기능 및 api 설명 데모 시연 연습<br></li>
+</ul>
+</li>
+<li>중간발표 피드백<ul>
+<li>mark 강사님<ul>
+<li>완성도는 프론트엔드에서 나옴<br>따라서 앞으로는 최대한 디테일을 올리는 방향으로, 시간 여유롭다고 다른 걸 추가하지 말 것</li>
+</ul>
+</li>
+<li>백엔드 강사님<ul>
+<li>팀 로고 정한 게 너무 좋음<br>책같은 거 쓸 때 동물 고르는 게 더 중요<br>ex) 조시룽 - 책 1년동안 쓰면 동물 고르는 건 2년ㅋㅋㅋ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="4일차-21-02-18-목요일"><a href="#4일차-21-02-18-목요일" class="headerlink" title="4일차 - 21.02.18 목요일"></a>4일차 - 21.02.18 목요일</h3><ul>
+<li><p>오늘 할 것</p>
+<ul>
+<li><input checked disabled type="checkbox"> Review - 리뷰 모달 완성</li>
+<li><input checked disabled type="checkbox"> Calendar - 지우기 기능 구현</li>
+<li><input checked disabled type="checkbox"> Calendar - url의 checkIn, checkOut 가져와 표시 기능 구현</li>
+<li><input disabled type="checkbox"> Payment - 달력모달 넣기</li>
+<li><input disabled type="checkbox"> Payment - 달력모달과 CalendarDetail 컴포넌트 연동</li>
+<li><input checked disabled type="checkbox"> Payment - 1박 당 7%로 수수료 변경</li>
+<li><input disabled type="checkbox"> <del>GuestPopup - 인원수에 따라 버튼 조정</del></li>
+<li><input checked disabled type="checkbox"> Payment - 입력된 값에 따라 버튼 조정</li>
+</ul>
+<hr>
+<ul>
+<li><input disabled type="checkbox"> -박 나오는 것 고치기</li>
+<li><input checked disabled type="checkbox"> 예약하기 클릭 시 url에 정보 담아 예약페이지로 이동</li>
+<li><input checked disabled type="checkbox"> 이슈 템플릿 만들기</li>
+</ul>
+</li>
+<li><p>오늘 배운 것</p>
+<ul>
+<li><p>null의 type은 object</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span>  <span class="comment">//object</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>url 쿼리 쉽게 가져다 쓰기</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="keyword">new</span> URL(<span class="built_in">window</span>.location.href);</span><br><span class="line">url.searchParams.delete(<span class="string">&#x27;checkIn&#x27;</span>);</span><br><span class="line">url.searchParams.delete(<span class="string">&#x27;checkOut&#x27;</span>);</span><br><span class="line">history.push(url.search);</span><br></pre></td></tr></table></figure>
+<br>
+</li>
+</ul>
+</li>
+<li><p>오늘의 이슈</p>
+<ul>
+<li>우리 팀 커버곡 : Pink Sweat$ - At My Worst<br>오늘 영서가 튼 노래가 좋아서 이곡 뭐야? 했더니 저번에도 내가 좋아서 물어봤던 노래였다. 재민이도 좋아하는 노래고 가사도 너무 달달해서 바로 우리팀 SweetyPie 커버곡으로 정했다. 이제 로고에 이어 노래까지 완성~<div class="figure center" style="width:700px;"><img class="fig-img" src="music2.png" style="width:700px;" alt="우리 팀 단체로 프로필 뮤직 맞춘 모습"><span class="caption">우리 팀 단체로 프로필 뮤직 맞춘 모습</span></div>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5일차-21-02-19-금요일"><a href="#5일차-21-02-19-금요일" class="headerlink" title="5일차 - 21.02.19 금요일"></a>5일차 - 21.02.19 금요일</h3><ul>
+<li>오늘 할 것<ul>
+<li><input checked disabled type="checkbox"> GuestPopup - 인원수에 따라 버튼 조정 (이어서)<br>url과 state의 인원수 값 역시 초기화 되도록 하기</li>
+<li><input checked disabled type="checkbox"> GuestPopup, 달력 - URLSearchParams로 리팩토링</li>
+<li><input checked disabled type="checkbox"> Payment - 달력모달 넣기</li>
+<li><input disabled type="checkbox"> <del>Payment - 달력모달과 CalendarDetail 컴포넌트 연동</del></li>
+<li><input checked disabled type="checkbox"> -박 나오는 것 고치기</li>
+<li><input disabled type="checkbox"> lazyloading 구현</li>
+</ul>
+<hr>
+<ul>
+<li><input disabled type="checkbox"> 예약하기 버튼 클릭 시 url에 adultNum,childNum,infantNum 중 존재하지 않는 값에 null이 아니라 0넣어주기</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><p>오늘 배운 것</p>
+<ul>
+<li><p>url.searchParams 이용해서 쉽게 url 파라미터 가져오기</p>
+<ul>
+<li><p>수정 전 코드</p>
+<div class="figure center" style="width:600px;"><img class="fig-img" src="url.png" style="width:600px;" alt></div>
+
+<br>
+</li>
+<li><p>수정 후 코드</p>
+<div class="figure center" style="width:600px;"><img class="fig-img" src="url2.png" style="width:600px;" alt></div>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="6-7일차-21-02-20-21-토-일요일"><a href="#6-7일차-21-02-20-21-토-일요일" class="headerlink" title="6,7일차 - 21.02.20,21 토,일요일"></a>6,7일차 - 21.02.20,21 토,일요일</h3><ul>
+<li>주말에 할 것<ul>
+<li><input checked disabled type="checkbox"> meta 태그 설정하기</li>
+<li><input disabled type="checkbox"> <del>북마크 api 요청(POST, DELETE)</del></li>
+<li><input checked disabled type="checkbox"> Payment - 달력모달과 CalendarDetail 컴포넌트 연동 에러 고치기(이어서)</li>
+<li><input checked disabled type="checkbox"> 예약하기 버튼 클릭 시 url에 adultNum,childNum,infantNum 중 존재하지 않는 값에 null이 아니라 0넣어주기</li>
+<li><input disabled type="checkbox"> <del>Header - 스크롤 시 nav Header보이게 하기</del></li>
+<li><input disabled type="checkbox"> <del>lazyloading 구현</del></li>
+<li><input disabled type="checkbox"> <del>환불 모달 만들기</del></li>
+<li><input disabled type="checkbox"> 후기 0개 일 때, 레이아웃 만들기</li>
+</ul>
+</li>
+</ul>
+<br>
             
 
 

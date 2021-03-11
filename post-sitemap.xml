@@ -9,8 +9,24 @@
 
 
     <url>
-        <loc>https://hanseul-lee.github.io/2021/02/08/SweetyPie_2%EC%A3%BC%EC%B0%A8/</loc>
-        <lastmod>2021-03-11T13:20:16.018Z</lastmod>
+        <loc>https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/</loc>
+        <lastmod>2021-03-11T15:07:08.600Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hanseul-lee.github.io/2021/02/22/SweetyPie_4%EC%A3%BC%EC%B0%A8/</loc>
+        <lastmod>2021-03-11T13:38:39.529Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hanseul-lee.github.io/2021/01/24/SweetyPie_0%EC%A3%BC%EC%B0%A8(%EA%B8%B0%ED%9A%8D)/</loc>
+        <lastmod>2021-03-11T13:35:54.945Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -18,7 +34,15 @@
 
     <url>
         <loc>https://hanseul-lee.github.io/2021/02/02/SweetyPie_1%EC%A3%BC%EC%B0%A8/</loc>
-        <lastmod>2021-03-07T15:13:30.185Z</lastmod>
+        <lastmod>2021-03-11T13:35:43.146Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hanseul-lee.github.io/2021/02/08/SweetyPie_2%EC%A3%BC%EC%B0%A8/</loc>
+        <lastmod>2021-03-11T13:34:50.817Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -27,30 +51,6 @@
     <url>
         <loc>https://hanseul-lee.github.io/2021/02/26/SweetyPie_README/</loc>
         <lastmod>2021-03-07T15:00:03.013Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://hanseul-lee.github.io/2021/02/22/SweetyPie_4%EC%A3%BC%EC%B0%A8/</loc>
-        <lastmod>2021-03-07T14:29:15.688Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://hanseul-lee.github.io/2021/02/15/SweetyPie_3%EC%A3%BC%EC%B0%A8/</loc>
-        <lastmod>2021-03-07T14:29:11.865Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://hanseul-lee.github.io/2021/01/24/SweetyPie_0%EC%A3%BC%EC%B0%A8(%EA%B8%B0%ED%9A%8D)/</loc>
-        <lastmod>2021-03-07T14:25:32.093Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
