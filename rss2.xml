@@ -9,16 +9,17 @@
     <atom:link href="https://hanseul-lee.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 07 Mar 2021 15:00:03 GMT</pubDate>
+    <pubDate>Thu, 11 Mar 2021 15:47:45 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>[프로젝트] SweetyPie - Airbnb 클론코딩</title>
+      <title>[프로젝트] SweetyPie - Airbnb 클론코딩을 마치며</title>
       <link>https://hanseul-lee.github.io/2021/02/26/SweetyPie_README/</link>
       <guid>https://hanseul-lee.github.io/2021/02/26/SweetyPie_README/</guid>
       <pubDate>Fri, 26 Feb 2021 14:26:40 GMT</pubDate>
       
-      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;</description>
+      <description>&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;2021.01.25부터 2021.02.26까지 5주간 진행한 airbnb 클론 코딩 프로젝트 회고록입니다.&lt;br&gt;기획 1주, 개발 4주의 일정으로 진행하였습니다.&lt;/p&gt;</description>
       
       
       
